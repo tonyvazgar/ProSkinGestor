@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrador</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+    integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="js/loadNavbar.js"></script>
+</head>
+
+<body class="d-flex flex-column h-100">
+  <div id="navbar"></div>
+  <!-- Begin page content -->
+  <main role="main" class="flex-shrink-0">
+    <div class="container">
+        <table class="table table-striped sticky-header" id="myTable" >
+            <thead>
+                <tr>
+                    <th class="col-xs-1 text-center">Rollo #</th>
+                    <th class="col-xs-1 text-center">Descripción [Almacén]</th>
+                    <th class="col-xs-1 text-center">Peso (kg)</th>
+                    <th class="col-xs-1 text-center">Fecha de fabricación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class='clickable-row' data-href='detalles.php?id=<?php echo $filas['ID'] ?>&numAlmacen=<?php echo $filas['numAlmacen'] ?>'>
+                            <th scope="row" class="col-xs-1 text-center"><?php echo $filas['ID'] ?></th>
+                            <td class="col-xs-1 text-center"><?php echo $filas['numMaquina'] . "P-" . $filas['tipoPapel'] . "g/m²  [" . $filas['numAlmacen'] . "]" ?></td>
+                            <td class="col-xs-1 text-center"><?php echo $filas['peso'] . " kg" ?></td>
+                            <td class="col-xs-1 text-center"><?php echo fechaCastellano($filas['fechaFabricacion']) ?></td>
+                        </tr>
+            </tbody>
+        </table>
+        <a href="reportes.php" class="float" >
+            <i class="fa fa-book my-float" ></i>
+        </a>
+        <div class="label-container" >
+            <div class="label-text" >Reportes</div>
+            <i class="fa fa-play label-arrow" ></i>
+        </div>
+    </div>
+  </main>
+
+  <!-- <footer class="footer mt-auto py-3">
+    <div class="container">
+      <span class="text-muted">Place sticky footer content here.</span>
+    </div>
+  </footer> -->
+
+</body>
+
+</html>
