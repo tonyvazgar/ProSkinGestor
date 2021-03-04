@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ProSkin - Registro</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./include/style.css">
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 form">
-                <form action="signup-user.php" method="POST" autocomplete="">
+                <form action="signup.php" method="POST" autocomplete="">
                     <div class="text-center">
-                        <img src="logoProSkin.png" height="60" class="d-inline-block align-center" alt="">
+                        <img src="./img/logoProSkin.png" height="60" class="d-inline-block align-center" alt="">
                     </div>
                     <br>
                     <h2 class="text-center">Registro nuevo usuario</h2>
@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <input class="form-control button" type="submit" name="signup" value="Registrar">
                     </div>
-                    <div class="link login-link text-center">Si ya existe cuenta <a href="login-user.php">ingresa aquí</a></div>
+                    <div class="link login-link text-center">Si ya existe cuenta <a href="login.php">ingresa aquí</a></div>
                 </form>
             </div>
         </div>

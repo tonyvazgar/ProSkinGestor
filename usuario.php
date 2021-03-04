@@ -2,23 +2,8 @@
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        // if($status == "verified"){
-        //     if($code != 0){
-        //         header('Location: reset-code.php');
-        //     }
-        // }else{
-        //     header('Location: user-otp.php');
-        // }
-    }
-}else{
-    header('Location: login-user.php');
+if($email == false && $password == false){
+  header('Location: login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -38,7 +23,7 @@ if($email != false && $password != false){
     <script src="include/loadNavbar.js"></script>
 </head>
 <body style='background-color: #f9f3f3;'>
-    <!-- <button type="button" class="btn btn-light"><a href="logout-user.php">Cerrar sesion</a></button> -->
+    <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("./include/navbar.php");
         getNavbar($fetch_info['name']);

@@ -3,8 +3,8 @@
 function getNavbar($name){
     echo "
     <nav class='navbar navbar-expand-lg navbar-light' style='background-color: #f7d9d9;'>
-    <a class='navbar-brand' href='home.php'>
-        <img src='logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
+    <a class='navbar-brand' href='index.php'>
+        <img src='./img/logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
     </a>
     <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'
         aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
@@ -37,7 +37,7 @@ function getNavbar($name){
                 <a class='nav-link' href='usuario.php'>$name</a>
             </li>
             <li class='nav-item'>
-                <a class='nav-link' href='logout-user.php'>Cerrar sesion</a>
+                <a class='nav-link' href='logout.php'>Cerrar sesion</a>
             </li>
         </ul>
     </div>

@@ -2,23 +2,8 @@
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        // if($status == "verified"){
-        //     if($code != 0){
-        //         header('Location: reset-code.php');
-        //     }
-        // }else{
-        //     header('Location: user-otp.php');
-        // }
-    }
-}else{
-    header('Location: login-user.php');
+if($email == false && $password == false){
+  header('Location: login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -73,7 +58,7 @@ if($email != false && $password != false){
         </tbody>
       </table>
       <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto enim fugiat repudiandae incidunt, optio dicta et dolorem quos. Perferendis dolorem facere quae id veritatis alias est illum non, sequi saepe.</p>
-      <img src="bg.webp" class="img-fluid" alt="Responsive image">
+      <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
     </div>
 </body>
 </html>
