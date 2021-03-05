@@ -2,7 +2,7 @@
 
 function getNavbar($name){
     echo "
-    <nav class='navbar navbar-expand-lg navbar-light' style='background-color: #f7d9d9;'>
+    <nav class='navbar navbar-expand-lg navbar-light fixed-top' style='background-color: #f7d9d9;'>
     <a class='navbar-brand' href='index.php'>
         <img src='./img/logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
     </a>
