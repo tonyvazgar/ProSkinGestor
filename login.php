@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ProSkin - Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./include/style.css">
 </head>
 <body>
@@ -33,20 +34,18 @@
                     }
                     ?>
                     <div class="form-group">
-                        <input class="form-control" type="email" name="email" placeholder="Correo electronico" required value="<?php echo $email ?>">
+                        <input class="form-control" id="email" type="email" name="email" autocomplete="off" placeholder="Correo electronico" value="<?php echo $email ?>">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" name="password" placeholder="Contraseña" required>
+                        <input class="form-control" type="password" name="password" id="password" placeholder="Contraseña" required>
                     </div>
-                    <!-- <div class="link forget-pass text-left"><a href="forgot-password.php">Forgot password?</a></div> -->
                     <div class="form-group">
-                        <input class="form-control button" type="submit" name="login" value="Ingresar">
+                        <input class="form-control button" id="login" type="submit" name="login" value="Ingresar">
                     </div>
-                    <!-- <div class="link login-link text-center">Not yet a member? <a href="signup.php">Signup now</a></div> -->
                 </form>
             </div>
         </div>
     </div>
-    
+    <script src="./include/validateForm.js"></script>
 </body>
 </html>
