@@ -62,7 +62,12 @@ if($email == false && $password == false){
                     </dl>
                 </dd>
             </dl>
+            <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
         </div>
+    </main>
+    <?php
+      getFooter();
+    ?>
     </main>
 </body>
 </html>

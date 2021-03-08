@@ -68,6 +68,31 @@ if($email == false && $password == false){
         <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto enim fugiat repudiandae incidunt, optio dicta et dolorem quos. Perferendis dolorem facere quae id veritatis alias est illum non, sequi saepe.</p>
         <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
       </div>
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+        </div>
     </main>
+    <?php
+      getFooter();
+    ?>
 </body>
 </html>

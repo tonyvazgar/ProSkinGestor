@@ -34,5 +34,21 @@ if($email == false && $password == false){
         require_once("./include/navbar.php");
         getNavbar($fetch_info['name']);
     ?>
+    <main role="main" class="container">
+      <div class="container">
+        <h1>Lista de tus eventos del día de hoy</h1>
+        <ul class="list-group">
+          <li class="list-group-item disabled">Tratamiento X....</li>
+          <li class="list-group-item">Tratamiento X....</li>
+          <li class="list-group-item">Tratamiento X....</li>
+          <li class="list-group-item">Tratamiento X....</li>
+          <li class="list-group-item">Tratamiento X....s</li>
+        </ul>
+        <img src="./img/img1.jpg" class="img-fluid" alt="Responsive image">
+      </div>
+    </main>
+    <?php
+      getFooter();
+    ?>
 </body>
 </html>

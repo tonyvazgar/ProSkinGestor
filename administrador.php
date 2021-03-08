@@ -34,5 +34,20 @@ if($email == false && $password == false){
         require_once("./include/navbar.php");
         getNavbar($fetch_info['name']);
     ?>
+    <main role="main" class="container">
+      <div class="container">
+        <h1>Lista de tus usuarios</h1>
+        <ul class="list-group">
+          <li class="list-group-item">Alta</li>
+          <li class="list-group-item">Baja</li>
+          <li class="list-group-item">Actualizar</li>
+          <li class="list-group-item">Consulta</li>
+        </ul>
+        <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
+      </div>
+    </main>
+    <?php
+      getFooter();
+    ?>
 </body>
 </html>
