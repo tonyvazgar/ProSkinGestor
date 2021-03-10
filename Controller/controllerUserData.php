@@ -1,6 +1,19 @@
 <?php 
 session_start();
 require "connection.php";
+
+//----------------------
+// include "../Model/Db.php";
+
+// $dbhost = 'localhost';
+// $dbuser = 'root';
+// $dbpass = '';
+// $dbname = 'userform';
+
+// $db = new Db($dbhost, $dbuser, $dbpass, $dbname);
+// $account = $db->query('SELECT * FROM usertable')->fetchArray();
+// print_r($account);
+//----------------------
 $email = "";
 $name = "";
 $errors = array();

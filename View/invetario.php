@@ -1,4 +1,4 @@
-<?php require_once "controllerUserData.php"; ?>
+<?php require_once "../Controller/controllerUserData.php"; ?>
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
@@ -17,7 +17,7 @@ if($email == false && $password == false){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProSkin - Agenda</title>
+    <title>ProSkin - Inventario</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
     integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
     crossorigin="anonymous"></script>
@@ -36,15 +36,8 @@ if($email == false && $password == false){
     ?>
     <main role="main" class="container">
       <div class="container">
-        <h1>Lista de tus eventos del día de hoy</h1>
-        <ul class="list-group">
-          <li class="list-group-item disabled">Tratamiento X....</li>
-          <li class="list-group-item">Tratamiento X....</li>
-          <li class="list-group-item">Tratamiento X....</li>
-          <li class="list-group-item">Tratamiento X....</li>
-          <li class="list-group-item">Tratamiento X....s</li>
-        </ul>
-        <img src="./img/img1.jpg" class="img-fluid" alt="Responsive image">
+        <h1>Productos en el invetario</h1>
+        <img src="./img/img2.jpg" class="img-fluid" alt="Responsive image">
       </div>
     </main>
     <?php

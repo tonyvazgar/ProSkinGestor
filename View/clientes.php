@@ -1,4 +1,4 @@
-<?php require_once "controllerUserData.php"; ?>
+<?php require_once "../Controller/controllerUserData.php"; ?>
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
