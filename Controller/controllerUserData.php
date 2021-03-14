@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require "connection.php";
+require "../connection.php";
 
 //----------------------
 // include "../Model/Db.php";
@@ -64,7 +64,7 @@ if (isset($_POST['login'])) {
             $status = $fetch['status'];
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $password;
-            header('location: index.php');
+            header('location: ../index.php');
         } else {
             $errors['email'] = "Contraseña incorrecta!";
         }

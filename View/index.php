@@ -1,9 +1,9 @@
-<?php require_once "../Controller/controllerUserData.php"; ?>
+<?php require_once "../Controller/controllerIndex.php"; ?>
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
 if($email == false && $password == false){
-  header('Location: login.php');
+  header('Location: login/login.php');
 }else{
   $sql = "SELECT * FROM usertable WHERE email = '$email'";
   $run_Sql = mysqli_query($con, $sql);

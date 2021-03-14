@@ -1,4 +1,4 @@
-<?php require_once "../Controller/controllerUserData.php"; ?>
+<?php require_once "../../Controller/controllerUserData.php"; ?>
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
@@ -25,13 +25,13 @@ if($email == false && $password == false){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./include/navbar.css">
-    <script src="include/loadNavbar.js"></script>
+    <link rel="stylesheet" href="../include/navbar.css">
+    <script src="../include/loadNavbar.js"></script>
 </head>
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
-        require_once("./include/navbar.php");
+        require_once("../include/navbar.php");
         getNavbar($fetch_info['name']);
     ?>
     <main role="main" class="container">
@@ -62,7 +62,7 @@ if($email == false && $password == false){
                     </dl>
                 </dd>
             </dl>
-            <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
+            <img src="../img/bg.webp" class="img-fluid" alt="Responsive image">
         </div>
     </main>
     <?php
