@@ -68,8 +68,6 @@ if (isset($_POST['login'])) {
         } else {
             $errors['email'] = "Contraseña incorrecta!";
         }
-    } else {
-        $errors['email'] = "Este usuario no existe, <a href='signup.php'> registrar</a>";
     }
 }
 ?>
