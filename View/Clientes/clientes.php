@@ -37,6 +37,8 @@ if($email == false && $password == false){
     <main role="main" class="container">
       <div class="container">
         <h1>Lista de tus clientes</h1>
+        <a href="altaCliente.php" class="btn btn-success">Nuevo Cliente</a>
+        <a href="buscarCliente.php" class="btn btn-warning">Buscar Cliente</a>
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             Maria
