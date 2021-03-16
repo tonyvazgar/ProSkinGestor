@@ -2,7 +2,7 @@
     class ControllerSesion{
         public function verificarSesion($con, $email, $password){
             if($email == false && $password == false){
-                header('Location: ./login/login.php');
+                header('Location: ../../View/login/login.php');
             }else{
                 $sql = "SELECT * FROM usertable WHERE email = '$email'";
                 $run_Sql = mysqli_query($con, $sql);
