@@ -12,7 +12,7 @@ function getNavbar($name){
                 <div class='collapse navbar-collapse' id='navbarNav'>
                     <ul class='navbar-nav ml-auto'>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Clientes/clientes.php'>Clientes</a>
+                            <a class='nav-link' href='/ProSkinGestor/View/Clientes/'>Clientes</a>
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='/ProSkinGestor/View/Agenda/agenda.php'>Agenda</a>

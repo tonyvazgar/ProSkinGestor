@@ -1,16 +1,13 @@
-<?php require_once "../Controller/controllerIndex.php"; ?>
 <?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email == false && $password == false){
-  header('Location: login/login.php');
-}else{
-  $sql = "SELECT * FROM usertable WHERE email = '$email'";
-  $run_Sql = mysqli_query($con, $sql);
-  if($run_Sql){
-    $fetch_info = mysqli_fetch_assoc($run_Sql);
-  }
-}
+  require_once "../Controller/Index/IndexController.php"; 
+  require_once "../Controller/ControllerSesion.php";
+  $session = new ControllerSesion();
+  
+  $email    = $_SESSION['email'];
+  $password = $_SESSION['password'];
+  
+  $fetch_info = $session->verificarSesion($con, $email, $password);
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">

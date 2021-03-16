@@ -41,7 +41,7 @@ if($email == false && $password == false){
             <form action="buscarCliente.php" method="POST" autocomplete="">
                 <?php
                     $id = $_GET['id'];
-                    $info = getClienteWhereID($id);
+                    $info = $ModelCliente->getClienteWhereID($id);
                     foreach($info as $infoCliente){
                 ?>
                 <div class="form-group">
