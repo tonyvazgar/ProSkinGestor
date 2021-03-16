@@ -18,7 +18,7 @@ if($email == false && $password == false){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProSkin - Alta Cliente</title>
+    <title>ProSkin - Editar Cliente</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
     integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
     crossorigin="anonymous"></script>
@@ -37,24 +37,33 @@ if($email == false && $password == false){
     ?>
     <main role="main" class="container">
         <div class="container">
-            <h1>Nuevo Cliente</h1>
-            <form action="altaCliente.php" method="POST" autocomplete="">
+            <h1>Editar informacion de cliente</h1>
+            <form action="buscarCliente.php" method="POST" autocomplete="">
+                <?php
+                    $id = $_GET['id'];
+                    $info = getClienteWhereID($id);
+                    foreach($info as $infoCliente){
+                ?>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['ID_cliente'];?> readonly>
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre">
-                    
+                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo $infoCliente['Nombre'];?> required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Edad</label>
-                    <input type="number" class="form-control" id="edad" name="edad" placeholder="Ingresa edad">
-                    
+                    <input type="text" class="form-control" id="edad" name="edad" value=<?php echo $infoCliente['Edad'];?> required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Número celular</label>
-                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Número celular Ej. 2227883728">
-                    
+                    <label for="exampleInputEmail1">Número</label>
+                    <input type="text" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['Numero'];?> required>
                 </div>
-                <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
+                <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success">Editar</button>
+                   <?php
+                    }
+                    ?>
             </form>
         </div>
     </main>

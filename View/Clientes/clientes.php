@@ -1,4 +1,7 @@
-<?php require_once "../../Controller/controllerUserData.php"; ?>
+<?php 
+  require_once "../../Controller/Clientes/ClienteController.php"; 
+  require_once "../../Model/Clientes/Cliente.php";
+?>
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
@@ -40,18 +43,12 @@ if($email == false && $password == false){
         <a href="altaCliente.php" class="btn btn-success">Nuevo Cliente</a>
         <a href="buscarCliente.php" class="btn btn-warning">Buscar Cliente</a>
         <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Maria
-            <span class="badge bg-primary rounded-pill">14 tratamientos</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Ana
-            <span class="badge bg-primary rounded-pill">2 tratamientos</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Kelly
-            <span class="badge bg-primary rounded-pill">1 tratamientos</span>
-          </li>
+        <?php
+          foreach(getAllUsuarios() as $d){
+            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['Nombre']."<span class='badge bg-primary rounded-pill'>14 tratamientos</span>
+                  </li>";
+          }
+        ?>
         </ul>
         <img src="../img/bg.webp" class="img-fluid" alt="Responsive image">
       </div>
