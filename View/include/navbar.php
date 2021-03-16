@@ -3,7 +3,7 @@
 function getNavbar($name){
     echo "<nav class='navbar navbar-expand-lg navbar-light fixed-top' style='background-color: #f7d9d9;'>
                 <a class='navbar-brand' href='../index.php'>
-                    <img src='/ProSkinGestor/View/img/logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
+                    <img src='../../View/img/logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
                 </a>
                 <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'
                     aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
@@ -12,31 +12,31 @@ function getNavbar($name){
                 <div class='collapse navbar-collapse' id='navbarNav'>
                     <ul class='navbar-nav ml-auto'>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Clientes/'>Clientes</a>
+                            <a class='nav-link' href='../../View/Clientes'>Clientes</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Agenda/agenda.php'>Agenda</a>
+                            <a class='nav-link' href='../../View/Agenda/agenda.php'>Agenda</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Ventas/ventas.php'>Venta</a>
+                            <a class='nav-link' href='../../View/Ventas/ventas.php'>Venta</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Inventario/invetario.php'>Inventario/Productos</a>
+                            <a class='nav-link' href='../../View/Inventario/invetario.php'>Inventario/Productos</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Reportes/reportes.php'>Reportes</a>
+                            <a class='nav-link' href='../../View/Reportes/reportes.php'>Reportes</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Recursos/recursos.php'>Recursos</a>
+                            <a class='nav-link' href='../../View/Recursos/recursos.php'>Recursos</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Administrador/administrador.php'>Administar usuarios</a>
+                            <a class='nav-link' href='../../View/Administrador/administrador.php'>Administar usuarios</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/Usuario/usuario.php'>$name</a>
+                            <a class='nav-link' href='../../View/Usuario/usuario.php'>$name</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='/ProSkinGestor/View/logout.php'>Cerrar sesion</a>
+                            <a class='nav-link' href='../../View/logout.php'>Cerrar sesion</a>
                         </li>
                     </ul>
                 </div>
