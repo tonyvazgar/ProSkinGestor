@@ -10,11 +10,22 @@
     $errors = array();
 
     if (isset($_POST['altaCliente'])) {
-        $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
-        $edad   = mysqli_real_escape_string($con, $_POST['edad']);
-        $numero = mysqli_real_escape_string($con, $_POST['numero']);
+        //Valores del front
+        $nombre      = mysqli_real_escape_string($con, $_POST['nombre']);
+        $apellidos   = mysqli_real_escape_string($con, $_POST['apellidos']);
+        $email       = mysqli_real_escape_string($con, $_POST['email']);
+        $numero      = mysqli_real_escape_string($con, $_POST['numero']);
+        $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
+        $cp          = mysqli_real_escape_string($con, $_POST['cp']);
 
-        if($ModelCliente->insertUsuario([$nombre, $edad, $numero]) == 1){
+        //Contador de usuarios registrados
+        $siguienteConsecutivo = strval(sizeof($ModelCliente->getAllUsuarios())+1);
+        $id = "";
+        $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
+        $arregloApellidos = explode(" ",$apellidos);
+        $id = $nombre[0].$arregloApellidos[0][0].$arregloApellidos[1][0].$fechaParaId.$siguienteConsecutivo;
+
+        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $email]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp]))){
             header('location: index.php');
             exit();
         } else {

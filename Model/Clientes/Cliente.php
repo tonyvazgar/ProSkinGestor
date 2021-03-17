@@ -10,8 +10,18 @@
         }
         public function insertUsuario($array){
             $db = new Db('localhost', 'root', '', 'prosking_gestor');
-            $sql_statement = "INSERT INTO `Cliente`(`Nombre`, `Edad`, `Numero`) 
-                            VALUES ('$array[0]', $array[1], '$array[2]')";
+            //INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `email_cliente`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
+            $sql_statement = "INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `email_cliente`)
+                            VALUES ('$array[0]', '$array[1]', '$array[2]', $array[3], '$array[4]')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
+        public function insertClienteOpcional($array){
+            $db = new Db('localhost', 'root', '', 'prosking_gestor');
+            //INSERT INTO `ClienteOpcional`(`id_cliente`, `fecha_cliente`, `cp_cliente`) VALUES
+            $sql_statement = "INSERT INTO `ClienteOpcional`(`id_cliente`, `fecha_cliente`, `cp_cliente`)
+                            VALUES ('$array[0]', '$array[1]', '$array[2]')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();

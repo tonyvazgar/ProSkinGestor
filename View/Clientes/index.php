@@ -42,7 +42,7 @@
         <ul class="list-group">
         <?php
           foreach($ModelCliente->getAllUsuarios() as $d){
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['Nombre']."<span class='badge bg-primary rounded-pill'>14 tratamientos</span>
+            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-primary rounded-pill'>14 tratamientos</span>
                   </li>";
           }
         ?>
