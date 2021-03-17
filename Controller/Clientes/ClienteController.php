@@ -21,9 +21,13 @@
         //Contador de usuarios registrados
         $siguienteConsecutivo = strval(sizeof($ModelCliente->getAllUsuarios())+1);
         $id = "";
+        $fechaParaId = "";
+        if($fecha == ""){
+            $fecha = strval(date('Y-m-d'));
+        }
         $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
         $arregloApellidos = explode(" ",$apellidos);
-        $id = $nombre[0].$arregloApellidos[0][0].$arregloApellidos[1][0].$fechaParaId.$siguienteConsecutivo;
+        $id = strtoupper($nombre[0]).strtoupper($arregloApellidos[0][0]).strtoupper($arregloApellidos[1][0]).$fechaParaId.$siguienteConsecutivo;
 
         if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $email]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp]))){
             header('location: index.php');
