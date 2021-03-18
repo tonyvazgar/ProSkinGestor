@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 17-03-2021 a las 22:14:59
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.5
+-- Host: localhost
+-- Generation Time: Mar 18, 2021 at 07:07 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `prosking_gestor`
+-- Database: `prosking_gestor`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Cliente`
+-- Table structure for table `Cliente`
 --
 
 CREATE TABLE `Cliente` (
@@ -36,38 +36,23 @@ CREATE TABLE `Cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Volcado de datos para la tabla `Cliente`
+-- Dumping data for table `Cliente`
 --
 
 INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `email_cliente`) VALUES
-('AAC18', 'Angelica', 'ASMR Col', '9989898989', 'lavg007@gmail.com'),
-('AAC2021031715', 'Angelica', 'ASMR Col', '2223682761', 'lavg007@gmail.com'),
-('AAC2021031716', 'Angelica', 'ASMR Col', '0', 'lavg007@gmail.com'),
-('AAC21301720', 'Angelica', 'ASMR Col', '9989898989', 'lavg007@gmail.com'),
-('AAC213119', 'Angelica', 'ASMR Col', '9989898989', 'lavg007@gmail.com'),
-('AAC94071417', 'Angelica', 'ASMR Col', '2224876398', 'produccion@cippsa.mx'),
-('AVG18102723', 'Auri', 'V G', '1111111111', 'ejemplo@auri.com'),
-('AVG21031722', 'Auri', 'V G', '1234567890', 'auri@auri.com'),
-('AVG21301721', 'Auri', 'V G', '1234567890', 'auri@auri.com'),
-('JVR66110914', 'jose luis', 'vazquez roman', '8989898989', 'produccion@cippsa.mx'),
-('LG2021-03-1710', 'LUIS ANTONIO', 'GARCIA', '2222211122', 'lavg007@gmail.com'),
-('LG2021-03-1711', 'LUIS ANTONIO', 'GARCIA', '2222211122', 'lavg007@gmail.com'),
-('LG2021-03-178', 'LUIS ANTONIO', 'GARCIA', '2234556665', 'lavg007@gmail.com'),
-('LG2021-03-179', 'LUIS ANTONIO', 'GARCIA', '2234556665', 'lavg007@gmail.com'),
-('LVG2', 'Luis Antonio', 'Vazquez Garcia', '2225667362', 'tony@tony.com'),
-('LVG2103177', 'LUIS ANTONIO', 'VAZQUEZ GARCIA', '2222322121', 'lavg007@gmail.com'),
-('LVG3', 'Luis Antonio', 'Vazquez Garcia', '2225667362', 'tony@tony.com'),
-('LVG4', 'Luis Antonio', 'Vazquez Garcia', '2225667362', 'tony@tony.com'),
-('LVG5', 'Luis Antonio', 'Vazquez Garcia', '2225667362', 'tony@tony.com'),
-('LVG6', 'LUIS ANTONIO', 'VAZQUEZ GARCIA', '2222322121', 'lavg007@gmail.com'),
+('AVG2103186', 'Andre Maria', 'Vazquez Gonzales', '4678397', 'maria@example.xom'),
+('AVG2103188', 'Auri', 'Vazquez Garcia', '3682761', 'oficial@auri.com'),
+('JFG9601017', 'Jose pedro maria', 'Fernandez Gonzalez', '8989098909', 'jpmfg@gmail.com'),
+('JM0001014', 'Juan Paco Pedro', 'Mar', '3682761', 'tony@gmail.com'),
+('JPM2103183', 'Juan Paco', 'Pedro De La Mar', '3682761', 'juanPacoPedroDeLaMar@gmail.com'),
 ('LVG9611071', 'Luis Antonio', 'Vazquez Garcia', '2226772173', 'tony@tony.com'),
-('TVR2021031713', 'Tony', 'vazquez roman', '9999999999', 'produccion@cippsa.mx'),
-('Tvr2021031712', 'Tony', 'vazquez roman', '2223344555', 'produccion@cippsa.mx');
+('MGR2103182', 'Maria Jaqueline', 'Garcia Romero', '2223742181', 'garj1995love@gmail.com'),
+('MMD9604035', 'Maria Fernando', 'Martines de la Oca', '2226893400', 'mariaFO@icloud.com');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ClienteOpcional`
+-- Table structure for table `ClienteOpcional`
 --
 
 CREATE TABLE `ClienteOpcional` (
@@ -77,30 +62,23 @@ CREATE TABLE `ClienteOpcional` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Volcado de datos para la tabla `ClienteOpcional`
+-- Dumping data for table `ClienteOpcional`
 --
 
 INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALUES
-('AAC18', '', ''),
-('AAC2021031715', '', ''),
-('AAC2021031716', '', ''),
-('AAC21301720', '202103031717', ''),
-('AAC213119', '20210317', ''),
-('AAC94071417', '1994-07-14', ''),
-('AVG18102723', '2018-10-27', '72830'),
-('AVG21031722', '2021-03-17', ''),
-('AVG21301721', '202103031717', ''),
-('JVR66110914', '1966-11-09', '78205'),
-('LG2021-03-1711', '2021-03-17', '72590'),
-('LVG2103177', '2021-03-17', ''),
+('AVG2103186', '2021-03-18', ''),
+('AVG2103188', '2018-10-27', '72830'),
+('JFG9601017', '1996-01-01', '7240'),
+('JM0001014', '2000-01-01', '72840'),
+('JPM2103183', '2021-03-18', ''),
 ('LVG9611071', '1996-11-07', '72830'),
-('TVR2021031713', '2021-03-17', ''),
-('Tvr2021031712', '2021-03-17', '');
+('MGR2103182', '2021-03-18', ''),
+('MMD9604035', '1996-04-03', '72590');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usertable`
+-- Table structure for table `usertable`
 --
 
 CREATE TABLE `usertable` (
@@ -113,40 +91,40 @@ CREATE TABLE `usertable` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Volcado de datos para la tabla `usertable`
+-- Dumping data for table `usertable`
 --
 
 INSERT INTO `usertable` (`id`, `name`, `email`, `password`, `code`, `status`) VALUES
 (8, 'Tony', 'tony@tony.com', '$2y$10$XfrGDv443rXAgesAhSfiTu8AAJWolQDxteAQ/ZxOG7pUP8qTPTS1C', 635339, 'notverified');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `Cliente`
+-- Indexes for table `Cliente`
 --
 ALTER TABLE `Cliente`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `ClienteOpcional`
+-- Indexes for table `ClienteOpcional`
 --
 ALTER TABLE `ClienteOpcional`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `usertable`
+-- Indexes for table `usertable`
 --
 ALTER TABLE `usertable`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `usertable`
+-- AUTO_INCREMENT for table `usertable`
 --
 ALTER TABLE `usertable`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;

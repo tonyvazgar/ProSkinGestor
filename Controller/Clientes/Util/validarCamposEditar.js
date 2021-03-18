@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //set initially button state hidden
-    $("#altaCliente").hide();
+    $("#editarCliente").hide();
     //use keyup event on email field
     $("#email").keyup(function () {
         if (validateEmail()) {
@@ -23,6 +23,7 @@ $(document).ready(function () {
         }
         buttonState();
     });
+
     $("#cp").keyup(function () {
         if (validatecp()) {
             //if the numero is valid set input email border green
@@ -64,8 +65,8 @@ function validatecp() {
 
 function buttonState() {
     if (validateEmail() && validatenumero()) {
-        $("#altaCliente").show();
+        $("#editarCliente").show();
     } else {
-        $("#altaCliente").hide();
+        $("#editarCliente").hide();
     }
 }

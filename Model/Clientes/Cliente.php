@@ -47,7 +47,17 @@
         }
         public function updateCliente($array){
             $db = new Db('localhost', 'root', '', 'prosking_gestor');
-            $sql_statement = "UPDATE `Cliente` SET `Nombre` = '$array[1]', `Edad` = '$array[2]',`Numero` = '$array[3]' WHERE `Cliente`.`ID_cliente` = '$array[0]'";
+            
+            $sql_statement = "UPDATE Cliente, ClienteOpcional 
+                              SET Cliente.nombre_cliente = '$array[1]',
+                              Cliente.apellidos_cliente = '$array[2]',
+                              Cliente.telefono_cliente = '$array[3]',
+                              Cliente.email_cliente = '$array[4]',
+                              ClienteOpcional.fecha_cliente = '$array[5]',
+                              ClienteOpcional.cp_cliente = '$array[6]'
+                              WHERE Cliente.id_cliente=ClienteOpcional.id_cliente 
+                              AND Cliente.id_cliente='$array[0]'";
+
             $account = $db->query($sql_statement);
             $db->close();
             return $account->affectedRows();

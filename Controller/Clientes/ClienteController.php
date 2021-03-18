@@ -71,14 +71,12 @@
         $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
         $cp          = mysqli_real_escape_string($con, $_POST['cp']);
 
-        print_r($id.",".$nombre.",".$apellidos.",".$email.",".$numero.",".$fecha.",".$cp);
-
-        // if($ModelCliente->updateCliente([$id, $nombre, $edad, $numero]) == 1){
-        //     header('location: index.php');
-        //     exit();
-        // } else {
-        //     $errors['db-error'] = "Error al darse de alta!";
-        // }
+        if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $email, $fecha, $cp]) == 1){
+            header('location: index.php');
+            exit();
+        } else {
+            $errors['db-error'] = "Error al darse de alta!";
+        }
     }
 
 ?>

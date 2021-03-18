@@ -66,11 +66,11 @@ if($email == false && $password == false){
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" id="fecha" name="fecha">
+                    <input type="date" class="form-control" id="fecha" name="fecha" value=<?php echo $infoCliente['fecha_cliente'];?> >
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">CP</label>
-                    <input type="text" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>>
+                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>>
                 </div>
                 <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success">Editar</button>
                    <?php
@@ -82,5 +82,6 @@ if($email == false && $password == false){
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Clientes/Util/validarCamposAlta.js"></script>
 </body>
 </html>

@@ -61,7 +61,7 @@ if($email == false && $password == false){
                 </div>
                 <div class="form-group">
                     <label>Código Postal</label>
-                    <input type="text" class="form-control" id="cp" name="cp" placeholder="Ingresa CP del cliente">
+                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" placeholder="Ingresa CP del cliente">
                 </div>
                 <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
             </form>
