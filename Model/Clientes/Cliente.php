@@ -26,6 +26,16 @@
             $db->close();
             return $query->affectedRows();
         }
+        public function insertClienteStatus($array){
+            $db = new Db('localhost', 'root', '', 'prosking_gestor');
+            //INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES ('w', 'activo');
+            $sql_statement = "INSERT INTO `ClienteStatus` (`id_cliente`, `status`) 
+                            VALUES ('$array[0]', '$array[1]')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+
+        }
         public function getClienteWhereNombreLike($nombre){
             $db = new Db('localhost', 'root', '', 'prosking_gestor');
             //SELECT * FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%maria%') AS Nombre WHERE ClienteOpcional.id_cliente=Nombre.id_cliente

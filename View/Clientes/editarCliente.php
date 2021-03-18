@@ -1,17 +1,18 @@
 <?php 
-  require_once "../../Controller/Clientes/ClienteController.php";
+  require_once "../../Controller/Clientes/ClienteController.php"; 
+  require_once "../../Model/Clientes/Cliente.php";
+  require_once "../../Controller/ControllerSesion.php";
+  require_once "../../Model/Usuario/Usuario.php";
 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email == false && $password == false){
-  header('Location: login.php');
-}else{
-  $sql = "SELECT * FROM usertable WHERE email = '$email'";
-  $run_Sql = mysqli_query($con, $sql);
-  if($run_Sql){
-    $fetch_info = mysqli_fetch_assoc($run_Sql);
-  }
-}
+  $ModelCliente = new Cliente();
+  $session = new ControllerSesion();
+  $ModeloUsuario = new Usuario();
+  
+  $email    = $_SESSION['email'];
+  $password = $_SESSION['password'];
+  
+  $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">

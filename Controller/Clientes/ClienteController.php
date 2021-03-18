@@ -29,7 +29,7 @@
         $arregloApellidos = explode(" ",$apellidos);
         $id = strtoupper($nombre[0]).strtoupper($arregloApellidos[0][0]).strtoupper($arregloApellidos[1][0]).$fechaParaId.$siguienteConsecutivo;
 
-        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $email]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp]))){
+        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $email]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
             header('location: index.php');
             exit();
         } else {
@@ -49,17 +49,27 @@
     }
 
     if(isset($_POST['buscarCliente'])){
-        $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
-        
-        foreach($ModelCliente->getClienteWhereNombreLike($nombre) as $clienteDB){
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>"
-                    .$clienteDB['nombre_cliente']." ".$clienteDB['apellidos_cliente']."<br>
-                    Fecha de Nacimiento: ".$clienteDB['fecha_cliente']."<br> 
-                    E-Mail: ".$clienteDB['email_cliente']."<br> 
-                    Numero: ".$clienteDB['telefono_cliente']."<br>
-                    CP: ".$clienteDB['cp_cliente']."<a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar</a>
+        $nombre    = mysqli_real_escape_string($con, $_POST['nombre']);
+        $resultado = $ModelCliente->getClienteWhereNombreLike($nombre);
+        echo "<div class='container'>
+                <ul class='list-group'>";
+        if(sizeof($resultado) >= 1){
+            foreach($resultado as $clienteDB){
+                echo "<li class='list-group-item d-flex justify-content-between align-items-center'>"
+                        .$clienteDB['nombre_cliente']." ".$clienteDB['apellidos_cliente']."<br>
+                        Fecha de Nacimiento: ".$clienteDB['fecha_cliente']."<br> 
+                        E-Mail: ".$clienteDB['email_cliente']."<br> 
+                        Numero: ".$clienteDB['telefono_cliente']."<br>
+                        CP: ".$clienteDB['cp_cliente']."<a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar</a>
+                      </li>";
+            }
+        }else{
+            echo "<li class='list-group-item text-center'>
+                    <h1 >No hay resultados</h1>
                   </li>";
         }
+        echo "</ul>
+            </div>";
     }
 
     if(isset($_POST['editarCliente'])){

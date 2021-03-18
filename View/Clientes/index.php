@@ -2,14 +2,16 @@
   require_once "../../Controller/Clientes/ClienteController.php"; 
   require_once "../../Model/Clientes/Cliente.php";
   require_once "../../Controller/ControllerSesion.php";
+  require_once "../../Model/Usuario/Usuario.php";
 
   $ModelCliente = new Cliente();
   $session = new ControllerSesion();
+  $ModeloUsuario = new Usuario();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
   
-  $fetch_info = $session->verificarSesion($con, $email, $password);
+  $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
   
 ?>
 <!DOCTYPE html>
