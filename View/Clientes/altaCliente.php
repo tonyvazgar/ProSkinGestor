@@ -49,7 +49,7 @@ if($email == false && $password == false){
                 </div>
                 <div class="form-group">
                     <label>E-mail *</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa correo electronico del cliente" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa correo electronico del cliente" autocomplete="off"  required>
                 </div>
                 <div class="form-group">
                     <label>Télefono *</label>
@@ -70,5 +70,6 @@ if($email == false && $password == false){
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Clientes/Util/validarCamposAlta.js"></script>
 </body>
 </html>
