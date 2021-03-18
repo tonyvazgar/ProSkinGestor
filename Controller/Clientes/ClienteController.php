@@ -51,25 +51,34 @@
     if(isset($_POST['buscarCliente'])){
         $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
         
-        foreach($ModelCliente->getCliente($nombre) as $clienteDB){
+        foreach($ModelCliente->getClienteWhereNombreLike($nombre) as $clienteDB){
             echo "<li class='list-group-item d-flex justify-content-between align-items-center'>"
-                    .$clienteDB['Nombre']."<br> Edad: ".$clienteDB['Edad']."<br> Numero: ".$clienteDB['Numero']."<a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['ID_cliente']."' role='button'>Editar</a>
+                    .$clienteDB['nombre_cliente']." ".$clienteDB['apellidos_cliente']."<br>
+                    Fecha de Nacimiento: ".$clienteDB['fecha_cliente']."<br> 
+                    E-Mail: ".$clienteDB['email_cliente']."<br> 
+                    Numero: ".$clienteDB['telefono_cliente']."<br>
+                    CP: ".$clienteDB['cp_cliente']."<a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar</a>
                   </li>";
         }
     }
 
     if(isset($_POST['editarCliente'])){
         $id     = mysqli_real_escape_string($con, $_POST['id']);
-        $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
-        $edad   = mysqli_real_escape_string($con, $_POST['edad']);
-        $numero = mysqli_real_escape_string($con, $_POST['numero']);
+        $nombre      = mysqli_real_escape_string($con, $_POST['nombre']);
+        $apellidos   = mysqli_real_escape_string($con, $_POST['apellidos']);
+        $email       = mysqli_real_escape_string($con, $_POST['email']);
+        $numero      = mysqli_real_escape_string($con, $_POST['numero']);
+        $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
+        $cp          = mysqli_real_escape_string($con, $_POST['cp']);
 
-        if($ModelCliente->updateCliente([$id, $nombre, $edad, $numero]) == 1){
-            header('location: index.php');
-            exit();
-        } else {
-            $errors['db-error'] = "Error al darse de alta!";
-        }
+        print_r($id.",".$nombre.",".$apellidos.",".$email.",".$numero.",".$fecha.",".$cp);
+
+        // if($ModelCliente->updateCliente([$id, $nombre, $edad, $numero]) == 1){
+        //     header('location: index.php');
+        //     exit();
+        // } else {
+        //     $errors['db-error'] = "Error al darse de alta!";
+        // }
     }
 
 ?>

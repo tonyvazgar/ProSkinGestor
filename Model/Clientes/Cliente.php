@@ -26,18 +26,21 @@
             $db->close();
             return $query->affectedRows();
         }
-        public function getCliente($nombre){
+        public function getClienteWhereNombreLike($nombre){
             $db = new Db('localhost', 'root', '', 'prosking_gestor');
-            $sql_statement = "SELECT * FROM `Cliente` WHERE
-                            Nombre='$nombre'";
+            //SELECT * FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%maria%') AS Nombre WHERE ClienteOpcional.id_cliente=Nombre.id_cliente
+            $sql_statement = "SELECT * 
+                              FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%$nombre%') AS Nombre 
+                              WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;
         }
         public function getClienteWhereID($id){
             $db = new Db('localhost', 'root', '', 'prosking_gestor');
-            $sql_statement = "SELECT * FROM `Cliente` WHERE
-                            ID_cliente='$id'";
+            $sql_statement = "SELECT * FROM Cliente, ClienteOpcional WHERE
+                              ClienteOpcional.id_cliente = Cliente.id_cliente AND
+                              Cliente.id_cliente='$id'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

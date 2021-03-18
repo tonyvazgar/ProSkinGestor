@@ -46,19 +46,31 @@ if($email == false && $password == false){
                 ?>
                 <div class="form-group">
                     <label for="exampleInputEmail1">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['ID_cliente'];?> readonly>
+                    <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['id_cliente'];?> readonly>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo $infoCliente['Nombre'];?> required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']."'";?> required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Edad</label>
-                    <input type="text" class="form-control" id="edad" name="edad" value=<?php echo $infoCliente['Edad'];?> required>
+                    <label for="exampleInputEmail1">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoCliente['apellidos_cliente']."'";?> required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">E-mail</label>
+                    <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoCliente['email_cliente'];?> required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Número</label>
-                    <input type="text" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['Numero'];?> required>
+                    <input type="text" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['telefono_cliente'];?> required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">CP</label>
+                    <input type="text" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>>
                 </div>
                 <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success">Editar</button>
                    <?php
