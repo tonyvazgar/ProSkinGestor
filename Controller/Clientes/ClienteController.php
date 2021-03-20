@@ -15,6 +15,8 @@
         $apellidos   = mysqli_real_escape_string($con, $_POST['apellidos']);
         $email       = mysqli_real_escape_string($con, $_POST['email']);
         $numero      = mysqli_real_escape_string($con, $_POST['numero']);
+        $tipo_numero = mysqli_real_escape_string($con, $_POST['tipo']);
+        $centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
         $cp          = mysqli_real_escape_string($con, $_POST['cp']);
 
@@ -28,24 +30,16 @@
         $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
         $arregloApellidos = explode(" ",$apellidos);
         $id = strtoupper($nombre[0]).strtoupper($arregloApellidos[0][0]).strtoupper($arregloApellidos[1][0]).$fechaParaId.$siguienteConsecutivo;
-
-        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $email]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
+        $fecha_creacion = strtotime($fecha);
+        $ultima_visita = "";
+        //"INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES ('$array[0]', '$array[1]', '$array[2]', $array[3], '$array[4]', '$array[5]', '$array[6]', '$array[7]', '$array[8]')";
+        
+        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $tipo_numero, $email, $centro, $fecha_creacion, $ultima_visita]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
             header('location: index.php');
             exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";
         }
-
-        // $insert_query = "INSERT INTO `Cliente`(`Nombre`, `Edad`, `Numero`) 
-        //                 VALUES ('$nombre', $edad, '$numero')";
-        // $data_check   = mysqli_query($con, $insert_query);
-        // if ($data_check) {
-        //     header('location: clientes.php');
-        //     exit();
-        // } else {
-        //     $errors['db-error'] = "Error al darse de alta!";
-        // }
-        // echo $insert_query;
     }
 
     if(isset($_POST['buscarCliente'])){

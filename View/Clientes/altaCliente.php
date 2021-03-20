@@ -55,6 +55,18 @@
                 <div class="form-group">
                     <label>Télefono *</label>
                     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "10" class="form-control" id="numero" name="numero" placeholder="Télefono del cliente Ej. 2227883728" required>
+                    <select name="tipo" id="tipo" class="form-control">
+                        <option value="0">Celular</option>
+                        <option value="1">Fijo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Centro</label>
+                    <select name="centro" id="centro" class="form-control">
+                        <option value="1">Sonata</option>
+                        <option value="2">Plaza Real</option>
+                        <option value="3">La Paz</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Fecha de nacimiento</label>

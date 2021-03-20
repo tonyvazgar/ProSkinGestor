@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 19, 2021 at 12:28 AM
+-- Generation Time: Mar 20, 2021 at 06:51 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -32,24 +32,30 @@ CREATE TABLE `Cliente` (
   `nombre_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `apellidos_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `telefono_cliente` varchar(10) COLLATE utf8_bin NOT NULL,
-  `email_cliente` varchar(255) COLLATE utf8_bin NOT NULL
+  `tipo_numero_cliente` varchar(1) COLLATE utf8_bin NOT NULL,
+  `email_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `centro_cliente` varchar(1) COLLATE utf8_bin NOT NULL,
+  `creacion_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `ultima_visita_cliente` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `Cliente`
 --
 
-INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `email_cliente`) VALUES
-('ADV96110710', 'Ana Sofia', 'Del Valle Montesino', '5523567787', 'anasofi@gmail.com'),
-('ASC2103189', 'Ana Pao', 'Sanchez Cordero', '2226897899', 'anipao@icloud.com'),
-('AVG2103186', 'Andre Maria', 'Vazquez Gonzales', '4678397', 'maria@example.xom'),
-('AVG2103188', 'Auri', 'Vazquez Garcia', '3682761', 'oficial@auri.com'),
-('JFG9601017', 'Jose pedro maria', 'Fernandez Gonzalez', '8989098909', 'jpmfg@gmail.com'),
-('JM0001014', 'Juan Paco Pedris', 'Mar Del Oceano', '3682761', 'tony@gmail.com'),
-('JPM2103183', 'Juan Paco', 'Pedro De La Mar', '3682761', 'juanPacoPedroDeLaMar@gmail.com'),
-('LVG9611071', 'Luis Antonio', 'Vazquez Garcia', '2226772173', 'tony@tony.com'),
-('MGR2103182', 'Maria Jaqueline', 'Garcia Romero', '2223742181', 'garj1995love@gmail.com'),
-('MMD9604035', 'Maria Fernando', 'Martines de la Oca', '2226893400', 'mariaFO@icloud.com');
+INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES
+('ADV96110710', 'Ana Sofia', 'Del Valle Montesino', '5523567787', '', 'anasofi@gmail.com', '', '', ''),
+('ASC2103189', 'Ana Pao', 'Sanchez Cordero', '2226897899', '', 'anipao@icloud.com', '', '', ''),
+('AVG2103186', 'Andre Maria', 'Vazquez Gonzales', '4678397', '', 'maria@example.xom', '', '', ''),
+('AVG2103188', 'Auri', 'Vazquez Garcia', '3682761', '', 'oficial@auri.com', '', '', ''),
+('JFG9601017', 'Jose pedro maria', 'Fernandez Gonzalez', '8989098909', '', 'jpmfg@gmail.com', '', '', ''),
+('JM0001014', 'Juan Paco Pedris', 'Mar Del Oceano', '3682761', '', 'tony@gmail.com', '', '', ''),
+('JPM2103183', 'Juan Paco', 'Pedro De La Mar', '3682761', '', 'juanPacoPedroDeLaMar@gmail.com', '', '', ''),
+('JVG21031912', 'Jose Luis', 'Vazquez Roman', '2222222332', '', 'lusi.jose@gmial.com', '', '', ''),
+('LVG9611071', 'Luis Antonio', 'Vazquez Garcia', '2226772173', '', 'tony@tony.com', '', '', ''),
+('MGR2103182', 'Maria Jaqueline', 'Garcia Romero', '2223742181', '', 'garj1995love@gmail.com', '', '', ''),
+('MMD9604035', 'Maria Fernando', 'Martines de la Oca', '2226893400', '', 'mariaFO@icloud.com', '', '', ''),
+('MRC21031911', 'Mayela', 'Roman Cifuentes', '3332323', '', 'example@example.com', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -75,9 +81,11 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('JFG9601017', '1996-01-01', '7240'),
 ('JM0001014', '2000-01-01', '72840'),
 ('JPM2103183', '2021-03-18', ''),
+('JVG21031912', '2009-07-16', '72830'),
 ('LVG9611071', '1996-11-07', '72830'),
 ('MGR2103182', '2021-03-18', ''),
-('MMD9604035', '1996-04-03', '72590');
+('MMD9604035', '1996-04-03', '72590'),
+('MRC21031911', '2021-03-19', '');
 
 -- --------------------------------------------------------
 
@@ -95,7 +103,9 @@ CREATE TABLE `ClienteStatus` (
 --
 
 INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
-('ADV96110710', 'activo');
+('ADV96110710', 'activo'),
+('JVG21031912', 'activo'),
+('MRC21031911', 'activo');
 
 -- --------------------------------------------------------
 
