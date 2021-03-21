@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 20, 2021 at 06:51 AM
+-- Generation Time: Mar 21, 2021 at 07:15 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -45,7 +45,9 @@ CREATE TABLE `Cliente` (
 
 INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES
 ('ADV96110710', 'Ana Sofia', 'Del Valle Montesino', '5523567787', '', 'anasofi@gmail.com', '', '', ''),
+('AMT18102713', 'Auri', 'Millones Termopolis Renaldi', '3682761', '1', 'aurioficial@auri.com', '1', '1540591200', ''),
 ('ASC2103189', 'Ana Pao', 'Sanchez Cordero', '2226897899', '', 'anipao@icloud.com', '', '', ''),
+('ATR21032114', 'Amelia Mignonette ', 'Thermopólis Renaldi', '2222222', '1', 'ejemplo@example.com', '3', '1616281200', '2021-03-20'),
 ('AVG2103186', 'Andre Maria', 'Vazquez Gonzales', '4678397', '', 'maria@example.xom', '', '', ''),
 ('AVG2103188', 'Auri', 'Vazquez Garcia', '3682761', '', 'oficial@auri.com', '', '', ''),
 ('JFG9601017', 'Jose pedro maria', 'Fernandez Gonzalez', '8989098909', '', 'jpmfg@gmail.com', '', '', ''),
@@ -75,9 +77,13 @@ CREATE TABLE `ClienteOpcional` (
 
 INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALUES
 ('ADV96110710', '1996-11-07', ''),
+('AMT18102713', '2018-10-27', '72830'),
 ('ASC2103189', '1995-03-30', '75800'),
+('ATR21032114', '2021-03-21', '50500'),
 ('AVG2103186', '2021-03-18', ''),
 ('AVG2103188', '2018-10-27', '72830'),
+('BRO94091315', '1994-09-13', '03400'),
+('BRO94091316', '1994-09-13', '03400'),
 ('JFG9601017', '1996-01-01', '7240'),
 ('JM0001014', '2000-01-01', '72840'),
 ('JPM2103183', '2021-03-18', ''),
@@ -104,8 +110,40 @@ CREATE TABLE `ClienteStatus` (
 
 INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('ADV96110710', 'activo'),
+('AMT18102713', 'activo'),
+('ATR21032114', 'activo'),
+('BRO94091315', 'activo'),
+('BRO94091316', 'activo'),
 ('JVG21031912', 'activo'),
 ('MRC21031911', 'activo');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClienteTratamiento`
+--
+
+CREATE TABLE `ClienteTratamiento` (
+  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `fecha_aplicacion` varchar(255) COLLATE utf8_bin NOT NULL,
+  `consentimiento` varchar(2) COLLATE utf8_bin NOT NULL,
+  `sesiones` varchar(255) COLLATE utf8_bin NOT NULL,
+  `zona_cuerpo` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Tratamiento`
+--
+
+CREATE TABLE `Tratamiento` (
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `nombre_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `duracion_tratamiento` varchar(3) COLLATE utf8_bin NOT NULL,
+  `consentimiento_tratamiento` varchar(3) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -150,6 +188,18 @@ ALTER TABLE `ClienteOpcional`
 --
 ALTER TABLE `ClienteStatus`
   ADD PRIMARY KEY (`id_cliente`);
+
+--
+-- Indexes for table `ClienteTratamiento`
+--
+ALTER TABLE `ClienteTratamiento`
+  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`fecha_aplicacion`);
+
+--
+-- Indexes for table `Tratamiento`
+--
+ALTER TABLE `Tratamiento`
+  ADD PRIMARY KEY (`id_tratamiento`);
 
 --
 -- Indexes for table `usertable`

@@ -99,7 +99,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Fecha de registro</label>
-                    <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value=<?php echo date( "Y-m-d", $infoCliente['creacion_cliente']);?> readonly>
+                    <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value=<?php echo "'".date( "Y-m-d", $infoCliente['creacion_cliente'])."'";?> readonly>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Ultima Visita</label>

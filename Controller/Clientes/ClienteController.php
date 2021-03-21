@@ -30,7 +30,7 @@
         $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
         $arregloApellidos = explode(" ",$apellidos);
         $id = strtoupper($nombre[0]).strtoupper($arregloApellidos[0][0]).strtoupper($arregloApellidos[1][0]).$fechaParaId.$siguienteConsecutivo;
-        $fecha_creacion = strtotime($fecha);
+        $fecha_creacion = strtotime(date('Y-m-d'));
         $ultima_visita = "";
         //"INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES ('$array[0]', '$array[1]', '$array[2]', $array[3], '$array[4]', '$array[5]', '$array[6]', '$array[7]', '$array[8]')";
         
@@ -79,12 +79,13 @@
         $fecha_registro = mysqli_real_escape_string($con, $_POST['fecha_registro']);
         $fecha_visita   = mysqli_real_escape_string($con, $_POST['fecha_visita']);
 
-        // if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $email, $fecha, $cp]) == 1){
-        //     header('location: index.php');
-        //     exit();
-        // } else {
-        //     $errors['db-error'] = "Error al darse de alta!";
-        // }
+
+        if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $tipo, $email, $centro, strtotime($fecha_registro),$fecha_visita, $fecha, $cp]) == 1){
+            header('location: index.php');
+            exit();
+        } else {
+            $errors['db-error'] = "Error al darse de alta!";
+        }
     }
 
 ?>

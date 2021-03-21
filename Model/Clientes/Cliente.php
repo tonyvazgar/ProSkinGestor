@@ -63,9 +63,13 @@
                               SET Cliente.nombre_cliente = '$array[1]',
                               Cliente.apellidos_cliente = '$array[2]',
                               Cliente.telefono_cliente = '$array[3]',
-                              Cliente.email_cliente = '$array[4]',
-                              ClienteOpcional.fecha_cliente = '$array[5]',
-                              ClienteOpcional.cp_cliente = '$array[6]'
+                              Cliente.tipo_numero_cliente = '$array[4]',
+                              Cliente.email_cliente = '$array[5]',
+                              Cliente.centro_cliente = '$array[6]',
+                              Cliente.creacion_cliente = '$array[7]',
+                              Cliente.ultima_visita_cliente = '$array[8]',
+                              ClienteOpcional.fecha_cliente = '$array[9]',
+                              ClienteOpcional.cp_cliente = '$array[10]'
                               WHERE Cliente.id_cliente=ClienteOpcional.id_cliente 
                               AND Cliente.id_cliente='$array[0]'";
 
