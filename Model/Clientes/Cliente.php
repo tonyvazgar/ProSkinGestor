@@ -48,9 +48,10 @@
         }
         public function getClienteWhereID($id){
             $db = new DB();
-            $sql_statement = "SELECT * FROM Cliente, ClienteOpcional WHERE
-                              ClienteOpcional.id_cliente = Cliente.id_cliente AND
-                              Cliente.id_cliente='$id'";
+            $sql_statement = "SELECT * FROM Cliente, ClienteOpcional, ClienteStatus 
+                              WHERE Cliente.id_cliente='$id' 
+                              AND Cliente.id_cliente = ClienteOpcional.id_cliente
+                              AND ClienteStatus.id_cliente = ClienteOpcional.id_cliente";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

@@ -72,15 +72,19 @@
         $apellidos   = mysqli_real_escape_string($con, $_POST['apellidos']);
         $email       = mysqli_real_escape_string($con, $_POST['email']);
         $numero      = mysqli_real_escape_string($con, $_POST['numero']);
+        $tipo        = mysqli_real_escape_string($con, $_POST['tipo']);
+        $centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
         $cp          = mysqli_real_escape_string($con, $_POST['cp']);
+        $fecha_registro = mysqli_real_escape_string($con, $_POST['fecha_registro']);
+        $fecha_visita   = mysqli_real_escape_string($con, $_POST['fecha_visita']);
 
-        if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $email, $fecha, $cp]) == 1){
-            header('location: index.php');
-            exit();
-        } else {
-            $errors['db-error'] = "Error al darse de alta!";
-        }
+        // if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $email, $fecha, $cp]) == 1){
+        //     header('location: index.php');
+        //     exit();
+        // } else {
+        //     $errors['db-error'] = "Error al darse de alta!";
+        // }
     }
 
 ?>

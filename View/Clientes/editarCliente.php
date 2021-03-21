@@ -64,6 +64,30 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Número</label>
                     <input type="text" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['telefono_cliente'];?> required>
+                    <select name="tipo" id="tipo" name="tipo" class="form-control">
+                        <option value="0">Celular</option>
+                        <option value="1">Fijo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Centro</label>
+                    <select name="centro" id="centro" class="form-control">
+                        <?php
+                            if($infoCliente['centro_cliente'] == '1'){
+                                echo "<option value='1'>*Sonata*</option>";
+                                echo "<option value='2'>Plaza Real</option>
+                                      <option value='3'>La Paz</option>";
+                            }else if($infoCliente['centro_cliente'] == '2'){
+                                echo "<option value='2'>*Plaza Real*</option>";
+                                echo "<option value='1'>Sonata</option>
+                                      <option value='3'>La Paz</option>";
+                            }else{
+                                echo "<option value='3'>*La paz*</option>";
+                                echo "<option value='1'>Sonata</option>
+                                      <option value='2'>Plaza Real</option>";
+                            }
+                        ?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Fecha de nacimiento</label>
@@ -72,6 +96,18 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">CP</label>
                     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Fecha de registro</label>
+                    <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value=<?php echo date( "Y-m-d", $infoCliente['creacion_cliente']);?> readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Ultima Visita</label>
+                    <input type="date" class="form-control" id="fecha_visita" name="fecha_visita" value=<?php echo "'".$infoCliente['ultima_visita_cliente']."'";?> readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Estado en el sistema</label>
+                    <input type="text" class="form-control" id="status" name="status" value=<?php echo $infoCliente['status'];?> readonly>
                 </div>
                 <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success">Editar</button>
                    <?php
