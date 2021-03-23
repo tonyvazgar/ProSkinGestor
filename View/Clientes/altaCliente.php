@@ -76,6 +76,14 @@
                     <label>Código Postal</label>
                     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" placeholder="Ingresa CP del cliente">
                 </div>
+                <div class="form-group">
+                    <label>Aviso de privacidad</label>
+                    <select name="aviso" id="aviso" class="form-control">
+                        <option>*** SELECCIONA ***</option>
+                        <option value="0">No firmado</option>
+                        <option value="1">Ya se firmó</option>
+                    </select>
+                </div>
                 <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
             </form>
         </div>

@@ -24,17 +24,20 @@
         $siguienteConsecutivo = strval(sizeof($ModelCliente->getAllUsuarios())+1);
         $id = "";
         $fechaParaId = "";
+        $fecha_creacion = strtotime(date('Y-m-d'));
+        $ultima_visita = "";
+        $aviso_privacidad = "1";
+        
         if($fecha == ""){
             $fecha = strval(date('Y-m-d'));
         }
         $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
         $arregloApellidos = explode(" ",$apellidos);
         $id = strtoupper($nombre[0]).strtoupper($arregloApellidos[0][0]).strtoupper($arregloApellidos[1][0]).$fechaParaId.$siguienteConsecutivo;
-        $fecha_creacion = strtotime(date('Y-m-d'));
-        $ultima_visita = "";
+        
         //"INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES ('$array[0]', '$array[1]', '$array[2]', $array[3], '$array[4]', '$array[5]', '$array[6]', '$array[7]', '$array[8]')";
         
-        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $tipo_numero, $email, $centro, $fecha_creacion, $ultima_visita]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
+        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $tipo_numero, $email, $centro, $fecha_creacion, $ultima_visita, $aviso_privacidad]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
             header('location: index.php');
             exit();
         } else {

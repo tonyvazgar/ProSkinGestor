@@ -32,7 +32,25 @@ $(document).ready(function () {
             $("#cp").css("border", "2px solid red");
         }
     });
+
+    $("#aviso").change(function () {
+        if (validateAvisoPrivacidad()) {
+            $("#altaCliente").css("border", "2px solid green");
+        } else {
+            $("#altaCliente").css("border", "2px solid red");
+        }
+        buttonState();
+    });
 });
+
+function validateAvisoPrivacidad() {
+    var opt = $("#aviso").val();
+    if(opt == "1"){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function validateEmail() {
     var email = $("#email").val();
@@ -63,7 +81,7 @@ function validatecp() {
 }
 
 function buttonState() {
-    if (validateEmail() && validatenumero()) {
+    if (validateEmail() && validatenumero() && validateAvisoPrivacidad()) {
         $("#altaCliente").show();
     } else {
         $("#altaCliente").hide();

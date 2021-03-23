@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 21, 2021 at 07:15 AM
+-- Generation Time: Mar 23, 2021 at 07:25 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -36,28 +36,17 @@ CREATE TABLE `Cliente` (
   `email_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `centro_cliente` varchar(1) COLLATE utf8_bin NOT NULL,
   `creacion_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
-  `ultima_visita_cliente` varchar(255) COLLATE utf8_bin NOT NULL
+  `ultima_visita_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `aviso_privacidad_cliente` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `Cliente`
 --
 
-INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES
-('ADV96110710', 'Ana Sofia', 'Del Valle Montesino', '5523567787', '', 'anasofi@gmail.com', '', '', ''),
-('AMT18102713', 'Auri', 'Millones Termopolis Renaldi', '3682761', '1', 'aurioficial@auri.com', '1', '1540591200', ''),
-('ASC2103189', 'Ana Pao', 'Sanchez Cordero', '2226897899', '', 'anipao@icloud.com', '', '', ''),
-('ATR21032114', 'Amelia Mignonette ', 'Thermopólis Renaldi', '2222222', '1', 'ejemplo@example.com', '3', '1616281200', '2021-03-20'),
-('AVG2103186', 'Andre Maria', 'Vazquez Gonzales', '4678397', '', 'maria@example.xom', '', '', ''),
-('AVG2103188', 'Auri', 'Vazquez Garcia', '3682761', '', 'oficial@auri.com', '', '', ''),
-('JFG9601017', 'Jose pedro maria', 'Fernandez Gonzalez', '8989098909', '', 'jpmfg@gmail.com', '', '', ''),
-('JM0001014', 'Juan Paco Pedris', 'Mar Del Oceano', '3682761', '', 'tony@gmail.com', '', '', ''),
-('JPM2103183', 'Juan Paco', 'Pedro De La Mar', '3682761', '', 'juanPacoPedroDeLaMar@gmail.com', '', '', ''),
-('JVG21031912', 'Jose Luis', 'Vazquez Roman', '2222222332', '', 'lusi.jose@gmial.com', '', '', ''),
-('LVG9611071', 'Luis Antonio', 'Vazquez Garcia', '2226772173', '', 'tony@tony.com', '', '', ''),
-('MGR2103182', 'Maria Jaqueline', 'Garcia Romero', '2223742181', '', 'garj1995love@gmail.com', '', '', ''),
-('MMD9604035', 'Maria Fernando', 'Martines de la Oca', '2226893400', '', 'mariaFO@icloud.com', '', '', ''),
-('MRC21031911', 'Mayela', 'Roman Cifuentes', '3332323', '', 'example@example.com', '', '', '');
+INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`, `aviso_privacidad_cliente`) VALUES
+('AAA202020', 'Auri', 'Auri Auri', '2223682761', '1', 'auri@gmail.com', '2', '', '', 1),
+('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '', 1);
 
 -- --------------------------------------------------------
 
@@ -91,7 +80,10 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('LVG9611071', '1996-11-07', '72830'),
 ('MGR2103182', '2021-03-18', ''),
 ('MMD9604035', '1996-04-03', '72590'),
-('MRC21031911', '2021-03-19', '');
+('MRC21031911', '2021-03-19', ''),
+('PPP90020215', '1990-02-02', '72000'),
+('PPP9607101', '1996-07-10', '12345'),
+('STR2103232', '2021-03-23', '');
 
 -- --------------------------------------------------------
 
@@ -115,7 +107,10 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('BRO94091315', 'activo'),
 ('BRO94091316', 'activo'),
 ('JVG21031912', 'activo'),
-('MRC21031911', 'activo');
+('MRC21031911', 'activo'),
+('PPP90020215', 'activo'),
+('PPP9607101', 'activo'),
+('STR2103232', 'activo');
 
 -- --------------------------------------------------------
 
