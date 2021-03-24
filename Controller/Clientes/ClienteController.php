@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    require_once "../connection.php";
+    require_once "../../View/connection.php";
     require_once "../../Model/Clientes/Cliente.php";
 
 
@@ -25,7 +25,7 @@
         $id = "";
         $fechaParaId = "";
         $fecha_creacion = strtotime(date('Y-m-d'));
-        $ultima_visita = "";
+        $ultima_visita = $fecha_creacion;
         $aviso_privacidad = "1";
         
         if($fecha == ""){
@@ -80,7 +80,7 @@
         $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
         $cp          = mysqli_real_escape_string($con, $_POST['cp']);
         $fecha_registro = mysqli_real_escape_string($con, $_POST['fecha_registro']);
-        $fecha_visita   = mysqli_real_escape_string($con, $_POST['fecha_visita']);
+        $fecha_visita   = strtotime(date('Y-m-d'));
 
 
         if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $tipo, $email, $centro, strtotime($fecha_registro),$fecha_visita, $fecha, $cp]) == 1){

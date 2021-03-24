@@ -103,7 +103,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Ultima Visita</label>
-                    <input type="date" class="form-control" id="fecha_visita" name="fecha_visita" value=<?php echo "'".$infoCliente['ultima_visita_cliente']."'";?> readonly>
+                    <input type="date" class="form-control" id="fecha_visita" name="fecha_visita" value=<?php echo "'".date('Y-m-d', $infoCliente['ultima_visita_cliente'])."'";?> readonly>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Estado en el sistema</label>

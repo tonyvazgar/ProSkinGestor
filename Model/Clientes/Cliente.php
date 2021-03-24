@@ -8,6 +8,33 @@
             $db->close();
             return $account;
         }
+        public function getUltimaVisitaCliente(){
+            $db = new DB();
+            $account = $db->query('SELECT Cliente.id_cliente, Cliente.ultima_visita_cliente FROM Cliente')->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function getStatusCliente($id_cliente){
+            $db = new DB();
+            $sql_statement = "SELECT status FROM ClienteStatus WHERE id_cliente = '$id_cliente'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function setStatusCliente($id_cliente, $status){
+            //UPDATE `ClienteStatus` SET `status` = 'inactivo' WHERE `ClienteStatus`.`id_cliente` = 'LVG9405285';
+            $db = new DB();
+            
+            $sql_statement = "UPDATE ClienteStatus 
+                              SET ClienteStatus.status = '$status'
+                              WHERE ClienteStatus.id_cliente='$id_cliente'";
+
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
         public function insertUsuario($array){
             $db = new DB();
             //INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `email_cliente`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
@@ -76,6 +103,24 @@
             $account = $db->query($sql_statement);
             $db->close();
             return $account->affectedRows();
+        }
+    }
+
+    function verificarStatusClientes($limite){
+        $clienteModelo = new Cliente();
+        $statusClientes = $clienteModelo->getUltimaVisitaCliente();   //Obtener todos los status de clientes en la BDD
+        $hoy = strtotime(date("Y-m-d"));                              //Obtenemos la fecha de hoy
+
+
+        foreach($statusClientes as $cliente){
+          $ultima_visita = $cliente['ultima_visita_cliente'];         //la ultima visita del cliente
+          $diferencia = $hoy - $ultima_visita;
+          $dias = floor($diferencia / (24 * 60 * 60 )); // convert to days
+          if($dias >= $limite){
+            $clienteModelo->setStatusCliente($cliente['id_cliente'], "inactivo");   //Lo ponemos inactivo porque tiene mas dias de diferencia 
+          }else{
+            $clienteModelo->setStatusCliente($cliente['id_cliente'], "activo");   //Lo ponemos inactivo porque tiene mas dias de diferencia 
+          }
         }
     }
 ?>

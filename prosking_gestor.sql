@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2021 at 07:25 AM
+-- Generation Time: Mar 24, 2021 at 07:48 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -45,8 +45,15 @@ CREATE TABLE `Cliente` (
 --
 
 INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`, `aviso_privacidad_cliente`) VALUES
-('AAA202020', 'Auri', 'Auri Auri', '2223682761', '1', 'auri@gmail.com', '2', '', '', 1),
-('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '', 1);
+('AVG9602283', 'Auri', 'Vazquez Garcias', '2869374', '1', 'auri@ejemplo.com', '2', '1612134000', '1612134000', 1),
+('BRL9307074', 'Brenda', 'Ramirez Lopez', '3333333', '1', 'brenda@hmail.com', '1', '1610492400', '1610492400', 1),
+('CPM8004047', 'Coral', 'Perlita Mejia', '3332323222', '0', 'pers@sks.com', '2', '1610146800', '1610146800', 1),
+('FFL9612252', 'Fernanda', 'Fernandez Lopez', '2020202020', '0', 'ferlofer@gmail.com', '3', '1616540400', '1616540400', 1),
+('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1609369200', 1),
+('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1616540400', 1),
+('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1616540400', 1),
+('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1604790000', 1),
+('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1616454000', 1);
 
 -- --------------------------------------------------------
 
@@ -71,16 +78,24 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('ATR21032114', '2021-03-21', '50500'),
 ('AVG2103186', '2021-03-18', ''),
 ('AVG2103188', '2018-10-27', '72830'),
+('AVG9602283', '1996-02-28', '03400'),
+('BRL9307074', '1993-07-07', ''),
 ('BRO94091315', '1994-09-13', '03400'),
 ('BRO94091316', '1994-09-13', '03400'),
+('CPM8004047', '1980-04-04', '34566'),
+('FFL9612252', '1996-12-25', '72300'),
 ('JFG9601017', '1996-01-01', '7240'),
 ('JM0001014', '2000-01-01', '72840'),
 ('JPM2103183', '2021-03-18', ''),
 ('JVG21031912', '2009-07-16', '72830'),
+('LVG9405285', '1994-05-28', '72590'),
 ('LVG9611071', '1996-11-07', '72830'),
 ('MGR2103182', '2021-03-18', ''),
 ('MMD9604035', '1996-04-03', '72590'),
 ('MRC21031911', '2021-03-19', ''),
+('MTR2009246', '2020-09-24', '72830'),
+('OEP9902289', '1999-02-28', ''),
+('PEP7907128', '1979-07-12', '72000'),
 ('PPP90020215', '1990-02-02', '72000'),
 ('PPP9607101', '1996-07-10', '12345'),
 ('STR2103232', '2021-03-23', '');
@@ -104,10 +119,18 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('ADV96110710', 'activo'),
 ('AMT18102713', 'activo'),
 ('ATR21032114', 'activo'),
+('AVG9602283', 'activo'),
+('BRL9307074', 'activo'),
 ('BRO94091315', 'activo'),
 ('BRO94091316', 'activo'),
+('CPM8004047', 'activo'),
+('FFL9612252', 'activo'),
 ('JVG21031912', 'activo'),
+('LVG9405285', 'activo'),
 ('MRC21031911', 'activo'),
+('MTR2009246', 'activo'),
+('OEP9902289', 'activo'),
+('PEP7907128', 'inactivo'),
 ('PPP90020215', 'activo'),
 ('PPP9607101', 'activo'),
 ('STR2103232', 'activo');

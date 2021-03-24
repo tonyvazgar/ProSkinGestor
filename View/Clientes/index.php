@@ -44,8 +44,15 @@
         <ul class="list-group">
         <?php
           foreach($ModelCliente->getAllUsuarios() as $d){
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-primary rounded-pill'>14 tratamientos</span>
-                  </li>";
+            $statusCliente = $ModelCliente->getStatusCliente($d['id_cliente']);
+            if($statusCliente[0]['status'] == 'activo'){
+              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-success rounded-pill'>Activo</span>
+                    </li>";
+            }else{
+              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-warning rounded-pill'>Inactivo</span>
+                    </li>";
+
+            }
           }
         ?>
         </ul>

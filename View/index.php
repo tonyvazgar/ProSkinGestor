@@ -3,9 +3,11 @@
   require_once "../Controller/ControllerSesion.php";
   require_once "../Model/Usuario/Usuario.php";
   require_once "../Model/Db.php";
+  require_once "../Model/Clientes/Cliente.php";
 
   $session = new ControllerSesion();
   $ModeloUsuario = new Usuario();
+  verificarStatusClientes(90);
 
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
