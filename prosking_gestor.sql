@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2021 at 07:48 AM
+-- Generation Time: Mar 25, 2021 at 01:21 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -162,6 +162,16 @@ CREATE TABLE `Tratamiento` (
   `duracion_tratamiento` varchar(3) COLLATE utf8_bin NOT NULL,
   `consentimiento_tratamiento` varchar(3) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `Tratamiento`
+--
+
+INSERT INTO `Tratamiento` (`id_tratamiento`, `nombre_tratamiento`, `duracion_tratamiento`, `consentimiento_tratamiento`) VALUES
+('DEP02', 'Depilación brazos', '20', 'si'),
+('DEP03', 'Depilación piernas', '40', 'si'),
+('DEP04', 'Depilación cejas', '20', 'no'),
+('MAS01', 'Masaje', '60', 'si');
 
 -- --------------------------------------------------------
 
