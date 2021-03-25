@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2021 at 01:21 AM
+-- Generation Time: Mar 25, 2021 at 07:58 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -149,6 +149,14 @@ CREATE TABLE `ClienteTratamiento` (
   `sesiones` varchar(255) COLLATE utf8_bin NOT NULL,
   `zona_cuerpo` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `ClienteTratamiento`
+--
+
+INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `fecha_aplicacion`, `consentimiento`, `sesiones`, `zona_cuerpo`) VALUES
+('STR2103232', 'DEP02', '1616626800', '1', '5', 'Brazos'),
+('STR2103232', 'DEP04', '1616626800', '0', '3', 'Cara');
 
 -- --------------------------------------------------------
 

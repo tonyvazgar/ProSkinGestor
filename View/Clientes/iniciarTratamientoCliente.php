@@ -60,18 +60,36 @@
                 <div class="form-group">
                     <label>Tratamiento a empezar</label>
                     <select name="tratamiento" id="tratamiento" class="form-control">
+                        <option>*** SELECCIONA ***</option>
                         <?php
                             foreach($tratamientos as $tratamiento){
                                 $consentimiento = "Sin firmar";
+                                $class = 'no-signature';
                                 if ($tratamiento['consentimiento_tratamiento'] == "si"){
-                                    $consentimiento = "Requiere rirmar";
+                                    $consentimiento = "Requiere firmar";
+                                    $class = 'signature';
                                 }
-                                echo "<option value='".$tratamiento['id_tratamiento']."'>".$tratamiento['nombre_tratamiento']." | ".$tratamiento['duracion_tratamiento']." mins | ".$consentimiento."</option>";
+                                echo "<option value='".$tratamiento['id_tratamiento']."' class='".$class."'>".$tratamiento['nombre_tratamiento']." | ".$tratamiento['duracion_tratamiento']." mins | ".$consentimiento."</option>";
                             }
                         ?>
                     </select>
                 </div>
-                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Sesiones</label>
+                    <input type="text" class="form-control" id="sesiones" name="sesiones" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Zona del cuerpo</label>
+                    <input type="text" class="form-control" id="zona" name="zona" required>
+                </div>
+                <div class="form-group pregunta">
+                    <label>Firma requerida del cliente</label>
+                    <select name="aviso" id="aviso" class="form-control">
+                        <option>*** SELECCIONA ***</option>
+                        <option value="0">No firmado</option>
+                        <option value="1">Ya se firmó</option>
+                    </select>
+                </div>
                 <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Comenzar tratamiento</button>
                    <?php
                     }
@@ -82,6 +100,6 @@
     <?php
       getFooter();
     ?>
-    <script src="../../Controller/Clientes/Util/validarCamposAlta.js"></script>
+    <script src="../../Controller/Tratamiento/Util/validarCamposIniciarCliente.js"></script>
 </body>
 </html>

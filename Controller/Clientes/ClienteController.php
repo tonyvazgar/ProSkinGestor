@@ -61,7 +61,7 @@
                         Numero: ".$clienteDB['telefono_cliente']."<br>
                         CP: ".$clienteDB['cp_cliente']."
                         <div>
-                            <a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar</a>
+                            <a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar información</a>
                             <br>
                             <a class='btn btn-info' href='iniciarTratamientoCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Iniciar tratamiento</a>
                         </div>
@@ -101,8 +101,12 @@
     if(isset($_POST['comenzarTratamiento'])){
         $id              = mysqli_real_escape_string($con, $_POST['id']);
         $tratamiento     = mysqli_real_escape_string($con, $_POST['tratamiento']);
+        $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
+        $zona            = mysqli_real_escape_string($con, $_POST['zona']);
+        $firma           = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
         $timeStamp       = strtotime(date('Y-m-d'));
-        $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $timeStamp);
+
+        $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
     }
 
 ?>
