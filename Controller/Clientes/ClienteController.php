@@ -2,9 +2,11 @@
     session_start();
     require_once "../../View/connection.php";
     require_once "../../Model/Clientes/Cliente.php";
+    require_once "../../Model/Tratamiento/Tratamiento.php";
 
 
     $ModelCliente = new Cliente();
+    $ModelTratamiento = new Tratamiento();
     $email = "";
     $name = "";
     $errors = array();
@@ -57,7 +59,12 @@
                         Fecha de Nacimiento: ".$clienteDB['fecha_cliente']."<br> 
                         E-Mail: ".$clienteDB['email_cliente']."<br> 
                         Numero: ".$clienteDB['telefono_cliente']."<br>
-                        CP: ".$clienteDB['cp_cliente']."<a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar</a>
+                        CP: ".$clienteDB['cp_cliente']."
+                        <div>
+                            <a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar</a>
+                            <br>
+                            <a class='btn btn-info' href='iniciarTratamientoCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Iniciar tratamiento</a>
+                        </div>
                       </li>";
             }
         }else{
@@ -89,6 +96,13 @@
         } else {
             $errors['db-error'] = "Error al darse de alta!";
         }
+    }
+
+    if(isset($_POST['comenzarTratamiento'])){
+        $id              = mysqli_real_escape_string($con, $_POST['id']);
+        $tratamiento     = mysqli_real_escape_string($con, $_POST['tratamiento']);
+        $timeStamp       = strtotime(date('Y-m-d'));
+        $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $timeStamp);
     }
 
 ?>
