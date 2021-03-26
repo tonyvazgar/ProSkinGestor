@@ -1,9 +1,10 @@
 <?php
 
-function getNavbar($name){
+function getNavbar($name, $sucursal){
     echo "<nav class='navbar navbar-expand-lg navbar-light fixed-top' style='background-color: #f7d9d9;'>
                 <a class='navbar-brand' href='../index.php'>
                     <img src='../../View/img/logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
+                    $sucursal
                 </a>
                 <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'
                     aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>

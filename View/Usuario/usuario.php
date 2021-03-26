@@ -1,16 +1,16 @@
-<?php require_once "../../Controller/controllerUserData.php"; ?>
 <?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email == false && $password == false){
-  header('Location: login.php');
-}else{
-  $sql = "SELECT * FROM usertable WHERE email = '$email'";
-  $run_Sql = mysqli_query($con, $sql);
-  if($run_Sql){
-    $fetch_info = mysqli_fetch_assoc($run_Sql);
-  }
-}
+  require_once "../../Controller/Clientes/ClienteController.php"; 
+  require_once "../../Controller/ControllerSesion.php";
+  require_once "../../Model/Usuario/Usuario.php";
+
+  $session = new ControllerSesion();
+  $ModeloUsuario = new Usuario();
+  
+  $email    = $_SESSION['email'];
+  $password = $_SESSION['password'];
+  
+  $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +32,8 @@ if($email == false && $password == false){
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
-        getNavbar($fetch_info['name']);
+        
+        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
         <div class="container">

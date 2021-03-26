@@ -34,7 +34,8 @@
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
-        getNavbar($fetch_info['name']);
+        
+        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
       <div class="container">
@@ -46,7 +47,8 @@
           foreach($ModelCliente->getAllUsuarios() as $d){
             $statusCliente = $ModelCliente->getStatusCliente($d['id_cliente']);
             if($statusCliente[0]['status'] == 'activo'){
-              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-success rounded-pill'>Activo</span>
+              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <a href='editarCliente.php?id=".$d['id_cliente']."' role='button'>".$d['nombre_cliente']."</a><span class='badge bg-success rounded-pill'>Activo</span>
                     </li>";
             }else{
               echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-warning rounded-pill'>Inactivo</span>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2021 at 07:58 AM
+-- Generation Time: Mar 26, 2021 at 11:29 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -45,6 +45,7 @@ CREATE TABLE `Cliente` (
 --
 
 INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`, `aviso_privacidad_cliente`) VALUES
+('AVG21032610', 'Auri', 'Vazquez Garcia', '3333333', '1', 'tiony@ee.com', '2', '1616713200', '1616713200', 1),
 ('AVG9602283', 'Auri', 'Vazquez Garcias', '2869374', '1', 'auri@ejemplo.com', '2', '1612134000', '1612134000', 1),
 ('BRL9307074', 'Brenda', 'Ramirez Lopez', '3333333', '1', 'brenda@hmail.com', '1', '1610492400', '1610492400', 1),
 ('CPM8004047', 'Coral', 'Perlita Mejia', '3332323222', '0', 'pers@sks.com', '2', '1610146800', '1610146800', 1),
@@ -78,6 +79,7 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('ATR21032114', '2021-03-21', '50500'),
 ('AVG2103186', '2021-03-18', ''),
 ('AVG2103188', '2018-10-27', '72830'),
+('AVG21032610', '2021-03-26', '03400'),
 ('AVG9602283', '1996-02-28', '03400'),
 ('BRL9307074', '1993-07-07', ''),
 ('BRO94091315', '1994-09-13', '03400'),
@@ -119,6 +121,7 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('ADV96110710', 'activo'),
 ('AMT18102713', 'activo'),
 ('ATR21032114', 'activo'),
+('AVG21032610', 'activo'),
 ('AVG9602283', 'activo'),
 ('BRL9307074', 'activo'),
 ('BRO94091315', 'activo'),
@@ -155,8 +158,29 @@ CREATE TABLE `ClienteTratamiento` (
 --
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `fecha_aplicacion`, `consentimiento`, `sesiones`, `zona_cuerpo`) VALUES
+('MTR2009246', 'DEP02', '1616713200', '1', '2', '-Antebrazo'),
 ('STR2103232', 'DEP02', '1616626800', '1', '5', 'Brazos'),
 ('STR2103232', 'DEP04', '1616626800', '0', '3', 'Cara');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Sucursal`
+--
+
+CREATE TABLE `Sucursal` (
+  `id_sucursal` int(2) NOT NULL,
+  `nombre_sucursal` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `Sucursal`
+--
+
+INSERT INTO `Sucursal` (`id_sucursal`, `nombre_sucursal`) VALUES
+(1, 'Sonata'),
+(2, 'Plaza Real'),
+(3, 'La Paz');
 
 -- --------------------------------------------------------
 
@@ -184,6 +208,17 @@ INSERT INTO `Tratamiento` (`id_tratamiento`, `nombre_tratamiento`, `duracion_tra
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `TratamientoPrecio`
+--
+
+CREATE TABLE `TratamientoPrecio` (
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `precio` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usertable`
 --
 
@@ -193,15 +228,34 @@ CREATE TABLE `usertable` (
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
   `code` mediumint(50) NOT NULL,
-  `status` text COLLATE utf8_bin NOT NULL
+  `status` text COLLATE utf8_bin NOT NULL,
+  `id_sucursal_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `usertable`
 --
 
-INSERT INTO `usertable` (`id`, `name`, `email`, `password`, `code`, `status`) VALUES
-(8, 'Tony', 'tony@tony.com', '$2y$10$XfrGDv443rXAgesAhSfiTu8AAJWolQDxteAQ/ZxOG7pUP8qTPTS1C', 635339, 'notverified');
+INSERT INTO `usertable` (`id`, `name`, `email`, `password`, `code`, `status`, `id_sucursal_usuario`) VALUES
+(8, 'Cecilia', 'sonata@proskin.com', '$2y$10$XfrGDv443rXAgesAhSfiTu8AAJWolQDxteAQ/ZxOG7pUP8qTPTS1C', 635339, 'notverified', 1),
+(9, 'Mónica', 'plazaReal@proskin.com', '$2y$10$a1qB3Q3RV9kANUZcrFwP/uxs.h0YperX1UXbdHNNhIFu8McU/4DWS', 190930, 'notverified', 2),
+(10, 'Sara', 'lapaz@proskin.com', '$2y$10$GhNrzmxhyk2JuTOAKlACdeq5IaEsrOgt/o8Mz.FoirQe5fPn8XVU2', 285728, 'notverified', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Ventas`
+--
+
+CREATE TABLE `Ventas` (
+  `id_venta` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `metodo_pago` int(5) NOT NULL,
+  `monto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
+  `centro` varchar(2) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Indexes for dumped tables
@@ -232,9 +286,21 @@ ALTER TABLE `ClienteTratamiento`
   ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`fecha_aplicacion`);
 
 --
+-- Indexes for table `Sucursal`
+--
+ALTER TABLE `Sucursal`
+  ADD PRIMARY KEY (`id_sucursal`);
+
+--
 -- Indexes for table `Tratamiento`
 --
 ALTER TABLE `Tratamiento`
+  ADD PRIMARY KEY (`id_tratamiento`);
+
+--
+-- Indexes for table `TratamientoPrecio`
+--
+ALTER TABLE `TratamientoPrecio`
   ADD PRIMARY KEY (`id_tratamiento`);
 
 --
@@ -244,6 +310,12 @@ ALTER TABLE `usertable`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Ventas`
+--
+ALTER TABLE `Ventas`
+  ADD PRIMARY KEY (`id_venta`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -251,7 +323,7 @@ ALTER TABLE `usertable`
 -- AUTO_INCREMENT for table `usertable`
 --
 ALTER TABLE `usertable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

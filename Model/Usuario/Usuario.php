@@ -7,5 +7,16 @@
             $db->close();
             return $account;
         }
+        public function getNombreSucursalUsuario($email_usuario){
+            $db = new Db();
+            //SELECT Sucursal.nombre_sucursal FROM Sucursal, usertable WHERE Sucursal.id_sucursal = usertable.id_sucursal_usuario AND usertable.id=9
+
+            $sql_statement = "SELECT Sucursal.nombre_sucursal 
+                              FROM Sucursal, usertable 
+                              WHERE Sucursal.id_sucursal = usertable.id_sucursal_usuario AND usertable.email = '$email_usuario'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account;
+        }
     }
 ?>
