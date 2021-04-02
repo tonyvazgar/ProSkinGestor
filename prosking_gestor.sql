@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2021 at 08:14 AM
+-- Generation Time: Apr 02, 2021 at 07:35 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -311,6 +311,45 @@ CREATE TABLE `Ventas` (
   `centro` varchar(2) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ZonasCuerpo`
+--
+
+CREATE TABLE `ZonasCuerpo` (
+  `id_zona` int(3) NOT NULL,
+  `nombre_zona` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `ZonasCuerpo`
+--
+
+INSERT INTO `ZonasCuerpo` (`id_zona`, `nombre_zona`) VALUES
+(1, 'Pecho'),
+(2, 'Axilas'),
+(3, 'Antebrazos'),
+(4, 'Brazos'),
+(5, 'Manos'),
+(6, 'Pubis'),
+(7, 'Ingles'),
+(8, 'Muslo'),
+(9, 'Pierna'),
+(10, 'Glúteos'),
+(11, 'Zona Alba'),
+(12, 'Entrecejo'),
+(13, 'Frente'),
+(14, 'Labio Superior'),
+(15, 'Patillas'),
+(16, 'Mentón'),
+(17, 'Abdomen'),
+(18, 'Espalda'),
+(19, 'Hombro'),
+(20, 'Nuca'),
+(21, 'Lumbares'),
+(22, 'Orejas');
+
 --
 -- Indexes for dumped tables
 --
@@ -380,6 +419,12 @@ ALTER TABLE `usertable`
 --
 ALTER TABLE `Ventas`
   ADD PRIMARY KEY (`id_venta`);
+
+--
+-- Indexes for table `ZonasCuerpo`
+--
+ALTER TABLE `ZonasCuerpo`
+  ADD PRIMARY KEY (`id_zona`);
 
 --
 -- AUTO_INCREMENT for dumped tables
