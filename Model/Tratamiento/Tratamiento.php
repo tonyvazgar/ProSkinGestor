@@ -7,6 +7,14 @@
             return $tratamientos;
         }
 
+
+        function getAllZonasCuerpo(){
+            $db = new DB();
+            $tratamientos = $db->query('SELECT * FROM `ZonasCuerpo`')->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
         function iniciarTratamientoCliente($id_cliente, $id_tratamiento, $sesiones, $zona, $firma, $timestamp){
             echo "Hola prros ". $id_cliente. ", ". $id_tratamiento. ", ".$sesiones.", ".$zona.", = ". $timestamp." firmado? -> ".$firma;
             //INSERT INTO `ClienteTratamiento`(`id_cliente`, `id_tratamiento`, `fecha_aplicacion`, `consentimiento`, `sesiones`, `zona_cuerpo`) VALUES

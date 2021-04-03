@@ -11,6 +11,7 @@
   $ModelTratamiento = new Tratamiento();
 
   $tratamientos = $ModelTratamiento->getAllTratamientos();
+  $zonasCuerpo = $ModelTratamiento->getAllZonasCuerpo();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
@@ -23,7 +24,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProSkin - Iniciar tratamiento</title>
+    <title>ProSkin - Registo de tratamiento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
     integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
     crossorigin="anonymous"></script>
@@ -43,7 +44,7 @@
     ?>
     <main role="main" class="container">
         <div class="container">
-            <h1>Iniciar nuevo tratamiento</h1>
+            <h1>Registrar tratamiento</h1>
             <form action="iniciarTratamientoCliente.php" method="POST" autocomplete="">
                 <?php
                     $id = $_GET['id'];
@@ -62,18 +63,14 @@
                     <label>Tratamiento a empezar</label>
                     <select name="tratamiento" id="tratamiento" class="form-control">
                         <option>*** SELECCIONA ***</option>
-                        <?php
-                            foreach($tratamientos as $tratamiento){
-                                $consentimiento = "Sin firmar";
-                                $class = 'no-signature';
-                                if ($tratamiento['consentimiento_tratamiento'] == "si"){
-                                    $consentimiento = "Requiere firmar";
-                                    $class = 'signature';
-                                }
-                                echo "<option value='".$tratamiento['id_tratamiento']."' class='".$class."'>".$tratamiento['nombre_tratamiento']." | ".$tratamiento['duracion_tratamiento']." mins | ".$consentimiento."</option>";
-                            }
-                        ?>
+                        <option value="1">Depilación</option>
+                        <option value="2">Cavitación</option>
+                        <option value="3">Tratamiento normal</option>
                     </select>
+                </div>
+                <div class="form-group" id="otro" name="otro">
+                    <label>????</label>
+                    
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Sesiones</label>
@@ -81,8 +78,34 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Zona del cuerpo</label>
-                    <input type="text" class="form-control" id="zona" name="zona" required>
+                    <select name="zona" id="zona" class="form-control">
+                        <option>*** SELECCIONA ***</option>
+                        <?php
+                            foreach($zonasCuerpo as $zona){
+                                echo "<option value='".$zona['id_zona']."'>".$zona['nombre_zona']."</option>";
+                            }
+                        ?>
+                    </select>
                 </div>
+
+
+                <div class="form-group pregunta">
+                    <label>Calificación</label>
+                    <select name="calificacion" id="calificacion" class="form-control">
+                        <option value="1">☆</option>
+                        <option value="2">☆☆</option>
+                        <option value="3">☆☆☆</option>
+                        <option value="4">☆☆☆☆</option>
+                        <option value="5">☆☆☆☆☆</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group pregunta">
+                    <label>Comentarios</label>
+                    <input class='form-control' type="text" name="comentarios" id="comentarios" placeholder="Escribe algo relevante de este tratamiento" required>
+                </div>
+
                 <div class="form-group pregunta">
                     <label>Firma requerida del cliente</label>
                     <select name="aviso" id="aviso" class="form-control">

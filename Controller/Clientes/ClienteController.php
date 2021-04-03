@@ -63,7 +63,7 @@
                         <div>
                             <a class='btn btn-warning' href='editarCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Editar información</a>
                             <br>
-                            <a class='btn btn-info' href='iniciarTratamientoCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Iniciar tratamiento</a>
+                            <a class='btn btn-info' href='iniciarTratamientoCliente.php?id=".$clienteDB['id_cliente']."' role='button'>Registrar tratamiento</a>
                         </div>
                       </li>";
             }

@@ -42,3 +42,24 @@ function buttonState() {
         $("#comenzarTratamiento").hide();
     }
 }
+
+$(document).ready(function(){
+    // $('#tratamiento').val(1);
+    recargarLista();
+
+    $('#tratamiento').change(function(){
+        recargarLista();
+        console.log("hola");
+    });
+})
+
+function recargarLista(){
+    $.ajax({
+        type:"POST",
+        url:"datos.php",
+        data:"continente=" + $('#tratamiento').val(),
+        success:function(r){
+            $('#otro').html(r);
+        }
+    });
+}

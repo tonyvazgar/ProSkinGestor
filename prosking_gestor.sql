@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2021 at 07:35 AM
+-- Generation Time: Apr 03, 2021 at 08:55 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -55,34 +55,6 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1616540400', 1),
 ('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1604790000', 1),
 ('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1616454000', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ClienteCavitacion`
---
-
-CREATE TABLE `ClienteCavitacion` (
-  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
-  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_sesion` int(4) NOT NULL,
-  `zona` varchar(3) COLLATE utf8_bin NOT NULL,
-  `ultimo_tratamiento` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ClienteDepilacion`
---
-
-CREATE TABLE `ClienteDepilacion` (
-  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
-  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_sesion` int(4) NOT NULL,
-  `zona` varchar(3) COLLATE utf8_bin NOT NULL,
-  `ultimo_tratamiento` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -175,20 +147,37 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 CREATE TABLE `ClienteTratamiento` (
   `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
-  `fecha_aplicacion` varchar(255) COLLATE utf8_bin NOT NULL,
-  `consentimiento` varchar(2) COLLATE utf8_bin NOT NULL,
-  `sesiones` varchar(255) COLLATE utf8_bin NOT NULL,
-  `zona_cuerpo` varchar(255) COLLATE utf8_bin NOT NULL
+  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
+  `nombre_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `zona_cuerpo` varchar(255) COLLATE utf8_bin NOT NULL,
+  `fecha_aplicacion` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `ClienteTratamiento`
 --
 
-INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `fecha_aplicacion`, `consentimiento`, `sesiones`, `zona_cuerpo`) VALUES
-('MTR2009246', 'DEP02', '1616713200', '1', '2', '-Antebrazo'),
-('STR2103232', 'DEP02', '1616626800', '1', '5', 'Brazos'),
-('STR2103232', 'DEP04', '1616626800', '0', '3', 'Cara');
+INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
+('MTR2009246', 'DEP02', '', '', '-Antebrazo', '1616713200'),
+('STR2103232', 'DEP02', '', '', 'Brazos', '1616626800'),
+('STR2103232', 'DEP04', '', '', 'Cara', '1616626800');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClienteTratamientoEspecial`
+--
+
+CREATE TABLE `ClienteTratamientoEspecial` (
+  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
+  `nombre_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `zona` varchar(2) COLLATE utf8_bin NOT NULL,
+  `detalle_zona` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
+  `num_sesion` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -233,7 +222,7 @@ INSERT INTO `Tratamiento` (`id_tratamiento`, `nombre_tratamiento`, `duracion_tra
 ('ACN12', 'Anti-Acné Espalda', '60', 'si'),
 ('FD01', 'Foto-depilación', '60', 'si'),
 ('PIG06', 'Pigmentación Cara', '60', 'si'),
-('PIG07', 'Pigmentación Cuello', '60', 'si'),
+('PIG07', 'Pigmentación Cuello', '60', 'no'),
 ('PIG08', 'Pigmentación Escote', '60', 'si'),
 ('PIG09', 'Pigmentación Manos', '60', 'si'),
 ('RJV02', 'Rejuvenecimiento Cara', '60', 'si'),
@@ -361,18 +350,6 @@ ALTER TABLE `Cliente`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indexes for table `ClienteCavitacion`
---
-ALTER TABLE `ClienteCavitacion`
-  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`num_sesion`,`ultimo_tratamiento`);
-
---
--- Indexes for table `ClienteDepilacion`
---
-ALTER TABLE `ClienteDepilacion`
-  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`num_sesion`,`ultimo_tratamiento`);
-
---
 -- Indexes for table `ClienteOpcional`
 --
 ALTER TABLE `ClienteOpcional`
@@ -389,6 +366,12 @@ ALTER TABLE `ClienteStatus`
 --
 ALTER TABLE `ClienteTratamiento`
   ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`fecha_aplicacion`);
+
+--
+-- Indexes for table `ClienteTratamientoEspecial`
+--
+ALTER TABLE `ClienteTratamientoEspecial`
+  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`zona`,`timestamp`,`num_sesion`);
 
 --
 -- Indexes for table `Sucursal`
