@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2021 at 08:55 AM
+-- Generation Time: Apr 04, 2021 at 08:04 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -178,6 +178,13 @@ CREATE TABLE `ClienteTratamientoEspecial` (
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
   `num_sesion` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `ClienteTratamientoEspecial`
+--
+
+INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES
+('LVG9405285', 'dssdds332', '10', 'Depilacion', '3', 'Hola es prueba', '1610492400', 1);
 
 -- --------------------------------------------------------
 

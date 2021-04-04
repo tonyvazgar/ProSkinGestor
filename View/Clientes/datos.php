@@ -12,16 +12,20 @@
 
 
   $continente=$_POST['continente'];
+  $id_cliente = $_POST['id_cliente'];
+
+  $ultimoTratamiento = $ModelTratamiento->getAllTratamientosEspecialesWhereCliente($id_cliente);
 
   if($continente=='1'){ //Si es depilacion
     $cadena = "<select name='select2lista' id='select2lista' class='form-control' ></select>";
+    print_r($ultimoTratamiento);
     echo $cadena;
 
   }else if($continente=='2'){ //Si es cavitacion
     $cadena = "<select name='select2lista' id='select2lista' class='form-control'></select>";
     echo $cadena;
 
-  }else if($continente =='3'){
+  }else if($continente =='3'){  //Si es cualquier otro tratamiento
     $cadena = "<select name='select2lista' id='select2lista' class='form-control'>";
     foreach($tratamientos as $tratamiento){
       $cadena .= "<option value='".$tratamiento['id_tratamiento']."'>".$tratamiento['nombre_tratamiento']."</option>";

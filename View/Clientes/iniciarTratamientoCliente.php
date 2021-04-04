@@ -17,6 +17,7 @@
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  $nombreSucursal = $ModeloUsuario->getNombreSucursalUsuario($email);
   
 ?>
 <!DOCTYPE html>
@@ -89,24 +90,40 @@
                 </div>
 
 
-                <div class="form-group pregunta">
-                    <label>Calificación</label>
-                    <select name="calificacion" id="calificacion" class="form-control">
-                        <option value="1">☆</option>
-                        <option value="2">☆☆</option>
-                        <option value="3">☆☆☆</option>
-                        <option value="4">☆☆☆☆</option>
-                        <option value="5">☆☆☆☆☆</option>
-                    </select>
+                <div class="form-group">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <td>Calificación</td>
+                                <td scope="col">Centro</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="calificacion" id="calificacion" class="form-control">
+                                        <option value="1">☆</option>
+                                        <option value="2">☆☆</option>
+                                        <option value="3">☆☆☆</option>
+                                        <option value="4">☆☆☆☆</option>
+                                        <option value="5">☆☆☆☆☆</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="id" name="id" value=<?php echo "'".$nombreSucursal['nombre_sucursal']."'";?> readonly>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
 
-                <div class="form-group pregunta">
+                <div class="form-group">
                     <label>Comentarios</label>
                     <input class='form-control' type="text" name="comentarios" id="comentarios" placeholder="Escribe algo relevante de este tratamiento" required>
                 </div>
 
-                <div class="form-group pregunta">
+                <div class="form-group">
                     <label>Firma requerida del cliente</label>
                     <select name="aviso" id="aviso" class="form-control">
                         <option>*** SELECCIONA ***</option>

@@ -7,10 +7,17 @@
             return $tratamientos;
         }
 
+        function getAllTratamientosEspecialesWhereCliente($id){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT * FROM `ClienteTratamientoEspecial` WHERE id_cliente='$id'")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
 
         function getAllZonasCuerpo(){
             $db = new DB();
-            $tratamientos = $db->query('SELECT * FROM `ZonasCuerpo`')->fetchAll();
+            $tratamientos = $db->query('SELECT * FROM `ZonasCuerpo` ORDER BY nombre_zona ASC')->fetchAll();
             $db->close();
             return $tratamientos;
         }
