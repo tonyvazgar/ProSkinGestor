@@ -54,7 +54,7 @@
                 ?>
                 <div class="form-group">
                     <label for="exampleInputEmail1">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['id_cliente'];?> readonly>
+                    <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $infoCliente['id_cliente'];?> readonly>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre</label>
@@ -73,10 +73,10 @@
                     <label>????</label>
                     
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="exampleInputEmail1">Sesiones</label>
                     <input type="text" class="form-control" id="sesiones" name="sesiones" required>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="exampleInputEmail1">Zona del cuerpo</label>
                     <select name="zona" id="zona" class="form-control">

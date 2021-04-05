@@ -99,14 +99,21 @@
     }
 
     if(isset($_POST['comenzarTratamiento'])){
-        $id              = mysqli_real_escape_string($con, $_POST['id']);
-        $tratamiento     = mysqli_real_escape_string($con, $_POST['tratamiento']);
-        $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
+        $id              = mysqli_real_escape_string($con, $_POST['idCliente']);
+        $tratamiento     = mysqli_real_escape_string($con, $_POST['tratamiento']);  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
+        // $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
+        $nombreTratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
+        $precioTratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
         $zona            = mysqli_real_escape_string($con, $_POST['zona']);
+        $estrellas       = mysqli_real_escape_string($con, $_POST['calificacion']);
+        $centroBelleza   = mysqli_real_escape_string($con, $_POST['id']);
+        $comentarios       = mysqli_real_escape_string($con, $_POST['comentarios']);
         $firma           = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
         $timeStamp       = strtotime(date('Y-m-d'));
 
-        $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
+        // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
+
+        print_r("Vamos a pasar ".$id." --> ".$tratamiento." --> ".$nombreTratamiento." --> ".$precioTratamiento." --> ".$zona." --> ".$estrellas." --> ".$centroBelleza." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
     }
 
 ?>

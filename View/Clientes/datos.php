@@ -19,19 +19,42 @@
   if($continente=='1'){ //Si es depilacion
     $cadena = "<select name='select2lista' id='select2lista' class='form-control' ></select>";
     print_r($ultimoTratamiento);
-    echo $cadena;
+    // echo $cadena;
 
   }else if($continente=='2'){ //Si es cavitacion
     $cadena = "<select name='select2lista' id='select2lista' class='form-control'></select>";
-    echo $cadena;
+    // echo $cadena;
 
   }else if($continente =='3'){  //Si es cualquier otro tratamiento
-    $cadena = "<select name='select2lista' id='select2lista' class='form-control'>";
+
+
+
+    $cadena = "<thead>
+                    <tr>
+                        <td>Nombre tratamiento</td>
+                        <td scope='col'>Precio</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>";
+                        
+
+
+
+    $cadena .= "<select name='nombreTratamiento' id='nombreTratamiento' class='form-control'>";
     foreach($tratamientos as $tratamiento){
       $cadena .= "<option value='".$tratamiento['id_tratamiento']."'>".$tratamiento['nombre_tratamiento']."</option>";
     }
     
     $cadena.= "</select>";
+
+    $cadena.="</td>
+                <td>
+                    <input type='text' class='form-control' id='precioTratamiento' name='precioTratamiento'>
+                </td>
+                </tr>
+                </tbody>";
     echo $cadena;
   }
 

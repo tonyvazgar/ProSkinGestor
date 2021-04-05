@@ -7,6 +7,15 @@
             return $tratamientos;
         }
 
+        function getPrecioTratamiento($id_tratamiento){
+            $db = new DB();
+            //SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = 'ACN10'
+            $tratamientos = $db->query("SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = '$id_tratamiento'")->fetchAll();
+            $db->close();
+            return $tratamientos;
+
+        }
+
         function getAllTratamientosEspecialesWhereCliente($id){
             $db = new DB();
             $tratamientos = $db->query("SELECT * FROM `ClienteTratamientoEspecial` WHERE id_cliente='$id'")->fetchAll();
