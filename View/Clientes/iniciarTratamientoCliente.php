@@ -18,6 +18,8 @@
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
   $nombreSucursal = $ModeloUsuario->getNombreSucursalUsuario($email);
+  $numeroSucursal = $ModeloUsuario->getNumeroSucursalUsuario($email);
+  $id_cosmetologa = $ModeloUsuario->getIdCosmetologa($email);
   
 ?>
 <!DOCTYPE html>
@@ -55,6 +57,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">ID</label>
                     <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $infoCliente['id_cliente'];?> readonly>
+                    <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre</label>
@@ -110,7 +113,9 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" id="id" name="id" value=<?php echo "'".$nombreSucursal['nombre_sucursal']."'";?> readonly>
+                                    <select name="idCentro" id="idCentro" class="form-control" readonly>
+                                        <option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option>
+                                    </select>
                                 </td>
                             </tr>
                         </tbody>
@@ -120,7 +125,7 @@
 
                 <div class="form-group">
                     <label>Comentarios</label>
-                    <input class='form-control' type="text" name="comentarios" id="comentarios" placeholder="Escribe algo relevante de este tratamiento" required>
+                    <textarea name="comentarios" id="comentarios" cols="30" rows="5" class="form-control" maxlength='250' placeholder="Escribe algo relevante de este tratamiento" required></textarea>
                 </div>
 
                 <div class="form-group">

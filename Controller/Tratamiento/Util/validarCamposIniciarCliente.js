@@ -62,7 +62,7 @@ function recargarLista(){
     $.ajax({
         type:"POST",
         url:"datos.php",
-        data:"continente=" + $('#tratamiento').val() + "&id_cliente=" + $('#id').val(),
+        data:"continente=" + $('#tratamiento').val() + "&id_cliente=" + $('#idCliente').val(),
         success:function(r){
             $('#otro').html(r);
         }

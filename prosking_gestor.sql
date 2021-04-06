@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2021 at 08:16 AM
+-- Generation Time: Apr 06, 2021 at 07:41 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -55,6 +55,32 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1616540400', 1),
 ('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1604790000', 1),
 ('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1616454000', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClienteBitacora`
+--
+
+CREATE TABLE `ClienteBitacora` (
+  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
+  `centro` varchar(1) COLLATE utf8_bin NOT NULL,
+  `calificacion` varchar(1) COLLATE utf8_bin NOT NULL,
+  `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
+  `zona_cuerpo` varchar(2) COLLATE utf8_bin NOT NULL,
+  `comentarios` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `ClienteBitacora`
+--
+
+INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`) VALUES
+('AVG21032610', 'ACN12', '10', '3', '3', '1617660000', '18', 'No paraba de quejarse la señora'),
+('BRL9307074', 'PIG09', '2', '3', '5', '1617660000', '6', 'Le fue muy bien y se quejó un poco, pero si es pasable.'),
+('LVG9405285', 'PIG09', '2', '1', '5', '1617660000', '5', 'Este tratamiento le fue muy bien al cliente, se necesita otra sesión.');
 
 -- --------------------------------------------------------
 
@@ -158,6 +184,9 @@ CREATE TABLE `ClienteTratamiento` (
 --
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
+('AVG21032610', 'ACN12', '10', 'ACN12', '18', '1617660000'),
+('BRL9307074', 'PIG09', '2', 'PIG09', '6', '1617660000'),
+('LVG9405285', 'PIG09', '2', 'PIG09', '5', '1617660000'),
 ('MTR2009246', 'DEP02', '', '', '-Antebrazo', '1616713200'),
 ('STR2103232', 'DEP02', '', '', 'Brazos', '1616626800'),
 ('STR2103232', 'DEP04', '', '', 'Cara', '1616626800');
@@ -307,6 +336,15 @@ CREATE TABLE `Ventas` (
   `centro` varchar(2) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `Ventas`
+--
+
+INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`) VALUES
+('AVG21032610ACN123', 'AVG21032610', 'ACN12', 3, '100', '1617660000', '3'),
+('BRL9307074PIG092', 'BRL9307074', 'PIG09', 3, '599.50', '1617660000', '3'),
+('LVG9405285PIG091', 'LVG9405285', 'PIG09', 1, '360', '1617660000', '1');
+
 -- --------------------------------------------------------
 
 --
@@ -355,6 +393,12 @@ INSERT INTO `ZonasCuerpo` (`id_zona`, `nombre_zona`) VALUES
 --
 ALTER TABLE `Cliente`
   ADD PRIMARY KEY (`id_cliente`);
+
+--
+-- Indexes for table `ClienteBitacora`
+--
+ALTER TABLE `ClienteBitacora`
+  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`centro`,`calificacion`,`timestamp`,`zona_cuerpo`);
 
 --
 -- Indexes for table `ClienteOpcional`

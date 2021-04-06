@@ -104,6 +104,24 @@
             $db->close();
             return $account->affectedRows();
         }
+        function insertarClienteTratamiento($id_cliente, $id_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona_cuerpo, $timestamp){
+            //Insertar a ClienteTratamiento
+            $db = new DB();
+            $sql_statement = "INSERT INTO `ClienteTratamiento`(`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES 
+                              ('$id_cliente', '$id_tratamiento', '$id_cosmetologa', '$nombre_tratamiento', '$zona_cuerpo', '$timestamp')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
+    
+        function insertarClienteBitacora($id_cliente, $id_tratamiento, $id_cosmetologa, $centro, $calificacion, $timestamp, $zona_cuerpo, $comentarios){
+            $db = new DB();
+            $sql_statement = "INSERT INTO `ClienteBitacora`(`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`) VALUES 
+                              ('$id_cliente', '$id_tratamiento', '$id_cosmetologa', '$centro', '$calificacion', '$timestamp', '$zona_cuerpo', '$comentarios')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
     }
 
     function verificarStatusClientes($limite){
@@ -123,4 +141,5 @@
           }
         }
     }
+
 ?>
