@@ -43,6 +43,27 @@
 //     }
 // }
 //------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
+
+
+$(document).ready(function () {
+    // $("#comenzarTratamiento").hide();
+    $("#tratamiento").change(function () {
+        var opt = $("#tratamiento").val();
+        if(opt == "1"){
+            $('#botonComenzar').html("<button type='submit' id='comenzarTratamientoDepilacion' name='comenzarTratamientoDepilacion' class='btn btn-success'>Comenzar Depilación</button>");
+        }if(opt == "2"){
+            $('#botonComenzar').html("<button type='submit' id='comenzarTratamientoCavitacion' name='comenzarTratamientoCavitacion' class='btn btn-success'>Comenzar Cavitación</button>");
+        }if(opt == "3"){
+            $('#botonComenzar').html("<button type='submit' id='comenzarTratamiento' name='comenzarTratamiento' class='btn btn-success'>Comenzar Tratamiento</button>");
+        }
+    });
+});
+
+
+
+
+//------------------------------------------------------------------------------------------
 $(document).ready(function(){
     // $('#tratamiento').val(1);
     recargarLista();

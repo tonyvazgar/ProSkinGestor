@@ -53,6 +53,21 @@
 
         }
 
+        function getDetallesUltimaDepilacion($id_cliente, $timestamp){
+            // SELECT * FROM ClienteTratamientoEspecial, ClienteBitacora WHERE ClienteTratamientoEspecial.id_cliente='LVG9405285' AND ClienteTratamientoEspecial.id_cliente = ClienteBitacora.id_cliente AND ClienteTratamientoEspecial.timestamp = ClienteBitacora.timestamp
+
+            $db = new DB();
+            $tratamientos = $db->query("SELECT * 
+                                        FROM ClienteTratamientoEspecial, ClienteBitacora, ZonasCuerpo 
+                                        WHERE ClienteTratamientoEspecial.id_cliente='$id_cliente' 
+                                        AND ClienteTratamientoEspecial.id_cliente = ClienteBitacora.id_cliente 
+                                        AND ClienteTratamientoEspecial.timestamp='$timestamp'
+                                        AND ClienteTratamientoEspecial.timestamp = ClienteBitacora.timestamp
+                                        AND ZonasCuerpo.id_zona=ClienteTratamientoEspecial.zona")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
         function getUltimaCavitacionWhereIdCliente($id_cliente){
             //SELECT * FROM `ClienteTratamientoEspecial` WHERE id_cliente='LVG9405285' AND nombre_tratamiento='Cavitacion' ORDER by timestamp DESC LIMIT 1
 

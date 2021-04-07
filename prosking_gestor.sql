@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2021 at 07:41 AM
+-- Generation Time: Apr 07, 2021 at 07:54 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -78,9 +78,12 @@ CREATE TABLE `ClienteBitacora` (
 --
 
 INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`) VALUES
-('AVG21032610', 'ACN12', '10', '3', '3', '1617660000', '18', 'No paraba de quejarse la señora'),
+('AVG21032610', 'DEP01', '10', '3', '5', '1617774457', '17', 'Este es un comentario muy perron'),
+('AVG21032610', 'DEP01', '8', '1', '5', '1617774586', '7', 'Ackubikibi'),
+('AVG21032610', 'DEP01', '9', '2', '5', '1617774764', '6', 'Doblar y colgar'),
 ('BRL9307074', 'PIG09', '2', '3', '5', '1617660000', '6', 'Le fue muy bien y se quejó un poco, pero si es pasable.'),
-('LVG9405285', 'PIG09', '2', '1', '5', '1617660000', '5', 'Este tratamiento le fue muy bien al cliente, se necesita otra sesión.');
+('LVG9405285', 'PIG09', '2', '1', '5', '1617660000', '5', 'Este tratamiento le fue muy bien al cliente, se necesita otra sesión.'),
+('LVG9405285', 'dssdds332', '10', '3', '5', '1617755867', '3', 'Hola es prueba para ver si funcionan las pruebas perruinas');
 
 -- --------------------------------------------------------
 
@@ -184,6 +187,7 @@ CREATE TABLE `ClienteTratamiento` (
 --
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
+('AVG21032610', 'ACN10', '10', 'ACN10', '13', '1617772199'),
 ('AVG21032610', 'ACN12', '10', 'ACN12', '18', '1617660000'),
 ('BRL9307074', 'PIG09', '2', 'PIG09', '6', '1617660000'),
 ('LVG9405285', 'PIG09', '2', 'PIG09', '5', '1617660000'),
@@ -213,7 +217,10 @@ CREATE TABLE `ClienteTratamientoEspecial` (
 --
 
 INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES
-('LVG9405285', 'dssdds332', '10', 'Depilacion', '3', 'Hola es prueba', '1610492400', 1);
+('AVG21032610', 'DEP01', '10', 'Depilacion', '17', 'Es muy dificil por el tipo de bello', '1617774457', 1),
+('AVG21032610', 'DEP01', '8', 'Depilacion', '7', 'Otro comentario de detalle de zona', '1617774586', 2),
+('AVG21032610', 'DEP01', '9', 'Depilacion', '6', 'Ultimo', '1617774764', 3),
+('LVG9405285', 'dssdds332', '10', 'Depilacion', '3', 'Auri no tiene agua', '1617755867', 1);
 
 -- --------------------------------------------------------
 
@@ -341,6 +348,8 @@ CREATE TABLE `Ventas` (
 --
 
 INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`) VALUES
+('AVG210326105', 'AVG21032610', '', 2, '589.99', '1617774764', '2'),
+('AVG21032610ACN104', 'AVG21032610', 'ACN10', 1, '50', '1617772199', '3'),
 ('AVG21032610ACN123', 'AVG21032610', 'ACN12', 3, '100', '1617660000', '3'),
 ('BRL9307074PIG092', 'BRL9307074', 'PIG09', 3, '599.50', '1617660000', '3'),
 ('LVG9405285PIG091', 'LVG9405285', 'PIG09', 1, '360', '1617660000', '1');

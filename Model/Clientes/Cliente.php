@@ -113,6 +113,25 @@
             $db->close();
             return $query->affectedRows();
         }
+
+
+        function insertarClienteTratamientoEspecial($id_cliente, $id_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $detalle_zona, $timestamp, $num_sesion){
+            //INSERT INTO `ClienteTratamientoEspecial`(`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES
+            $db = new DB();
+            $sql_statement = "INSERT INTO `ClienteTratamientoEspecial`(`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES 
+                              ('$id_cliente', '$id_tratamiento', '$id_cosmetologa', '$nombre_tratamiento', '$zona', '$detalle_zona', '$timestamp', '$num_sesion')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
+
+        function getNumeroSesionesDepilacion($id_cliente){
+            //SELECT * FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='AVG21032610'
+            $db = new DB();
+            $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='$id_cliente'")->fetchAll();
+            $db->close();
+            return $account;
+        }
     
         function insertarClienteBitacora($id_cliente, $id_tratamiento, $id_cosmetologa, $centro, $calificacion, $timestamp, $zona_cuerpo, $comentarios){
             $db = new DB();

@@ -136,7 +136,9 @@
                         <option value="1">Ya se firmó</option>
                     </select>
                 </div>
-                <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Comenzar tratamiento</button>
+                <div class="form-group" id='botonComenzar' name='botonComenzar'>
+                    <!-- <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Comenzar tratamiento</button> -->
+                </div>
                    <?php
                     }
                     ?>
