@@ -26,12 +26,13 @@
         $siguienteConsecutivo = strval(sizeof($ModelCliente->getAllUsuarios())+1);
         $id = "";
         $fechaParaId = "";
-        $fecha_creacion = strtotime(date('Y-m-d'));
+        $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $fecha_creacion  = strtotime($date->format('Y-m-d'));
         $ultima_visita = $fecha_creacion;
         $aviso_privacidad = "1";
         
         if($fecha == ""){
-            $fecha = strval(date('Y-m-d'));
+            $fecha = $fecha_creacion;
         }
         $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
         $arregloApellidos = explode(" ",$apellidos);
@@ -87,7 +88,8 @@
         $fecha       = mysqli_real_escape_string($con, $_POST['fecha']);
         $cp          = mysqli_real_escape_string($con, $_POST['cp']);
         $fecha_registro = mysqli_real_escape_string($con, $_POST['fecha_registro']);
-        $fecha_visita   = strtotime(date('Y-m-d'));
+        $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $fecha_visita  = strtotime($date->format('Y-m-d'));
 
 
         if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $tipo, $email, $centro, strtotime($fecha_registro),$fecha_visita, $fecha, $cp]) == 1){
@@ -113,7 +115,8 @@
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
         $comentarios        = mysqli_real_escape_string($con, $_POST['comentarios']);
         $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
-        $timeStamp          = strtotime(date("Y-m-d H:i:s"));
+        $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
         // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 
@@ -131,6 +134,8 @@
         $ModelCliente->insertarClienteBitacora($id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios);
 
         //Redirect a Tratamientos
+
+        $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
 
 
         echo "<br>";
@@ -153,7 +158,8 @@
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
         $comentarios        = mysqli_real_escape_string($con, $_POST['comentarios']);
         $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
-        $timeStamp          = strtotime(date("Y-m-d H:i:s"));
+        $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
         // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 
@@ -175,6 +181,7 @@
         $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
 
 
+        $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
 
 
         // //Redirect a Tratamientos
@@ -185,5 +192,52 @@
         print_r("Vamos a pasar ".$id_cliente." --> ".$id_cosmetologa." --> ".$detalle_zona." --> ".$metodo_pago." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." -->". $zona." --> ".$calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
     }
 
+    if(isset($_POST['comenzarTratamientoCavitacion'])){
+
+        //Al parecer solo seria para cuando es tratamiento normal
+        $id_cliente         = mysqli_real_escape_string($con, $_POST['idCliente']);
+        $id_cosmetologa     = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+        $tratamiento        = mysqli_real_escape_string($con, $_POST['tratamiento']);  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
+        $detalle_zona       = mysqli_real_escape_string($con, $_POST['detalleZona'] ?? '0');
+        $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
+        $nombre_tratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
+        $precio_tratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
+        $zona               = mysqli_real_escape_string($con, $_POST['zona']);
+        $calificacion       = mysqli_real_escape_string($con, $_POST['calificacion']);
+        $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
+        $comentarios        = mysqli_real_escape_string($con, $_POST['comentarios']);
+        $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
+
+        $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
+
+        // // //Insertar a ClienteTratamiento
+        $num_sesion = $ModelCliente->getNumeroSesionesCavitacion($id_cliente)[0]['sesiones'] + 1;
+        $ModelCliente->insertarClienteTratamientoEspecial($id_cliente, 'CAV01', $id_cosmetologa, 'Cavitacion', $zona, $detalle_zona, $timeStamp, $num_sesion);
+
+
+        // // //Insertar a ClienteBitacora
+        $ModelCliente->insertarClienteBitacora($id_cliente, 'CAV01', $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios);
+
+
+
+        //Insertar a venta
+        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
+        $suma_ventas += 1;
+        $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
+
+        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+
+
+        $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
+
+
+        // // //Redirect a Tratamientos
+
+
+        // // echo "<br>";
+
+        print_r("Dando la siguiente info en Cavitacion ".$id_cliente." --> ".$id_cosmetologa." --> ".$detalle_zona." --> ".$metodo_pago." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." -->". $zona." --> ".$calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
+    }
 
 ?>

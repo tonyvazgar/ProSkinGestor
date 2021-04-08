@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2021 at 07:54 AM
+-- Generation Time: Apr 08, 2021 at 05:47 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -54,6 +54,8 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1616540400', 1),
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1616540400', 1),
 ('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1604790000', 1),
+('PPE00123112', 'Paola', 'Prueba Ejemplo', '2978904', '1', 'pao.prueba.ejemplo@example.com', '2', '1617919200', '1617919200', 1),
+('PRG00010111', 'Paola', 'Roman Gomez', '2222860394', '0', 'pao.rogo@gmail.com', '2', '1617746400', '1617827934', 1),
 ('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1616454000', 1);
 
 -- --------------------------------------------------------
@@ -82,8 +84,19 @@ INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`,
 ('AVG21032610', 'DEP01', '8', '1', '5', '1617774586', '7', 'Ackubikibi'),
 ('AVG21032610', 'DEP01', '9', '2', '5', '1617774764', '6', 'Doblar y colgar'),
 ('BRL9307074', 'PIG09', '2', '3', '5', '1617660000', '6', 'Le fue muy bien y se quejó un poco, pero si es pasable.'),
+('LVG9405285', 'CAV01', '9', '2', '2', '1617820416', '19', 'Para cavitar los hombros'),
+('LVG9405285', 'CAV01', '9', '2', '5', '1617822502', '13', 'Hola amigos vamos a ver si funciona'),
+('LVG9405285', 'CAV01', '9', '2', '5', '1617824695', '4', 'Detalle de zona depilacion'),
+('LVG9405285', 'CAV01', '9', '2', '5', '1617826335', '12', 'Detalle10:11Comentario'),
+('LVG9405285', 'DEP01', '9', '2', '4', '1617820343', '18', 'Este es otro con la hora de 8:32'),
+('LVG9405285', 'DEP01', '9', '2', '4', '1617824672', '17', 'Comentrario depilacion'),
+('LVG9405285', 'DEP01', '9', '2', '5', '1617820046', '3', 'Antes de bajar a cenar'),
+('LVG9405285', 'DEP01', '9', '2', '5', '1617820289', '17', 'QWERTYUIOP Abdomen'),
 ('LVG9405285', 'PIG09', '2', '1', '5', '1617660000', '5', 'Este tratamiento le fue muy bien al cliente, se necesita otra sesión.'),
-('LVG9405285', 'dssdds332', '10', '3', '5', '1617755867', '3', 'Hola es prueba para ver si funcionan las pruebas perruinas');
+('LVG9405285', 'dssdds332', '10', '3', '5', '1617755867', '3', 'Hola es prueba para ver si funcionan las pruebas perruinas'),
+('PRG00010111', 'DEP01', '9', '2', '3', '1617827934', '8', 'Estamos en 2021'),
+('PRG00010111', 'DEP01', '9', '2', '5', '1586464653', '7', 'Estamos en el 2020'),
+('PRG00010111', 'PIG06', '9', '2', '5', '1618000543', '5', 'Prueba para ver si se actualiza la ultima visita');
 
 -- --------------------------------------------------------
 
@@ -127,8 +140,10 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('MTR2009246', '2020-09-24', '72830'),
 ('OEP9902289', '1999-02-28', ''),
 ('PEP7907128', '1979-07-12', '72000'),
+('PPE00123112', '2000-12-31', ''),
 ('PPP90020215', '1990-02-02', '72000'),
 ('PPP9607101', '1996-07-10', '12345'),
+('PRG00010111', '2000-01-01', '72850'),
 ('STR2103232', '2021-03-23', '');
 
 -- --------------------------------------------------------
@@ -163,8 +178,10 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('MTR2009246', 'activo'),
 ('OEP9902289', 'activo'),
 ('PEP7907128', 'inactivo'),
+('PPE00123112', 'activo'),
 ('PPP90020215', 'activo'),
 ('PPP9607101', 'activo'),
+('PRG00010111', 'activo'),
 ('STR2103232', 'activo');
 
 -- --------------------------------------------------------
@@ -192,6 +209,7 @@ INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetolog
 ('BRL9307074', 'PIG09', '2', 'PIG09', '6', '1617660000'),
 ('LVG9405285', 'PIG09', '2', 'PIG09', '5', '1617660000'),
 ('MTR2009246', 'DEP02', '', '', '-Antebrazo', '1616713200'),
+('PRG00010111', 'PIG06', '9', 'PIG06', '5', '1618000543'),
 ('STR2103232', 'DEP02', '', '', 'Brazos', '1616626800'),
 ('STR2103232', 'DEP04', '', '', 'Cara', '1616626800');
 
@@ -220,7 +238,12 @@ INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_co
 ('AVG21032610', 'DEP01', '10', 'Depilacion', '17', 'Es muy dificil por el tipo de bello', '1617774457', 1),
 ('AVG21032610', 'DEP01', '8', 'Depilacion', '7', 'Otro comentario de detalle de zona', '1617774586', 2),
 ('AVG21032610', 'DEP01', '9', 'Depilacion', '6', 'Ultimo', '1617774764', 3),
-('LVG9405285', 'dssdds332', '10', 'Depilacion', '3', 'Auri no tiene agua', '1617755867', 1);
+('LVG9405285', 'CAV01', '9', 'Cavitacion', '12', 'Detalle10:11', '1617826335', 2),
+('LVG9405285', 'CAV01', '9', 'Cavitacion', '19', 'Detalle de zona cavitacion', '1617820416', 1),
+('LVG9405285', 'DEP01', '9', 'Depilacion', '17', 'QWERTYUIOP', '1617820289', 1),
+('LVG9405285', 'DEP01', '9', 'Depilacion', '18', 'Detalle de zona depilacion', '1617820343', 2),
+('PRG00010111', 'DEP01', '9', 'Depilacion', '7', 'Detalle de zona depilacion', '1586464653', 1),
+('PRG00010111', 'DEP01', '9', 'Depilacion', '8', 'Detalle de zona depilacion2021', '1617827934', 2);
 
 -- --------------------------------------------------------
 
@@ -352,7 +375,15 @@ INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`,
 ('AVG21032610ACN104', 'AVG21032610', 'ACN10', 1, '50', '1617772199', '3'),
 ('AVG21032610ACN123', 'AVG21032610', 'ACN12', 3, '100', '1617660000', '3'),
 ('BRL9307074PIG092', 'BRL9307074', 'PIG09', 3, '599.50', '1617660000', '3'),
-('LVG9405285PIG091', 'LVG9405285', 'PIG09', 1, '360', '1617660000', '1');
+('LVG940528510', 'LVG9405285', '', 2, '999', '1617826335', '2'),
+('LVG94052856', 'LVG9405285', '', 1, '299', '1617824672', '2'),
+('LVG94052857', 'LVG9405285', '', 2, '1000', '1617820046', '2'),
+('LVG94052858', 'LVG9405285', '', 2, '100', '1617820289', '2'),
+('LVG94052859', 'LVG9405285', '', 2, '200', '1617820343', '2'),
+('LVG9405285PIG091', 'LVG9405285', 'PIG09', 1, '360', '1617660000', '1'),
+('PRG0001011112', 'PRG00010111', '', 2, '777', '1586464653', '2'),
+('PRG0001011113', 'PRG00010111', '', 1, '888', '1617827934', '2'),
+('PRG00010111PIG0611', 'PRG00010111', 'PIG06', 2, '700', '1618000543', '2');
 
 -- --------------------------------------------------------
 

@@ -104,6 +104,19 @@
             $db->close();
             return $account->affectedRows();
         }
+
+        function updateUltimaVisita($id_cliente, $timestamp){
+            //UPDATE `Cliente` SET `ultima_visita_cliente` = '1617746401' WHERE `Cliente`.`id_cliente` = 'PRG00010111';
+            $db = new DB();
+            $sql_statement = "UPDATE `Cliente` 
+                              SET `ultima_visita_cliente` = '$timestamp' 
+                              WHERE `Cliente`.`id_cliente` = '$id_cliente'";
+
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
         function insertarClienteTratamiento($id_cliente, $id_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona_cuerpo, $timestamp){
             //Insertar a ClienteTratamiento
             $db = new DB();
@@ -129,6 +142,14 @@
             //SELECT * FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='AVG21032610'
             $db = new DB();
             $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='$id_cliente'")->fetchAll();
+            $db->close();
+            return $account;
+        }
+        
+        function getNumeroSesionesCavitacion($id_cliente){
+            //SELECT * FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='AVG21032610'
+            $db = new DB();
+            $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Cavitacion' AND id_cliente='$id_cliente'")->fetchAll();
             $db->close();
             return $account;
         }
