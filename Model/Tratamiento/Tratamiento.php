@@ -2,7 +2,7 @@
     class Tratamiento {
         function getAllTratamientos(){
             $db = new DB();
-            $tratamientos = $db->query('SELECT * FROM Tratamiento')->fetchAll();
+            $tratamientos = $db->query('SELECT * FROM Tratamiento ORDER BY Tratamiento.nombre_tratamiento ASC')->fetchAll();
             $db->close();
             return $tratamientos;
         }
@@ -96,6 +96,18 @@
             //SELECT COUNT(*) FROM Ventas
             $db = new DB();
             $tratamientos = $db->query('SELECT COUNT(*) AS numVentas FROM Ventas')->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
+        function getAllTratamientosAplicadosDeCosmetologa($email){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.*, Ventas.id_venta
+                                        FROM `ClienteBitacora`, usertable, Tratamiento, Ventas
+                                        WHERE ClienteBitacora.id_cosmetologa=usertable.id 
+                                        AND ClienteBitacora.timestamp=Ventas.timestamp
+                                        AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento 
+                                        AND usertable.email='$email'")->fetchAll();
             $db->close();
             return $tratamientos;
         }

@@ -2,15 +2,18 @@
   require_once "../../Controller/Clientes/ClienteController.php"; 
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
+  require_once "../../Model/Tratamiento/Tratamiento.php";
 
   $session = new ControllerSesion();
   $ModeloUsuario = new Usuario();
+  $ModelTratamiento = new Tratamiento();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
-  
+
+  $mis_tratamientos = $ModelTratamiento->getAllTratamientosAplicadosDeCosmetologa($email);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +66,16 @@
                     </dl>
                 </dd>
             </dl>
+            <h1>Los tratamientos que he aplicado</h1>
+            <ul class="list-group">
+            <?php
+                foreach($mis_tratamientos as $tratamiento){
+                echo "<li class='list-group-item'>
+                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$tratamiento['id_venta']."'>".$tratamiento['nombre_tratamiento']."</a>".date("Y-m-d", $tratamiento['timestamp'])."
+                        </li>";
+                }
+            ?>
+            </ul>
             <img src="../img/bg.webp" class="img-fluid" alt="Responsive image">
         </div>
     </main>

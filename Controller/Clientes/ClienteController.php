@@ -137,10 +137,11 @@
 
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
 
+        //href='detalleVenta.php?idVenta="
 
-        echo "<br>";
+        header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
 
-        print_r("Vamos a pasar ".$id_cliente." --> ".$tratamiento." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." --> ".$zona." --> ".$metodo_pago." -->". $calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
+        // print_r("Vamos a pasar ".$id_cliente." --> ".$tratamiento." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." --> ".$zona." --> ".$metodo_pago." -->". $calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
     }
 
     if(isset($_POST['comenzarTratamientoDepilacion'])){
@@ -186,10 +187,9 @@
 
         // //Redirect a Tratamientos
 
+        header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
 
-        // echo "<br>";
-
-        print_r("Vamos a pasar ".$id_cliente." --> ".$id_cosmetologa." --> ".$detalle_zona." --> ".$metodo_pago." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." -->". $zona." --> ".$calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
+        // print_r("Vamos a pasar ".$id_cliente." --> ".$id_cosmetologa." --> ".$detalle_zona." --> ".$metodo_pago." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." -->". $zona." --> ".$calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
     }
 
     if(isset($_POST['comenzarTratamientoCavitacion'])){
@@ -234,10 +234,9 @@
 
         // // //Redirect a Tratamientos
 
+        header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
 
-        // // echo "<br>";
-
-        print_r("Dando la siguiente info en Cavitacion ".$id_cliente." --> ".$id_cosmetologa." --> ".$detalle_zona." --> ".$metodo_pago." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." -->". $zona." --> ".$calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
+        // print_r("Dando la siguiente info en Cavitacion ".$id_cliente." --> ".$id_cosmetologa." --> ".$detalle_zona." --> ".$metodo_pago." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." -->". $zona." --> ".$calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
     }
 
 ?>
