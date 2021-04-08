@@ -1,19 +1,14 @@
-// $(document).ready(function () {
-//     $("#comenzarTratamiento").hide();
-//     $("#tratamiento").change(function () {
-//         if (verificarSiHayFirma()) {
-//             $(".pregunta").show();
-//             $("#comenzarTratamiento").hide();
-//         } else {
-//             $(".pregunta").hide();
-//             $("#aviso").attr("disabled", "disabled");
-//             $("#comenzarTratamiento").show();
-//         }
-//     });
-//     $("#aviso").change(function () {
-//         buttonState();
-//     });
-// });
+$(document).ready(function () {
+    $("#botonComenzar").hide();
+    $("#aviso").change(function () {
+        var opt = $("#aviso").val();
+        if(opt == "1"){
+            $("#botonComenzar").show();
+        }else{
+            $("#botonComenzar").hide();
+        }
+    });
+});
 
 // function verificarSiHayFirma() {
 //     var opt = $('select[name="tratamiento"] :selected').attr('class');
@@ -25,23 +20,24 @@
 // }
 
 // function validarFirma() {
-//     var opt = $("#aviso").val();
-//     if(opt == "1"){
-//         console.log("ya se firmo")
-//         return true;
-//     }else{
-//         console.log("no se ha firmo")
-//         return false;
-//     }
+    // var opt = $("#aviso").val();
+    // if(opt == "1"){
+    //     console.log("ya se firmo")
+    //     return true;
+    // }else{
+    //     console.log("no se ha firmo")
+    //     return false;
+    // }
 // }
 
-// function buttonState() {
-//     if (verificarSiHayFirma() && validarFirma()) {
-//         $("#comenzarTratamiento").show();
-//     } else {
-//         $("#comenzarTratamiento").hide();
-//     }
-// }
+function buttonState() {
+    var opt = $("#aviso").val();
+    if(opt == "1"){
+        $("#botonComenzar").show();
+    }else{
+        $("#botonComenzar").hide();
+    }
+}
 //------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------
 
