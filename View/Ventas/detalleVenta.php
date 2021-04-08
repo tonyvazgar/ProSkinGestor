@@ -10,6 +10,7 @@
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
+  $id_venta = $_GET['idVenta'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
   
@@ -17,14 +18,14 @@
   $numeroSucursal = $ModeloUsuario->getNumeroSucursalUsuario($email)['id_sucursal'];
   $id_cosmetologa = $ModeloUsuario->getIdCosmetologa($email)['id'];
 
-  $ventas = $ModeloVenta->getAllVentas($numeroSucursal);
+  $detalles = $ModeloVenta->getTodosLosDetallesVenta($id_venta)[0];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProSkin - Ventas</title>
+    <title>ProSkin - Detalle Venta</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
     integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
     crossorigin="anonymous"></script>
@@ -44,17 +45,24 @@
     ?>
     <main role="main" class="container">
       <div class="container">
-        <h1>Listado de ventas</h1>
-        <ul class="list-group">
-          <?php
-            foreach($ventas as $v){
-              print_r($v);
-              echo "<li class='list-group-item'>
-                    <a href='detalleVenta.php?idVenta=".$v['id_venta']."'>".$v['nombre_tratamiento']."</a>".date("Y-m-d", $v['timestamp'])."
-                    </li>";
-            }
-          ?>
-        </ul>
+        <h1>Detalle de la venta</h1>
+
+        <?php
+            echo "<label>".$detalles['id_cliente']."</label><br>";
+            echo "<label>".$detalles['nombre_cliente']."</label><br>";
+            echo "<label>".$detalles['apellidos_cliente']."</label><br>";
+            echo "<label>".$detalles['id_venta']."</label><br>";
+            echo "<label>".$detalles['metodo_pago']."</label><br>";
+            echo "<label>".$detalles['monto']."</label><br>";
+            echo "<label>".$detalles['timestamp']."</label><br>";
+            echo "<label>".$detalles['id_cosmetologa']."</label><br>";
+            echo "<label>".$detalles['calificacion']."</label><br>";
+            echo "<label>".$detalles['zona_cuerpo']."</label><br>";
+            echo "<label>".$detalles['comentarios']."</label><br>";
+            echo "<label>".$detalles['nombre_tratamiento']."</label><br>";
+            print_r($detalles);
+        ?>
+        
         <!-- <img src="../img/img2.jpg" class="img-fluid" alt="Responsive image"> -->
       </div>
     </main>
