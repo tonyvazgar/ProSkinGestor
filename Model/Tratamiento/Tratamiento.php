@@ -16,6 +16,16 @@
 
         }
 
+        function getNombreZonaCuerpoWhereID($id_zona){
+            $db = new DB();
+            //SELECT * FROM `ZonasCuerpo` WHERE id_zona='17'
+            $tratamientos = $db->query("SELECT * 
+                                        FROM `ZonasCuerpo` 
+                                        WHERE id_zona='$id_zona'")->fetchArray();
+            $db->close();
+            return $tratamientos;
+        }
+
         function getAllTratamientosEspecialesWhereCliente($id){
             $db = new DB();
             $tratamientos = $db->query("SELECT * FROM `ClienteTratamientoEspecial` WHERE id_cliente='$id'")->fetchAll();
@@ -58,12 +68,11 @@
 
             $db = new DB();
             $tratamientos = $db->query("SELECT * 
-                                        FROM ClienteTratamientoEspecial, ClienteBitacora, ZonasCuerpo 
+                                        FROM ClienteTratamientoEspecial, ClienteBitacora 
                                         WHERE ClienteTratamientoEspecial.id_cliente='$id_cliente' 
                                         AND ClienteTratamientoEspecial.id_cliente = ClienteBitacora.id_cliente 
                                         AND ClienteTratamientoEspecial.timestamp='$timestamp'
-                                        AND ClienteTratamientoEspecial.timestamp = ClienteBitacora.timestamp
-                                        AND ZonasCuerpo.id_zona=ClienteTratamientoEspecial.zona")->fetchAll();
+                                        AND ClienteTratamientoEspecial.timestamp = ClienteBitacora.timestamp")->fetchAll();
             $db->close();
             return $tratamientos;
         }

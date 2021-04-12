@@ -80,18 +80,6 @@
                     <label for="exampleInputEmail1">Sesiones</label>
                     <input type="text" class="form-control" id="sesiones" name="sesiones" required>
                 </div> -->
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Zona del cuerpo</label>
-                    <select name="zona" id="zona" class="form-control">
-                        <option>*** SELECCIONA ***</option>
-                        <?php
-                            foreach($zonasCuerpo as $zona){
-                                echo "<option value='".$zona['id_zona']."'>".$zona['nombre_zona']."</option>";
-                            }
-                        ?>
-                    </select>
-                </div>
-
 
                 <div class="form-group">
                     <table class="table table-borderless">

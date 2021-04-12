@@ -18,6 +18,17 @@
             $db->close();
             return $account;
         }
+        public function getNombreSucursalWhereIDSucursal($id_sucursal){
+            $db = new Db();
+            //SELECT Sucursal.nombre_sucursal FROM Sucursal, usertable WHERE Sucursal.id_sucursal = usertable.id_sucursal_usuario AND usertable.id=9
+
+            $sql_statement = "SELECT nombre_sucursal 
+                              FROM `Sucursal` 
+                              WHERE id_sucursal='$id_sucursal'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account;
+        }
 
         public function getIdCosmetologa($email){
             $db = new Db();

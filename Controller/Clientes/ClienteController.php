@@ -154,7 +154,7 @@
         $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
         $nombre_tratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
         $precio_tratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
-        $zona               = mysqli_real_escape_string($con, $_POST['zona']);
+        $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
         $calificacion       = mysqli_real_escape_string($con, $_POST['calificacion']);
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
         $comentarios        = mysqli_real_escape_string($con, $_POST['comentarios']);
@@ -179,7 +179,7 @@
         $suma_ventas += 1;
         $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
 
-        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, 'DEP01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
 
 
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
@@ -202,7 +202,7 @@
         $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
         $nombre_tratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
         $precio_tratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
-        $zona               = mysqli_real_escape_string($con, $_POST['zona']);
+        $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
         $calificacion       = mysqli_real_escape_string($con, $_POST['calificacion']);
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
         $comentarios        = mysqli_real_escape_string($con, $_POST['comentarios']);
@@ -226,7 +226,7 @@
         $suma_ventas += 1;
         $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
 
-        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
 
 
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2021 at 01:18 AM
+-- Generation Time: Apr 12, 2021 at 06:44 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -49,14 +49,14 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('AVG9602283', 'Auri', 'Vazquez Garcias', '2869374', '1', 'auri@ejemplo.com', '2', '1612134000', '1617898016', 1),
 ('BRL9307074', 'Brenda', 'Ramirez Lopez', '3333333', '1', 'brenda@hmail.com', '1', '1610492400', '1617898180', 1),
 ('CPM8004047', 'Coral', 'Perlita Mejia', '3332323222', '0', 'pers@sks.com', '2', '1610146800', '1610146800', 1),
-('FFL9612252', 'Fernanda', 'Fernandez Lopez', '2020202020', '0', 'ferlofer@gmail.com', '3', '1616540400', '1616540400', 1),
-('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1609369200', 1),
-('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1617830083', 1),
+('FFL9612252', 'Fernanda', 'Fernandez Lopez', '2020202020', '0', 'ferlofer@gmail.com', '3', '1616540400', '1618176928', 1),
+('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1618177403', 1),
+('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1618174470', 1),
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1616540400', 1),
-('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1604790000', 1),
-('PPE00123112', 'Paola', 'Prueba Ejemplo', '2978904', '1', 'pao.prueba.ejemplo@example.com', '2', '1617919200', '1617898316', 1),
+('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1617903262', 1),
+('PPE00123112', 'Paola', 'Prueba Ejemplo', '2978904', '1', 'pao.prueba.ejemplo@example.com', '2', '1617919200', '1618167420', 1),
 ('PRG00010111', 'Paola', 'Roman Gomez', '2222860394', '0', 'pao.rogo@gmail.com', '2', '1617746400', '1617827934', 1),
-('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1616454000', 1);
+('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1618174226', 1);
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ CREATE TABLE `ClienteBitacora` (
   `centro` varchar(1) COLLATE utf8_bin NOT NULL,
   `calificacion` varchar(1) COLLATE utf8_bin NOT NULL,
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
-  `zona_cuerpo` varchar(2) COLLATE utf8_bin NOT NULL,
+  `zona_cuerpo` varchar(255) COLLATE utf8_bin NOT NULL,
   `comentarios` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -80,29 +80,12 @@ CREATE TABLE `ClienteBitacora` (
 --
 
 INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`) VALUES
-('AVG21032610', 'DEP01', '10', '3', '5', '1617774457', '17', 'Este es un comentario muy perron'),
-('AVG21032610', 'DEP01', '8', '1', '5', '1617774586', '7', 'Ackubikibi'),
-('AVG21032610', 'DEP01', '8', '1', '5', '1617831449', '8', 'Para ver las ventas'),
-('AVG21032610', 'DEP01', '9', '2', '5', '1617774764', '6', 'Doblar y colgar'),
-('AVG9602283', 'CCV44', '9', '2', '5', '1617898016', '17', 'Fue un masaje muy relajante'),
-('BRL9307074', 'CCV44', '8', '1', '5', '1617898180', '18', 'Ccomentario para ver si funciona todo bien'),
-('BRL9307074', 'PIG09', '2', '3', '5', '1617660000', '6', 'Le fue muy bien y se quejó un poco, pero si es pasable.'),
-('BRL9307074', 'PIG09', '9', '2', '5', '1617873522', '5', 'Esta sesión fue muy buena y relajante'),
-('LVG9405285', 'CAV01', '9', '2', '2', '1617820416', '19', 'Para cavitar los hombros'),
-('LVG9405285', 'CAV01', '9', '2', '5', '1617822502', '13', 'Hola amigos vamos a ver si funciona'),
-('LVG9405285', 'CAV01', '9', '2', '5', '1617824695', '4', 'Detalle de zona depilacion'),
-('LVG9405285', 'CAV01', '9', '2', '5', '1617826335', '12', 'Detalle10:11Comentario'),
-('LVG9405285', 'DEP01', '9', '2', '4', '1617820343', '18', 'Este es otro con la hora de 8:32'),
-('LVG9405285', 'DEP01', '9', '2', '4', '1617824672', '17', 'Comentrario depilacion'),
-('LVG9405285', 'DEP01', '9', '2', '5', '1617820046', '3', 'Antes de bajar a cenar'),
-('LVG9405285', 'DEP01', '9', '2', '5', '1617820289', '17', 'QWERTYUIOP Abdomen'),
-('LVG9405285', 'PIG09', '2', '1', '5', '1617660000', '5', 'Este tratamiento le fue muy bien al cliente, se necesita otra sesión.'),
-('LVG9405285', 'dssdds332', '10', '3', '5', '1617755867', '3', 'Hola es prueba para ver si funcionan las pruebas perruinas'),
-('MTR2009246', 'RJV05', '8', '1', '5', '1617830083', '1', 'Estamos probando desde el iPhone '),
-('PPE00123112', 'DEP01', '8', '1', '4', '1617898316', '14', 'Sesión 1, Prueba para ver los comentarios de diferentes centros'),
-('PRG00010111', 'DEP01', '9', '2', '3', '1617827934', '8', 'Estamos en 2021'),
-('PRG00010111', 'DEP01', '9', '2', '5', '1586464653', '7', 'Estamos en el 2020'),
-('PRG00010111', 'PIG06', '9', '2', '5', '1618000543', '5', 'Prueba para ver si se actualiza la ultima visita');
+('FFL9612252', 'CAV01', '8', '1', '5', '1618176928', '17', 'Es muy buen trabajo de abdomen'),
+('FFL9612252', 'CAV01', '9', '2', '3', '1618176376', '17,3,9,6,11', 'Vamos a ver abd, antebra,pierna,pubis, zona alba'),
+('LVG9405285', 'FAC23', '8', '1', '5', '1618177403', '', 'Ya no tiene puntos negros el vato'),
+('MTR2009246', 'MAS32', '10', '3', '5', '1618174470', '', 'If you hear me let me know'),
+('STR2103232', 'DEP01', '10', '3', '5', '1618174226', '23', 'Todo el cuerpo, segunda sesion de sonata a la paz'),
+('STR2103232', 'DEP01', '8', '1', '5', '1618172632', '17,12,13,22,6', 'Son 5 tratamientos, Abd,entrece,frente,oreja,pubis.');
 
 -- --------------------------------------------------------
 
@@ -176,14 +159,14 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('BRL9307074', 'activo'),
 ('BRO94091315', 'activo'),
 ('BRO94091316', 'activo'),
-('CPM8004047', 'activo'),
+('CPM8004047', 'inactivo'),
 ('FFL9612252', 'activo'),
 ('JVG21031912', 'activo'),
-('LVG9405285', 'inactivo'),
+('LVG9405285', 'activo'),
 ('MRC21031911', 'activo'),
 ('MTR2009246', 'activo'),
 ('OEP9902289', 'activo'),
-('PEP7907128', 'inactivo'),
+('PEP7907128', 'activo'),
 ('PPE00123112', 'activo'),
 ('PPP90020215', 'activo'),
 ('PPP9607101', 'activo'),
@@ -210,18 +193,8 @@ CREATE TABLE `ClienteTratamiento` (
 --
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
-('AVG21032610', 'ACN10', '10', 'ACN10', '13', '1617772199'),
-('AVG21032610', 'ACN12', '10', 'ACN12', '18', '1617660000'),
-('AVG9602283', 'CCV44', '9', 'CCV44', '17', '1617898016'),
-('BRL9307074', 'CCV44', '8', 'CCV44', '18', '1617898180'),
-('BRL9307074', 'PIG09', '2', 'PIG09', '6', '1617660000'),
-('BRL9307074', 'PIG09', '9', 'PIG09', '5', '1617873522'),
-('LVG9405285', 'PIG09', '2', 'PIG09', '5', '1617660000'),
-('MTR2009246', 'DEP02', '', '', '-Antebrazo', '1616713200'),
-('MTR2009246', 'RJV05', '8', 'RJV05', '1', '1617830083'),
-('PRG00010111', 'PIG06', '9', 'PIG06', '5', '1618000543'),
-('STR2103232', 'DEP02', '', '', 'Brazos', '1616626800'),
-('STR2103232', 'DEP04', '', '', 'Cara', '1616626800');
+('LVG9405285', 'FAC23', '8', 'FAC23', '', '1618177403'),
+('MTR2009246', 'MAS32', '10', 'MAS32', '', '1618174470');
 
 -- --------------------------------------------------------
 
@@ -234,7 +207,7 @@ CREATE TABLE `ClienteTratamientoEspecial` (
   `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
   `nombre_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
-  `zona` varchar(2) COLLATE utf8_bin NOT NULL,
+  `zona` varchar(255) COLLATE utf8_bin NOT NULL,
   `detalle_zona` varchar(255) COLLATE utf8_bin NOT NULL,
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
   `num_sesion` int(4) NOT NULL
@@ -245,17 +218,10 @@ CREATE TABLE `ClienteTratamientoEspecial` (
 --
 
 INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES
-('AVG21032610', 'DEP01', '10', 'Depilacion', '17', 'Es muy dificil por el tipo de bello', '1617774457', 1),
-('AVG21032610', 'DEP01', '8', 'Depilacion', '7', 'Otro comentario de detalle de zona', '1617774586', 2),
-('AVG21032610', 'DEP01', '8', 'Depilacion', '8', 'Es muy dificil por el tipo de bello', '1617831449', 4),
-('AVG21032610', 'DEP01', '9', 'Depilacion', '6', 'Ultimo', '1617774764', 3),
-('LVG9405285', 'CAV01', '9', 'Cavitacion', '12', 'Detalle10:11', '1617826335', 2),
-('LVG9405285', 'CAV01', '9', 'Cavitacion', '19', 'Detalle de zona cavitacion', '1617820416', 1),
-('LVG9405285', 'DEP01', '9', 'Depilacion', '17', 'QWERTYUIOP', '1617820289', 1),
-('LVG9405285', 'DEP01', '9', 'Depilacion', '18', 'Detalle de zona depilacion', '1617820343', 2),
-('PPE00123112', 'DEP01', '8', 'Depilacion', '14', 'Detalle de zona depilación', '1617898316', 1),
-('PRG00010111', 'DEP01', '9', 'Depilacion', '7', 'Detalle de zona depilacion', '1586464653', 1),
-('PRG00010111', 'DEP01', '9', 'Depilacion', '8', 'Detalle de zona depilacion2021', '1617827934', 2);
+('FFL9612252', 'CAV01', '8', 'Cavitacion', '17', '40', '1618176928', 2),
+('FFL9612252', 'CAV01', '9', 'Cavitacion', '17,3,9,6,11', '1,9', '1618176376', 1),
+('STR2103232', 'DEP01', '10', 'Depilacion', '23', 'Todo', '1618174226', 2),
+('STR2103232', 'DEP01', '8', 'Depilacion', '17,12,13,22,6', '19,20', '1618172632', 1);
 
 -- --------------------------------------------------------
 
@@ -449,25 +415,12 @@ CREATE TABLE `Ventas` (
 --
 
 INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`) VALUES
-('AVG2103261015', 'AVG21032610', 'DEP01', 1, '555', '1617831449', '1'),
-('AVG210326105', 'AVG21032610', '', 2, '589.99', '1617774764', '2'),
-('AVG21032610ACN104', 'AVG21032610', 'ACN10', 1, '50', '1617772199', '3'),
-('AVG21032610ACN123', 'AVG21032610', 'ACN12', 3, '100', '1617660000', '3'),
-('AVG9602283CCV4417', 'AVG9602283', 'CCV44', 2, '1380', '1617898016', '2'),
-('BRL9307074CCV4418', 'BRL9307074', 'CCV44', 2, '1380', '1617898180', '1'),
-('BRL9307074PIG0916', 'BRL9307074', 'PIG09', 1, '450', '1617873522', '2'),
-('BRL9307074PIG092', 'BRL9307074', 'PIG09', 3, '599.50', '1617660000', '3'),
-('LVG940528510', 'LVG9405285', '', 2, '999', '1617826335', '2'),
-('LVG94052856', 'LVG9405285', '', 1, '299', '1617824672', '2'),
-('LVG94052857', 'LVG9405285', '', 2, '1000', '1617820046', '2'),
-('LVG94052858', 'LVG9405285', '', 2, '100', '1617820289', '2'),
-('LVG94052859', 'LVG9405285', '', 2, '200', '1617820343', '2'),
-('LVG9405285PIG091', 'LVG9405285', 'PIG09', 1, '360', '1617660000', '1'),
-('MTR2009246RJV0514', 'MTR2009246', 'RJV05', 1, '1050', '1617830083', '1'),
-('PPE0012311219', 'PPE00123112', '', 2, '700', '1617898316', '1'),
-('PRG0001011112', 'PRG00010111', '', 2, '777', '1586464653', '2'),
-('PRG0001011113', 'PRG00010111', '', 1, '888', '1617827934', '2'),
-('PRG00010111PIG0611', 'PRG00010111', 'PIG06', 2, '700', '1618000543', '2');
+('FFL96122524', 'FFL9612252', 'CAV01', 1, '599', '1618176376', '2'),
+('FFL96122525', 'FFL9612252', 'CAV01', 2, '3940', '1618176928', '1'),
+('LVG9405285FAC236', 'LVG9405285', 'FAC23', 2, '900', '1618177403', '1'),
+('MTR2009246MAS323', 'MTR2009246', 'MAS32', 2, '350', '1618174470', '3'),
+('STR21032321', 'STR2103232', 'DEP01', 1, '499', '1618172632', '1'),
+('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3');
 
 -- --------------------------------------------------------
 
@@ -506,7 +459,8 @@ INSERT INTO `ZonasCuerpo` (`id_zona`, `nombre_zona`) VALUES
 (19, 'Hombro'),
 (20, 'Nuca'),
 (21, 'Lumbares'),
-(22, 'Orejas');
+(22, 'Orejas'),
+(23, '**TODO EL CUERPO**');
 
 --
 -- Indexes for dumped tables
@@ -522,7 +476,7 @@ ALTER TABLE `Cliente`
 -- Indexes for table `ClienteBitacora`
 --
 ALTER TABLE `ClienteBitacora`
-  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`centro`,`calificacion`,`timestamp`,`zona_cuerpo`);
+  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`centro`,`calificacion`,`timestamp`) USING BTREE;
 
 --
 -- Indexes for table `ClienteOpcional`
@@ -546,7 +500,7 @@ ALTER TABLE `ClienteTratamiento`
 -- Indexes for table `ClienteTratamientoEspecial`
 --
 ALTER TABLE `ClienteTratamientoEspecial`
-  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`zona`,`timestamp`,`num_sesion`);
+  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`timestamp`,`num_sesion`) USING BTREE;
 
 --
 -- Indexes for table `Sucursal`
