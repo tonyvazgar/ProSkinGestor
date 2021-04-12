@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2021 at 06:44 AM
+-- Generation Time: Apr 12, 2021 at 07:05 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -222,6 +222,21 @@ INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_co
 ('FFL9612252', 'CAV01', '9', 'Cavitacion', '17,3,9,6,11', '1,9', '1618176376', 1),
 ('STR2103232', 'DEP01', '10', 'Depilacion', '23', 'Todo', '1618174226', 2),
 ('STR2103232', 'DEP01', '8', 'Depilacion', '17,12,13,22,6', '19,20', '1618172632', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Productos`
+--
+
+CREATE TABLE `Productos` (
+  `id_producto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `nombre_producto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `descripcion_producto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `costo_unitario_producto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `stock_disponible_producto` int(5) NOT NULL,
+  `centro_producto` varchar(3) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -501,6 +516,12 @@ ALTER TABLE `ClienteTratamiento`
 --
 ALTER TABLE `ClienteTratamientoEspecial`
   ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`timestamp`,`num_sesion`) USING BTREE;
+
+--
+-- Indexes for table `Productos`
+--
+ALTER TABLE `Productos`
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indexes for table `Sucursal`

@@ -22,7 +22,7 @@ function getNavbar($name, $sucursal){
                             <a class='nav-link' href='../../View/Ventas/ventas.php'>Venta</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='../../View/Inventario/invetario.php'>Inventario/Productos</a>
+                            <a class='nav-link' href='../../View/Inventario/'>Inventario/Productos</a>
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='../../View/Reportes/reportes.php'>Reportes</a>
