@@ -16,7 +16,27 @@
         public function getAllProductos(){
             $db = new Db();
             $sql_statement = "SELECT *
-                              FROM Productos";
+                              FROM Productos 
+                              ORDER BY nombre_producto ASC";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function getProductoWereID($id_producto){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Productos 
+                              WHERE id_producto='$id_producto'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+        public function getProductoWereNombre($id_producto){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Productos 
+                              WHERE BINARY nombre_producto LIKE '%$id_producto%'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

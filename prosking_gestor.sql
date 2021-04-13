@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2021 at 07:05 AM
+-- Generation Time: Apr 13, 2021 at 06:17 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -237,6 +237,17 @@ CREATE TABLE `Productos` (
   `stock_disponible_producto` int(5) NOT NULL,
   `centro_producto` varchar(3) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `Productos`
+--
+
+INSERT INTO `Productos` (`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) VALUES
+('CRE1', 'Crema Antiarrugas', 'Crema para rejuvenecer 100 años', '10800', 50, '3'),
+('BLO2', 'Bloqueador solar', 'Un bloqueador que permite tener 100 de FPS', '480', 100, '3'),
+('SHA3', 'Shampoo', 'Shampoo para rizos', '139', 80, '3'),
+('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3'),
+('ACE5', 'Acetona', 'Acetona para remover impurezas de la piel', '30', 80, '3');
 
 -- --------------------------------------------------------
 

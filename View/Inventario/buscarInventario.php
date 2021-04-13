@@ -1,18 +1,18 @@
 <?php 
   require_once "../../Controller/Clientes/ClienteController.php"; 
+  require_once "../../Controller/Inventario/InventarioController.php"; 
+  require_once "../../Model/Clientes/Cliente.php";
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
-  require_once "../../Model/Inventario/Producto.php";
 
+  $ModelCliente = new Cliente();
   $session = new ControllerSesion();
   $ModeloUsuario = new Usuario();
-  $ModelProducto = new Producto();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
-  $productos = $ModelProducto->getAllProductos();
   
 ?>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProSkin - Inventario</title>
+    <title>ProSkin - Busqueda Producto Inventario</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
     integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
     crossorigin="anonymous"></script>
@@ -39,22 +39,16 @@
         getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
-      <div class="container">
-        <h1>Productos en el invetario</h1>
-        <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
-        <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario</a>
-        <?php
-          // echo "<pre>";
-          // print_r($productos);
-          // echo "</pre>";
-          foreach($productos as $d){
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-success rounded-pill'>Activo</span>
-                    </li>";
-          }
-        ?>
-        <img src="../img/img2.jpg" class="img-fluid" alt="Responsive image">
-      </div>
+        <div class="container">
+            <h1>Busqueda de un producto en el inventario</h1>
+            <form action="buscarInventario.php" method="POST" autocomplete="">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del producto a buscar" required>
+                </div>
+                <button type="submit" id="buscarProducto" name="buscarProducto" class="btn btn-success">Buscar</button>
+            </form>
+        </div>
     </main>
     <?php
       getFooter();
