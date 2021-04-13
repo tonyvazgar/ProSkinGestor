@@ -1,5 +1,6 @@
 <?php 
   require_once "../../Controller/Clientes/ClienteController.php"; 
+  require_once "../../Controller/Inventario/InventarioController.php"; 
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
 
@@ -10,7 +11,7 @@
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
-  
+  $numeroSucursal = $ModeloUsuario->getNumeroSucursalUsuario($email);  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,20 +42,21 @@
                 <div class="form-group">
                     <label>Nombre *</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del producto" required>
+                    <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden="">
                 </div>
                 <div class="form-group">
                     <label>Descripción *</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingresar la descripción del producto" required>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingresar la descripción del producto" required>
                 </div>
                 <div class="form-group">
                     <label>Precio *</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Precio unitario del producto" required>
+                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio unitario del producto" required>
                 </div>
                 <div class="form-group">
                     <label>Unidades disponibles *</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Cantidad de unidades disponibles" required>
+                    <input type="number" class="form-control" id="unidades" name="unidades" placeholder="Cantidad de unidades disponibles" required>
                 </div>
-                <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
+                <button type="submit" id="altaInventario" name="altaInventario" class="btn btn-success">Dar de alta</button>
             </form>
         </div>
     </main>

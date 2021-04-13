@@ -2,14 +2,17 @@
   require_once "../../Controller/Clientes/ClienteController.php"; 
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
+  require_once "../../Model/Inventario/Producto.php";
 
   $session = new ControllerSesion();
   $ModeloUsuario = new Usuario();
+  $ModelProducto = new Producto();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  $productos = $ModelProducto->getAllProductos();
   
 ?>
 <!DOCTYPE html>
@@ -40,6 +43,16 @@
         <h1>Productos en el invetario</h1>
         <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
         <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario</a>
+        <?php
+          // echo "<pre>";
+          // print_r($productos);
+          // echo "</pre>";
+          foreach($productos as $d){
+            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <a href='editarCliente.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-success rounded-pill'>Activo</span>
+                    </li>";
+          }
+        ?>
         <img src="../img/img2.jpg" class="img-fluid" alt="Responsive image">
       </div>
     </main>
