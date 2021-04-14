@@ -154,10 +154,10 @@
             return $account;
         }
     
-        function insertarClienteBitacora($id_cliente, $id_tratamiento, $id_cosmetologa, $centro, $calificacion, $timestamp, $zona_cuerpo, $comentarios){
+        function insertarClienteBitacora($id_cliente, $id_tratamiento, $id_cosmetologa, $centro, $calificacion, $timestamp, $zona_cuerpo, $comentarios, $id_venta){
             $db = new DB();
-            $sql_statement = "INSERT INTO `ClienteBitacora`(`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`) VALUES 
-                              ('$id_cliente', '$id_tratamiento', '$id_cosmetologa', '$centro', '$calificacion', '$timestamp', '$zona_cuerpo', '$comentarios')";
+            $sql_statement = "INSERT INTO `ClienteBitacora`(`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`, `id_venta`) VALUES 
+                              ('$id_cliente', '$id_tratamiento', '$id_cosmetologa', '$centro', '$calificacion', '$timestamp', '$zona_cuerpo', '$comentarios', '$id_venta')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();

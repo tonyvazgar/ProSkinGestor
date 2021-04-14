@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 13, 2021 at 06:17 AM
+-- Generation Time: Apr 14, 2021 at 07:29 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -53,7 +53,7 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1618177403', 1),
 ('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1618174470', 1),
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1616540400', 1),
-('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1617903262', 1),
+('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1618343275', 1),
 ('PPE00123112', 'Paola', 'Prueba Ejemplo', '2978904', '1', 'pao.prueba.ejemplo@example.com', '2', '1617919200', '1618167420', 1),
 ('PRG00010111', 'Paola', 'Roman Gomez', '2222860394', '0', 'pao.rogo@gmail.com', '2', '1617746400', '1617827934', 1),
 ('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1618174226', 1);
@@ -72,20 +72,22 @@ CREATE TABLE `ClienteBitacora` (
   `calificacion` varchar(1) COLLATE utf8_bin NOT NULL,
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
   `zona_cuerpo` varchar(255) COLLATE utf8_bin NOT NULL,
-  `comentarios` varchar(255) COLLATE utf8_bin NOT NULL
+  `comentarios` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_venta` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `ClienteBitacora`
 --
 
-INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`) VALUES
-('FFL9612252', 'CAV01', '8', '1', '5', '1618176928', '17', 'Es muy buen trabajo de abdomen'),
-('FFL9612252', 'CAV01', '9', '2', '3', '1618176376', '17,3,9,6,11', 'Vamos a ver abd, antebra,pierna,pubis, zona alba'),
-('LVG9405285', 'FAC23', '8', '1', '5', '1618177403', '', 'Ya no tiene puntos negros el vato'),
-('MTR2009246', 'MAS32', '10', '3', '5', '1618174470', '', 'If you hear me let me know'),
-('STR2103232', 'DEP01', '10', '3', '5', '1618174226', '23', 'Todo el cuerpo, segunda sesion de sonata a la paz'),
-('STR2103232', 'DEP01', '8', '1', '5', '1618172632', '17,12,13,22,6', 'Son 5 tratamientos, Abd,entrece,frente,oreja,pubis.');
+INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`, `id_venta`) VALUES
+('FFL9612252', 'CAV01', '8', '1', '5', '1618176928', '17', 'Es muy buen trabajo de abdomen', ''),
+('FFL9612252', 'CAV01', '9', '2', '3', '1618176376', '17,3,9,6,11', 'Vamos a ver abd, antebra,pierna,pubis, zona alba', ''),
+('LVG9405285', 'FAC23', '8', '1', '5', '1618177403', '', 'Ya no tiene puntos negros el vato', ''),
+('MTR2009246', 'MAS32', '10', '3', '5', '1618174470', '', 'If you hear me let me know', ''),
+('PEP7907128', 'FAC25', '8', '1', '5', '1618343275', '', 'Muy bonito cutis', 'PEP7907128FAC257'),
+('STR2103232', 'DEP01', '10', '3', '5', '1618174226', '23', 'Todo el cuerpo, segunda sesion de sonata a la paz', ''),
+('STR2103232', 'DEP01', '8', '1', '5', '1618172632', '17,12,13,22,6', 'Son 5 tratamientos, Abd,entrece,frente,oreja,pubis.', '');
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,8 @@ CREATE TABLE `ClienteTratamiento` (
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
 ('LVG9405285', 'FAC23', '8', 'FAC23', '', '1618177403'),
-('MTR2009246', 'MAS32', '10', 'MAS32', '', '1618174470');
+('MTR2009246', 'MAS32', '10', 'MAS32', '', '1618174470'),
+('PEP7907128', 'FAC25', '8', 'FAC25', '', '1618343275');
 
 -- --------------------------------------------------------
 
@@ -445,6 +448,7 @@ INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`,
 ('FFL96122525', 'FFL9612252', 'CAV01', 2, '3940', '1618176928', '1'),
 ('LVG9405285FAC236', 'LVG9405285', 'FAC23', 2, '900', '1618177403', '1'),
 ('MTR2009246MAS323', 'MTR2009246', 'MAS32', 2, '350', '1618174470', '3'),
+('PEP7907128FAC257', 'PEP7907128', 'FAC25', 2, '1100', '1618343275', '1'),
 ('STR21032321', 'STR2103232', 'DEP01', 1, '499', '1618172632', '1'),
 ('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3');
 

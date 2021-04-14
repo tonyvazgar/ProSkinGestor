@@ -29,7 +29,8 @@
                             Descripción: ".$producto['descripcion_producto']."<br> 
                             Costo unitario: $".$producto['costo_unitario_producto']."<br> 
                             Piezas disponibles: ".$producto['stock_disponible_producto']."<br>
-                            <div><a class='btn btn-warning' href='detallesProducto.php?id=".$producto['id_producto']."' role='button'>Más detalles</a></div>
+                            <div><a class='btn btn-warning' href='detallesProducto.php?id=".$producto['id_producto']."' role='button'>Más detalles</a><br>
+                            <a class='btn btn-success' href='ventaProducto.php?id=".$producto['id_producto']."' role='button'>Vender</a></div>
                           </li>";
             }
             echo $front;
@@ -38,5 +39,25 @@
                     <h1 >No hay resultados para $nombre</h1>
                    </li>";
         }
+    }
+
+    if(isset($_POST['venderProducto'])){
+        $id_producto     = mysqli_real_escape_string($con, $_POST['id']);
+        $precio_unitario = mysqli_real_escape_string($con, $_POST['precioUnitario']);
+        $cantidad        = mysqli_real_escape_string($con, $_POST['cantidad']);
+        $stock           = mysqli_real_escape_string($con, $_POST['stock']);
+        $total           = mysqli_real_escape_string($con, $_POST['total']);
+
+        $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
+        $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+
+        print_r("Vamos a vender: ["
+                .$id_producto." --> "
+                .$precio_unitario." --> "
+                .$cantidad." --> "
+                .$stock." --> "
+                .$total." --> "
+                .$num_centro." --> "
+                .$id_cosmetologa);
     }
 ?>

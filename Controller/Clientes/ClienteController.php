@@ -131,7 +131,7 @@
         $ModelCliente->insertarClienteTratamiento($id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp);
 
         //Insertar a ClienteBitacora
-        $ModelCliente->insertarClienteBitacora($id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios);
+        $ModelCliente->insertarClienteBitacora($id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta);
 
         //Redirect a Tratamientos
 
