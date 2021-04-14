@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label>Precio *</label>
-                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio unitario del producto" required>
+                    <input type="number" class="form-control" id="precio" name="precio" step=".01" placeholder="Precio unitario del producto" required>
                 </div>
                 <div class="form-group">
                     <label>Unidades disponibles *</label>

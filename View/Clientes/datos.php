@@ -51,7 +51,7 @@
                         <option value='3'>Otro</option>
                     </select>
                     <label>Precio: </label>
-                    <input type='text' class='form-control' id='precioTratamiento' name='precioTratamiento'>
+                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento' step='.01' required>
                   </div>";
     }else{  //Si NO exiten tratamientos previos, alertar que no hay.
       $cadena = "<label>No hay tratamientos regitrados de depilación anteriormente</label><br>";
@@ -64,7 +64,7 @@
                         <option value='3'>Otro</option>
                     </select>
                     <label>Precio: </label>
-                    <input type='text' class='form-control' id='precioTratamiento' name='precioTratamiento'>
+                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento' step='.01' required>
                   </div>";
     }
     echo $cadena;
@@ -129,7 +129,7 @@
                         <option value='3'>Otro</option>
                     </select>
                     <label>Precio: </label>
-                    <input type='text' class='form-control' id='precioTratamiento' name='precioTratamiento' required>
+                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento' step='.01' required>
                   </div>";
 
     }else{  //Si NO exiten tratamientos previos, alertar que no hay.
@@ -143,7 +143,7 @@
                         <option value='3'>Otro</option>
                     </select>
                     <label>Precio: </label>
-                    <input type='text' class='form-control' id='precioTratamiento' name='precioTratamiento'>
+                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento' step='.01' required>
                   </div>";
     }
     echo $cadena;
@@ -192,7 +192,7 @@
     $cadena.="</select>
                 </td>
                 <td>
-                    <input type='text' class='form-control' id='precioTratamiento' name='precioTratamiento' required>
+                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento' step='.01' required>
                 </td>
                 <td>
                     <select name='metodoPago' id='metodoPago' class='form-control'>

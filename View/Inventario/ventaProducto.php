@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Unidades disponibles</label>
-                        <input type="text" class="form-control" id="stock" name="stock" value=<?php echo $infoProducto['costo_unitario_producto'];?> readonly>
+                        <input type="text" class="form-control" id="stock" name="stock" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
                     </div>
                     <div class="form-group">
                         <table class="table table-borderless">

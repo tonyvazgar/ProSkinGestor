@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2021 at 07:29 AM
+-- Generation Time: Apr 14, 2021 at 06:29 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -246,11 +246,12 @@ CREATE TABLE `Productos` (
 --
 
 INSERT INTO `Productos` (`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) VALUES
-('CRE1', 'Crema Antiarrugas', 'Crema para rejuvenecer 100 años', '10800', 50, '3'),
+('ACE5', 'Acetona', 'Acetona para remover impurezas de la piel', '30', 80, '3'),
 ('BLO2', 'Bloqueador solar', 'Un bloqueador que permite tener 100 de FPS', '480', 100, '3'),
+('CRE1', 'Crema Antiarrugas', 'Crema para rejuvenecer 100 años', '10800', 50, '3'),
+('GOM6', 'Gomitas de queratina', 'Gomitas para tener unas uñas más fuertes', '25.53', 100, '1'),
 ('SHA3', 'Shampoo', 'Shampoo para rizos', '139', 80, '3'),
-('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3'),
-('ACE5', 'Acetona', 'Acetona para remover impurezas de la piel', '30', 80, '3');
+('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3');
 
 -- --------------------------------------------------------
 
@@ -436,21 +437,26 @@ CREATE TABLE `Ventas` (
   `metodo_pago` int(5) NOT NULL,
   `monto` varchar(255) COLLATE utf8_bin NOT NULL,
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
-  `centro` varchar(2) COLLATE utf8_bin NOT NULL
+  `centro` varchar(2) COLLATE utf8_bin NOT NULL,
+  `costo_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_productos` varchar(255) COLLATE utf8_bin NOT NULL,
+  `costo_producto` varchar(10) COLLATE utf8_bin NOT NULL,
+  `cantidad_producto` varchar(5) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(3) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `Ventas`
 --
 
-INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`) VALUES
-('FFL96122524', 'FFL9612252', 'CAV01', 1, '599', '1618176376', '2'),
-('FFL96122525', 'FFL9612252', 'CAV01', 2, '3940', '1618176928', '1'),
-('LVG9405285FAC236', 'LVG9405285', 'FAC23', 2, '900', '1618177403', '1'),
-('MTR2009246MAS323', 'MTR2009246', 'MAS32', 2, '350', '1618174470', '3'),
-('PEP7907128FAC257', 'PEP7907128', 'FAC25', 2, '1100', '1618343275', '1'),
-('STR21032321', 'STR2103232', 'DEP01', 1, '499', '1618172632', '1'),
-('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3');
+INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) VALUES
+('FFL96122524', 'FFL9612252', 'CAV01', 1, '599', '1618176376', '2', '', '', '', '', ''),
+('FFL96122525', 'FFL9612252', 'CAV01', 2, '3940', '1618176928', '1', '', '', '', '', ''),
+('LVG9405285FAC236', 'LVG9405285', 'FAC23', 2, '900', '1618177403', '1', '', '', '', '', ''),
+('MTR2009246MAS323', 'MTR2009246', 'MAS32', 2, '350', '1618174470', '3', '', '', '', '', ''),
+('PEP7907128FAC257', 'PEP7907128', 'FAC25', 2, '1100', '1618343275', '1', '', '', '', '', ''),
+('STR21032321', 'STR2103232', 'DEP01', 1, '499', '1618172632', '1', '', '', '', '', ''),
+('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -536,6 +542,7 @@ ALTER TABLE `ClienteTratamientoEspecial`
 -- Indexes for table `Productos`
 --
 ALTER TABLE `Productos`
+  ADD PRIMARY KEY (`id_producto`),
   ADD KEY `id_producto` (`id_producto`);
 
 --

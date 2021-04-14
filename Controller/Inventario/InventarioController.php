@@ -44,12 +44,15 @@
     if(isset($_POST['venderProducto'])){
         $id_producto     = mysqli_real_escape_string($con, $_POST['id']);
         $precio_unitario = mysqli_real_escape_string($con, $_POST['precioUnitario']);
-        $cantidad        = mysqli_real_escape_string($con, $_POST['cantidad']);
-        $stock           = mysqli_real_escape_string($con, $_POST['stock']);
-        $total           = mysqli_real_escape_string($con, $_POST['total']);
+        $cantidad        = mysqli_real_escape_string($con, $_POST['cantidad']); //la introduce el usuario
+        $stock           = mysqli_real_escape_string($con, $_POST['stock']);    //Disponibles, le serán restados $cantidad al final
+        $total           = mysqli_real_escape_string($con, $_POST['total']);    //$cantidad * $precio_unitario
 
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+
+
+        $nuevo_stock = $stock - $cantidad;
 
         print_r("Vamos a vender: ["
                 .$id_producto." --> "
@@ -58,6 +61,7 @@
                 .$stock." --> "
                 .$total." --> "
                 .$num_centro." --> "
-                .$id_cosmetologa);
+                .$id_cosmetologa." Nuevo estock es --> "
+                .$nuevo_stock);
     }
 ?>
