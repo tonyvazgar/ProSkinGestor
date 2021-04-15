@@ -125,7 +125,8 @@
         $suma_ventas += 1;
         $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
 
-        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        //$ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        $ModelTratamiento->insertarVentaTratamiento($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa);
 
         //Insertar a ClienteTratamiento
         $ModelCliente->insertarClienteTratamiento($id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp);
@@ -152,7 +153,7 @@
         $tratamiento        = mysqli_real_escape_string($con, $_POST['tratamiento']);  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
         $detalle_zona       = mysqli_real_escape_string($con, $_POST['detalleZona'] ?? '0');
         $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $nombre_tratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
+        $nombre_tratamiento = mysqli_real_escape_string($con, 'DEP01');      //Solo si es $tratamiento es tipo 3
         $precio_tratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
         $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
         $calificacion       = mysqli_real_escape_string($con, $_POST['calificacion']);
@@ -162,6 +163,10 @@
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
+        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
+        $suma_ventas += 1;
+        $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
+
         // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 
         // //Insertar a ClienteTratamiento
@@ -170,16 +175,14 @@
 
 
         // //Insertar a ClienteBitacora
-        $ModelCliente->insertarClienteBitacora($id_cliente, 'DEP01', $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios);
+        $ModelCliente->insertarClienteBitacora($id_cliente, 'DEP01', $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta);
 
 
 
         //Insertar a venta
-        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
-        $suma_ventas += 1;
-        $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
 
-        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, 'DEP01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        //$ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        $ModelTratamiento->insertarVentaTratamiento($id_venta, $id_cliente, 'DEP01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa);
 
 
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
@@ -200,7 +203,7 @@
         $tratamiento        = mysqli_real_escape_string($con, $_POST['tratamiento']);  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
         $detalle_zona       = mysqli_real_escape_string($con, $_POST['detalleZona'] ?? '0');
         $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $nombre_tratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
+        $nombre_tratamiento = mysqli_real_escape_string($con, 'CAV01');      //Solo si es $tratamiento es tipo 3
         $precio_tratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
         $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
         $calificacion       = mysqli_real_escape_string($con, $_POST['calificacion']);
@@ -211,22 +214,24 @@
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
+        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
+        $suma_ventas += 1;
+        $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
+
         // // //Insertar a ClienteTratamiento
         $num_sesion = $ModelCliente->getNumeroSesionesCavitacion($id_cliente)[0]['sesiones'] + 1;
         $ModelCliente->insertarClienteTratamientoEspecial($id_cliente, 'CAV01', $id_cosmetologa, 'Cavitacion', $zona, $detalle_zona, $timeStamp, $num_sesion);
 
 
         // // //Insertar a ClienteBitacora
-        $ModelCliente->insertarClienteBitacora($id_cliente, 'CAV01', $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios);
+        $ModelCliente->insertarClienteBitacora($id_cliente, 'CAV01', $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta);
 
 
 
         //Insertar a venta
-        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
-        $suma_ventas += 1;
-        $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
 
-        $ModelTratamiento ->insertarVenta($id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        //$ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        $ModelTratamiento->insertarVentaTratamiento($id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa);
 
 
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
