@@ -13,6 +13,39 @@
                 return false;
             }
         }
+        //Insertar a venta
+        function insertarVentaProducto($id_venta, $id_cliente, $id_tratamiento, $metodo_pago, $monto, $timestamp, $centro, $costo_tratamiento, $id_productos, $costo_producto, $cantidad_producto, $id_cosmetologa){
+            //INSERT INTO `Ventas`(`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) VALUES
+            $db = new DB();
+            $sql_statement = "INSERT INTO `Ventas`(`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) 
+                              VALUES
+                              ('$id_venta', '$id_cliente', '$id_tratamiento', $metodo_pago, '$monto', '$timestamp', '$centro', '$costo_tratamiento', '$id_productos', '$costo_producto', '$cantidad_producto', '$id_cosmetologa')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
+
+
+        function getSumVentas(){
+            //SELECT COUNT(*) FROM Ventas
+            $db = new DB();
+            $tratamientos = $db->query('SELECT COUNT(*) AS numVentas FROM Ventas')->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
+        function updateStockProducto($id_producto, $nuevo_stock){
+            //UPDATE `Productos` SET `stock_disponible_producto` = '70' WHERE `Productos`.`id_producto` = 'SHA3';
+            $db = new DB();
+            $sql_statement = "UPDATE `Productos` 
+                              SET `stock_disponible_producto` = '$nuevo_stock' 
+                              WHERE `Productos`.`id_producto` = '$id_producto';";
+
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
         public function getAllProductos(){
             $db = new Db();
             $sql_statement = "SELECT *

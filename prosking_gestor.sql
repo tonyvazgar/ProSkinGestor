@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2021 at 06:29 PM
+-- Generation Time: Apr 15, 2021 at 04:07 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -246,11 +246,11 @@ CREATE TABLE `Productos` (
 --
 
 INSERT INTO `Productos` (`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) VALUES
-('ACE5', 'Acetona', 'Acetona para remover impurezas de la piel', '30', 80, '3'),
+('ACE5', 'Acetona', 'Acetona para remover impurezas de la piel', '30', 0, '3'),
 ('BLO2', 'Bloqueador solar', 'Un bloqueador que permite tener 100 de FPS', '480', 100, '3'),
 ('CRE1', 'Crema Antiarrugas', 'Crema para rejuvenecer 100 años', '10800', 50, '3'),
-('GOM6', 'Gomitas de queratina', 'Gomitas para tener unas uñas más fuertes', '25.53', 100, '1'),
-('SHA3', 'Shampoo', 'Shampoo para rizos', '139', 80, '3'),
+('GOM6', 'Gomitas de queratina', 'Gomitas para tener unas uñas más fuertes', '25.53', 98, '1'),
+('SHA3', 'Shampoo', 'Shampoo para rizos', '139', 0, '3'),
 ('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3');
 
 -- --------------------------------------------------------
@@ -450,11 +450,16 @@ CREATE TABLE `Ventas` (
 --
 
 INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) VALUES
+('ACE51810', '', '', 3, '2370.00', '1618426778', '1', '', 'ACE5', '30', '79', '8'),
+('ACE51811', '', '', 2, '30.00', '1618426813', '1', '', 'ACE5', '30', '1', '8'),
 ('FFL96122524', 'FFL9612252', 'CAV01', 1, '599', '1618176376', '2', '', '', '', '', ''),
 ('FFL96122525', 'FFL9612252', 'CAV01', 2, '3940', '1618176928', '1', '', '', '', '', ''),
+('GOM61812', '', '', 1, '51.06', '1618426921', '1', '', 'GOM6', '25.53', '2', '8'),
 ('LVG9405285FAC236', 'LVG9405285', 'FAC23', 2, '900', '1618177403', '1', '', '', '', '', ''),
 ('MTR2009246MAS323', 'MTR2009246', 'MAS32', 2, '350', '1618174470', '3', '', '', '', '', ''),
 ('PEP7907128FAC257', 'PEP7907128', 'FAC25', 2, '1100', '1618343275', '1', '', '', '', '', ''),
+('SHA3188', '', '', 2, '1390.00', '1618426301', '1', '', 'SHA3', '139', '10', '8'),
+('SHA3189', '', '', 2, '9730.00', '1618426536', '1', '', 'SHA3', '139', '70', '8'),
 ('STR21032321', 'STR2103232', 'DEP01', 1, '499', '1618172632', '1', '', '', '', '', ''),
 ('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3', '', '', '', '', '');
 

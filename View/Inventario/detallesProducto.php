@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Unidades disponibles</label>
-                        <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['costo_unitario_producto'];?> readonly>
+                        <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
                     </div>
                     
                     <!-- <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success">Editar</button> -->

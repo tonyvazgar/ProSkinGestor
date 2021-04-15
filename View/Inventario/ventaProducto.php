@@ -85,8 +85,25 @@
                         </tbody></table>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Precio de venta</label>
-                        <input type="text" class="form-control" id="total" name="total" readonly>
+
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label for="exampleInputEmail1">Precio de venta</label>
+                                        <input type="text" class="form-control" id="total" name="total" readonly>
+                                    </td>
+                                    <td>
+                                        <label>Método de pago: </label>
+                                        <select name='metodoPago' id='metodoPago' class='form-control'>
+                                            <option value='1'>Efectivo</option>
+                                            <option value='2'>Tarjeta</option>
+                                            <option value='3'>Otro</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     
                     <button type="submit" id="venderProducto" name="venderProducto" class="btn btn-success">Vender producto</button>

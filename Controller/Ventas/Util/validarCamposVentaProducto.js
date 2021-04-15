@@ -9,7 +9,7 @@ $(document).ready(function () {
         var total               = parseFloat(precioUnitario * cantidad);
         total                   = isNaN(total) ? 0 : total.toFixed(2);
 
-        if(cantidad <= unidadesDisponibles){
+        if(cantidad <= unidadesDisponibles && cantidad > 0){
             $("#cantidad").css("border", "2px solid green");
             $("#venderProducto").show();
         }else{

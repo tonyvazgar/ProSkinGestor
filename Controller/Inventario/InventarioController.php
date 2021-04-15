@@ -47,21 +47,30 @@
         $cantidad        = mysqli_real_escape_string($con, $_POST['cantidad']); //la introduce el usuario
         $stock           = mysqli_real_escape_string($con, $_POST['stock']);    //Disponibles, le serán restados $cantidad al final
         $total           = mysqli_real_escape_string($con, $_POST['total']);    //$cantidad * $precio_unitario
+        $metodo_pago     = mysqli_real_escape_string($con, $_POST['metodoPago']);
 
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+        $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
 
         $nuevo_stock = $stock - $cantidad;
 
-        print_r("Vamos a vender: ["
-                .$id_producto." --> "
-                .$precio_unitario." --> "
-                .$cantidad." --> "
-                .$stock." --> "
-                .$total." --> "
-                .$num_centro." --> "
-                .$id_cosmetologa." Nuevo estock es --> "
-                .$nuevo_stock);
+
+        $suma_ventas = $ModelProducto->getSumVentas()[0]['numVentas'];
+        $suma_ventas += 1;
+        $id_venta = $id_producto.$num_centro.$id_cosmetologa.$suma_ventas;
+
+       
+        
+        //Actualizar stock de producto
+        $ModelProducto->updateStockProducto($id_producto, $nuevo_stock);
+
+
+        //Insertar venta
+        $ModelProducto->insertarVentaProducto($id_venta, '', '', $metodo_pago, $total, $timeStamp, $num_centro, '', $id_producto, $precio_unitario, $cantidad, $id_cosmetologa);
+
+        header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
     }
 ?>

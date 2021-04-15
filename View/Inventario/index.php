@@ -48,9 +48,15 @@
           // print_r($productos);
           // echo "</pre>";
           foreach($productos as $d){
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-success rounded-pill'>Activo</span>
-                    </li>";
+            if($d['stock_disponible_producto'] == 0){
+              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                      <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
+                      </li>";
+            }else{
+              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                      <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-success rounded-pill'>Stock</span>
+                      </li>";
+            }
           }
         ?>
         <img src="../img/img2.jpg" class="img-fluid" alt="Responsive image">
