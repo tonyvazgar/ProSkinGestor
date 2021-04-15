@@ -58,7 +58,7 @@
           }
         ?>
         </ul>
-        <img src="../img/bg.webp" class="img-fluid" alt="Responsive image">
+        <!-- <img src="../img/bg.webp" class="img-fluid" alt="Responsive image"> -->
       </div>
       
       <div class="container">

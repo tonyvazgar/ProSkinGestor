@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2021 at 07:15 AM
+-- Generation Time: Apr 15, 2021 at 07:45 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -173,6 +173,7 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('CPM8004047', 'inactivo'),
 ('FFL9612252', 'activo'),
 ('JVG21031912', 'activo'),
+('LPG96100913', 'activo'),
 ('LVG9405285', 'activo'),
 ('MRC21031911', 'activo'),
 ('MTR2009246', 'activo'),
@@ -268,6 +269,7 @@ INSERT INTO `Productos` (`id_producto`, `nombre_producto`, `descripcion_producto
 ('BLO2', 'Bloqueador solar', 'Un bloqueador que permite tener 100 de FPS', '480', 100, '3'),
 ('BLO7', 'Bloqueador Vichy', 'Bloqueador que hace que no mueras incinerado ', '1599', 33, '1'),
 ('CRE1', 'Crema Antiarrugas', 'Crema para rejuvenecer 100 años', '10800', 50, '3'),
+('GEL8', 'Gel Para Uñas', 'Gelish', '30', 400, '1'),
 ('GOM6', 'Gomitas de queratina', 'Gomitas para tener unas uñas más fuertes', '25.53', 98, '1'),
 ('SHA3', 'Shampoo', 'Shampoo para rizos', '139', 0, '3'),
 ('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3');

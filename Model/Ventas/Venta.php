@@ -5,9 +5,8 @@
             //SELECT * FROM `Ventas` WHERE centro='2'
 
             $sql_statement = "SELECT * 
-                              FROM `Ventas`, Tratamiento
-                              WHERE centro='$id_centro'
-                              AND Ventas.id_tratamiento=Tratamiento.id_tratamiento";
+                              FROM `Ventas`
+                              WHERE centro='$id_centro'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

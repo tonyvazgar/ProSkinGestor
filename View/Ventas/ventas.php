@@ -48,10 +48,19 @@
         <ul class="list-group">
           <?php
             foreach($ventas as $v){
-              print_r($v);
-              echo "<li class='list-group-item'>
-                    <a href='detalleVenta.php?idVenta=".$v['id_venta']."'>".$v['nombre_tratamiento']."</a>".date("Y-m-d", $v['timestamp'])."
-                    </li>";
+              if($v['id_cliente'] == ''){
+                $detallesVentaProducto = $ModeloVenta->getTodosLosDetallesVentaProducto($v['id_venta']);
+                // print_r($detallesVentaProducto);
+                echo "<li class='list-group-item'>
+                      <a href='detalleVenta.php?idVenta=".$v['id_venta']."'>".$v['id_venta']."</a><br>".date("Y-m-d", $v['timestamp'])."
+                      <br>$".number_format($v['monto'], 2)."</li>";
+              }else{
+                $detallesVentaTratamiento = $ModeloVenta->getTodosLosDetallesVentaTratamiento($v['id_venta']);
+                // print_r($detallesVentaTratamiento);
+                echo "<li class='list-group-item'>
+                      <a href='detalleVenta.php?idVenta=".$v['id_venta']."'>".$v['id_venta']."</a><br>".date("Y-m-d", $v['timestamp'])."
+                      <br>$".number_format($v['monto'], 2)."</li>";
+              }
             }
           ?>
         </ul>

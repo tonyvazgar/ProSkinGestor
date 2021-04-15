@@ -5,7 +5,7 @@
     $ModelProducto = new Producto();
 
     if (isset($_POST['altaInventario'])) {
-        $nombre_producto           = mysqli_real_escape_string($con, $_POST['nombre']);
+        $nombre_producto           = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
         $descripcion_producto      = mysqli_real_escape_string($con, $_POST['descripcion']);
         $costo_unitario_producto   = mysqli_real_escape_string($con, $_POST['precio']);
         $stock_disponible_producto = mysqli_real_escape_string($con, $_POST['unidades']);
@@ -19,7 +19,7 @@
         }
     }
     if (isset($_POST['buscarProducto'])){
-        $nombre    = mysqli_real_escape_string($con, $_POST['nombre']);
+        $nombre    = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
         $resultado = $ModelProducto->getProductoWereNombre($nombre);
         if(sizeof($resultado) >= 1){
             $front = "<div class='container'><ul class='list-group'>";
