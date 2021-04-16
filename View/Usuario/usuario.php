@@ -3,10 +3,12 @@
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
   require_once "../../Model/Tratamiento/Tratamiento.php";
+  require_once "../../Model/Inventario/Producto.php";
 
-  $session = new ControllerSesion();
-  $ModeloUsuario = new Usuario();
+  $session          = new ControllerSesion();
+  $ModeloUsuario    = new Usuario();
   $ModelTratamiento = new Tratamiento();
+  $ModelProducto    = new Producto();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
@@ -14,6 +16,8 @@
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
 
   $mis_tratamientos = $ModelTratamiento->getAllTratamientosAplicadosDeCosmetologa($email);
+//   $mis_ventas       = $ModelProducto->getAllVentasDeCosmetologa($email);
+//   print_r($mis_ventas);
 ?>
 <!DOCTYPE html>
 <html lang="en">

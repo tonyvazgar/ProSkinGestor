@@ -74,6 +74,15 @@
             $db->close();
             return $account;
         }
+        function getAllVentasDeCosmetologa($email){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT Ventas.* 
+                                        FROM Ventas, usertable
+                                        WHERE usertable.email='$email'
+                                        AND Ventas.id_cosmetologa=usertable.id")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
         //-----------------------------------------------------------------------------------------------
         public function getNumProductosParaID(){
             $db = new Db();
