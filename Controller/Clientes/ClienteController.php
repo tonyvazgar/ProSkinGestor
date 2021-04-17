@@ -109,11 +109,11 @@
         // $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
         $nombre_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamiento']));      //Solo si es $tratamiento es tipo 3
         $precio_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento']));
-        // $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zona']));
+        $zona               = mysqli_real_escape_string($con, implode(",", $_POST['detalleZona']));
         $metodo_pago        = mysqli_real_escape_string($con, implode(",", $_POST['metodoPago']));
         $calificacion       = mysqli_real_escape_string($con, implode(",", $_POST['calificacion']));
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
-        $comentarios        = mysqli_real_escape_string($con, implode(",", $_POST['comentarios']));
+        $comentarios        = mysqli_real_escape_string($con, implode(",", str_replace(",", ".", $_POST['comentarios'])));
         $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
@@ -151,7 +151,7 @@
                 ."] --> metodo_pago [".$metodo_pago
                 ."] --> calificacion [". $calificacion
                 ."] --> id_centro [".$id_centro
-                ."] --> comentarios [".$comentarios
+                ."] --> comentarios [".var_dump(explode(",", $comentarios))
                 ."] --> firma [".$firma
                 ."] --> timeStamp [".$timeStamp);
     }
