@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2021 at 07:45 AM
+-- Generation Time: Apr 17, 2021 at 07:49 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -45,18 +45,20 @@ CREATE TABLE `Cliente` (
 --
 
 INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`, `aviso_privacidad_cliente`) VALUES
+('AB98070914', 'Arturo', 'Beristain', '2222222444', '0', 'arturo@proskin.com.mx', '1', '1618437600', '1618508205', 1),
 ('AVG21032610', 'Auri', 'Vazquez Garcia', '3333333', '1', 'tiony@ee.com', '2', '1616713200', '1617831449', 1),
 ('AVG9602283', 'Auri', 'Vazquez Garcias', '2869374', '1', 'auri@ejemplo.com', '2', '1612134000', '1617898016', 1),
 ('BRL9307074', 'Brenda', 'Ramirez Lopez', '3333333', '1', 'brenda@hmail.com', '1', '1610492400', '1618437798', 1),
 ('CPM8004047', 'Coral', 'Perlita Mejia', '3332323222', '0', 'pers@sks.com', '2', '1610146800', '1610146800', 1),
 ('FFL9612252', 'Fernanda', 'Fernandez Lopez', '2020202020', '0', 'ferlofer@gmail.com', '3', '1616540400', '1618176928', 1),
+('LF09041513', 'Laura', 'Flores', '1653792876', '0', 'lau.flores@gmail.com', '1', '1618437600', '1618610208', 1),
 ('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1618177403', 1),
 ('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1618174470', 1),
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1618435382', 1),
 ('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1618343275', 1),
 ('PPE00123112', 'Paola', 'Prueba Ejemplo', '2978904', '1', 'pao.prueba.ejemplo@example.com', '2', '1617919200', '1618167420', 1),
 ('PRG00010111', 'Paola', 'Roman Gomez', '2222860394', '0', 'pao.rogo@gmail.com', '2', '1617746400', '1617827934', 1),
-('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1618174226', 1);
+('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1618599933', 1);
 
 -- --------------------------------------------------------
 
@@ -81,9 +83,15 @@ CREATE TABLE `ClienteBitacora` (
 --
 
 INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `centro`, `calificacion`, `timestamp`, `zona_cuerpo`, `comentarios`, `id_venta`) VALUES
+('AB98070914', 'DEP01', '8', '1', '3', '1618508034', '18', 'Le quemé la espalda y le mandé una crema de aloe vera', 'AB98070914DEP0130'),
+('AB98070914', 'DEP01', '8', '1', '5', '1618508205', '9', ' ', 'AB98070914DEP0131'),
 ('BRL9307074', 'PIG08', '8', '1', '5', '1618437798', '', 'f', 'BRL9307074PIG0822'),
 ('FFL9612252', 'CAV01', '8', '1', '5', '1618176928', '17', 'Es muy buen trabajo de abdomen', ''),
 ('FFL9612252', 'CAV01', '9', '2', '3', '1618176376', '17,3,9,6,11', 'Vamos a ver abd, antebra,pierna,pubis, zona alba', ''),
+('LF09041513', 'CAV01', '8', '1', '3', '1618497786', '17', 'Eggs-xelente ', 'LF09041513CAV0123'),
+('LF09041513', 'CCP43', '9', '2', '5', '1618609081', '', 'PRueba para ver como funcionan los selectivos', 'LF09041513CCP4335'),
+('LF09041513', 'FAC24', '9', '2', '5', '1618610208', '', '', 'LF09041513FAC2436'),
+('LF09041513', 'MAS37', '8', '1', '5', '1618498112', '', 'Hace cromssfit', 'LF09041513MAS3724'),
 ('LVG9405285', 'FAC23', '8', '1', '5', '1618177403', '', 'Ya no tiene puntos negros el vato', ''),
 ('MTR2009246', 'MAS32', '10', '3', '5', '1618174470', '', 'If you hear me let me know', ''),
 ('OEP9902289', 'CAV01', '8', '1', '5', '1618435298', '4,18,19,8', '1ra sesión de cavitación en sonata', 'OEP9902289CAV0119'),
@@ -95,6 +103,7 @@ INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`,
 ('OEP9902289', 'MDA13', '8', '1', '5', '1618434347', '', 'Vamos a ver si ya funciona nuevas columnas de venta (Tratamiento normal -> microdermoabrasión cara)', 'OEP9902289MDA1313'),
 ('OEP9902289', 'RED27', '9', '2', '5', '1618434552', '', 'Tratamiento normal reductivo liposis', 'OEP9902289RED2714'),
 ('PEP7907128', 'FAC25', '8', '1', '5', '1618343275', '', 'Muy bonito cutis', 'PEP7907128FAC257'),
+('STR2103232', 'CAV01', '9', '2', '5', '1618599933', '17,3,2,12', 'Perris está viendo la ventana', 'STR2103232CAV0134'),
 ('STR2103232', 'DEP01', '10', '3', '5', '1618174226', '23', 'Todo el cuerpo, segunda sesion de sonata a la paz', ''),
 ('STR2103232', 'DEP01', '8', '1', '5', '1618172632', '17,12,13,22,6', 'Son 5 tratamientos, Abd,entrece,frente,oreja,pubis.', '');
 
@@ -115,6 +124,7 @@ CREATE TABLE `ClienteOpcional` (
 --
 
 INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALUES
+('AB98070914', '1998-07-09', ''),
 ('ADV96110710', '1996-11-07', ''),
 ('AMT18102713', '2018-10-27', '72830'),
 ('ASC2103189', '1995-03-30', '75800'),
@@ -132,6 +142,7 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('JM0001014', '2000-01-01', '72840'),
 ('JPM2103183', '2021-03-18', ''),
 ('JVG21031912', '2009-07-16', '72830'),
+('LF09041513', '2009-04-15', '73902'),
 ('LVG9405285', '1994-05-28', '72590'),
 ('LVG9611071', '1996-11-07', '72830'),
 ('MGR2103182', '2021-03-18', ''),
@@ -162,6 +173,7 @@ CREATE TABLE `ClienteStatus` (
 --
 
 INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
+('AB98070914', 'activo'),
 ('ADV96110710', 'activo'),
 ('AMT18102713', 'activo'),
 ('ATR21032114', 'activo'),
@@ -173,6 +185,7 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('CPM8004047', 'inactivo'),
 ('FFL9612252', 'activo'),
 ('JVG21031912', 'activo'),
+('LF09041513', 'activo'),
 ('LPG96100913', 'activo'),
 ('LVG9405285', 'activo'),
 ('MRC21031911', 'activo'),
@@ -206,6 +219,9 @@ CREATE TABLE `ClienteTratamiento` (
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
 ('BRL9307074', 'PIG08', '8', 'PIG08', '', '1618437798'),
+('LF09041513', 'CCP43', '9', 'CCP43', '', '1618609081'),
+('LF09041513', 'FAC24', '9', 'FAC24', '', '1618610208'),
+('LF09041513', 'MAS37', '8', 'MAS37', '', '1618498112'),
 ('LVG9405285', 'FAC23', '8', 'FAC23', '', '1618177403'),
 ('MTR2009246', 'MAS32', '10', 'MAS32', '', '1618174470'),
 ('OEP9902289', 'MDA13', '8', 'MDA13', '', '1618434347'),
@@ -234,14 +250,18 @@ CREATE TABLE `ClienteTratamientoEspecial` (
 --
 
 INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES
+('AB98070914', 'DEP01', '8', 'Depilacion', '18', '4', '1618508034', 1),
+('AB98070914', 'DEP01', '8', 'Depilacion', '9', '4', '1618508205', 2),
 ('FFL9612252', 'CAV01', '8', 'Cavitacion', '17', '40', '1618176928', 2),
 ('FFL9612252', 'CAV01', '9', 'Cavitacion', '17,3,9,6,11', '1,9', '1618176376', 1),
+('LF09041513', 'CAV01', '8', 'Cavitacion', '17', 'Lomjas', '1618497786', 1),
 ('OEP9902289', 'CAV01', '8', 'Cavitacion', '4,18,19,8', '4', '1618435298', 1),
 ('OEP9902289', 'CAV01', '9', 'Cavitacion', '10,19,7,14', '5,9,10', '1618435382', 2),
 ('OEP9902289', 'DEP01', '10', 'Depilacion', '17,2,18,19,14,16,20,6', '8,9', '1618435103', 3),
 ('OEP9902289', 'DEP01', '8', 'Depilacion', '23', '3', '1618435202', 4),
 ('OEP9902289', 'DEP01', '9', 'Depilacion', '20,22,15,1,9,6,11', '1,5', '1618434733', 1),
 ('OEP9902289', 'DEP01', '9', 'Depilacion', '4,12,20,1', '3,7', '1618434947', 2),
+('STR2103232', 'CAV01', '9', 'Cavitacion', '17,3,2,12', '4', '1618599933', 1),
 ('STR2103232', 'DEP01', '10', 'Depilacion', '23', 'Todo', '1618174226', 2),
 ('STR2103232', 'DEP01', '8', 'Depilacion', '17,12,13,22,6', '19,20', '1618172632', 1);
 
@@ -266,13 +286,14 @@ CREATE TABLE `Productos` (
 
 INSERT INTO `Productos` (`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) VALUES
 ('ACE5', 'Acetona', 'Acetona para remover impurezas de la piel', '30', 0, '3'),
-('BLO2', 'Bloqueador solar', 'Un bloqueador que permite tener 100 de FPS', '480', 100, '3'),
-('BLO7', 'Bloqueador Vichy', 'Bloqueador que hace que no mueras incinerado ', '1599', 33, '1'),
+('BLO2', 'Bloqueador Solar', 'Un bloqueador que permite tener 100 de FPS', '480', 100, '3'),
+('BLO7', 'Bloqueador Vichy', 'Bloqueador que hace que no mueras incinerado ', '1599', 30, '1'),
 ('CRE1', 'Crema Antiarrugas', 'Crema para rejuvenecer 100 años', '10800', 50, '3'),
 ('GEL8', 'Gel Para Uñas', 'Gelish', '30', 400, '1'),
-('GOM6', 'Gomitas de queratina', 'Gomitas para tener unas uñas más fuertes', '25.53', 98, '1'),
+('GOM6', 'Gomitas de queratina', 'Gomitas para tener unas uñas más fuertes', '25.53', 0, '1'),
 ('SHA3', 'Shampoo', 'Shampoo para rizos', '139', 0, '3'),
-('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3');
+('SHA4', 'Shampoo', 'Shampoo para rizos', '139', 80, '3'),
+('SHA9', 'Shampoo Facial', 'Oral b', '800', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -471,13 +492,24 @@ CREATE TABLE `Ventas` (
 --
 
 INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) VALUES
+('AB98070914DEP0130', 'AB98070914', 'DEP01', 1, '1650', '1618508034', '1', '1650', '', '', '', '8'),
+('AB98070914DEP0131', 'AB98070914', 'DEP01', 2, '1665', '1618508205', '1', '1665', '', '', '', '8'),
 ('ACE51810', '', '', 3, '2370.00', '1618426778', '1', '', 'ACE5', '30', '79', '8'),
 ('ACE51811', '', '', 2, '30.00', '1618426813', '1', '', 'ACE5', '30', '1', '8'),
 ('BLO71821', '', '', 1, '3198.00', '1618435971', '1', '', 'BLO7', '1599', '2', '8'),
+('BLO71826', '', '', 1, '1599.00', '1618498387', '1', '', 'BLO7', '1599', '01', '8'),
+('BLO71827', '', '', 1, '1599.00', '1618498414', '1', '', 'BLO7', '1599', '01', '8'),
 ('BRL9307074PIG0822', 'BRL9307074', 'PIG08', 1, '700', '1618437798', '1', '700', '', '', '', '8'),
 ('FFL96122524', 'FFL9612252', 'CAV01', 1, '599', '1618176376', '2', '', '', '', '', ''),
 ('FFL96122525', 'FFL9612252', 'CAV01', 2, '3940', '1618176928', '1', '', '', '', '', ''),
 ('GOM61812', '', '', 1, '51.06', '1618426921', '1', '', 'GOM6', '25.53', '2', '8'),
+('GOM61825', '', '', 1, '25.53', '1618498207', '1', '', 'GOM6', '25.53', '1', '8'),
+('GOM61828', '', '', 1, '2297.70', '1618498482', '1', '', 'GOM6', '25.53', '0090', '8'),
+('GOM61829', '', '', 1, '178.71', '1618498499', '1', '', 'GOM6', '25.53', '7', '8'),
+('LF09041513CAV0123', 'LF09041513', 'CAV01', 1, '1000', '1618497786', '1', '1000', '', '', '', '8'),
+('LF09041513CCP4335', 'LF09041513', 'CCP43', 2, '600', '1618609081', '2', '600', '', '', '', '9'),
+('LF09041513FAC2436', 'LF09041513', 'FAC24', 1, '850', '1618610208', '2', '850', '', '', '', '9'),
+('LF09041513MAS3724', 'LF09041513', 'MAS37', 1, '750', '1618498112', '1', '750', '', '', '', '8'),
 ('LVG9405285FAC236', 'LVG9405285', 'FAC23', 2, '900', '1618177403', '1', '', '', '', '', ''),
 ('MTR2009246MAS323', 'MTR2009246', 'MAS32', 2, '350', '1618174470', '3', '', '', '', '', ''),
 ('OEP990228915', 'OEP9902289', '', 2, '', '', '', '', '', '', '', '9'),
@@ -491,8 +523,11 @@ INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`,
 ('PEP7907128FAC257', 'PEP7907128', 'FAC25', 2, '1100', '1618343275', '1', '', '', '', '', ''),
 ('SHA3188', '', '', 2, '1390.00', '1618426301', '1', '', 'SHA3', '139', '10', '8'),
 ('SHA3189', '', '', 2, '9730.00', '1618426536', '1', '', 'SHA3', '139', '70', '8'),
+('SHA91832', '', '', 1, '4000.00', '1618509221', '1', '', 'SHA9', '800', '5', '8'),
+('SHA91833', '', '', 1, '12000.00', '1618509260', '1', '', 'SHA9', '800', '15', '8'),
 ('STR21032321', 'STR2103232', 'DEP01', 1, '499', '1618172632', '1', '', '', '', '', ''),
-('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3', '', '', '', '', '');
+('STR21032322', 'STR2103232', 'DEP01', 1, '', '1618174226', '3', '', '', '', '', ''),
+('STR2103232CAV0134', 'STR2103232', 'CAV01', 1, '2600', '1618599933', '2', '2600', '', '', '', '9');
 
 -- --------------------------------------------------------
 

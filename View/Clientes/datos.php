@@ -36,13 +36,16 @@
         }
         //<label>Tratamiento a empezar</label><input type="text" class="form-control" id="nombre" name="nombre" value="Luis Antonio Vazquez Garcia" readonly="">
         $cadena .= "<div class='form-group'><label>Zona cuerpo: </label><input type='text' class='form-control' value='".$nombre_zonas."' readonly></div>";
-        $cadena .= "<div class='form-group'><label>Detalle de la zona: </label><input type='text' class='form-control' value='".$tratamiensto['detalle_zona']."' readonly></div>";
+        $cadena .= "<div class='form-group'><label>Número de zonas</label><input type='text' class='form-control' value='".$tratamiensto['detalle_zona']."' readonly></div>";
         $cadena .= "<div class='form-group'><label>Fecha de aplicacion: </label><input type='text' class='form-control' value='".date("Y-m-d H:i:s",$tratamiensto['timestamp'])."' readonly></div>";
         $cadena .= "<div class='form-group'><label>Sesión número: </label><input type='text' class='form-control' value='".$tratamiensto['num_sesion']."' readonly></div>";
         $cadena .= "<div class='form-group'><label>Centro de belleza: </label><input type='text' class='form-control' value='".$nombre_sucursal."' readonly></div>";
         $cadena .= "<label>Comentarios</label><input type='text' class='form-control' value='".$tratamiensto['comentarios']."' readonly>";
       }
-      $cadena .= "<label>Detalle de zona</label><input type='text' name='detalleZona' id='detalleZona' class='form-control'>";
+      $cadena .= "<label>Número de zonas</label><select name='detalleZona' id='detalleZona' class='form-control'>";
+      for ($i=1; $i <= 18 ; $i++) { 
+        $cadena .= "<option value='$i'>$i</option>";
+      }
       $cadena .= "<div class='form-group form-inline'>
                     <label>Método de pago: </label>
                     <select name='metodoPago' id='metodoPago' class='form-control'>
@@ -55,7 +58,10 @@
                   </div>";
     }else{  //Si NO exiten tratamientos previos, alertar que no hay.
       $cadena = "<label>No hay tratamientos regitrados de depilación anteriormente</label><br>";
-      $cadena .= "<label>Detalle de zona</label><input type='text' name='detalleZona' id='detalleZona' class='form-control'>";
+      $cadena .= "<label>Número de zonas</label><select name='detalleZona' id='detalleZona' class='form-control'>";
+      for ($i=1; $i <= 18 ; $i++) { 
+        $cadena .= "<option value='$i'>$i</option>";
+      }
       $cadena .= "<div class='form-group form-inline'>
                     <label>Método de pago: </label>
                     <select name='metodoPago' id='metodoPago' class='form-control'>
@@ -114,13 +120,16 @@
         }
         //<label>Tratamiento a empezar</label><input type="text" class="form-control" id="nombre" name="nombre" value="Luis Antonio Vazquez Garcia" readonly="">
         $cadena .= "<div class='form-group'><label>Zona cuerpo</label><input type='text' class='form-control' value='".$nombre_zonas."' readonly></div>";
-        $cadena .= "<div class='form-group'><label>Tratamiento</label><input type='text' class='form-control' value='".$tratamiensto['detalle_zona']."' readonly></div>";
+        $cadena .= "<div class='form-group'><label>Número de zonas</label><input type='text' class='form-control' value='".$tratamiensto['detalle_zona']."' readonly></div>";
         $cadena .= "<div class='form-group'><label>Fecha de aplicacion</label><input type='text' class='form-control' value='".date("Y-m-d H:i:s",$tratamiensto['timestamp'])."' readonly></div>";
         $cadena .= "<div class='form-group'><label>Sesión número</label><input type='text' class='form-control' value='".$tratamiensto['num_sesion']."' readonly></div>";
         $cadena .= "<div class='form-group'><label>Centro de belleza</label><input type='text' class='form-control' value='".$nombre_sucursal."' readonly></div>";
         $cadena .= "<label>Comentarios</label><input type='text' class='form-control' value='".$tratamiensto['comentarios']."' readonly>";
       }
-      $cadena .= "<label>Detalle de zona</label><input type='text' name='detalleZona' id='detalleZona' class='form-control'>";
+      $cadena .= "<label>Número de zonas</label><select name='detalleZona' id='detalleZona' class='form-control'>";
+      for ($i=1; $i <= 18 ; $i++) { 
+        $cadena .= "<option value='$i'>$i</option>";
+      }
       $cadena .= "<div class='form-group form-inline'>
                     <label>Método de pago: </label>
                     <select name='metodoPago' id='metodoPago' class='form-control'>
@@ -134,7 +143,10 @@
 
     }else{  //Si NO exiten tratamientos previos, alertar que no hay.
       $cadena = "<label>No hay tratamientos regitrados de depilación anteriormente</label><br>";
-      $cadena .= "<label>Detalle de zona</label><input type='text' name='detalleZona' id='detalleZona' class='form-control'>";
+      $cadena .= "<label>Número de zonas</label><select name='detalleZona' id='detalleZona' class='form-control'>";
+      for ($i=1; $i <= 18 ; $i++) { 
+        $cadena .= "<option value='$i'>$i</option>";
+      }
       $cadena .= "<div class='form-group form-inline'>
                     <label>Método de pago: </label>
                     <select name='metodoPago' id='metodoPago' class='form-control'>
@@ -185,17 +197,18 @@
                     <tr>
                         <td>";
                         
-    $cadena .= "<select name='nombreTratamiento' id='nombreTratamiento' class='form-control'>";
+    $cadena .= "<select name='nombreTratamiento[]' id='nombreTratamiento' class='form-control'>
+                <option value=''>*** Selecciona tratamiento ***</option>";
     foreach($tratamientos as $tratamiento){
       $cadena .= "<option value='".$tratamiento['id_tratamiento']."'>".$tratamiento['nombre_tratamiento']."</option>";
     }
     $cadena.="</select>
                 </td>
                 <td>
-                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento' step='.01' required>
+                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
                 </td>
                 <td>
-                    <select name='metodoPago' id='metodoPago' class='form-control'>
+                    <select name='metodoPago[]' id='metodoPago' class='form-control'>
                         <option value='1'>Efectivo</option>
                         <option value='2'>Tarjeta</option>
                         <option value='3'>Otro</option>
@@ -204,5 +217,6 @@
                 </tr>
                 </tbody>";
     echo $cadena;
+    // echo "<div class='form-group'> <table class='table table-borderless'> <thead> <tr> <td>Calificación</td> <td scope='col'>Centro</td> </tr> </thead> <tbody> <tr> <td> <select name='calificacion' id='calificacion' class='form-control'> <option value='1'>☆</option> <option value='2'>☆☆</option> <option value='3'>☆☆☆</option> <option value='4'>☆☆☆☆</option> <option value='5'>☆☆☆☆☆</option> </select> </td> <td> <select name='idCentro' id='idCentro' class='form-control' readonly> <option value='".$numeroSucursal['id_sucursal']."'>".$nombreSucursal['nombre_sucursal']."</option> </select> </td> </tr> </tbody> </table> </div> <div class='form-group'> <label>Comentarios</label> <textarea name='comentarios' id='comentarios' cols='30' rows='5' class='form-control' maxlength='250' placeholder='Escribe algo relevante de este tratamiento' required></textarea> </div> <div class='form-group'> <label>Firma requerida del cliente</label> <select name='aviso' id='aviso' class='form-control'> <option>*** SELECCIONA ***</option> <option value='0'>No firmado</option> <option value='1'>Ya se firmó</option> </select> </div>";
   }  
 ?>

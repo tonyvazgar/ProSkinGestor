@@ -105,44 +105,55 @@
         //Al parecer solo seria para cuando es tratamiento normal
         $id_cliente         = mysqli_real_escape_string($con, $_POST['idCliente']);
         $id_cosmetologa     = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
-        $tratamiento        = mysqli_real_escape_string($con, $_POST['tratamiento']);  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
+        $tratamiento        = mysqli_real_escape_string($con, implode(",", $_POST['tratamiento']));  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
         // $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
-        $nombre_tratamiento = mysqli_real_escape_string($con, $_POST['nombreTratamiento']);      //Solo si es $tratamiento es tipo 3
-        $precio_tratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
-        $zona               = mysqli_real_escape_string($con, $_POST['zona']);
-        $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $calificacion       = mysqli_real_escape_string($con, $_POST['calificacion']);
+        $nombre_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamiento']));      //Solo si es $tratamiento es tipo 3
+        $precio_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento']));
+        // $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zona']));
+        $metodo_pago        = mysqli_real_escape_string($con, implode(",", $_POST['metodoPago']));
+        $calificacion       = mysqli_real_escape_string($con, implode(",", $_POST['calificacion']));
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
-        $comentarios        = mysqli_real_escape_string($con, $_POST['comentarios']);
+        $comentarios        = mysqli_real_escape_string($con, implode(",", $_POST['comentarios']));
         $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
-        // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
+        // // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 
-        //Insertar a venta
-        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
-        $suma_ventas += 1;
-        $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
+        // //Insertar a venta
+        // $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
+        // $suma_ventas += 1;
+        // $id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
 
-        //$ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
-        $ModelTratamiento->insertarVentaTratamiento($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa);
+        // //$ModelTratamiento ->insertarVenta($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro);
+        // $ModelTratamiento->insertarVentaTratamiento($id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa);
 
-        //Insertar a ClienteTratamiento
-        $ModelCliente->insertarClienteTratamiento($id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp);
+        // //Insertar a ClienteTratamiento
+        // $ModelCliente->insertarClienteTratamiento($id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp);
 
-        //Insertar a ClienteBitacora
-        $ModelCliente->insertarClienteBitacora($id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta);
+        // //Insertar a ClienteBitacora
+        // $ModelCliente->insertarClienteBitacora($id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta);
 
-        //Redirect a Tratamientos
+        // //Redirect a Tratamientos
 
-        $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
+        // $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
 
-        //href='detalleVenta.php?idVenta="
+        // //href='detalleVenta.php?idVenta="
 
-        header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
+        // header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
 
-        // print_r("Vamos a pasar ".$id_cliente." --> ".$tratamiento." --> ".$nombre_tratamiento." --> ".$precio_tratamiento." --> ".$zona." --> ".$metodo_pago." -->". $calificacion." --> ".$id_centro." --> ".$comentarios." --> ".$firma." --> ".$timeStamp);
+        print_r("Vamos a pasar [".$id_cliente
+                ."] id_cosmetologa: --> [".$id_cosmetologa
+                ."] Tratamiento: --> [".$tratamiento
+                ."] --> Nombre tratamiento [".$nombre_tratamiento
+                ."] --> precio_tratamiento [".$precio_tratamiento
+                ."] --> zona [".$zona
+                ."] --> metodo_pago [".$metodo_pago
+                ."] --> calificacion [". $calificacion
+                ."] --> id_centro [".$id_centro
+                ."] --> comentarios [".$comentarios
+                ."] --> firma [".$firma
+                ."] --> timeStamp [".$timeStamp);
     }
 
     if(isset($_POST['comenzarTratamientoDepilacion'])){
