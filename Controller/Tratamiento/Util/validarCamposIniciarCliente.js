@@ -1,21 +1,30 @@
+$('body').on('change','#aviso',function () {
+    var opt = $("#aviso").val();
+    if(opt == "1"){
+        $("#botonComenzar").show();
+    }else{
+        $("#botonComenzar").hide();
+    }
+    var n = $("#tratamientos .col-xs-4").length;
+    console.log("Hay " + n + " plantillas");
+    $("#otro .zonasCheckbox").each(function(i, obj) {
+        $(this).find('input.check').attr('name', "zonas_cuerpo["+i+"][]");
+    });
+});
+
 $(document).ready(function () {
     $("#botonComenzar").hide();
-    $("#aviso").change(function () {
-        var opt = $("#aviso").val();
-        if(opt == "1"){
-            $("#botonComenzar").show();
-        }else{
-            $("#botonComenzar").hide();
-        }
-    });
+    
     // El formulario que queremos replicar
     var formulario_alumno = $("#lo-que-vamos-a-copiar").html();
-    $("#btn-agregar-tratamiento").click(function(){
+    $("#div-agregarTratamiento").on('click', '.btn-agregar-tratamiento', function(){
         // Agregamos el formulario
         var n = $("#tratamientos .col-xs-4").length + 1;
         console.log(n);
         $("#tratamientos").prepend(formulario_alumno);
         $("#tratamientos .col-xs-4:first .numTratamientos").html("Tratamiento #" + n);
+
+       
 
         console.log("Vamos a agregar otro tratamiento");
         $("#tratamientos .col-xs-4:first .well").append('<button class="btn-danger btn btn-block btn-retirar-alumno" type="button">Retirar</button>');

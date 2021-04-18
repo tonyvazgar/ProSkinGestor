@@ -109,7 +109,7 @@
         // $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
         $nombre_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamiento']));      //Solo si es $tratamiento es tipo 3
         $precio_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento']));
-        $zona               = mysqli_real_escape_string($con, implode(",", $_POST['detalleZona']));
+        $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
         $metodo_pago        = mysqli_real_escape_string($con, implode(",", $_POST['metodoPago']));
         $calificacion       = mysqli_real_escape_string($con, implode(",", $_POST['calificacion']));
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
@@ -141,19 +141,20 @@
         // //href='detalleVenta.php?idVenta="
 
         // header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
-
-        print_r("Vamos a pasar [".$id_cliente
-                ."] id_cosmetologa: --> [".$id_cosmetologa
-                ."] Tratamiento: --> [".$tratamiento
-                ."] --> Nombre tratamiento [".$nombre_tratamiento
-                ."] --> precio_tratamiento [".$precio_tratamiento
-                ."] --> zona [".$zona
-                ."] --> metodo_pago [".$metodo_pago
-                ."] --> calificacion [". $calificacion
-                ."] --> id_centro [".$id_centro
-                ."] --> comentarios [".var_dump(explode(",", $comentarios))
-                ."] --> firma [".$firma
-                ."] --> timeStamp [".$timeStamp);
+        print_r($_POST);
+        // echo "<br>";
+        // print_r("Vamos a pasar [".$id_cliente
+        //         ."] id_cosmetologa: --> [".$id_cosmetologa
+        //         ."] Tratamiento: --> [".$tratamiento
+        //         ."] --> Nombre tratamiento [".$nombre_tratamiento
+        //         ."] --> precio_tratamiento [".$precio_tratamiento
+        //         ."] --> zona [".$zona
+        //         ."] --> metodo_pago [".$metodo_pago
+        //         ."] --> calificacion [". $calificacion
+        //         ."] --> id_centro [".$id_centro
+        //         ."] --> comentarios [".var_dump(explode(",", $comentarios))
+        //         ."] --> firma [".$firma
+        //         ."] --> timeStamp [".$timeStamp);
     }
 
     if(isset($_POST['comenzarTratamientoDepilacion'])){

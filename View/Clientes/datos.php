@@ -82,7 +82,7 @@
 
     echo "<div class='form-group'>
     <label for='exampleInputEmail1'>Zona del cuerpo</label>
-    <table class='table table-borderless'>
+    <table class='table table-borderless zonasCheckbox' id='zonasCheckbox'>
         <tbody>
             <td>";
             $inicio = 0;
@@ -91,7 +91,7 @@
             }
               for ($i = $inicio; $i <= sizeof($zonasCuerpo)/2; $i++) {
                         echo "<div class='form-check'>
-                                <input class='form-check-input' type='checkbox' value='".$zonasCuerpo[$i]['id_zona']."' name='zonas_cuerpo[]' id='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
+                                <input class='form-check-input check' type='checkbox' value='".$zonasCuerpo[$i]['id_zona']."' name='zonas_cuerpo[0][]' id='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
                                 <label class='form-check-label' for='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
                                     ".$zonasCuerpo[$i]['nombre_zona']."
                                 </label>
@@ -101,7 +101,7 @@
             <td>";
               for ($i = floor(sizeof($zonasCuerpo)/2)+1; $i <= sizeof($zonasCuerpo)-1; $i++) {
                         echo "<div class='form-check'>
-                                <input class='form-check-input' type='checkbox' value='".$zonasCuerpo[$i]['id_zona']."' name='zonas_cuerpo[]' id='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
+                                <input class='form-check-input check' type='checkbox' value='".$zonasCuerpo[$i]['id_zona']."' name='zonas_cuerpo[0][]' id='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
                                 <label class='form-check-label' for='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
                                     ".$zonasCuerpo[$i]['nombre_zona']."
                                 </label>
@@ -153,6 +153,21 @@
                 </tbody>
                 </table>";
     echo $cadena;
+
+    echo "<div class='form-group' hidden>
+    <label for='exampleInputEmail1'>Zona del cuerpo</label>
+    <table class='table table-borderless zonasCheckbox' id='zonasCheckbox'>
+        <tbody>
+            <td>";
+    echo "<div class='form-check'>
+            <input class='form-check-input check' type='checkbox' value='".$zonasCuerpo[$i]['id_zona']."' name='zonas_cuerpo[0][]' id='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'checked>
+              <label class='form-check-label' for='flexCheckDefault".$zonasCuerpo[$i]['id_zona']."'>
+              ".$zonasCuerpo[$i]['nombre_zona']."
+              </label>
+            </div>";
+    echo "</td>
+        </tbody>
+     </div>";
     // echo "<div class='form-group'> <table class='table table-borderless'> <thead> <tr> <td>Calificación</td> <td scope='col'>Centro</td> </tr> </thead> <tbody> <tr> <td> <select name='calificacion' id='calificacion' class='form-control'> <option value='1'>☆</option> <option value='2'>☆☆</option> <option value='3'>☆☆☆</option> <option value='4'>☆☆☆☆</option> <option value='5'>☆☆☆☆☆</option> </select> </td> <td> <select name='idCentro' id='idCentro' class='form-control' readonly> <option value='".$numeroSucursal['id_sucursal']."'>".$nombreSucursal['nombre_sucursal']."</option> </select> </td> </tr> </tbody> </table> </div> <div class='form-group'> <label>Comentarios</label> <textarea name='comentarios' id='comentarios' cols='30' rows='5' class='form-control' maxlength='250' placeholder='Escribe algo relevante de este tratamiento' required></textarea> </div> <div class='form-group'> <label>Firma requerida del cliente</label> <select name='aviso' id='aviso' class='form-control'> <option>*** SELECCIONA ***</option> <option value='0'>No firmado</option> <option value='1'>Ya se firmó</option> </select> </div>";
   }  
 ?>
