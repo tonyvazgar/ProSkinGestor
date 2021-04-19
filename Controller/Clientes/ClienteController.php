@@ -103,21 +103,43 @@
     if(isset($_POST['comenzarTratamiento'])){
 
         //Al parecer solo seria para cuando es tratamiento normal
-        $id_cliente         = mysqli_real_escape_string($con, $_POST['idCliente']);
-        $id_cosmetologa     = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
-        $tratamiento        = mysqli_real_escape_string($con, implode(",", $_POST['tratamiento']));  //1: Depilacion     2:Cavitacion        3:TratamientoNormal
-        // $sesiones        = mysqli_real_escape_string($con, $_POST['sesiones'] ?? '0');
-        $nombre_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamiento']));      //Solo si es $tratamiento es tipo 3
-        $precio_tratamiento = mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento']));
-        $zona               = mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
-        $metodo_pago        = mysqli_real_escape_string($con, implode(",", $_POST['metodoPago']));
-        $calificacion       = mysqli_real_escape_string($con, implode(",", $_POST['calificacion']));
-        $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);
-        $comentarios        = mysqli_real_escape_string($con, implode(",", str_replace(",", ".", $_POST['comentarios'])));
-        $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');
+        $id_cliente         = mysqli_real_escape_string($con, $_POST['idCliente']);                                                      //Es un valor: [idCliente] => RL96061115
+        $id_cosmetologa     = mysqli_real_escape_string($con, $_POST['idCosmetologa']);                                                  //Es un valor: [idCosmetologa] => 8
+        $tratamiento        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['tratamiento'])));                         //Es un Array: [tratamiento] => Array([0] => 2 [1] => 3 [2] => 1 )
+        $nombre_tratamiento = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamiento'])));                   //Es un Array: [nombreTratamiento] => Array([0] => CAV01 [1] => MAS34 [2] => DEP01 )
+        $precio_tratamiento = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento'])));                   //Es un Array: [precioTratamiento] => Array([0] => 300 [1] => 550 [2] => 500)
+        $zona               = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo'])));                        //Es un Array de Arrays (si es vacio es un tratamiento normal): [zonas_cuerpo] => Array([0] => Array ([0] => 20 [1] => 22 [2] => 15 [3] => 1 ) [1] => Array ([0] => ) [2] => Array ([0] => 23))
+        $detalle_zona       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['detalleZona'])));
+        $metodo_pago        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));                          //Es un Array: [metodoPago] => Array([0] => 2 [1] => 3 [2] => 1)
+        $calificacion       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['calificacion'])));                        //Es un Array: [calificacion] => Array([0] => 1 [1] => 3 [2] => 4)
+        $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);                                                       //Es un valor: [idCentro] => 1
+        $comentarios        = explode(",",mysqli_real_escape_string($con, implode(",", str_replace(",", ".", $_POST['comentarios']))));  //Es un Array: [comentarios] => Array([0] => Cavitación con 9 numero de zonas, metido de tarjeta de ¢300 y 4 zonas, 1 estrella [1] => Masaje relajante con ¢550, otro método de pago y 3 estrellas [2] => Depilación con 10 números de zonas, la zona del cuerpo que es 23 y con 4 de calificación y $500 )
+        $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');                                                   //Es un valor: [aviso] => 1
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //************LOGICA PARA REGISTRAR 1 O MUCHOS TRATAMIENTOS EN UN POST************
+        $numero_de_tratamientos   = sizeof($tratamiento);
+        $tratamientos_a_registrar = [];     //Aqui se meteran toda la info de los tratamientos
+        // insertarClienteTratamiento        ($id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp);
+        // insertarClienteTratamientoEspecial($id_cliente, 'DEP01', $id_cosmetologa, 'Depilacion', $zona, $detalle_zona, $timeStamp, $num_sesion);
+        // insertarClienteTratamientoEspecial($id_cliente, 'CAV01', $id_cosmetologa, 'Cavitacion', $zona, $detalle_zona, $timeStamp, $num_sesion);
+        // foreach($tratamiento as $t){
+        // }
 
+        for ($i=1; $i <= $numero_de_tratamientos ; $i++) { 
+            $temp = [];
+            if($tratamiento[$i-1] != 3){   //Es tratamiento de depilacion o cavitacion
+                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $zona[$i-1], $detalle_zona[$i-1], $timeStamp];    
+            }else{
+                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $timeStamp];    
+            }
+            array_push($tratamientos_a_registrar, $temp);
+        }
+        echo "<pre>";
+        print_r($tratamientos_a_registrar);
+        echo"</pre><br>";
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 
         // //Insertar a venta
@@ -142,19 +164,20 @@
 
         // header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
         print_r($_POST);
-        // echo "<br>";
-        // print_r("Vamos a pasar [".$id_cliente
-        //         ."] id_cosmetologa: --> [".$id_cosmetologa
-        //         ."] Tratamiento: --> [".$tratamiento
-        //         ."] --> Nombre tratamiento [".$nombre_tratamiento
-        //         ."] --> precio_tratamiento [".$precio_tratamiento
-        //         ."] --> zona [".$zona
-        //         ."] --> metodo_pago [".$metodo_pago
-        //         ."] --> calificacion [". $calificacion
-        //         ."] --> id_centro [".$id_centro
-        //         ."] --> comentarios [".var_dump(explode(",", $comentarios))
-        //         ."] --> firma [".$firma
-        //         ."] --> timeStamp [".$timeStamp);
+        echo "<br>";
+        echo "<br>";
+        print_r("Vamos a pasar [".$id_cliente
+                ."] id_cosmetologa: --> [".$id_cosmetologa
+                ."] Tratamiento: --> [".$tratamiento
+                ."] --> Nombre tratamiento [".$nombre_tratamiento
+                ."] --> precio_tratamiento [".$precio_tratamiento
+                ."] --> zona [".$zona
+                ."] --> metodo_pago [".$metodo_pago
+                ."] --> calificacion [". $calificacion
+                ."] --> id_centro [".$id_centro
+                ."] --> comentarios [".$comentarios
+                ."] --> firma [".$firma
+                ."] --> timeStamp [".$timeStamp);
     }
 
     if(isset($_POST['comenzarTratamientoDepilacion'])){
