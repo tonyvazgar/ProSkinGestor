@@ -108,7 +108,7 @@
         $tratamiento        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['tratamiento'])));                         //Es un Array: [tratamiento] => Array([0] => 2 [1] => 3 [2] => 1 )
         $nombre_tratamiento = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamiento'])));                   //Es un Array: [nombreTratamiento] => Array([0] => CAV01 [1] => MAS34 [2] => DEP01 )
         $precio_tratamiento = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento'])));                   //Es un Array: [precioTratamiento] => Array([0] => 300 [1] => 550 [2] => 500)
-        $zona               = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo'])));                        //Es un Array de Arrays (si es vacio es un tratamiento normal): [zonas_cuerpo] => Array([0] => Array ([0] => 20 [1] => 22 [2] => 15 [3] => 1 ) [1] => Array ([0] => ) [2] => Array ([0] => 23))
+        $zona               = $_POST['zonas_cuerpo'];                        //Es un Array de Arrays (si es vacio es un tratamiento normal): [zonas_cuerpo] => Array([0] => Array ([0] => 20 [1] => 22 [2] => 15 [3] => 1 ) [1] => Array ([0] => ) [2] => Array ([0] => 23))
         $detalle_zona       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['detalleZona'])));
         $metodo_pago        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));                          //Es un Array: [metodoPago] => Array([0] => 2 [1] => 3 [2] => 1)
         $calificacion       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['calificacion'])));                        //Es un Array: [calificacion] => Array([0] => 1 [1] => 3 [2] => 4)
@@ -130,9 +130,10 @@
         for ($i=1; $i <= $numero_de_tratamientos ; $i++) { 
             $temp = [];
             if($tratamiento[$i-1] != 3){   //Es tratamiento de depilacion o cavitacion
-                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $zona[$i-1], $detalle_zona[$i-1], $timeStamp];    
+                print_r($zona[$i-1]);
+                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $zona[$i-1], $detalle_zona[$i-1], $comentarios[$i-1], $timeStamp];    
             }else{
-                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $timeStamp];    
+                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $comentarios[$i-1], $timeStamp];    
             }
             array_push($tratamientos_a_registrar, $temp);
         }
