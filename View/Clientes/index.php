@@ -12,7 +12,7 @@
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
-  
+  $id_sucursal = $ModeloUsuario->getNumeroSucursalUsuario($email)['id_sucursal'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@
         <a href="buscarCliente.php" class="btn btn-warning">Buscar Cliente</a>
         <ul class="list-group">
         <?php
-          foreach($ModelCliente->getAllUsuarios() as $d){
+          foreach($ModelCliente->getAllUsuariosFromIdSucursal($id_sucursal) as $d){
             $statusCliente = $ModelCliente->getStatusCliente($d['id_cliente']);
             if($statusCliente[0]['status'] == 'activo'){
               echo "<li class='list-group-item d-flex justify-content-between align-items-center'>

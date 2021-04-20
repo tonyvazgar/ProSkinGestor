@@ -1,6 +1,13 @@
 $(document).ready(function () {
     //set initially button state hidden
     $("#altaCliente").hide();
+    if (validatenumero()) {
+        //if the numero is valid set input email border green
+        $("#numero").css("border", "2px solid green");
+    } else {
+        //if the numero is invalid set input email border red
+        $("#numero").css("border", "2px solid red");
+    }
     //use keyup event on email field
     $("#email").keyup(function () {
         if (validateEmail()) {

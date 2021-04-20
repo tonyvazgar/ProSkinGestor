@@ -41,7 +41,7 @@
         //"INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES ('$array[0]', '$array[1]', '$array[2]', $array[3], '$array[4]', '$array[5]', '$array[6]', '$array[7]', '$array[8]')";
         
         if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $tipo_numero, $email, $centro, $fecha_creacion, $ultima_visita, $aviso_privacidad]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
-            header('location: index.php');
+            header('location: exito.php');
             exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";
@@ -203,7 +203,7 @@
                 }
             }
         }
-        // $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
+        $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
 
         // header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -12,6 +12,8 @@
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  $nombreSucursal = $ModeloUsuario->getNombreSucursalUsuario($email);
+  $numeroSucursal = $ModeloUsuario->getNumeroSucursalUsuario($email);
   
 ?>
 <!DOCTYPE html>
@@ -63,10 +65,8 @@
                 </div>
                 <div class="form-group">
                     <label>Centro</label>
-                    <select name="centro" id="centro" class="form-control">
-                        <option value="1">Sonata</option>
-                        <option value="2">Plaza Real</option>
-                        <option value="3">La Paz</option>
+                    <select name="centro" id="centro" class="form-control" readonly>
+                        <option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2021 at 08:29 AM
+-- Generation Time: Apr 20, 2021 at 06:28 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -50,6 +50,7 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('AVG9602283', 'Auri', 'Vazquez Garcias', '2869374', '1', 'auri@ejemplo.com', '2', '1612134000', '1617898016', 1),
 ('BRL9307074', 'Brenda', 'Ramirez Lopez', '3333333', '1', 'brenda@hmail.com', '1', '1610492400', '1618437798', 1),
 ('CPM8004047', 'Coral', 'Perlita Mejia', '3332323222', '0', 'pers@sks.com', '2', '1610146800', '1610146800', 1),
+('ERG66100116', 'Emilio', 'Rosas Gil', '1234567', '1', 'Emilio.rogil@asdf.com', '3', '1618869600', '1618910827', 1),
 ('FFL9612252', 'Fernanda', 'Fernandez Lopez', '2020202020', '0', 'ferlofer@gmail.com', '3', '1616540400', '1618176928', 1),
 ('LF09041513', 'Laura', 'Flores', '1653792876', '0', 'lau.flores@gmail.com', '1', '1618437600', '1618610208', 1),
 ('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1618177403', 1),
@@ -87,6 +88,8 @@ INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`,
 ('AB98070914', 'DEP01', '8', '1', '3', '1618508034', '18', 'Le quemé la espalda y le mandé una crema de aloe vera', 'AB98070914DEP0130'),
 ('AB98070914', 'DEP01', '8', '1', '5', '1618508205', '9', ' ', 'AB98070914DEP0131'),
 ('BRL9307074', 'PIG08', '8', '1', '5', '1618437798', '', 'f', 'BRL9307074PIG0822'),
+('ERG66100116', 'CAV01', '10', '3', '4', '1618910627', '17,4,13,19,', 'Son 4 estrellas con 4 zonas y 340 con tarjeta (cavilación)', ''),
+('ERG66100116', 'CAV01', '10', '3', '4', '1618910827', '19,', '', ''),
 ('FFL9612252', 'CAV01', '8', '1', '5', '1618176928', '17', 'Es muy buen trabajo de abdomen', ''),
 ('FFL9612252', 'CAV01', '9', '2', '3', '1618176376', '17,3,9,6,11', 'Vamos a ver abd, antebra,pierna,pubis, zona alba', ''),
 ('LF09041513', 'CAV01', '8', '1', '3', '1618497786', '17', 'Eggs-xelente ', 'LF09041513CAV0123'),
@@ -146,6 +149,7 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('BRO94091315', '1994-09-13', '03400'),
 ('BRO94091316', '1994-09-13', '03400'),
 ('CPM8004047', '1980-04-04', '34566'),
+('ERG66100116', '1966-10-01', '74777'),
 ('FFL9612252', '1996-12-25', '72300'),
 ('JFG9601017', '1996-01-01', '7240'),
 ('JM0001014', '2000-01-01', '72840'),
@@ -183,6 +187,7 @@ CREATE TABLE `ClienteStatus` (
 --
 
 INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
+('2317', 'activo'),
 ('AB98070914', 'activo'),
 ('ADV96110710', 'activo'),
 ('AMT18102713', 'activo'),
@@ -193,6 +198,7 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('BRO94091315', 'activo'),
 ('BRO94091316', 'activo'),
 ('CPM8004047', 'inactivo'),
+('ERG66100116', 'activo'),
 ('FFL9612252', 'activo'),
 ('JVG21031912', 'activo'),
 ('LF09041513', 'activo'),
@@ -268,6 +274,8 @@ CREATE TABLE `ClienteTratamientoEspecial` (
 INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona`, `detalle_zona`, `timestamp`, `num_sesion`) VALUES
 ('AB98070914', 'DEP01', '8', 'Depilacion', '18', '4', '1618508034', 1),
 ('AB98070914', 'DEP01', '8', 'Depilacion', '9', '4', '1618508205', 2),
+('ERG66100116', 'CAV01', '10', 'CAV01', '17,4,13,19,', '7', '1618910627', 1),
+('ERG66100116', 'CAV01', '10', 'CAV01', '19,', '13', '1618910827', 1),
 ('FFL9612252', 'CAV01', '8', 'Cavitacion', '17', '40', '1618176928', 2),
 ('FFL9612252', 'CAV01', '9', 'Cavitacion', '17,3,9,6,11', '1,9', '1618176376', 1),
 ('LF09041513', 'CAV01', '8', 'Cavitacion', '17', 'Lomjas', '1618497786', 1),
@@ -511,6 +519,8 @@ CREATE TABLE `Ventas` (
 --
 
 INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) VALUES
+('ERG66100116CAV014', 'ERG66100116', 'CAV01', 2, '340', '1618910627', '3', '340', '', '', '', '10'),
+('ERG66100116CAV015', 'ERG66100116', 'CAV01', 3, '9999', '1618910827', '3', '9999', '', '', '', '10'),
 ('RL96061115FAC191', 'RL96061115', 'DEP01', 1, '10800', '1618874911', '2', '10800', '', '', '', '9'),
 ('RL96061115FAC191', 'RL96061115', 'FAC19', 1, '750', '1618874911', '2', '750', '', '', '', '9'),
 ('RL96061115FAC193', 'RL96061115', 'FAC19', 1, '750', '1618874955', '2', '750', '', '', '', '9');

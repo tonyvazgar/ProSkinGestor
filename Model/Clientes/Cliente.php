@@ -8,6 +8,14 @@
             $db->close();
             return $account;
         }
+        public function getAllUsuariosFromIdSucursal($id_sucursal){
+            $db = new DB();
+            $account = $db->query("SELECT * 
+                                   FROM Cliente 
+                                   WHERE Cliente.centro_cliente='$id_sucursal'")->fetchAll();
+            $db->close();
+            return $account;
+        }
         public function getUltimaVisitaCliente(){
             $db = new DB();
             $account = $db->query('SELECT Cliente.id_cliente, Cliente.ultima_visita_cliente FROM Cliente')->fetchAll();
