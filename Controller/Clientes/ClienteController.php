@@ -121,25 +121,91 @@
         //************LOGICA PARA REGISTRAR 1 O MUCHOS TRATAMIENTOS EN UN POST************
         $numero_de_tratamientos   = sizeof($tratamiento);
         $tratamientos_a_registrar = [];     //Aqui se meteran toda la info de los tratamientos
-        // insertarClienteTratamiento        ($id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp);
-        // insertarClienteTratamientoEspecial($id_cliente, 'DEP01', $id_cosmetologa, 'Depilacion', $zona, $detalle_zona, $timeStamp, $num_sesion);
-        // insertarClienteTratamientoEspecial($id_cliente, 'CAV01', $id_cosmetologa, 'Cavitacion', $zona, $detalle_zona, $timeStamp, $num_sesion);
-        // foreach($tratamiento as $t){
-        // }
-
-        for ($i=1; $i <= $numero_de_tratamientos ; $i++) { 
+        
+        for ($i=1; $i <= $numero_de_tratamientos ; $i++) { //Iterar por cada tratamiento que se va a registrar, 1..n
             $temp = [];
             if($tratamiento[$i-1] != 3){   //Es tratamiento de depilacion o cavitacion
-                print_r($zona[$i-1]);
-                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $zona[$i-1], $detalle_zona[$i-1], $comentarios[$i-1], $timeStamp];    
-            }else{
-                $temp = [$id_cliente, $tratamiento[$i-1], $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $comentarios[$i-1], $timeStamp];    
+                $string_zonas = "";
+                $zona_del_tratamiento = $zona[$i-1];
+                foreach ($zona_del_tratamiento as $k) {
+                    $string_zonas .= $k.",";
+                }
+                //tempVentaTratamiento           = $id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
+                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago[$i-1], $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
+                //tempClienteTratamientoEspecial = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $numZonas, $timeStamp, $numsesion;
+                $tempClienteTratamientoEspecial  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $string_zonas, $detalle_zona[$i-1], $timeStamp, ''];
+                //tempClienteBitacora            = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
+                $tempClienteBitacora             = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $id_centro, $calificacion[$i-1], $timeStamp, $string_zonas, $comentarios[$i-1], ''];
+
+                array_push($temp, [$tratamiento[$i-1]], $tempVentaTratamiento, $tempClienteTratamientoEspecial, $tempClienteBitacora);
+            }else{  //es un tratamiento normal
+                //tempVentaTratamiento   = $id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
+                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago[$i-1], $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
+                //tempClienteTratamiento = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp
+                $tempClienteTratamiento  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], '', $timeStamp];
+                //tempClienteBitacora    = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
+                $tempClienteBitacora     = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $id_centro, $calificacion[$i-1], $timeStamp, '', $comentarios[$i-1], ''];
+
+                array_push($temp, [$tratamiento[$i-1]], $tempVentaTratamiento, $tempClienteTratamiento, $tempClienteBitacora);
             }
             array_push($tratamientos_a_registrar, $temp);
         }
-        echo "<pre>";
-        print_r($tratamientos_a_registrar);
-        echo"</pre><br>";
+        
+        $suma_ventas = $ModelTratamiento->getSumVentas()[0]['numVentas'];
+        $suma_ventas += 1;
+        $ID_VENTA_UUID = '';
+        
+        foreach($tratamientos_a_registrar as $tar){
+            //$id_venta = $id_cliente.$nombre_tratamiento.$suma_ventas;
+            if($ID_VENTA_UUID == ''){
+                $ID_VENTA_UUID                     = $tar[1][1].$tar[1][2].$suma_ventas;     //id de venta general para todo el registro
+            }
+            $insertarAVentaTratamiento    = $tar[1];
+            $insertarAVentaTratamiento[0] = $ID_VENTA_UUID;
+
+            $insertarAClienteTratamiento  = $tar[2];
+
+            $insertarClienteBitacora      = $tar[3];
+            $insertarClienteBitacora[8]   = $id_venta;
+            if($tar[0][0] == 3){    //aplicar metodos de insertar tratamiento normal
+                $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
+
+                //Insertar a ClienteTratamiento
+                $ModelCliente->insertarClienteTratamiento($insertarAClienteTratamiento[0], $insertarAClienteTratamiento[1], $insertarAClienteTratamiento[2], $insertarAClienteTratamiento[3], $insertarAClienteTratamiento[4], $insertarAClienteTratamiento[5]);
+
+                //Insertar a ClienteBitacora
+                $ModelCliente->insertarClienteBitacora($insertarClienteBitacora[0], $insertarClienteBitacora[1], $insertarClienteBitacora[2], $insertarClienteBitacora[3], $insertarClienteBitacora[4], $insertarClienteBitacora[5], $insertarClienteBitacora[6], $insertarClienteBitacora[7], $insertarClienteBitacora[8]);
+
+            }else{                  //aplicar metodos de insertar tratamiento especial
+                //**contaviizar numero sesion */
+                if($insertarAVentaTratamiento[2] == 'CAV01'){ //depilacion
+
+                    $insertarAClienteTratamiento[7] = $ModelCliente->getNumeroSesionesDepilacion($id_cliente)[0]['sesiones'] + 1;
+
+                    //Insertar a venta
+                    $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
+
+                    $ModelCliente->insertarClienteTratamientoEspecial($insertarAClienteTratamiento[0], $insertarAClienteTratamiento[1], $insertarAClienteTratamiento[2], $insertarAClienteTratamiento[3], $insertarAClienteTratamiento[4], $insertarAClienteTratamiento[5], $insertarAClienteTratamiento[6], $insertarAClienteTratamiento[7]);
+
+                    // //Insertar a ClienteBitacora
+                    $ModelCliente->insertarClienteBitacora($insertarClienteBitacora[0], $insertarClienteBitacora[1], $insertarClienteBitacora[2], $insertarClienteBitacora[3], $insertarClienteBitacora[4], $insertarClienteBitacora[5], $insertarClienteBitacora[6], $insertarClienteBitacora[7], $insertarClienteBitacora[8]);
+                }else{  //caviytacion
+                    $insertarAClienteTratamiento[7] = $ModelCliente->getNumeroSesionesCavitacion($id_cliente)[0]['sesiones'] + 1;
+
+
+                    //Insertar a venta
+                    $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
+
+                    $ModelCliente->insertarClienteTratamientoEspecial($insertarAClienteTratamiento[0], $insertarAClienteTratamiento[1], $insertarAClienteTratamiento[2], $insertarAClienteTratamiento[3], $insertarAClienteTratamiento[4], $insertarAClienteTratamiento[5], $insertarAClienteTratamiento[6], $insertarAClienteTratamiento[7]);
+
+                    // //Insertar a ClienteBitacora
+                    $ModelCliente->insertarClienteBitacora($insertarClienteBitacora[0], $insertarClienteBitacora[1], $insertarClienteBitacora[2], $insertarClienteBitacora[3], $insertarClienteBitacora[4], $insertarClienteBitacora[5], $insertarClienteBitacora[6], $insertarClienteBitacora[7], $insertarClienteBitacora[8]);
+                }
+            }
+        }
+        // $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
+
+        // header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 

@@ -21,9 +21,9 @@
   if($continente=='1' || $continente == '2'){ //Si es depilacion
     //Buscar ultimo tratamiento de depilacion y mostrar info
     if($continente=='1'){
-      $ultimoTratamiento = $ModelTratamiento->getUltimoTratamientoEspecialIdCliente($id_cliente, 'Depilacion');
+      $ultimoTratamiento = $ModelTratamiento->getUltimoTratamientoEspecialIdCliente($id_cliente, 'DEP01');
     }else{
-      $ultimoTratamiento = $ModelTratamiento->getUltimoTratamientoEspecialIdCliente($id_cliente, 'Cavitacion');
+      $ultimoTratamiento = $ModelTratamiento->getUltimoTratamientoEspecialIdCliente($id_cliente, 'CAV01');
     }
     if(sizeof($ultimoTratamiento) >= 1){  //Si exiten tratamientos previos, mostrar info del ultimo
       if($continente == '1'){

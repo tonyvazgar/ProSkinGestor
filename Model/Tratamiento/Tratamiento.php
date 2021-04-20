@@ -70,6 +70,8 @@
             $tratamientos = $db->query("SELECT * 
                                         FROM ClienteTratamientoEspecial, ClienteBitacora 
                                         WHERE ClienteTratamientoEspecial.id_cliente='$id_cliente' 
+                                        AND ClienteTratamientoEspecial.id_tratamiento='DEP01'
+                                        AND ClienteTratamientoEspecial.id_tratamiento=ClienteBitacora.id_tratamiento
                                         AND ClienteTratamientoEspecial.id_cliente = ClienteBitacora.id_cliente 
                                         AND ClienteTratamientoEspecial.timestamp='$timestamp'
                                         AND ClienteTratamientoEspecial.timestamp = ClienteBitacora.timestamp")->fetchAll();
@@ -84,6 +86,8 @@
             $tratamientos = $db->query("SELECT * 
                                         FROM ClienteTratamientoEspecial, ClienteBitacora, ZonasCuerpo 
                                         WHERE ClienteTratamientoEspecial.id_cliente='$id_cliente' 
+                                        AND ClienteTratamientoEspecial.id_tratamiento='CAV01'
+                                        AND ClienteTratamientoEspecial.id_tratamiento=ClienteBitacora.id_tratamiento
                                         AND ClienteTratamientoEspecial.id_cliente = ClienteBitacora.id_cliente 
                                         AND ClienteTratamientoEspecial.timestamp='$timestamp'
                                         AND ClienteTratamientoEspecial.timestamp = ClienteBitacora.timestamp
