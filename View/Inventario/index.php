@@ -41,23 +41,38 @@
     <main role="main" class="container">
       <div class="container">
         <h1>Productos en el invetario</h1>
-        <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
-        <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario</a>
+        <div class="form-group">
+          <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
+          <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario</a>
+        </div>
+        <div class="form-group">
+          <label>Selecciona la marca</label>
+          <!-- <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del producto" required> -->
+          <select name="marca" id="marca" class="form-control">
+            <option value="">** SELECCIONA **</option>
+            <option value="MIGUETT">MIGUETT</option>
+            <option value="AINHOA">AINHOA</option>
+            <option value="GERMAINE">GERMAINE</option>
+          </select>
+        </div>
+        <div class="form-group" id="otro" name="otro">
+                                                
+        </div>
         <?php
           // echo "<pre>";
           // print_r($productos);
           // echo "</pre>";
-          foreach($productos as $d){
-            if($d['stock_disponible_producto'] == 0){
-              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                      <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
-                      </li>";
-            }else{
-              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                      <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-success rounded-pill'>Stock</span>
-                      </li>";
-            }
-          }
+          // foreach($productos as $d){
+          //   if($d['stock_disponible_producto'] == 0){
+          //     echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+          //             <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['nombre_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
+          //             </li>";
+          //   }else{
+          //     echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+          //             <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['descripcion_producto']."</a><span class='badge bg-success rounded-pill'>Stock</span>
+          //             </li>";
+          //   }
+          // }
         ?>
         <img src="../img/img2.jpg" class="img-fluid" alt="Responsive image">
       </div>
@@ -65,5 +80,6 @@
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Inventario/Util/categoriasProductos.js"></script>
 </body>
 </html>

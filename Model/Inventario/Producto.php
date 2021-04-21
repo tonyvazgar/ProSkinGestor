@@ -49,8 +49,19 @@
         public function getAllProductos(){
             $db = new Db();
             $sql_statement = "SELECT *
-                              FROM Productos 
-                              ORDER BY nombre_producto ASC";
+                              FROM Productos
+                              ORDER BY descripcion_producto ASC";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function getAllProductosFromMarca($marca){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Productos
+                              WHERE marca_producto = '$marca'
+                              ORDER BY descripcion_producto ASC";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;
