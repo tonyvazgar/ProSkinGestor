@@ -34,7 +34,6 @@
     <script src="../include/loadNavbar.js"></script>
 </head>
 <body style='background-color: #f9f3f3;'>
-    <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
         
@@ -47,19 +46,27 @@
                     $info = $ModelProducto->getProductoWereID($id);
                     foreach($info as $infoProducto){
                 ?>
-                    <h1>Detalles del producto <?php echo "'".$infoProducto['nombre_producto']."'";?></h1>
+                    <h1>Detalles del producto <?php echo $infoProducto['descripcion_producto'];?></h1>
                     <form action="buscarCliente.php" method="POST" autocomplete="">
                     <div class="form-group">
                         <label for="exampleInputEmail1">ID</label>
                         <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoProducto['id_producto'];?> readonly>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['nombre_producto']."'";?> readonly>
+                        <label for="exampleInputEmail1">Marca</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['marca_producto']."'";?> readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Linea</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['linea_producto']."'";?> readonly>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Descripción</label>
                         <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Presentación</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> readonly>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Precio</label>
@@ -69,8 +76,9 @@
                         <label for="exampleInputEmail1">Unidades disponibles</label>
                         <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
                     </div>
-                    
-                    <!-- <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success">Editar</button> -->
+                    <div class="form-group">
+                        <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
+                    </div>
                 <?php
                     }
                 ?>

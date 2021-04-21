@@ -67,6 +67,17 @@
             return $account;
         }
 
+        public function getAllProductosFromLinea($linea){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Productos
+                              WHERE linea_producto = '$linea'
+                              ORDER BY descripcion_producto ASC";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
         public function getProductoWereID($id_producto){
             $db = new Db();
             $sql_statement = "SELECT *

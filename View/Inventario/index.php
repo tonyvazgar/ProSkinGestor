@@ -43,7 +43,7 @@
         <h1>Productos en el invetario</h1>
         <div class="form-group">
           <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
-          <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario</a>
+          <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario por nombre</a>
         </div>
         <div class="form-group">
           <label>Selecciona la marca</label>
@@ -56,6 +56,10 @@
           </select>
         </div>
         <div class="form-group" id="otro" name="otro">
+                                                
+        </div>
+
+        <div class="form-group" id="productos" name="productos">
                                                 
         </div>
         <?php
