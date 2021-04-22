@@ -19,8 +19,9 @@
         }
     }
     if (isset($_POST['buscarProducto'])){
-        $nombre    = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
-        $resultado = $ModelProducto->getProductoWereNombre($nombre);
+        // $nombre    = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
+        $nombre    = mysqli_real_escape_string($con, strtoupper($_POST['nombre']));
+        $resultado = $ModelProducto->getProductoWereDescripcion($nombre);
         if(sizeof($resultado) >= 1){
             $front = "<div class='container'><ul class='list-group'>";
             foreach($resultado as $producto){

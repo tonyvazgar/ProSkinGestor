@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 21, 2021 at 11:30 PM
+-- Generation Time: Apr 22, 2021 at 06:55 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -314,7 +314,7 @@ CREATE TABLE `Productos` (
 --
 
 INSERT INTO `Productos` (`id_producto`, `marca_producto`, `linea_producto`, `descripcion_producto`, `presentacion_producto`, `stock_disponible_producto`, `costo_unitario_producto`, `centro_producto`) VALUES
-('***OTRO', 'AINHOA', 'OTRO', 'CRIOGEL', '1 KG', 10, '1060', '2'),
+('***OTRO', 'AINHOA', 'OTRO', 'CRIOGEL', '1 KG', 0, '1060', '2'),
 ('***PACK01', 'AINHOA', 'PACKS', 'MULTIVIT KIT (SÉRUM + CREMA)', '', 10, '1494', '2'),
 ('***PACK02', 'AINHOA', 'PACKS', 'HYALURONIC KIT (SÉRUM FIRMEZA + CREMA ESENCIAL)', '', 10, '1526', '2'),
 ('***PACK03', 'AINHOA', 'PACKS', 'HYALURONIC KIT BEAUTY ADDICT (SÉRUM + CONTORNO DE OJOS)', '', 10, '1228', '2'),
@@ -369,7 +369,7 @@ INSERT INTO `Productos` (`id_producto`, `marca_producto`, `linea_producto`, `des
 ('JRO02', 'MIGUETT', '', 'LOCIÓN HUMECTANTE DE ROSAS', '500 ML', 10, '515', '2'),
 ('JSHAC1', 'MIGUETT', '', 'SHAMPOO ACNEID: PREBIOTICOS + C. ACTIVADO', '250 ML', 10, '496', '2'),
 ('JSHAC2', 'MIGUETT', '', 'SHAMPOO ACNEID: PREBIOTICOS + C. ACTIVADO', '150 ML', 10, '368', '2'),
-('JUJI02', 'MIGUETT', '', 'ACEITE BOTÁNICO JITAH ', '250 ML', 10, '538', '2'),
+('JUJI02', 'MIGUETT', '', 'ACEITE BOTÁNICO JITAH ', '250 ML', 0, '538', '2'),
 ('KA0001', 'MIGUETT', '', 'AMPOLLETA A-9-9 DESENSIBILIZANTE', '5/2 ML', 10, '70', '2'),
 ('KAM001', 'MIGUETT', '', 'ÁMBAR ARMONIZADOR ECO-ENERGÉTICO', '150 ML', 10, '414', '2'),
 ('KAM002', 'MIGUETT', '', 'ÁMBAR ARMONIZADOR ECO-ENERGÉTICO', '250 ML', 10, '594', '2'),
@@ -427,7 +427,7 @@ INSERT INTO `Productos` (`id_producto`, `marca_producto`, `linea_producto`, `des
 ('P2703N', 'AINHOA', 'OLIVE', 'CREMA DÍA Y NOCHE OLIVE', '200 ML', 10, '899', '2'),
 ('P2704', 'AINHOA', 'OTRO (DESC)', 'CREMA CONTORNO DE OJOS OLIVE', '200 ML', 10, '766', '2'),
 ('P2705N', 'AINHOA', 'OLIVE', 'MÁSCARA FACIAL OLIVE', '200 ML', 10, '709', '2'),
-('P48.2', 'GERMAINE', '', 'CONTINOUS DEFENSE EMULSION EXCEL THERAPY', '50 ML', 10, '1730', '2'),
+('P48.2', 'GERMAINE', '', 'CONTINOUS DEFENSE EMULSION EXCEL THERAPY', '50 ML', 9, '1730', '2'),
 ('P48.3', 'GERMAINE', '', 'CONTORNO DE OJOS ESSENCE', '15 ML', 10, '1010', '2'),
 ('P48.8', 'GERMAINE', '', 'FIRST ESSENCE EXCEL THERAPY', '30 ML', 10, '1465', '2'),
 ('P48.9', 'GERMAINE', '', '365 SOFT SCRUB', '150 ML', 10, '965', '2'),
@@ -511,7 +511,7 @@ INSERT INTO `Productos` (`id_producto`, `marca_producto`, `linea_producto`, `des
 ('VVAS01', 'MIGUETT', '', 'SHAMPOO ACALLI CON ESFERAS DE JOJOBA', '150 ML', 10, '364', '2'),
 ('WGOLDSH', 'MIGUETT', '', 'CREMA GOLD SHIZEN (LUXURY 24K)', '30 ML', 10, '672', '2'),
 ('XCREM01', 'MIGUETT', '', 'CREMA ACTIVE CONTOUR REDUCTIVA CON ALCACHOFA 90-60-90', '250 ML ', 10, '515', '2'),
-('YACE', 'MIGUETT', '', 'ACEITE AMALESH DESINCRUSTANTE HERBAL CUARZO ROSA', '15 ML', 10, '197', '2'),
+('YACE', 'MIGUETT', '', 'ACEITE AMALESH DESINCRUSTANTE HERBAL CUARZO ROSA', '15 ML', 0, '197', '2'),
 ('YAN', 'MIGUETT', '', 'AMPOLLETA NAISHA ULTRA LIFT CÉLULAS MADRE & H.', '6/4 ML', 10, '100', '2'),
 ('YSH01', 'MIGUETT', '', 'SHAMPOO NARA ÁMBAR (GEMOLOGY DELUXE)', '150 ML', 10, '299', '2'),
 ('YSH02', 'MIGUETT', '', 'SHAMPOO NARA ÁMBAR (GEMOLOGY DELUXE)', '250 ML', 10, '442', '2'),
@@ -714,6 +714,9 @@ CREATE TABLE `Ventas` (
 --
 
 INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) VALUES
+('P48.2298', '', '', 5, '1500.00', '1619042047', '2', '', 'P48.2', '1500', '1', '9'),
+('JUJI02297', '', '', 1, '1614.00', '1619041841', '2', '', 'JUJI02', '538', '3', '9'),
+('JUJI02296', '', '', 2, '3766.00', '1619041152', '2', '', 'JUJI02', '538', '7', '9'),
 ('ERG66100116CAV014', 'ERG66100116', 'CAV01', 2, '340', '1618910627', '3', '340', '', '', '', '10'),
 ('ERG66100116CAV015', 'ERG66100116', 'CAV01', 3, '9999', '1618910827', '3', '9999', '', '', '', '10'),
 ('RL96061115FAC191', 'RL96061115', 'DEP01', 1, '10800', '1618874911', '2', '10800', '', '', '', '9'),

@@ -56,22 +56,24 @@
             return $account;
         }
 
-        public function getAllProductosFromMarca($marca){
+        public function getAllProductosFromMarca($marca, $id_centro){
             $db = new Db();
             $sql_statement = "SELECT *
                               FROM Productos
-                              WHERE marca_producto = '$marca'
+                              WHERE marca_producto = '$marca' 
+                              AND centro_producto  = '$id_centro'
                               ORDER BY descripcion_producto ASC";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;
         }
 
-        public function getAllProductosFromLinea($linea){
+        public function getAllProductosFromLinea($linea, $id_centro){
             $db = new Db();
             $sql_statement = "SELECT *
                               FROM Productos
                               WHERE linea_producto = '$linea'
+                              AND centro_producto  = '$id_centro'
                               ORDER BY descripcion_producto ASC";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
@@ -87,11 +89,14 @@
             $db->close();
             return $account;
         }
-        public function getProductoWereNombre($id_producto){
+        public function getProductoWereDescripcion($descripcion){
             $db = new Db();
+            print_r("SELECT *
+            FROM Productos 
+            WHERE BINARY descripcion_producto LIKE '%$descripcion%'");
             $sql_statement = "SELECT *
                               FROM Productos 
-                              WHERE BINARY nombre_producto LIKE '%$id_producto%'";
+                              WHERE BINARY descripcion_producto LIKE '%$descripcion%'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

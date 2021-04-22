@@ -6,17 +6,22 @@
     $ModelProducto = new Producto();
 
     $marca = $_POST['marca'];
+    $id_cento = $_POST['id_centro'];
     echo "<h1>".$marca."</h1>";
     if($marca != "AINHOA"){     //No liene lineas de productos aparte
-      $productos = $ModelProducto->getAllProductosFromMarca($marca);
+      $productos = $ModelProducto->getAllProductosFromMarca($marca, $id_cento);
       foreach($productos as $d){
         if($d['stock_disponible_producto'] == 0){
           echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['marca_producto'].$d['nombre_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
+                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['descripcion_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
                 </li>";
         }else{
           echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['marca_producto'].$d['descripcion_producto']."</a><span class='badge bg-success rounded-pill'>Stock</span>
+                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['descripcion_producto']."</a>
+                  <div>
+                    <span class='badge bg-success rounded-pill'>Stock</span>
+                    <a class='btn btn-success' href='ventaProducto.php?id=".$d['id_producto']."' role='button'>Vender</a>
+                  </div>
                 </li>";
         }
       }
@@ -46,15 +51,19 @@
     }
 
     if(isset($_POST['linea'])){
-      $productos = $ModelProducto->getAllProductosFromLinea($_POST['linea']);
+      $productos = $ModelProducto->getAllProductosFromLinea($_POST['linea'], $_POST['id_centro']);
       foreach($productos as $d){
         if($d['stock_disponible_producto'] == 0){
           echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['marca_producto'].$d['nombre_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
+                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['descripcion_producto']."</a><span class='badge bg-warning rounded-pill'>Sin Stock</span>
                 </li>";
         }else{
           echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['marca_producto'].$d['descripcion_producto']."</a><span class='badge bg-success rounded-pill'>Stock</span>
+                  <a href='detallesProducto.php?id=".$d['id_producto']."' role='button'>".$d['descripcion_producto']."</a>
+                  <div>
+                    <span class='badge bg-success rounded-pill'>Stock</span>
+                    <a class='btn btn-success' href='ventaProducto.php?id=".$d['id_producto']."' role='button'>Vender</a>
+                  </div>
                 </li>";
         }
       }

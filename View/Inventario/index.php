@@ -12,6 +12,7 @@
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  $numeroSucursal = $ModeloUsuario->getNumeroSucursalUsuario($email);  
   $productos = $ModelProducto->getAllProductos();
   
 ?>
@@ -47,7 +48,7 @@
         </div>
         <div class="form-group">
           <label>Selecciona la marca</label>
-          <!-- <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del producto" required> -->
+          <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden>
           <select name="marca" id="marca" class="form-control">
             <option value="">** SELECCIONA **</option>
             <option value="MIGUETT">MIGUETT</option>

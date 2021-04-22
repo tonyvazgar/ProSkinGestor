@@ -58,10 +58,6 @@
                         <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['nombre_producto']."'";?> readonly>
-                    </div>
-                    <div class="form-group">
                         <label for="exampleInputEmail1">Descripción</label>
                         <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> readonly>
                     </div>
@@ -75,7 +71,7 @@
                             <tr>
                                 <td>
                                     <label for="exampleInputEmail1">Precio por pieza</label>
-                                    <input type="number" class="form-control" id="precioUnitario" name="precioUnitario" value=<?php echo $infoProducto['costo_unitario_producto'];?> readonly>
+                                    <input type="number" class="form-control" id="precioUnitario" name="precioUnitario" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
                                 </td>
                                 <td>
                                     <label for="exampleInputEmail1">Cantidad</label>
@@ -97,8 +93,10 @@
                                         <label>Método de pago: </label>
                                         <select name='metodoPago' id='metodoPago' class='form-control'>
                                             <option value='1'>Efectivo</option>
-                                            <option value='2'>Tarjeta</option>
-                                            <option value='3'>Otro</option>
+                                            <option value='2'>[TDD]Tarjeta de débito</option>
+                                            <option value='3'>[TDC]Tarjeta de crédito</option>
+                                            <option value='4'>Transferencia</option>
+                                            <option value='5'>Cheque de regalo</option>
                                         </select>
                                     </td>
                                 </tr>
