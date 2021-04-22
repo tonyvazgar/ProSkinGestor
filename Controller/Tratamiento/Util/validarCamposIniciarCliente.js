@@ -99,6 +99,55 @@ $(document).on('change','#tratamiento',function () {
     console.log("hola");
 });
 
+$(document).on('change','#detalleZona',function () {
+    var num = $('#detalleZona').val();
+    var precio = 0;
+    if(num == 1){
+        precio = 400;
+    }else if(num == 2){
+        precio = 640;
+    }if(num == 3){
+        precio = 960;
+    }else if(num == 4){
+        precio = 1264;
+    }if(num == 5){
+        precio = 1580;
+    }else if(num == 6){
+        precio = 1872;
+    }if(num == 7){
+        precio = 2184;
+    }else if(num == 8){
+        precio = 2464;
+    }if(num == 9){
+        precio = 2772;
+    }else if(num == 10){
+        precio = 3040;
+    }if(num == 11){
+        precio = 3344;
+    }else if(num == 12){
+        precio = 3600;
+    }if(num == 13){
+        precio = 3900;
+    }else if(num == 14){
+        precio = 4144;
+    }if(num == 15){
+        precio = 4440;
+    }else if(num == 16){
+        precio = 4672;
+    }if(num == 17){
+        precio = 4964;
+    }else if(num == 18){
+        precio = 5184;
+    }if(num == 19){
+        precio = 5396;
+    }else if(num == 20){
+        precio = 5600;
+    }
+    
+    $('#precioTratamiento').val(precio);
+    console.log(num);
+});
+
 $(document).on('change','#nombreTratamiento',function () {
     recargarListaNombreTratamiento();
     console.log("holasss");
