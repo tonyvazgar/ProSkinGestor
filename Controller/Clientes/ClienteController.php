@@ -166,7 +166,7 @@
             $insertarAClienteTratamiento  = $tar[2];
 
             $insertarClienteBitacora      = $tar[3];
-            $insertarClienteBitacora[8]   = $id_venta;
+            $insertarClienteBitacora[8]   = $ID_VENTA_UUID;
             if($tar[0][0] == 3){    //aplicar metodos de insertar tratamiento normal
                 $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
 

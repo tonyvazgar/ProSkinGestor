@@ -31,31 +31,15 @@ $(document).ready(function () {
         
         // // Hacemos focus en el primer input del formulario
         // $("#alumnos .col-xs-4:first .well input:first").focus();
+        $("#aviso").val("");
+        $("#botonComenzar").hide();
     });
     $("#tratamientos").on('click', '.btn-retirar-alumno', function(){
         $(this).closest('.col-xs-4').remove();
+        $("#aviso").val("");
+        $("#botonComenzar").hide();
     })
 });
-
-// function verificarSiHayFirma() {
-//     var opt = $('select[name="tratamiento"] :selected').attr('class');
-//     if (opt === "signature"){   //si si se necesita firma se muestra la pregunta ¿Ya se firmó?
-//         return true;
-//     }else{                      //si no se necesita firma solo se muestra el botón
-//         return false;
-//     }
-// }
-
-// function validarFirma() {
-    // var opt = $("#aviso").val();
-    // if(opt == "1"){
-    //     console.log("ya se firmo")
-    //     return true;
-    // }else{
-    //     console.log("no se ha firmo")
-    //     return false;
-    // }
-// }
 
 function buttonState() {
     var opt = $("#aviso").val();
@@ -66,32 +50,8 @@ function buttonState() {
     }
 }
 //------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------
-
-
-// $(document).ready(function () {
-//     // $("#comenzarTratamiento").hide();
-//     $("#tratamiento").change(function () {
-//         var opt = $("#tratamiento").val();
-//         if(opt == "1"){
-//             $('#botonComenzar').html("<button type='submit' id='comenzarTratamientoDepilacion' name='comenzarTratamientoDepilacion' class='btn btn-success'>Registrar Depilación</button>");
-//         }if(opt == "2"){
-//             $('#botonComenzar').html("<button type='submit' id='comenzarTratamientoCavitacion' name='comenzarTratamientoCavitacion' class='btn btn-success'>Registrar Cavitación</button>");
-//         }if(opt == "3"){
-//             $('#botonComenzar').html("<button type='submit' id='comenzarTratamiento' name='comenzarTratamiento' class='btn btn-success'>Registrar Tratamiento</button>");
-//         }
-//     });
-// });
-
-
-
-
-//------------------------------------------------------------------------------------------
 $(document).ready(function(){
-    // $('#tratamiento').val(1);
     recargarLista();
-
-    
 })
 
 $(document).on('change','#tratamiento',function () {
@@ -143,14 +103,14 @@ $(document).on('change','#detalleZona',function () {
     }else if(num == 20){
         precio = 5600;
     }
-    
-    $('#precioTratamiento').val(precio);
-    console.log(num);
+    if($('#tratamiento').val() == 1){
+        $('#precioTratamiento').val(precio);
+        console.log(num + ' --> ' + precio);
+    }
 });
 
 $(document).on('change','#nombreTratamiento',function () {
     recargarListaNombreTratamiento();
-    console.log("holasss");
 });
 
 function recargarLista(){

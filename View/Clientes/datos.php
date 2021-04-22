@@ -72,8 +72,10 @@
                     <label>Método de pago: </label>
                     <select name='metodoPago[]' id='metodoPago' class='form-control'>
                         <option value='1'>Efectivo</option>
-                        <option value='2'>Tarjeta</option>
-                        <option value='3'>Otro</option>
+                        <option value='2'>[TDD]Tarjeta de débito</option>
+                        <option value='3'>[TDC]Tarjeta de crédito</option>
+                        <option value='4'>Transferencia</option>
+                        <option value='5'>Cheque de regalo</option>
                     </select>
                     <label>Precio: </label>
                     <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
@@ -145,8 +147,10 @@
                 <td>
                     <select name='metodoPago[]' id='metodoPago' class='form-control'>
                         <option value='1'>Efectivo</option>
-                        <option value='2'>Tarjeta</option>
-                        <option value='3'>Otro</option>
+                        <option value='2'>[TDD]Tarjeta de débito</option>
+                        <option value='3'>[TDC]Tarjeta de crédito</option>
+                        <option value='4'>Transferencia</option>
+                        <option value='5'>Cheque de regalo</option>
                     </select>
                 </td>
                 </tr>
