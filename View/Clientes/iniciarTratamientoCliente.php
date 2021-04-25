@@ -63,7 +63,7 @@
                                 <label for="exampleInputEmail1">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']." ".$infoCliente['apellidos_cliente']."'";?> readonly>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="exampleInputEmail1">Sucursal</label>
                                 <select name="idCentro" id="idCentro" class="form-control" readonly><option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option>
                                 </select>

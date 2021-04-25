@@ -48,7 +48,7 @@
             $statusCliente = $ModelCliente->getStatusCliente($d['id_cliente']);
             if($statusCliente[0]['status'] == 'activo'){
               echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href='editarCliente.php?id=".$d['id_cliente']."' role='button'>".$d['nombre_cliente']."</a><span class='badge bg-success rounded-pill'>Activo</span>
+                    <a href='informacionCliente.php?id=".$d['id_cliente']."' role='button'>".$d['nombre_cliente']."</a><span class='badge bg-success rounded-pill'>Activo</span>
                     </li>";
             }else{
               echo "<li class='list-group-item d-flex justify-content-between align-items-center'>".$d['nombre_cliente']."<span class='badge bg-warning rounded-pill'>Inactivo</span>

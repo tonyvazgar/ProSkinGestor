@@ -50,6 +50,11 @@ $(document).ready(function () {
     });
 });
 
+$("#editarCliente").on("click", function() {
+    console.log("Vamos a editar el cliente");
+});
+//Funciones
+
 function validateAvisoPrivacidad() {
     var opt = $("#aviso").val();
     if(opt == "1"){
