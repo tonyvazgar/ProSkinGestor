@@ -77,7 +77,7 @@
             </div>";
     }
 
-    if(isset($_POST['editarCliente'])){
+    if(isset($_POST['editarClienteButton'])){
         $id     = mysqli_real_escape_string($con, $_POST['id']);
         $nombre      = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
         $apellidos   = mysqli_real_escape_string($con, ucwords($_POST['apellidos']));
@@ -93,8 +93,8 @@
 
 
         if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $tipo, $email, $centro, strtotime($fecha_registro),$fecha_visita, $fecha, $cp]) == 1){
-            header('location: index.php');
-            exit();
+            header('location: exito.php');
+            // exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";
         }

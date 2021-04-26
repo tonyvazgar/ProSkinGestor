@@ -49,7 +49,8 @@
 
                 <div class="col d-flex justify-content-center">
                     <button type="button" id="editarCliente" name="editarCliente" class="btn btn-warning">Editar información</button>
-                    <a class="btn btn-primary" href="../registrar.php" role="button">Registrar tratamiento</a>
+                    <button type="button" id="cancelarEdicion" name="cancelarEdicion" class="btn btn-danger" hidden>Cancelar edición</button>
+                    <a class="btn btn-primary"  href=<?php echo "../../View/Clientes/iniciarTratamientoCliente.php?id=".$infoCliente['id_cliente'];?> role="button">Registrar tratamiento</a>
                 </div>
 
                 <div class="form-group">
@@ -94,11 +95,11 @@
                             <tr>
                                 <td>
                                     <label for="exampleInputEmail1">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']."'";?> required>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']."'";?> readonly required>
                                 </td>    
                                 <td>
                                     <label for="exampleInputEmail1">Apellidos</label>
-                                    <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoCliente['apellidos_cliente']."'";?> required>
+                                    <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoCliente['apellidos_cliente']."'";?> readonly required>
                                 </td>
                             </tr>
                         </tbody>
@@ -106,19 +107,19 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">E-mail</label>
-                    <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoCliente['email_cliente'];?> required>
+                    <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoCliente['email_cliente'];?> readonly required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Número</label>
-                    <input type="text" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['telefono_cliente'];?> required>
-                    <select name="tipo" id="tipo" name="tipo" class="form-control">
+                    <input  oninput="numberOnly(this.id);"  type = "text"  pattern="\d*" maxlength="10" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['telefono_cliente'];?> readonly required>
+                    <select name="tipo" id="tipo" name="tipo" class="form-control" readonly >
                         <option value="0">Celular</option>
                         <option value="1">Fijo</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Centro</label>
-                    <select name="centro" id="centro" class="form-control">
+                    <select name="centro" id="centro" class="form-control" readonly>
                         <?php
                             if($infoCliente['centro_cliente'] == '1'){
                                 echo "<option value='1'>*Sonata*</option>";
@@ -143,11 +144,11 @@
                             <tr>
                                 <td>
                                     <label for="exampleInputEmail1">Fecha de nacimiento</label>
-                                    <input type="date" class="form-control" id="fecha" name="fecha" value=<?php echo $infoCliente['fecha_cliente'];?> >
+                                    <input type="date" class="form-control" id="fecha" name="fecha" value=<?php echo $infoCliente['fecha_cliente'];?> readonly>
                                 </td>    
                                 <td>
                                     <label for="exampleInputEmail1">CP</label>
-                                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>>
+                                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>readonly>
                                 </td>
                             </tr>
                         </tbody>
@@ -155,7 +156,7 @@
                 </div>
 
 
-                <button type="submit" id="editarCliente" name="editarCliente" class="btn btn-success" hidden>Editar</button>
+                <button type="submit" id="editarClienteButton" name="editarClienteButton" class="btn btn-success" hidden>Confirmar edición</button>
                    <?php
                     }
                     ?>

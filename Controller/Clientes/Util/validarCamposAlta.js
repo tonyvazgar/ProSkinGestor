@@ -48,12 +48,57 @@ $(document).ready(function () {
         }
         buttonState();
     });
+
+
+    $("#editarCliente").on("click", function() {
+        console.log("Vamos a editar el cliente");
+        $('#nombre').removeAttr('readonly');
+        $('#apellidos').removeAttr('readonly');
+        $('#email').removeAttr('readonly');
+        $('#numero').removeAttr('readonly');
+        $('#tipo').removeAttr('readonly');
+        $('#centro').removeAttr('readonly');
+        $('#fecha').removeAttr('readonly');
+        $('#cp').removeAttr('readonly');
+        $(this).hide();
+        $('#cancelarEdicion').removeAttr('hidden');
+        $('#cancelarEdicion').show();
+        $('#editarClienteButton').removeAttr('hidden');
+        $('#editarClienteButton').show();
+    });
+
+
+    $("#cancelarEdicion").on("click", function() {
+        console.log("Vamos a cancelar la edicion del cliente");
+        $('#nombre').prop('readonly', true);
+        $('#apellidos').prop('readonly', true);
+        $('#email').prop('readonly', true);
+        $('#numero').prop('readonly', true);
+        $('#tipo').prop('disabled', true);
+        $('#centro').prop('disabled', true);
+        $('#fecha').prop('readonly', true);
+        $('#cp').prop('readonly', true);
+        $(this).hide();
+        $('#editarCliente').show();
+        $('#editarClienteButton').hide();
+    });
+
+    $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+    });
 });
 
-$("#editarCliente").on("click", function() {
-    console.log("Vamos a editar el cliente");
-});
 //Funciones
+
+function numberOnly(id) {
+    // Get element by id which passed as parameter within HTML element event
+    var element = document.getElementById(id);
+    // This removes any other character but numbers as entered by user
+    element.value = element.value.replace(/[^0-9]/gi, "");
+}
 
 function validateAvisoPrivacidad() {
     var opt = $("#aviso").val();
