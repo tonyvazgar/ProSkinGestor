@@ -5,18 +5,23 @@
     $ModelProducto = new Producto();
 
     if (isset($_POST['altaInventario'])) {
-        $nombre_producto           = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
-        $descripcion_producto      = mysqli_real_escape_string($con, $_POST['descripcion']);
+        $marca                     = mysqli_real_escape_string($con, $_POST['marca']);
+        $linea                     = mysqli_real_escape_string($con, $_POST['linea']);
+        $descripcion_producto      = mysqli_real_escape_string($con, strtoupper($_POST['descripcion']));
+        $presentacion              = mysqli_real_escape_string($con, $_POST['presentacion']);
         $costo_unitario_producto   = mysqli_real_escape_string($con, $_POST['precio']);
         $stock_disponible_producto = mysqli_real_escape_string($con, $_POST['unidades']);
         $centro                    = mysqli_real_escape_string($con, $_POST['centro']);
-        $id_producto               = $ModelProducto->generateIdProducto($nombre_producto);
         
-        if ($ModelProducto->altaProducto($id_producto, $nombre_producto, $descripcion_producto, $costo_unitario_producto, $stock_disponible_producto, $centro)){
-            header("Location: ../../View/Inventario/");
+        $id_producto               = $ModelProducto->generateIdProducto($marca);
+        
+        
+        if ($ModelProducto->altaProducto($id_producto, $marca, $linea, $descripcion_producto, $presentacion, $stock_disponible_producto, $costo_unitario_producto, $centro)){
+            header("Location: exito.php");
         }else{
             //echo hubo un error;
         }
+        print_r(var_dump($_POST));
     }
     if (isset($_POST['buscarProducto'])){
         // $nombre    = mysqli_real_escape_string($con, ucwords($_POST['nombre']));

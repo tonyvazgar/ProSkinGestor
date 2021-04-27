@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2021 at 06:55 AM
+-- Generation Time: Apr 27, 2021 at 06:49 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -50,17 +50,18 @@ INSERT INTO `Cliente` (`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `tel
 ('AVG9602283', 'Auri', 'Vazquez Garcias', '2869374', '1', 'auri@ejemplo.com', '2', '1612134000', '1617898016', 1),
 ('BRL9307074', 'Brenda', 'Ramirez Lopez', '3333333', '1', 'brenda@hmail.com', '1', '1610492400', '1618437798', 1),
 ('CPM8004047', 'Coral', 'Perlita Mejia', '3332323222', '0', 'pers@sks.com', '2', '1610146800', '1610146800', 1),
-('ERG66100116', 'Emilio', 'Rosas Gil', '1234567', '1', 'Emilio.rogil@asdf.com', '3', '1618869600', '1618910827', 1),
+('ERG66100116', 'Emilio', 'Rosas Gil', '1234567', '1', 'Emilio.rogil@asdf.com', '3', '1618869600', '1619302937', 1),
 ('FFL9612252', 'Fernanda', 'Fernandez Lopez', '2020202020', '0', 'ferlofer@gmail.com', '3', '1616540400', '1618176928', 1),
 ('LF09041513', 'Laura', 'Flores', '1653792876', '0', 'lau.flores@gmail.com', '1', '1618437600', '1618610208', 1),
 ('LVG9405285', 'Luis Antonio', 'Vazquez Garcia', '4444545454', '0', 'hamcon@sjs.com', '1', '1609369200', '1618177403', 1),
+('MGF95042617', 'Mayela', 'Gomez Fernandez', '5233457877', '0', 'Mayela.gofer@udlap.mx', '3', '1619388000', '1619388000', 1),
 ('MTR2009246', 'Marcela', 'Thermopólis Renaldi', '3332323333', '1', 'mtr@icloud.com', '3', '1600898400', '1618174470', 1),
 ('OEP9902289', 'Otro', 'Ejemplo Prueba', '3456789098', '0', 'EEee@ssss.co', '1', '1616540400', '1618435382', 1),
 ('PEP7907128', 'Prueba', 'Ejemplo Prueba', '3682761', '1', 'example@example.com', '3', '1604790000', '1618343275', 1),
 ('PPE00123112', 'Paola', 'Prueba Ejemplo', '2978904', '1', 'pao.prueba.ejemplo@example.com', '2', '1617919200', '1618167420', 1),
 ('PRG00010111', 'Paola', 'Roman Gomez', '2222860394', '0', 'pao.rogo@gmail.com', '2', '1617746400', '1617827934', 1),
-('RL96061115', 'Roy', 'Lazcano', '1234567890', '0', 'roy@laz.com', '3', '1618610400', '1618610400', 1),
-('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1618599933', 1);
+('RL96061115', 'Roy', 'Lazcano', '1234567890', '0', 'roy@laz.com', '3', '1618610400', '1619107431', 1),
+('STR2103232', 'Sara', 'Thermopólis Renaldi', '3445678889', '0', 'sara@sdsd.com', '2', '1616454000', '1619388000', 1);
 
 -- --------------------------------------------------------
 
@@ -90,6 +91,8 @@ INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`,
 ('BRL9307074', 'PIG08', '8', '1', '5', '1618437798', '', 'f', 'BRL9307074PIG0822'),
 ('ERG66100116', 'CAV01', '10', '3', '4', '1618910627', '17,4,13,19,', 'Son 4 estrellas con 4 zonas y 340 con tarjeta (cavilación)', ''),
 ('ERG66100116', 'CAV01', '10', '3', '4', '1618910827', '19,', '', ''),
+('ERG66100116', 'CCE42', '10', '3', '4', '1619302448', '', 'Tratamiento normal', 'ERG66100116CCE4212'),
+('ERG66100116', 'FAC23', '10', '3', '3', '1619302937', '', 'Comentarios 900', 'ERG66100116FAC2313'),
 ('FFL9612252', 'CAV01', '8', '1', '5', '1618176928', '17', 'Es muy buen trabajo de abdomen', ''),
 ('FFL9612252', 'CAV01', '9', '2', '3', '1618176376', '17,3,9,6,11', 'Vamos a ver abd, antebra,pierna,pubis, zona alba', ''),
 ('LF09041513', 'CAV01', '8', '1', '3', '1618497786', '17', 'Eggs-xelente ', 'LF09041513CAV0123'),
@@ -107,14 +110,12 @@ INSERT INTO `ClienteBitacora` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`,
 ('OEP9902289', 'MDA13', '8', '1', '5', '1618434347', '', 'Vamos a ver si ya funciona nuevas columnas de venta (Tratamiento normal -> microdermoabrasión cara)', 'OEP9902289MDA1313'),
 ('OEP9902289', 'RED27', '9', '2', '5', '1618434552', '', 'Tratamiento normal reductivo liposis', 'OEP9902289RED2714'),
 ('PEP7907128', 'FAC25', '8', '1', '5', '1618343275', '', 'Muy bonito cutis', 'PEP7907128FAC257'),
-('RL96061115', 'CAV01', '9', '2', '4', '1618873712', '3,13,20,1,', 'zsecfgtgbnjiolñ', 'RL96061115CAV0137'),
-('RL96061115', 'DEP01', '9', '2', '3', '1618873712', '23,', 'qwertyuiop', 'RL96061115DEP0137'),
-('RL96061115', 'DEP01', '9', '2', '5', '1618874911', '2,12,', 'hace sueño', ''),
-('RL96061115', 'FAC19', '9', '2', '1', '1618874955', '', '', ''),
-('RL96061115', 'FAC19', '9', '2', '3', '1618874764', '', 'ya a dormir', ''),
-('RL96061115', 'FAC19', '9', '2', '3', '1618874911', '', 'ya a dormir', ''),
-('RL96061115', 'FAC23', '9', '2', '4', '1618873712', '', 'asdfghjklñ', 'RL96061115FAC2337'),
-('RL96061115', 'MAS31', '9', '2', '1', '1618874598', '', 'd', ''),
+('RL96061115', 'CAV01', '10', '3', '5', '1619085461', '2,18,', '', ''),
+('RL96061115', 'DEP01', '10', '3', '1', '1619107212', '3,4,13,20,15,', '1 estrella. con 5 zonas del cuerpo. 10 num zonas del cuerpo = 3040 con TDC', ''),
+('RL96061115', 'DEP01', '10', '3', '2', '1619085461', '23,', '', ''),
+('RL96061115', 'DEP01', '10', '3', '5', '1619107431', '23,', '', 'RL96061115FAC2110'),
+('RL96061115', 'FAC21', '10', '3', '5', '1619107431', '', '', 'RL96061115FAC2110'),
+('RL96061115', 'FAC23', '10', '3', '4', '1619107212', '', 'sss', ''),
 ('STR2103232', 'CAV01', '9', '2', '5', '1618599933', '17,3,2,12', 'Perris está viendo la ventana', 'STR2103232CAV0134'),
 ('STR2103232', 'DEP01', '10', '3', '5', '1618174226', '23', 'Todo el cuerpo, segunda sesion de sonata a la paz', ''),
 ('STR2103232', 'DEP01', '8', '1', '5', '1618172632', '17,12,13,22,6', 'Son 5 tratamientos, Abd,entrece,frente,oreja,pubis.', '');
@@ -158,6 +159,7 @@ INSERT INTO `ClienteOpcional` (`id_cliente`, `fecha_cliente`, `cp_cliente`) VALU
 ('LF09041513', '2009-04-15', '73902'),
 ('LVG9405285', '1994-05-28', '72590'),
 ('LVG9611071', '1996-11-07', '72830'),
+('MGF95042617', '1995-04-26', '45600'),
 ('MGR2103182', '2021-03-18', ''),
 ('MMD9604035', '1996-04-03', '72590'),
 ('MRC21031911', '2021-03-19', ''),
@@ -204,6 +206,7 @@ INSERT INTO `ClienteStatus` (`id_cliente`, `status`) VALUES
 ('LF09041513', 'activo'),
 ('LPG96100913', 'activo'),
 ('LVG9405285', 'activo'),
+('MGF95042617', 'activo'),
 ('MRC21031911', 'activo'),
 ('MTR2009246', 'activo'),
 ('OEP9902289', 'activo'),
@@ -236,6 +239,8 @@ CREATE TABLE `ClienteTratamiento` (
 
 INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetologa`, `nombre_tratamiento`, `zona_cuerpo`, `fecha_aplicacion`) VALUES
 ('BRL9307074', 'PIG08', '8', 'PIG08', '', '1618437798'),
+('ERG66100116', 'CCE42', '10', 'CCE42', '', '1619302448'),
+('ERG66100116', 'FAC23', '10', 'FAC23', '', '1619302937'),
 ('LF09041513', 'CCP43', '9', 'CCP43', '', '1618609081'),
 ('LF09041513', 'FAC24', '9', 'FAC24', '', '1618610208'),
 ('LF09041513', 'MAS37', '8', 'MAS37', '', '1618498112'),
@@ -244,11 +249,8 @@ INSERT INTO `ClienteTratamiento` (`id_cliente`, `id_tratamiento`, `id_cosmetolog
 ('OEP9902289', 'MDA13', '8', 'MDA13', '', '1618434347'),
 ('OEP9902289', 'RED27', '9', 'RED27', '', '1618434552'),
 ('PEP7907128', 'FAC25', '8', 'FAC25', '', '1618343275'),
-('RL96061115', 'FAC19', '9', 'FAC19', '', '1618874764'),
-('RL96061115', 'FAC19', '9', 'FAC19', '', '1618874911'),
-('RL96061115', 'FAC19', '9', 'FAC19', '', '1618874955'),
-('RL96061115', 'FAC23', '9', 'FAC23', '', '1618873712'),
-('RL96061115', 'MAS31', '9', 'MAS31', '', '1618874598');
+('RL96061115', 'FAC21', '10', 'FAC21', '', '1619107431'),
+('RL96061115', 'FAC23', '10', 'FAC23', '', '1619107212');
 
 -- --------------------------------------------------------
 
@@ -279,18 +281,19 @@ INSERT INTO `ClienteTratamientoEspecial` (`id_cliente`, `id_tratamiento`, `id_co
 ('FFL9612252', 'CAV01', '8', 'Cavitacion', '17', '40', '1618176928', 2),
 ('FFL9612252', 'CAV01', '9', 'Cavitacion', '17,3,9,6,11', '1,9', '1618176376', 1),
 ('LF09041513', 'CAV01', '8', 'Cavitacion', '17', 'Lomjas', '1618497786', 1),
-('OEP9902289', 'CAV01', '8', 'Cavitacion', '4,18,19,8', '4', '1618435298', 1),
 ('OEP9902289', 'CAV01', '9', 'Cavitacion', '10,19,7,14', '5,9,10', '1618435382', 2),
 ('OEP9902289', 'DEP01', '10', 'Depilacion', '17,2,18,19,14,16,20,6', '8,9', '1618435103', 3),
-('OEP9902289', 'DEP01', '8', 'Depilacion', '23', '3', '1618435202', 4),
 ('OEP9902289', 'DEP01', '9', 'Depilacion', '20,22,15,1,9,6,11', '1,5', '1618434733', 1),
+('OEP9902289', 'DEP01', '8', 'Depilacion', '23', '3', '1618435202', 4),
 ('OEP9902289', 'DEP01', '9', 'Depilacion', '4,12,20,1', '3,7', '1618434947', 2),
-('RL96061115', 'CAV01', '9', 'CAV01', '3,13,20,1,', '18', '1618873712', 1),
-('RL96061115', 'DEP01', '9', 'DEP01', '23,', '4', '1618873712', 1),
-('RL96061115', 'DEP01', '9', 'DEP01', '2,12,', '6', '1618874911', 1),
+('OEP9902289', 'CAV01', '8', 'Cavitacion', '4,18,19,8', '4', '1618435298', 1),
+('RL96061115', 'CAV01', '10', 'CAV01', '2,18,', '8', '1619085461', 1),
+('RL96061115', 'DEP01', '10', 'DEP01', '23,', '10', '1619085461', 1),
+('RL96061115', 'DEP01', '10', 'DEP01', '23,', '18', '1619107431', 1),
+('RL96061115', 'DEP01', '10', 'DEP01', '3,4,13,20,15,', '10', '1619107212', 1),
+('STR2103232', 'DEP01', '8', 'Depilacion', '17,12,13,22,6', '19,20', '1618172632', 1),
 ('STR2103232', 'CAV01', '9', 'Cavitacion', '17,3,2,12', '4', '1618599933', 1),
-('STR2103232', 'DEP01', '10', 'Depilacion', '23', 'Todo', '1618174226', 2),
-('STR2103232', 'DEP01', '8', 'Depilacion', '17,12,13,22,6', '19,20', '1618172632', 1);
+('STR2103232', 'DEP01', '10', 'Depilacion', '23', 'Todo', '1618174226', 2);
 
 -- --------------------------------------------------------
 
@@ -346,6 +349,9 @@ INSERT INTO `Productos` (`id_producto`, `marca_producto`, `linea_producto`, `des
 ('E39.5', 'GERMAINE', '', 'CITY PROOF- PROGRAMA OXIGENANTE ANTI POLUCIÓN', '5 SESIONES', 10, '960', '2'),
 ('EVMFIT', 'MIGUETT', '', 'MASCARILLA FITOESTIMULINAS CLIMATERIUM + REAFIRMANTE', '250 GR', 10, '910', '2'),
 ('EVMO', 'MIGUETT', '', 'MASCARILLA OXIFRESH', '100 GR', 10, '546', '2'),
+('GER203', 'GERMAINE', '', 'PARA TENER UN MEJOR CUTIS BIEN PERRON', '100 ml', 30, '350', '3'),
+('GER204', 'GERMAINE', '', 'CREMA PARA ADELGAZAR', '100 g', 25, '320', '3'),
+('GER205', 'GERMAINE', '', 'CREMA PARA ADELGAZAR', '100 g', 25, '320', '3'),
 ('GG01', 'MIGUETT', '', 'SHAMPOO DERMOLIMPIADOR HIPOALERGÉNICO ', '250 ML', 10, '455', '2'),
 ('GG03', 'MIGUETT', '', 'GEL FACIAL HIDROGEL', '250 ML', 10, '522', '2'),
 ('GP004', 'MIGUETT', '', 'DEMAQUILLANTE AZUL', '65 ML', 10, '224', '2'),
@@ -719,9 +725,14 @@ INSERT INTO `Ventas` (`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`,
 ('JUJI02296', '', '', 2, '3766.00', '1619041152', '2', '', 'JUJI02', '538', '7', '9'),
 ('ERG66100116CAV014', 'ERG66100116', 'CAV01', 2, '340', '1618910627', '3', '340', '', '', '', '10'),
 ('ERG66100116CAV015', 'ERG66100116', 'CAV01', 3, '9999', '1618910827', '3', '9999', '', '', '', '10'),
-('RL96061115FAC191', 'RL96061115', 'DEP01', 1, '10800', '1618874911', '2', '10800', '', '', '', '9'),
-('RL96061115FAC191', 'RL96061115', 'FAC19', 1, '750', '1618874911', '2', '750', '', '', '', '9'),
-('RL96061115FAC193', 'RL96061115', 'FAC19', 1, '750', '1618874955', '2', '750', '', '', '', '9');
+('ERG66100116CCE4212', 'ERG66100116', 'CCE42', 4, '1000', '1619302448', '3', '1000', '', '', '', '10'),
+('ERG66100116FAC2313', 'ERG66100116', 'FAC23', 2, '900', '1619302937', '3', '900', '', '', '', '10'),
+('RL96061115CAV016', 'RL96061115', 'CAV01', 1, '2464', '1619085461', '3', '2464', '', '', '', '10'),
+('RL96061115CAV016', 'RL96061115', 'DEP01', 1, '3040', '1619085461', '3', '3040', '', '', '', '10'),
+('RL96061115FAC238', 'RL96061115', 'DEP01', 3, '3040', '1619107212', '3', '3040', '', '', '', '10'),
+('RL96061115FAC2110', 'RL96061115', 'DEP01', 3, '5184', '1619107431', '3', '5184', '', '', '', '10'),
+('RL96061115FAC2110', 'RL96061115', 'FAC21', 3, '850', '1619107431', '3', '850', '', '', '', '10'),
+('RL96061115FAC238', 'RL96061115', 'FAC23', 3, '900', '1619107212', '3', '900', '', '', '', '10');
 
 -- --------------------------------------------------------
 
@@ -801,7 +812,7 @@ ALTER TABLE `ClienteTratamiento`
 -- Indexes for table `ClienteTratamientoEspecial`
 --
 ALTER TABLE `ClienteTratamientoEspecial`
-  ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`id_cosmetologa`,`timestamp`,`num_sesion`) USING BTREE;
+  ADD PRIMARY KEY (`id_cliente`,`zona`,`detalle_zona`,`timestamp`);
 
 --
 -- Indexes for table `Productos`

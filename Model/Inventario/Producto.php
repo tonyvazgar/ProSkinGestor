@@ -1,10 +1,10 @@
 <?php
     class Producto {
-        public function altaProducto($id_producto, $nombre_producto, $descripcion_producto, $costo_unitario_producto, $stock_disponible_producto, $centro_producto){
+        public function altaProducto($id_producto, $marca_producto, $linea_producto, $descripcion_producto, $presentacion_producto, $stock_disponible_producto, $costo_unitario_producto, $centro_producto){
             //INSERT INTO `Productos`(`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
             $db = new Db();
-            $sql_statement = "INSERT INTO `Productos`(`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) 
-                              VALUES ('$id_producto', '$nombre_producto', '$descripcion_producto', '$costo_unitario_producto', '$stock_disponible_producto', '$centro_producto')";
+            $sql_statement = "INSERT INTO `Productos`(`id_producto`, `marca_producto`, `linea_producto`, `descripcion_producto`, `presentacion_producto`, `stock_disponible_producto`, `costo_unitario_producto`, `centro_producto`) 
+                              VALUES ('$id_producto', '$marca_producto', '$linea_producto', '$descripcion_producto', '$presentacion_producto', '$stock_disponible_producto', '$costo_unitario_producto', '$centro_producto')";
             $query = $db->query($sql_statement);
             $db->close();
             if($query->affectedRows() >= 1){
