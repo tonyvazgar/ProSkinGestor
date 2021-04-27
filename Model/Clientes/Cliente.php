@@ -8,6 +8,15 @@
             $db->close();
             return $account;
         }
+        function getAllTratamientosAplicadosFromCliente($id_cliente){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT * 
+                                        FROM ClienteBitacora, Tratamiento
+                                        WHERE ClienteBitacora.id_tratamiento=Tratamiento.id_tratamiento
+                                        AND id_cliente='$id_cliente' ORDER BY `timestamp` DESC")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
         public function getAllUsuariosFromIdSucursal($id_sucursal){
             $db = new DB();
             $account = $db->query("SELECT * 

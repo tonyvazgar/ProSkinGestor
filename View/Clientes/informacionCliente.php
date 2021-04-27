@@ -39,6 +39,19 @@
     ?>
     <main role="main" class="container">
         <div class="container">
+            <h1>Tratamientos que ha tenido el cliente</h1>
+            <ul class="list-group">
+                <?php
+                foreach($ModelCliente->getAllTratamientosAplicadosFromCliente($_GET['id']) as $d){
+                    echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                            <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
+                            </li>";
+                }
+                ?>
+            </ul>
+        </div>
+
+        <div class="container">
             <h1>Informacion de cliente</h1>
             <form action="buscarCliente.php" method="POST" autocomplete="">
                 <?php
@@ -76,7 +89,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <label for="exampleInputEmail1">Fecha de registro en sistema</label>
+                                    <label for="exampleInputEmail1">Fecha de registro</label>
                                     <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value=<?php echo "'".date( "Y-m-d", $infoCliente['creacion_cliente'])."'";?> readonly>
                                 </td>    
                                 <td>
