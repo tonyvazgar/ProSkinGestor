@@ -91,9 +91,6 @@
         }
         public function getProductoWereDescripcion($descripcion){
             $db = new Db();
-            print_r("SELECT *
-            FROM Productos 
-            WHERE BINARY descripcion_producto LIKE '%$descripcion%'");
             $sql_statement = "SELECT *
                               FROM Productos 
                               WHERE BINARY descripcion_producto LIKE '%$descripcion%'";

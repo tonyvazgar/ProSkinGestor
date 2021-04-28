@@ -42,11 +42,16 @@
             <h1>Tratamientos que ha tenido el cliente</h1>
             <ul class="list-group">
                 <?php
-                foreach($ModelCliente->getAllTratamientosAplicadosFromCliente($_GET['id']) as $d){
-                    echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
-                            </li>";
-                }
+                    $tratamientosAplicados = $ModelCliente->getAllTratamientosAplicadosFromCliente($_GET['id']);
+                    if(empty($tratamientosAplicados)){
+                        echo "<h3 class='text-center'>Aún no hay ningun tratamiento registrado</h3>";
+                    }else{
+                        foreach($tratamientosAplicados as $d){
+                            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
+                                    </li>";
+                        }
+                    }
                 ?>
             </ul>
         </div>

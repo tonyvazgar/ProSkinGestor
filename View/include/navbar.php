@@ -16,7 +16,7 @@ function getNavbar($name, $sucursal){
                             <a class='nav-link' href='../../View/Clientes'>Clientes</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='../../View/Agenda/agenda.php'>Agenda</a>
+                            <a class='nav-link' href='https://calendar.google.com/' target='_blank'>Agenda</a>
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='../../View/Ventas/ventas.php'>Venta</a>

@@ -202,7 +202,7 @@
         }
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
 
-        // header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
+        header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$ID_VENTA_UUID");
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // // $ModelTratamiento->iniciarTratamientoCliente($id, $tratamiento, $sesiones, $zona, $firma, $timeStamp);
 

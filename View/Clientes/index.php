@@ -62,8 +62,7 @@
         <!-- <img src="../img/bg.webp" class="img-fluid" alt="Responsive image"> -->
       </div>
       
-      <div class="container">
-        <!-- Example row of columns -->
+      <!-- <div class="container">
         <div class="row">
           <div class="col-md-4">
             <h2>Heading</h2>
@@ -81,6 +80,7 @@
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
           </div>
         </div>
+      </div> -->
     </main>
     <?php
       getFooter();

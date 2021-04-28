@@ -18,5 +18,13 @@ $(document).ready(function () {
         }
         $('#total').val(total);
     });
+    $('#precioUnitario').keyup(function() {
+        let unidadesDisponibles = parseInt($('#stock').val());
+        let precioUnitario      = parseFloat($('#precioUnitario').val());
+        let cantidad            = parseInt($('#cantidad').val());
 
+        var total               = parseFloat(precioUnitario * cantidad);
+        total                   = isNaN(total) ? 0 : total.toFixed(2);
+        $('#total').val(total);
+    });
 });

@@ -21,7 +21,9 @@
             $db = new DB();
             $account = $db->query("SELECT * 
                                    FROM Cliente 
-                                   WHERE Cliente.centro_cliente='$id_sucursal'")->fetchAll();
+                                   WHERE Cliente.centro_cliente='$id_sucursal'
+                                   ORDER BY Cliente.ultima_visita_cliente DESC
+                                   LIMIT 5")->fetchAll();
             $db->close();
             return $account;
         }
