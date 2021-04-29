@@ -17,11 +17,11 @@ function getNavbar($name, $sucursal){
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='https://calendar.google.com/' target='_blank'>Agenda</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='../../View/Ventas/ventas.php'>Venta</a>
-                        </li>
-                        <li class='nav-item'>
+                        </li>";
+                        // <li class='nav-item'>
+                        //     <a class='nav-link' href='../../View/Ventas/ventas.php'>Venta</a>
+                        // </li>
+                        echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Inventario/'>Inventario/Productos</a>
                         </li>
                         <li class='nav-item'>

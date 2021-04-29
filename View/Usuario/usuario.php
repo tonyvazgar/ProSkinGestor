@@ -16,8 +16,7 @@
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
 
   $mis_tratamientos = $ModelTratamiento->getAllTratamientosAplicadosDeCosmetologa($email);
-//   $mis_ventas       = $ModelProducto->getAllVentasDeCosmetologa($email);
-//   print_r($mis_ventas);
+  $mis_ventas = $ModelTratamiento->getAllVentasDeCosmetologa($email);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +43,7 @@
     ?>
     <main role="main" class="container">
         <div class="container">
-            <h1>Hola <?php echo $fetch_info['name']; ?></h1>
-            <h2>Esta es tu información</h2>
+            <!-- <h2>Esta es tu información</h2>
             <dl class="row">
                 <dt class="col-sm-3">Description lists</dt>
                 <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
@@ -69,17 +67,40 @@
                     <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
                     </dl>
                 </dd>
-            </dl>
-            <h1>Los tratamientos que he aplicado</h1>
-            <ul class="list-group">
-            <?php
-                foreach($mis_tratamientos as $tratamiento){
-                echo "<li class='list-group-item'>
-                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$tratamiento['id_venta']."'>".$tratamiento['nombre_tratamiento']."</a>".date("Y-m-d", $tratamiento['timestamp'])."
-                        </li>";
-                }
-            ?>
-            </ul>
+            </dl> -->
+            <h1>Hola <?php echo $fetch_info['name']; ?></h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <h3>Los tratamientos que has aplicado:</h3>
+                        <ul class="list-group">
+                            <?php
+                                foreach($mis_tratamientos as $tratamiento){
+                                    echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                                                <a href='../../View/Ventas/detalleVenta.php?idVenta=".$tratamiento['id_venta']."'>".$tratamiento['nombre_tratamiento']."</a>
+                                                <span class='badge bg-info rounded-pill'>".date("Y-m-d", $tratamiento['timestamp'])."</span>
+                                        </li>";
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <h3>Los productos que has vendido:</h3>
+                        <ul class="list-group">
+                            <?php
+                                foreach($mis_ventas as $venta){
+                                    echo "<li class='list-group-item'>
+                                            <a href='../../View/Ventas/detalleVenta.php?idVenta=".$venta['id_venta']."'>".$venta['descripcion_producto']."</a><br>
+                                            <span class='badge bg-info rounded-pill'>".date("Y-m-d", $venta['timestamp'])."</span>
+                                            <span class='badge bg-info rounded-pill'>".$venta['cantidad_producto']." piezas</span>
+                                            <span class='badge bg-info rounded-pill'>$".$venta['monto']."</span>
+                                          </li>";
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <img src="../img/bg.webp" class="img-fluid" alt="Responsive image">
         </div>
     </main>

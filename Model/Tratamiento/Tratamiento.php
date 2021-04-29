@@ -122,7 +122,20 @@
                                         WHERE ClienteBitacora.id_cosmetologa=usertable.id 
                                         AND ClienteBitacora.timestamp=Ventas.timestamp
                                         AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento 
-                                        AND usertable.email='$email'")->fetchAll();
+                                        AND usertable.email='$email'
+                                        ORDER by ClienteBitacora.timestamp DESC")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+        function getAllVentasDeCosmetologa($email){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT Ventas.*, Productos.*
+                                        FROM usertable, Ventas, Productos
+                                        WHERE usertable.id=Ventas.id_cosmetologa
+                                        AND Ventas.id_productos=Productos.id_producto
+                                        AND Ventas.id_productos!=''
+                                        AND usertable.email='$email'
+                                        ORDER by Ventas.timestamp DESC")->fetchAll();
             $db->close();
             return $tratamientos;
         }
