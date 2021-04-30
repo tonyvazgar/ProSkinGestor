@@ -61,11 +61,15 @@
                         <h3>Los tratamientos que has aplicado:</h3>
                         <ul class="list-group">
                             <?php
+                                if(empty($mis_tratamientos)){
+                                    echo "<h3 class='text-center'>Aún no has registrado ningún tratamiento</h3>";
+                                }else{
                                 foreach($mis_tratamientos as $tratamiento){
                                     echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
                                                 <a href='../../View/Ventas/detalleVenta.php?idVenta=".$tratamiento['id_venta']."'>".$tratamiento['nombre_tratamiento']."</a>
                                                 <span class='badge bg-info rounded-pill'>".date("Y-m-d", $tratamiento['timestamp'])."</span>
                                         </li>";
+                                }
                                 }
                             ?>
                         </ul>
@@ -74,6 +78,9 @@
                         <h3>Los productos que has vendido:</h3>
                         <ul class="list-group">
                             <?php
+                                if(empty($mis_ventas)){
+                                    echo "<h3 class='text-center'>Aún no has vendido ningún producto</h3>";
+                                }else{
                                 foreach($mis_ventas as $venta){
                                     echo "<li class='list-group-item'>
                                             <a href='../../View/Ventas/detalleVenta.php?idVenta=".$venta['id_venta']."'>".$venta['descripcion_producto']."</a><br>
@@ -81,13 +88,14 @@
                                             <span class='badge bg-info rounded-pill'>".$venta['cantidad_producto']." piezas</span>
                                             <span class='badge bg-info rounded-pill'>$".$venta['monto']."</span>
                                           </li>";
+                                    }
                                 }
                             ?>
                         </ul>
                     </div>
                 </div>
             </div>
-            <img src="../img/bg.webp" class="img-fluid" alt="Responsive image">
+            <!-- <img src="../img/bg.webp" class="img-fluid" alt="Responsive image"> -->
         </div>
     </main>
     <?php

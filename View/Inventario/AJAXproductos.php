@@ -10,6 +10,9 @@
     echo "<h1>".$marca."</h1>";
     if($marca != "AINHOA"){     //No liene lineas de productos aparte
       $productos = $ModelProducto->getAllProductosFromMarca($marca, $id_cento);
+      if(empty($productos)){
+        echo "<h3 class='text-center'>No hay productos de la marca ".$marca."</h3>";
+      }else{
       foreach($productos as $d){
         if($d['stock_disponible_producto'] == 0){
           echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
@@ -24,7 +27,8 @@
                   </div>
                 </li>";
         }
-      }
+      }   
+    }
     }else{
       echo "<div class='form-group'>
                     <label>Selecciona la linea de la marca</label>

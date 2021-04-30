@@ -24,6 +24,9 @@
     ?>
     <main role="main" class="container">
       <div class="container">
+        <img src="../View/img/en_construccion.png" class="img-fluid" alt="Responsive image">
+      </div>
+      <!-- <div class="container">
         <h1>Eventos de hoy</h1>
         <table class="table">
           <thead>
@@ -57,9 +60,8 @@
         </table>
         <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto enim fugiat repudiandae incidunt, optio dicta et dolorem quos. Perferendis dolorem facere quae id veritatis alias est illum non, sequi saepe.</p>
         <img src="./img/bg.webp" class="img-fluid" alt="Responsive image">
-      </div>
-      <div class="container">
-        <!-- Example row of columns -->
+      </div> -->
+      <!-- <div class="container">
         <div class="row">
           <div class="col-md-4">
             <h2>Heading</h2>
@@ -80,6 +82,7 @@
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
           </div>
         </div>
+      </div> -->
     </main>
     <?php
       getFooter();

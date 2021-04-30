@@ -26,6 +26,10 @@
             <h1>Registrar nuevo producto en inventario</h1>
             <form action="altaProducto.php" method="POST" autocomplete="off">
                 <div class="form-group">
+                    <label>Clave *</label>
+                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ingresar la clave del producto" required>
+                </div>
+                <div class="form-group">
                     <label>Marca *</label>
                     <select name="marca" id="marca" class="form-control">
                         <option value="">** SELECCIONA **</option>

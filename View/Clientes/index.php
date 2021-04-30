@@ -26,21 +26,28 @@
     <main role="main" class="container">
       <div class="container">
         <h1>Lista de tus clientes</h1>
+        <div class='text-center'>
         <a href="altaCliente.php" class="btn btn-success">Nuevo Cliente</a>
         <a href="buscarCliente.php" class="btn btn-warning">Buscar Cliente</a>
+        </div>
         <ul class="list-group">
         <?php
-          foreach($ModelCliente->getAllUsuariosFromIdSucursal($id_sucursal) as $d){
-            $statusCliente = $ModelCliente->getStatusCliente($d['id_cliente']);
-            if($statusCliente[0]['status'] == 'activo'){
-              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href='informacionCliente.php?id=".$d['id_cliente']."' role='button'>".$d['nombre_cliente']."</a><span class='badge bg-success rounded-pill'>Activo</span>
-                    </li>";
-            }else{
-              echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href='informacionCliente.php?id=".$d['id_cliente']."' role='button'>".$d['nombre_cliente']."</a><span class='badge bg-warning rounded-pill'>Inactivo</span>
-                    </li>";
-
+          $usuarios_sucursal = $ModelCliente->getAllUsuariosFromIdSucursal($id_sucursal);
+          if(empty($usuarios_sucursal)){
+            echo "<h3 class='text-center'>Aún no hay ningun cliente registrado</h3>";
+          }else{
+            foreach($usuarios_sucursal as $usuario){
+              $statusCliente = $ModelCliente->getStatusCliente($usuario['id_cliente']);
+              if($statusCliente[0]['status'] == 'activo'){
+                echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                      <a href='informacionCliente.php?id=".$usuario['id_cliente']."' role='button'>".$usuario['nombre_cliente']."</a><span class='badge bg-success rounded-pill'>Activo</span>
+                      </li>";
+              }else{
+                echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                      <a href='informacionCliente.php?id=".$usuario['id_cliente']."' role='button'>".$usuario['nombre_cliente']."</a><span class='badge bg-warning rounded-pill'>Inactivo</span>
+                      </li>";
+  
+              }
             }
           }
         ?>

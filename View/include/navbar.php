@@ -23,17 +23,17 @@ function getNavbar($name, $sucursal){
                         // </li>
                         echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Inventario/'>Inventario/Productos</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='../../View/Reportes/reportes.php'>Reportes</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='../../View/Recursos/recursos.php'>Recursos</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='../../View/Administrador/administrador.php'>Administar usuarios</a>
-                        </li>
-                        <li class='nav-item'>
+                        </li>";
+                        // <li class='nav-item'>
+                        //     <a class='nav-link' href='../../View/Reportes/reportes.php'>Reportes</a>
+                        // </li>
+                        // <li class='nav-item'>
+                        //     <a class='nav-link' href='../../View/Recursos/recursos.php'>Recursos</a>
+                        // </li>
+                        // <li class='nav-item'>
+                        //     <a class='nav-link' href='../../View/Administrador/administrador.php'>Administar usuarios</a>
+                        // </li>
+                        echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Usuario/usuario.php'>$name</a>
                         </li>
                         <li class='nav-item'>

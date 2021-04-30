@@ -5,6 +5,7 @@
     $ModelProducto = new Producto();
 
     if (isset($_POST['altaInventario'])) {
+        $clave                     = mysqli_real_escape_string($con, $_POST['clave']);
         $marca                     = mysqli_real_escape_string($con, $_POST['marca']);
         $linea                     = mysqli_real_escape_string($con, $_POST['linea']);
         $descripcion_producto      = mysqli_real_escape_string($con, strtoupper($_POST['descripcion']));
@@ -13,10 +14,7 @@
         $stock_disponible_producto = mysqli_real_escape_string($con, $_POST['unidades']);
         $centro                    = mysqli_real_escape_string($con, $_POST['centro']);
         
-        $id_producto               = $ModelProducto->generateIdProducto($marca);
-        
-        
-        if ($ModelProducto->altaProducto($id_producto, $marca, $linea, $descripcion_producto, $presentacion, $stock_disponible_producto, $costo_unitario_producto, $centro)){
+        if ($ModelProducto->altaProducto($clave, $marca, $linea, $descripcion_producto, $presentacion, $stock_disponible_producto, $costo_unitario_producto, $centro)){
             header("Location: exito.php");
         }else{
             //echo hubo un error;
