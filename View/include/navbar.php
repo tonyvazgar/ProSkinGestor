@@ -43,11 +43,27 @@ function getNavbar($name, $sucursal){
                 </div>
             </nav>";
 }
-
+function getVersion() {
+    $hash = exec("git rev-list --tags --max-count=1");
+    return exec("git describe --tags $hash"); 
+}
+function getGitBranch()
+{
+    $shellOutput = [];
+    exec('git branch | ' . "grep ' * '", $shellOutput);
+    foreach ($shellOutput as $line) {
+        if (strpos($line, '* ') !== false) {
+            return trim(strtolower(str_replace('* ', '', $line)));
+        }
+    }
+    return null;
+}
 function getFooter(){
     echo "<footer class='footer'>
                 <div class='container text-center'>
                     <span class='text-muted font-italic'>La belleza comienza en el momento en que decides ser tú misma.</span>
+                    <br>
+                    <span class='text-muted font-italic'>".getGitBranch()."==>[".getVersion()."]</span>
                 </div>
             </footer>";
 }
