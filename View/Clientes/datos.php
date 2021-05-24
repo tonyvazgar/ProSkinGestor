@@ -43,12 +43,40 @@
           $nombre_zonas .= $ModelTratamiento->getNombreZonaCuerpoWhereID($id_zona)['nombre_zona'].", ";
         }
         //<label>Tratamiento a empezar</label><input type="text" class="form-control" id="nombre" name="nombre" value="Luis Antonio Vazquez Garcia" readonly="">
-        $cadena .= "<div class='form-group'><label>Zona cuerpo: </label><input type='text' class='form-control' value='".$nombre_zonas."' readonly></div>";
-        $cadena .= "<div class='form-group'><label>Número de zonas</label><input type='text' class='form-control' value='".$tratamiensto['detalle_zona']."' readonly></div>";
-        $cadena .= "<div class='form-group'><label>Fecha de aplicacion: </label><input type='text' class='form-control' value='".date("Y-m-d H:i:s",$tratamiensto['timestamp'])."' readonly></div>";
-        $cadena .= "<div class='form-group'><label>Sesión número: </label><input type='text' class='form-control' value='".$tratamiensto['num_sesion']."' readonly></div>";
-        $cadena .= "<div class='form-group'><label>Centro de belleza: </label><input type='text' class='form-control' value='".$nombre_sucursal."' readonly></div>";
-        $cadena .= "<label>Comentarios</label><input type='text' class='form-control' value='".$tratamiensto['comentarios']."' readonly>";
+        $cadena .= "<table class='table' style='table-layout: fixed;'>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <label>Número de zonas: </label>
+                            <p class='lead'>".$tratamiensto['detalle_zona']."</p>
+                          </td>
+                          <td>
+                            <label>Zona cuerpo:</label>
+                            <p class='lead'>".$nombre_zonas."</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <label>Fecha de aplicacion: </label>
+                            <p class='lead'>".date("Y-m-d",$tratamiensto['timestamp'])."</p>
+                          </td>
+                          <td>
+                            <label>Sesión número y sucursal: </label>
+                            <p class='lead'>#".$tratamiensto['num_sesion']." en ".$nombre_sucursal."</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>";
+        $cadena .= "<table class='table' style='table-layout: fixed;'>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <label>Comentarios: </label>
+                            <p class='lead'>".$tratamiensto['comentarios']."</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>";
       }
     }else{  //Si NO exiten tratamientos previos, alertar que no hay.
       if($continente=='1'){
