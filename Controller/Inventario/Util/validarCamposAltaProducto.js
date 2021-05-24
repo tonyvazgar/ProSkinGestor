@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $("#linea").attr('disabled', true);
-    
-    
+    $('[data-toggle="tooltip"]').tooltip();  
 });
 
 $(document).on('change','#marca',function () {

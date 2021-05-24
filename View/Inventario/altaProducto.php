@@ -26,7 +26,7 @@
             <h1>Registrar nuevo producto en inventario</h1>
             <form action="altaProducto.php" method="POST" autocomplete="off">
                 <div class="form-group">
-                    <label>Clave *</label>
+                    <label>Clave * <label data-toggle="tooltip" title="Es la que da el proveedor">[?]</label></label>
                     <input type="text" class="form-control" id="clave" name="clave" placeholder="Ingresar la clave del producto" required>
                 </div>
                 <div class="form-group">

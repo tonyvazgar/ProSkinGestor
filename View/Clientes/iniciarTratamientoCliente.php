@@ -105,7 +105,7 @@
                                                 </select>
                                             </div>
                             <div class="form-group" id='botonComenzar' name='botonComenzar'>
-                                <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Comenzar tratamiento</button>
+                                <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registar tratamiento</button>
                             </div>
                     <?php
                         }
