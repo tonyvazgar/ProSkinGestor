@@ -45,7 +45,11 @@ function getNavbar($name, $sucursal){
 }
 function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
-    return exec("git describe --tags $hash"); 
+    $ex = exec("git describe --tags $hash");
+    if (!$ex){
+        $ex = "0.0.2";
+    }
+    return $ex; 
 }
 function getGitBranch()
 {
