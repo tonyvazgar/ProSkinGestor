@@ -82,6 +82,16 @@ $(document).ready(function () {
         $('#editarCliente').show();
         $('#editarClienteButton').hide();
     });
+    $("#tratamiento").on("change", function() {
+        $.ajax({
+            type:"POST",
+            url:"../../Controller/Clientes/tratamientoClienteSelect.php",
+            data:"tipo=" + $(this).val() + "&id_cliente=" + $('#id').val(),
+            success:function(r){
+                $('#otro').closest('#otro').html(r);
+            }
+        });
+    });
 
     $(window).keydown(function(event){
         if(event.keyCode == 13) {

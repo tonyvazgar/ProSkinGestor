@@ -25,20 +25,16 @@
     <main role="main" class="container">
         <div class="container">
             <h1>Tratamientos que ha tenido el cliente</h1>
-            <ul class="list-group">
-                <?php
-                    $tratamientosAplicados = $ModelCliente->getAllTratamientosAplicadosFromCliente($_GET['id']);
-                    if(empty($tratamientosAplicados)){
-                        echo "<h3 class='text-center'>Aún no hay ningun tratamiento registrado</h3>";
-                    }else{
-                        foreach($tratamientosAplicados as $d){
-                            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
-                                    </li>";
-                        }
-                    }
-                ?>
-            </ul>
+
+            <div class="form-group">
+                <select name="tratamiento" id="tratamiento" class="form-control">
+                    <option value=''>*** SELECCIONA PARA VER TRATAMIENTOS ***</option>
+                    <option value="1">Depilación</option>
+                    <option value="2">Cavitación</option>
+                    <option value="3">Otros</option>
+                </select>
+            </div>
+            <div class="list-group" id="otro" name="otro"></div>
         </div>
 
         <div class="container">

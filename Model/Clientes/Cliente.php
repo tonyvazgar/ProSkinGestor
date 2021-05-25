@@ -8,12 +8,36 @@
             $db->close();
             return $account;
         }
-        function getAllTratamientosAplicadosFromCliente($id_cliente){
+        function getDepilacionesFromCliente($id_cliente){
             $db = new DB();
-            $tratamientos = $db->query("SELECT * 
+            $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.nombre_tratamiento 
                                         FROM ClienteBitacora, Tratamiento
-                                        WHERE ClienteBitacora.id_tratamiento=Tratamiento.id_tratamiento
-                                        AND id_cliente='$id_cliente' ORDER BY `timestamp` DESC")->fetchAll();
+                                        WHERE ClienteBitacora.id_cliente='$id_cliente'
+                                        AND ClienteBitacora.id_tratamiento='DEP01'
+                                        AND ClienteBitacora.id_tratamiento = Tratamiento.id_tratamiento
+                                        ORDER BY `timestamp` DESC")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+        function getCavitacionesFromCliente($id_cliente){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.nombre_tratamiento 
+                                        FROM ClienteBitacora, Tratamiento
+                                        WHERE ClienteBitacora.id_cliente='$id_cliente'
+                                        AND ClienteBitacora.id_tratamiento='CAV01'
+                                        AND ClienteBitacora.id_tratamiento = Tratamiento.id_tratamiento
+                                        ORDER BY `timestamp` DESC")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+        function getTratamientosFromCliente($id_cliente){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.nombre_tratamiento 
+                                        FROM ClienteBitacora, Tratamiento
+                                        WHERE id_cliente='$id_cliente'
+                                        AND (ClienteBitacora.id_tratamiento!='CAV01' AND ClienteBitacora.id_tratamiento!='DEP01')
+                                        AND ClienteBitacora.id_tratamiento = Tratamiento.id_tratamiento
+                                        ORDER BY `timestamp` DESC")->fetchAll();
             $db->close();
             return $tratamientos;
         }
