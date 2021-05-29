@@ -25,15 +25,82 @@
     <main role="main" class="container">
         <div class="container">
             <h1>Tratamientos que ha tenido el cliente</h1>
-
-            <div class="form-group">
+            <div id="accordion">
+                <p>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">DEPILACIONES</button>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">CAVITACIONES</button>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">OTROS TRATAMIENTOS</button>
+                </p>
+                <div class="form-group">
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                        <div class="card-body">
+                            <p>DEPILACIONES</p>
+                            <?php
+                                $tratamientosAplicados = $ModelCliente->getDepilacionesFromCliente($_GET['id']);
+                                if(empty($tratamientosAplicados)){
+                                        echo "<h3 class='text-center'>Aún no hay ninguna depilación registrada :(</h3>";
+                                }else{
+                                    echo "<ul class='list-group'>";
+                                    foreach($tratamientosAplicados as $d){
+                                        echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                                                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
+                                                    </li>";
+                                        }
+                                    echo "</ul>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <p>CAVITACIONES</p>
+                            <?php
+                                $tratamientosAplicados = $ModelCliente->getCavitacionesFromCliente($_GET['id']);
+                                if(empty($tratamientosAplicados)){
+                                        echo "<h3 class='text-center'>Aún no hay ninguna cavitación registrada :(</h3>";
+                                }else{
+                                    echo "<ul class='list-group'>";
+                                    foreach($tratamientosAplicados as $d){
+                                        echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                                                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
+                                                    </li>";
+                                        }
+                                    echo "</ul>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <p>OTROS</p>
+                            <?php
+                                $tratamientosAplicados = $ModelCliente->getTratamientosFromCliente($_GET['id']);
+                                if(empty($tratamientosAplicados)){
+                                        echo "<h3 class='text-center'>Aún no hay ningun tratamiento registrado :(</h3>";
+                                }else{
+                                    echo "<ul class='list-group'>";
+                                    foreach($tratamientosAplicados as $d){
+                                        echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                                                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
+                                                    </li>";
+                                        }
+                                    echo "</ul>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group">
                 <select name="tratamiento" id="tratamiento" class="form-control">
                     <option value=''>*** SELECCIONA PARA VER TRATAMIENTOS ***</option>
                     <option value="1">Depilación</option>
                     <option value="2">Cavitación</option>
                     <option value="3">Otros</option>
                 </select>
-            </div>
+            </div> -->
             <div class="list-group" id="otro" name="otro"></div>
         </div>
 
