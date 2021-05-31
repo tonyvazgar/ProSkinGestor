@@ -120,16 +120,18 @@
                 </div>
 
                 <div class="form-group">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless" style="table-layout: fixed;">
                         <tbody>
                             <tr>
                                 <td>
-                                    <label for="exampleInputEmail1">ID</label>
-                                    <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['id_cliente'];?> readonly>
+                                    <h3>ID</h3>
+                                    <!-- <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['id_cliente'];?> readonly> -->
+                                    <p class="lead" id="id" name="id"><?php echo $infoCliente['id_cliente'];?></p>
                                 </td>    
                                 <td>
-                                    <label for="exampleInputEmail1">Estado en el sistema</label>
-                                    <input type="text" class="form-control" id="status" name="status" value=<?php echo strtoupper($infoCliente['status']); ?> readonly>
+                                    <h3>Estado en el sistema</h3>
+                                    <!-- <input type="text" class="form-control" id="status" name="status" value=<?php echo strtoupper($infoCliente['status']); ?> readonly> -->
+                                    <p class="lead" id="status" name="status"><?php echo strtoupper($infoCliente['status']);?></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -138,16 +140,18 @@
                 
                 
                 <div class="form-group">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless" style="table-layout: fixed;">
                         <tbody>
                             <tr>
                                 <td>
-                                    <label for="exampleInputEmail1">Fecha de registro</label>
-                                    <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value=<?php echo "'".date( "Y-m-d", $infoCliente['creacion_cliente'])."'";?> readonly>
+                                    <h3>Fecha de registro</h3>
+                                    <!-- <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value=<?php echo "'".date( "Y-m-d", $infoCliente['creacion_cliente'])."'";?> readonly> -->
+                                    <p class="lead" id="fecha_registro" name="fecha_registro"><?php echo date( "Y-m-d", $infoCliente['creacion_cliente']);?></p>
                                 </td>    
                                 <td>
-                                    <label for="exampleInputEmail1">Ultima Visita</label>
-                                    <input type="date" class="form-control" id="fecha_visita" name="fecha_visita" value=<?php echo "'".date('Y-m-d', $infoCliente['ultima_visita_cliente'])."'";?> readonly>
+                                    <h3>Ultima Visita</h3>
+                                    <!-- <input type="date" class="form-control" id="fecha_visita" name="fecha_visita" value=<?php echo "'".date('Y-m-d', $infoCliente['ultima_visita_cliente'])."'";?> readonly> -->
+                                    <p class="lead" id="fecha_visita" name="fecha_visita"><?php echo date('Y-m-d', $infoCliente['ultima_visita_cliente']);?></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -156,36 +160,51 @@
 
                 <div class="form-group"></div>
                 <div class="form-group">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless" style="table-layout: fixed;">
                         <tbody>
                             <tr>
                                 <td>
-                                    <label for="exampleInputEmail1">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']."'";?> readonly required>
+                                    <h3>Nombre</h3>
+                                    <!-- <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']."'";?> readonly required> -->
+                                    <p class="lead" id="nombre" name="nombre"><?php echo $infoCliente['nombre_cliente'];?></p>
                                 </td>    
                                 <td>
-                                    <label for="exampleInputEmail1">Apellidos</label>
-                                    <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoCliente['apellidos_cliente']."'";?> readonly required>
+                                    <h3>Apellidos</h3>
+                                    <!-- <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoCliente['apellidos_cliente']."'";?> readonly required> -->
+                                    <p class="lead" id="apellidos" name="apellidos"><?php echo $infoCliente['apellidos_cliente'];?></p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">E-mail</label>
-                    <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoCliente['email_cliente'];?> readonly required>
+                    <h3>E-mail</h3>
+                    <!-- <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoCliente['email_cliente'];?> readonly required> -->
+                    <p class="lead" id="email" name="email"><?php echo $infoCliente['email_cliente'];?></p>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Número</label>
-                    <input  oninput="numberOnly(this.id);"  type = "text"  pattern="\d*" maxlength="10" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['telefono_cliente'];?> readonly required>
-                    <select name="tipo" id="tipo" name="tipo" class="form-control" readonly >
+                    <h3>Número</h3>
+                    <!-- <input  oninput="numberOnly(this.id);"  type = "text"  pattern="\d*" maxlength="10" class="form-control" id="numero" name="numero" value=<?php echo $infoCliente['telefono_cliente'];?> readonly required> -->
+                    <p class="lead" id="numero" name="numero"><?php echo $infoCliente['telefono_cliente'];?></p>
+                    <select name="tipo" id="tipo" name="tipo" class="form-control" style="display: none;" readonly >
                         <option value="0">Celular</option>
                         <option value="1">Fijo</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Centro</label>
-                    <select name="centro" id="centro" class="form-control" readonly>
+                    <h3>Centro</h3>
+                    <p class="lead" id="centrolLbl" name="centroLbl">
+                    <?php 
+                        if($infoCliente['centro_cliente'] == '1'){
+                            echo "Sonata";
+                        }else if($infoCliente['centro_cliente'] == '2'){
+                            echo "Plaza Real";
+                        }else{
+                            echo "La paz";
+                        }
+                    ?>
+                    </p>
+                    <select name="centro" id="centro" class="form-control"  style="display: none;" readonly>
                         <?php
                             if($infoCliente['centro_cliente'] == '1'){
                                 echo "<option value='1'>*Sonata*</option>";
@@ -205,16 +224,18 @@
                 </div>
 
                 <div class="form-group">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless" style="table-layout: fixed;">
                         <tbody>
                             <tr>
                                 <td>
-                                    <label for="exampleInputEmail1">Fecha de nacimiento</label>
-                                    <input type="date" class="form-control" id="fecha" name="fecha" value=<?php echo $infoCliente['fecha_cliente'];?> readonly>
+                                    <h3>Fecha de nacimiento</h3>
+                                    <!-- <input type="date" class="form-control" id="fecha" name="fecha" value=<?php echo $infoCliente['fecha_cliente'];?> readonly> -->
+                                    <p class="lead" id="fecha" name="fecha"><?php echo $infoCliente['fecha_cliente'];?></p>
                                 </td>    
                                 <td>
-                                    <label for="exampleInputEmail1">CP</label>
-                                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>readonly>
+                                    <h3>CP</h3>
+                                    <!-- <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" value=<?php echo "'".$infoCliente['cp_cliente']."'";?>readonly> -->
+                                    <p class="lead" id="cp" name="cp"><?php echo $infoCliente['cp_cliente'];?></p>
                                 </td>
                             </tr>
                         </tbody>

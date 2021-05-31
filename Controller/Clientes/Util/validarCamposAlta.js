@@ -1,15 +1,9 @@
 $(document).ready(function () {
     //set initially button state hidden
     $("#altaCliente").hide();
-    if (validatenumero()) {
-        //if the numero is valid set input email border green
-        $("#numero").css("border", "2px solid green");
-    } else {
-        //if the numero is invalid set input email border red
-        $("#numero").css("border", "2px solid red");
-    }
+    
     //use keyup event on email field
-    $("#email").keyup(function () {
+    $(document).on('keyup',"#email", function () {
         if (validateEmail()) {
             //if the email is valid set input email border green
             $("#email").css("border", "2px solid green");
@@ -20,7 +14,7 @@ $(document).ready(function () {
         buttonState();
     });
     //use keyup event on numero
-    $("#numero").keyup(function () {
+    $(document).on('keyup',"#numero", function () {
         if (validatenumero()) {
             //if the numero is valid set input email border green
             $("#numero").css("border", "2px solid green");
@@ -30,7 +24,7 @@ $(document).ready(function () {
         }
         buttonState();
     });
-    $("#cp").keyup(function () {
+    $(document).on('keyup',"#cp", function () {
         if (validatecp()) {
             //if the numero is valid set input email border green
             $("#cp").css("border", "2px solid green");
@@ -51,15 +45,45 @@ $(document).ready(function () {
 
 
     $("#editarCliente").on("click", function() {
+        //*************** READONLY ***************
+        $("#id").replaceWith( function() {
+            //<input type="text" class="form-control" id="id" name="id" value=<?php echo $infoCliente['id_cliente'];?> readonly>
+            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" readonly/>";
+        });
+        $("#status").replaceWith( function() {
+            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" readonly/>";
+        });
+        $("#fecha_registro").replaceWith( function() {
+            return "<input type=\"date\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" readonly/>";
+        });
+        $("#fecha_visita").replaceWith( function() {
+            return "<input type=\"date\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" readonly/>";
+        });
+        //********************************************
         console.log("Vamos a editar el cliente");
-        $('#nombre').removeAttr('readonly');
-        $('#apellidos').removeAttr('readonly');
-        $('#email').removeAttr('readonly');
-        $('#numero').removeAttr('readonly');
+        $('#nombre').replaceWith( function() {
+            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>";
+        });
+        $('#apellidos').replaceWith( function() {
+            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>";
+        });
+        $('#email').replaceWith( function() {
+            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>";
+        });
+        $('#numero').replaceWith( function() {
+            console.log("<input oninput=\"numberOnly(this.id);\" type=\"text\" pattern=\"\d*\" maxlength=\"10\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>");
+            return "<input oninput=\"numberOnly(this.id);\" type=\"text\" pattern=\"\\d*\" maxlength=\"10\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\'" + $( this ).html() + "\' required/>";
+        });
+        $('#tipo').show();
         $('#tipo').removeAttr('readonly');
+        $('#centro').show(); $('#centrolLbl').hide();
         $('#centro').removeAttr('readonly');
-        $('#fecha').removeAttr('readonly');
-        $('#cp').removeAttr('readonly');
+        $('#fecha').replaceWith( function() {
+            return "<input type=\"date\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" />";
+        });
+        $('#cp').replaceWith( function() {
+            return "<input oninput=\"javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);\"  maxlength = \"5\"  type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" />";
+        });
         $(this).hide();
         $('#cancelarEdicion').removeAttr('hidden');
         $('#cancelarEdicion').show();
@@ -69,15 +93,46 @@ $(document).ready(function () {
 
 
     $("#cancelarEdicion").on("click", function() {
+        //*************** READONLY ***************
+        $("#id").replaceWith( function() {
+            //<p class="lead" id="id" name="id">OEP9902289</p>
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $("#status").replaceWith( function() {
+            //<p class="lead" id="status" name="status">ACTIVO</p>
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $("#fecha_registro").replaceWith( function() {
+            //<p class="lead" id="fecha_registro" name="fecha_registro">2021-03-24</p>
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $("#fecha_visita").replaceWith( function() {
+            //<p class="lead" id="fecha_visita" name="fecha_visita">2021-04-14</p>
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        //********************************************
         console.log("Vamos a cancelar la edicion del cliente");
-        $('#nombre').prop('readonly', true);
-        $('#apellidos').prop('readonly', true);
-        $('#email').prop('readonly', true);
-        $('#numero').prop('readonly', true);
-        $('#tipo').prop('disabled', true);
-        $('#centro').prop('disabled', true);
-        $('#fecha').prop('readonly', true);
-        $('#cp').prop('readonly', true);
+        $('#nombre').replaceWith( function() {
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $('#apellidos').replaceWith( function() {
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $('#email').replaceWith( function() {
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $('#numero').replaceWith( function() {
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $('#tipo').hide();
+        $('#centro').hide(); $('#centrolLbl').show();
+        $('#centro').removeAttr('readonly');
+        $('#fecha').replaceWith( function() {
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
+        $('#cp').replaceWith( function() {
+            return "<p class=\"lead\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\">" + $( this ).val() + "</p>";
+        });
         $(this).hide();
         $('#editarCliente').show();
         $('#editarClienteButton').hide();
