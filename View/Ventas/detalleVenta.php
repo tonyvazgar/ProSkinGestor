@@ -1,12 +1,17 @@
-<?php 
-  require_once "../../Controller/Clientes/ClienteController.php"; 
+<?php
+
+use function PHPSTORM_META\type;
+
+require_once "../../Controller/Clientes/ClienteController.php"; 
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
   require_once "../../Model/Ventas/Venta.php";
+  require_once "../../Model/Tratamiento/Tratamiento.php";
 
   $session = new ControllerSesion();
   $ModeloUsuario = new Usuario();
   $ModeloVenta = new Venta();
+  $ModelTratamiento = new Tratamiento();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
@@ -27,7 +32,6 @@
   $divisionProductosTratamientos = getDesgloseProductosTratamientosVenta($detalles);
 ?>
 <body style='background-color: #f9f3f3;'>
-    <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
         
@@ -101,7 +105,12 @@
                       <?php 
                         if($divisionProductosTratamientos['num_productos'] != 0){
                           foreach($divisionProductosTratamientos['productos'] as $prod){
-                            echo "•".$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto']." x ".$prod[4]."<br>";
+                            echo '<div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">'.$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto'].'</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Cantidad: '.$prod[4].' producto(s)</h6>
+                              </div>
+                            </div>';
                           }
                         }else{
                           echo "NO HAY PRODUCTOS";
@@ -114,7 +123,22 @@
                       <?php 
                         if($divisionProductosTratamientos['num_tratamientos'] != 0){
                           foreach($divisionProductosTratamientos['tratamientos'] as $trat){
-                            echo "•".$ModeloVenta->getDetallesTratamiento($trat[0])['nombre_tratamiento']."<br>";
+                            $informacion_gral_tratamiento = $ModeloVenta->getDetallesTratamiento($trat[0], $id_venta);
+                            $str_zonas = [];
+                            if(!empty($informacion_gral_tratamiento['zona_cuerpo'])){
+                              $array_zonas = explode(",", $informacion_gral_tratamiento['zona_cuerpo']);
+                              foreach($array_zonas as $num_zona){
+                                $nombre_zona = $ModelTratamiento -> getNombreZonaCuerpoWhereID($num_zona)['nombre_zona'];
+                                array_push($str_zonas, $nombre_zona);
+                              }
+                            }
+                            echo '<div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">'.$informacion_gral_tratamiento['nombre_tratamiento'].'</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
+                                <p class="card-text">'.$informacion_gral_tratamiento['comentarios'].'</p>
+                              </div>
+                            </div>';
                           }
                         }else{
                           echo "NO HAY TRATAMIENTOS";

@@ -40,11 +40,13 @@
             $db->close();
             return $account;
         }
-        public function getDetallesTratamiento($id_tratamiento){
+        public function getDetallesTratamiento($id_tratamiento, $id_venta){
             $db = new Db();
-            $sql_statement = "SELECT * 
-                              FROM Tratamiento
-                              WHERE Tratamiento.id_tratamiento='$id_tratamiento'";
+            $sql_statement = "SELECT ClienteBitacora.*, Tratamiento.nombre_tratamiento
+                              FROM ClienteBitacora, Tratamiento
+                              WHERE ClienteBitacora.id_venta = '$id_venta' 
+                              AND Tratamiento.id_tratamiento = '$id_tratamiento'
+                              AND ClienteBitacora.id_tratamiento = Tratamiento.id_tratamiento";
             $account = $db->query($sql_statement)->fetchArray();
             $db->close();
             return $account;
