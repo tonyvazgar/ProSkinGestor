@@ -19,7 +19,9 @@
   $id_cosmetologa = $ModeloUsuario->getIdCosmetologa($email)['id'];
 
   $detalles = $ModeloVenta->getTodosLosDetallesVentaProducto($id_venta);
-
+  if(empty($detalles)){
+    $detalles = $ModeloVenta->getTodosLosDetallesVenta($id_venta);
+  }
   getHeadHTML("ProSkin - Resumen Venta");
 
   $divisionProductosTratamientos = getDesgloseProductosTratamientosVenta($detalles);
@@ -99,7 +101,7 @@
                       <?php 
                         if($divisionProductosTratamientos['num_productos'] != 0){
                           foreach($divisionProductosTratamientos['productos'] as $prod){
-                            echo $ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto']."<br>";
+                            echo "•".$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto']." x ".$prod[4]."<br>";
                           }
                         }else{
                           echo "NO HAY PRODUCTOS";
@@ -112,10 +114,10 @@
                       <?php 
                         if($divisionProductosTratamientos['num_tratamientos'] != 0){
                           foreach($divisionProductosTratamientos['tratamientos'] as $trat){
-                            echo $ModeloVenta->getDetallesTratamiento($trat[0])['nombre_tratamiento']."<br>";
+                            echo "•".$ModeloVenta->getDetallesTratamiento($trat[0])['nombre_tratamiento']."<br>";
                           }
                         }else{
-                          echo "NO HAY PRODUCTOS";
+                          echo "NO HAY TRATAMIENTOS";
                         }
                       ?>
                     </p>

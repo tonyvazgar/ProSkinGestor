@@ -32,6 +32,14 @@
             $db->close();
             return $account;
         }
+        public function getTodosLosDetallesVenta($id_venta){
+            $db = new Db();
+            $sql_statement = "SELECT * FROM Ventas
+                              WHERE Ventas.id_venta='$id_venta'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
         public function getDetallesTratamiento($id_tratamiento){
             $db = new Db();
             $sql_statement = "SELECT * 
@@ -66,7 +74,7 @@
                 array_push($temp, $registro['id_tratamiento'], $registro['metodo_pago'], $registro['monto'], $registro['costo_tratamiento']);
                 array_push($tratamientos, $temp);
             }else{
-                array_push($temp, $registro['id_productos'], $registro['metodo_pago'], $registro['monto'], $registro['costo_producto']);
+                array_push($temp, $registro['id_productos'], $registro['metodo_pago'], $registro['monto'], $registro['costo_producto'], $registro['cantidad_producto']);
                 array_push($productos, $temp);
             }
             $total += $registro['monto'];
