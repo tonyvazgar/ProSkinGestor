@@ -85,14 +85,14 @@
         $cadena = "<h2>No hay tratamientos regitrados de cavitación anteriormente</h2><br>";
       }
     }
-    $cadena .= "<div hidden><label>Nombre de tratamiento</label><select name='nombreTratamiento[]' id='nombreTratamiento' class='form-control' readonly>";
+    $cadena .= "<div hidden><label>Nombre de tratamiento</label><select name='nombreTratamiento[]' id='nombreTratamiento' class='last form-control' readonly>";
     if($continente=='1'){
       $cadena .= "<option value='DEP01'>Depilación</option>";
     }else{
       $cadena .= "<option value='CAV01'>Cavitación</option>";
     }
     $cadena .= "</select></div>";
-      $cadena .= "<label>Número de zonas</label><select name='detalleZona[]' id='detalleZona' class='form-control'>";
+      $cadena .= "<label>Número de zonas</label><select name='detalleZona[]' id='detalleZona' class='last form-control'>";
       for ($i=1; $i <= 18 ; $i++) { 
         $cadena .= "<option value='$i'>$i</option>";
       }
@@ -106,7 +106,7 @@
                         <option value='5'>Cheque de regalo</option>
                     </select>
                     <label>Precio: </label>
-                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
+                    <input type='number' class='last form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
                   </div>";
     echo $cadena;
 
@@ -146,7 +146,7 @@
   else if($continente =='3'){  //Si es cualquier otro tratamiento
     $cadena = "<div hidden>
                 <label>Número de zonas</label>
-                <select name='detalleZona[]' id='detalleZona' class='form-control'>
+                <select name='detalleZona[]' id='detalleZona' class='last form-control'>
                 <option value=''></option>";
     $cadena .= "</select>
               </div>
@@ -162,7 +162,7 @@
                     <tr>
                         <td>";
                         
-    $cadena .= "<select name='nombreTratamiento[]' id='nombreTratamiento' class='form-control'>
+    $cadena .= "<select name='nombreTratamiento[]' id='nombreTratamiento' class='last form-control'>
                 <option value=''>*** Selecciona tratamiento ***</option>";
     foreach($tratamientos as $tratamiento){
       $cadena .= "<option value='".$tratamiento['id_tratamiento']."'>".$tratamiento['nombre_tratamiento']."</option>";
@@ -170,7 +170,7 @@
     $cadena.="</select>
                 </td>
                 <td>
-                    <input type='number' class='form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
+                    <input type='number' class='last form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
                 </td>
                 <td>
                     <select name='metodoPago[]' id='metodoPago' class='form-control'>

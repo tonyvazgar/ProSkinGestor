@@ -15,19 +15,18 @@ $('body').on('change','#aviso',function () {
 $(document).ready(function () {
     $("#botonComenzar").hide();
     
-    // El formulario que queremos replicar
-    var formulario_alumno = $("#lo-que-vamos-a-copiar").html();
+    var formulario_alumno = '<div class="col-xs-4"><h3 class="numTratamientos">Tratamiento #1</h3><div class="well well-sm"><div class="form-group"><label>Tratamiento a empezar</label><select name="tratamiento[]" id="tratamiento" class="last form-control"><option>*** SELECCIONA ***</option><option value="1">Depilación</option><option value="2">Cavitación</option><option value="3">Tratamiento normal</option></select></div><div class="last form-group" id="otro" name="otro"></div><div class="form-group"><label>Calificación</label><select name="calificacion[]" id="calificacion" class="form-control"><option value="1">☆</option><option value="2">☆☆</option><option value="3">☆☆☆</option><option value="4">☆☆☆☆</option><option value="5">☆☆☆☆☆</option></select></div><div class="form-group"><label>Comentarios</label><textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento"></textarea></div></div></div>';
     $("#div-agregarTratamiento").on('click', '.btn-agregar-tratamiento', function(){
         // Agregamos el formulario
         var n = $("#tratamientos .col-xs-4").length + 1;
-        console.log(n);
-        $("#tratamientos").prepend(formulario_alumno);
-        $("#tratamientos .col-xs-4:first .numTratamientos").html("Tratamiento #" + n);
+        $("#tratamientos .last").removeClass('last');
+        $("#tratamientos").append(formulario_alumno);
+        $("#tratamientos .col-xs-4:last .numTratamientos").html("Tratamiento #" + n);
 
        
 
         console.log("Vamos a agregar otro tratamiento");
-        $("#tratamientos .col-xs-4:first .well").append('<button class="btn-danger btn btn-block btn-retirar-alumno" type="button">Retirar</button>');
+        $("#tratamientos .col-xs-4:last .well").append('<button class="btn-danger btn btn-block btn-retirar-alumno" type="button">Retirar</button>');
         
         // // Hacemos focus en el primer input del formulario
         // $("#alumnos .col-xs-4:first .well input:first").focus();
@@ -50,17 +49,14 @@ function buttonState() {
     }
 }
 //------------------------------------------------------------------------------------------
-$(document).ready(function(){
-    recargarLista();
-})
+
 
 $(document).on('change','#tratamiento',function () {
     recargarLista();
-    console.log("hola");
 });
 
 $(document).on('change','#detalleZona',function () {
-    var num = $('#detalleZona').val();
+    var num = $('#detalleZona.last').val();
     var precio = 0;
     if(num == 1){
         precio = 400;
@@ -103,8 +99,8 @@ $(document).on('change','#detalleZona',function () {
     }else if(num == 20){
         precio = 5600;
     }
-    if($('#tratamiento').val() == 1){
-        $('#precioTratamiento').val(precio);
+    if($('#tratamiento.last').val() == 1){
+        $('#precioTratamiento.last').val(precio);
         console.log(num + ' --> ' + precio);
     }
 });
@@ -117,9 +113,9 @@ function recargarLista(){
     $.ajax({
         type:"POST",
         url:"datos.php",
-        data:"continente=" + $('#tratamiento').val() + "&id_cliente=" + $('#idCliente').val(),
+        data:"continente=" + $('#tratamiento.last').val() + "&id_cliente=" + $('#idCliente').val(),
         success:function(r){
-            $('#otro').closest('#otro').html(r);
+            $('#tratamientos:last .last').closest('#otro').html(r);
         }
     });
 }
@@ -128,9 +124,9 @@ function recargarListaNombreTratamiento(){
     $.ajax({
         type:"POST",
         url:"precioTatamiento.php",
-        data:"idTratamiento=" + $('#nombreTratamiento').val(),
+        data:"idTratamiento=" + $('#nombreTratamiento.last').val(),
         success:function(r){
-            $('#precioTratamiento').val(r);
+            $('#precioTratamiento.last').val(r);
         }
     });
 }

@@ -54,20 +54,19 @@
                                 </select>
                             </div>
                             <div id="tratamientos">
-                                <div id="lo-que-vamos-a-copiar">
                                     <div class="col-xs-4">
                                         <h3 class='numTratamientos'>Tratamiento #1</h3>
                                         <div class="well well-sm">
                                             <div class="form-group">
                                                 <label>Tratamiento a empezar</label>
-                                                <select name="tratamiento[]" id="tratamiento" class="form-control">
+                                                <select name="tratamiento[]" id="tratamiento" class="last form-control">
                                                     <option>*** SELECCIONA ***</option>
                                                     <option value="1">Depilación</option>
                                                     <option value="2">Cavitación</option>
                                                     <option value="3">Tratamiento normal</option>
                                                 </select>
                                             </div>
-                                            <div class="form-group" id="otro" name="otro">
+                                            <div class="last form-group" id="otro" name="otro">
                                                 
                                             </div>
                                             
@@ -90,7 +89,6 @@
                                             
                                         </div> 
                                     </div>   
-                                </div> 
                             </div>
                             <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
                                 <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
