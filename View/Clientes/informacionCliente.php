@@ -34,7 +34,6 @@
                 <div class="form-group">
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
                         <div class="card-body">
-                            <p>DEPILACIONES</p>
                             <?php
                                 $tratamientosAplicados = $ModelCliente->getDepilacionesFromCliente($_GET['id']);
                                 if(empty($tratamientosAplicados)){
@@ -54,7 +53,6 @@
                     
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
-                            <p>CAVITACIONES</p>
                             <?php
                                 $tratamientosAplicados = $ModelCliente->getCavitacionesFromCliente($_GET['id']);
                                 if(empty($tratamientosAplicados)){
@@ -74,7 +72,6 @@
                     
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
-                            <p>OTROS</p>
                             <?php
                                 $tratamientosAplicados = $ModelCliente->getTratamientosFromCliente($_GET['id']);
                                 if(empty($tratamientosAplicados)){

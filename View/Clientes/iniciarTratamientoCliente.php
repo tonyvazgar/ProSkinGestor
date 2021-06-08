@@ -63,16 +63,16 @@
                                                     <option>*** SELECCIONA ***</option>
                                                     <option value="1">Depilación</option>
                                                     <option value="2">Cavitación</option>
-                                                    <option value="3">Tratamiento normal</option>
+                                                    <option value="3">Otros tratamientos</option>
                                                 </select>
                                             </div>
                                             <div class="last form-group" id="otro" name="otro">
                                                 
                                             </div>
                                             
-                                            <div class="form-group">
+                                            <div class="form-group" hidden>
                                                 <label>Calificación</label>
-                                                <select name="calificacion[]" id="calificacion" class="form-control">
+                                                <select name="calificacion[]" id="calificacion" class="form-control" hidden>
                                                                     <option value="1">☆</option>
                                                                     <option value="2">☆☆</option>
                                                                     <option value="3">☆☆☆</option>
@@ -93,6 +93,16 @@
                             <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
                                 <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
                                 <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
+                            </div>
+                            <div class="form-group">
+                                <label>Método de pago: </label>
+                                <select name='metodoPago' id='metodoPago' class='form-control'>
+                                    <option value='1'>Efectivo</option>
+                                    <option value='2'>[TDD]Tarjeta de débito</option>
+                                    <option value='3'>[TDC]Tarjeta de crédito</option>
+                                    <option value='4'>Transferencia</option>
+                                    <option value='5'>Cheque de regalo</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                                 <label>Firma requerida del cliente</label>

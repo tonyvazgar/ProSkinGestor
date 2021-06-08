@@ -134,7 +134,7 @@ require_once "../../Controller/Clientes/ClienteController.php";
                             }
                             echo '<div class="card">
                               <div class="card-body">
-                                <h5 class="card-title">'.$informacion_gral_tratamiento['nombre_tratamiento'].'</h5>
+                                <h5 class="card-title">'.$informacion_gral_tratamiento['nombre_tratamiento']." - $".number_format($trat[2]).'</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
                                 <p class="card-text">'.$informacion_gral_tratamiento['comentarios'].'</p>
                               </div>

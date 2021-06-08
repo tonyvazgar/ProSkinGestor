@@ -20,10 +20,15 @@
 
   if($continente=='1' || $continente == '2'){ //Si es depilacion
     //Buscar ultimo tratamiento de depilacion y mostrar info
+
+    $ishiden = "";
+    $zonas_cuerpo_cavitacion = '<div class="form-group"><label for="exampleInputEmail1">Zonas del cuerpo</label><table class="table table-borderless zonasCheckbox" id="zonasCheckbox"><tbody><tr><td><div class="form-check"><input class="form-check-input check" type="checkbox" value="17" name="zonas_cuerpo[0][]" id="flexCheckDefault17"><label class="form-check-label" for="flexCheckDefault17"> Abdomen</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="4" name="zonas_cuerpo[0][]" id="flexCheckDefault4"><label class="form-check-label" for="flexCheckDefault4"> Brazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="18" name="zonas_cuerpo[0][]" id="flexCheckDefault18"><label class="form-check-label" for="flexCheckDefault18"> Espalda</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="10" name="zonas_cuerpo[0][]" id="flexCheckDefault10"><label class="form-check-label" for="flexCheckDefault10"> Glúteos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="9" name="zonas_cuerpo[0][]" id="flexCheckDefault9"><label class="form-check-label" for="flexCheckDefault9"> Pierna</label></div></td></tr></tbody></table></div>';
+    
     if($continente=='1'){
       $ultimoTratamiento = $ModelTratamiento->getUltimoTratamientoEspecialIdCliente($id_cliente, 'DEP01');
     }else{
       $ultimoTratamiento = $ModelTratamiento->getUltimoTratamientoEspecialIdCliente($id_cliente, 'CAV01');
+      $ishiden = "hidden";
     }
     if(sizeof($ultimoTratamiento) >= 1){  //Si exiten tratamientos previos, mostrar info del ultimo
       if($continente == '1'){
@@ -43,26 +48,26 @@
           $nombre_zonas .= $ModelTratamiento->getNombreZonaCuerpoWhereID($id_zona)['nombre_zona'].", ";
         }
         //<label>Tratamiento a empezar</label><input type="text" class="form-control" id="nombre" name="nombre" value="Luis Antonio Vazquez Garcia" readonly="">
-        $cadena .= "<table class='table' style='table-layout: fixed;'>
+        $cadena .= "<label class='lead text-muted'>Último tratamiento registrado fue:</label><table class='table' style='table-layout: fixed;'>
                       <tbody>
                         <tr>
-                          <td>
-                            <label>Número de zonas: </label>
-                            <p class='lead'>".$tratamiensto['detalle_zona']."</p>
+                          <td {$ishiden}>
+                            <label class='lead text-muted'>Número de zonas: </label>
+                            <p class='lead text-muted'>".$tratamiensto['detalle_zona']."</p>
                           </td>
                           <td>
-                            <label>Zona cuerpo:</label>
-                            <p class='lead'>".$nombre_zonas."</p>
+                            <label class='lead text-muted'>Zonas del cuerpo:</label>
+                            <p class='lead text-muted'>".$nombre_zonas."</p>
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <label>Fecha de aplicacion: </label>
-                            <p class='lead'>".date("Y-m-d",$tratamiensto['timestamp'])."</p>
+                            <label class='lead text-muted'>Fecha de aplicacion: </label>
+                            <p class='lead text-muted'>".date("Y-m-d",$tratamiensto['timestamp'])."</p>
                           </td>
                           <td>
-                            <label>Sesión número y sucursal: </label>
-                            <p class='lead'>#".$tratamiensto['num_sesion']." en ".$nombre_sucursal."</p>
+                            <label class='lead text-muted'>Sesión número y sucursal: </label>
+                            <p class='lead text-muted'>#".$tratamiensto['num_sesion']." en ".$nombre_sucursal."</p>
                           </td>
                         </tr>
                       </tbody>
@@ -71,8 +76,8 @@
                       <tbody>
                         <tr>
                           <td>
-                            <label>Comentarios: </label>
-                            <p class='lead'>".$tratamiensto['comentarios']."</p>
+                            <label class='lead text-muted'>Comentarios: </label>
+                            <p class='lead text-muted'>".$tratamiensto['comentarios']."</p>
                           </td>
                         </tr>
                       </tbody>
@@ -92,24 +97,26 @@
       $cadena .= "<option value='CAV01'>Cavitación</option>";
     }
     $cadena .= "</select></div>";
-      $cadena .= "<label>Número de zonas</label><select name='detalleZona[]' id='detalleZona' class='last form-control'>";
+      $cadena .= "<div class='form-group form-inline' {$ishiden}><label>Número de zonas</label><select name='detalleZona[]' id='detalleZona' class='last form-control'>";
       for ($i=1; $i <= 18 ; $i++) { 
         $cadena .= "<option value='$i'>$i</option>";
       }
-      $cadena .= "</select><div class='form-group form-inline'>
-                    <label>Método de pago: </label>
-                    <select name='metodoPago[]' id='metodoPago' class='form-control'>
-                        <option value='1'>Efectivo</option>
-                        <option value='2'>[TDD]Tarjeta de débito</option>
-                        <option value='3'>[TDC]Tarjeta de crédito</option>
-                        <option value='4'>Transferencia</option>
-                        <option value='5'>Cheque de regalo</option>
-                    </select>
-                    <label>Precio: </label>
+      $cadena .= "</select></div><div class='form-group form-inline'>";
+      // $cadena .= "<label>Método de pago: </label>
+      //               <select name='metodoPago[]' id='metodoPago' class='form-control'>
+      //                   <option value='1'>Efectivo</option>
+      //                   <option value='2'>[TDD]Tarjeta de débito</option>
+      //                   <option value='3'>[TDC]Tarjeta de crédito</option>
+      //                   <option value='4'>Transferencia</option>
+      //                   <option value='5'>Cheque de regalo</option>
+      //               </select>";
+      $cadena .= "<label>Precio: </label>
                     <input type='number' class='last form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
                   </div>";
     echo $cadena;
-
+    if($continente == 2){
+      echo $zonas_cuerpo_cavitacion;
+    }else{
     echo "<div class='form-group'>
     <label for='exampleInputEmail1'>Zona del cuerpo</label>
     <table class='table table-borderless zonasCheckbox' id='zonasCheckbox'>
@@ -140,7 +147,7 @@
             echo "</td>
         </tbody>
      </div>";
-
+    }
   }
   
   else if($continente =='3'){  //Si es cualquier otro tratamiento
@@ -155,7 +162,6 @@
                     <tr>
                         <td scope='col'>Nombre tratamiento</td>
                         <td scope='col'>Precio</td>
-                        <td scope='col'>Forma Pago</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -171,17 +177,8 @@
                 </td>
                 <td>
                     <input type='number' class='last form-control' id='precioTratamiento' name='precioTratamiento[]' step='.01' required>
-                </td>
-                <td>
-                    <select name='metodoPago[]' id='metodoPago' class='form-control'>
-                        <option value='1'>Efectivo</option>
-                        <option value='2'>[TDD]Tarjeta de débito</option>
-                        <option value='3'>[TDC]Tarjeta de crédito</option>
-                        <option value='4'>Transferencia</option>
-                        <option value='5'>Cheque de regalo</option>
-                    </select>
-                </td>
-                </tr>
+                </td>";
+      $cadena.= "</tr>
                 </tbody>
                 </table>";
     echo $cadena;

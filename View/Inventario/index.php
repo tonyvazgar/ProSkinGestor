@@ -64,7 +64,6 @@
           //   }
           // }
         ?>
-        <img src="../img/img2.jpg" class="img-fluid" alt="Responsive image">
       </div>
     </main>
     <?php

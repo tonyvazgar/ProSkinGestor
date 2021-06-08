@@ -107,7 +107,7 @@
         $precio_tratamiento = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento'])));                   //Es un Array: [precioTratamiento] => Array([0] => 300 [1] => 550 [2] => 500)
         $zona               = $_POST['zonas_cuerpo'];                        //Es un Array de Arrays (si es vacio es un tratamiento normal): [zonas_cuerpo] => Array([0] => Array ([0] => 20 [1] => 22 [2] => 15 [3] => 1 ) [1] => Array ([0] => ) [2] => Array ([0] => 23))
         $detalle_zona       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['detalleZona'])));
-        $metodo_pago        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));                          //Es un Array: [metodoPago] => Array([0] => 2 [1] => 3 [2] => 1)
+        $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);                 
         $calificacion       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['calificacion'])));                        //Es un Array: [calificacion] => Array([0] => 1 [1] => 3 [2] => 4)
         $id_centro          = mysqli_real_escape_string($con, $_POST['idCentro']);                                                       //Es un valor: [idCentro] => 1
         $comentarios        = explode(",",mysqli_real_escape_string($con, implode(",", str_replace(",", ".", $_POST['comentarios']))));  //Es un Array: [comentarios] => Array([0] => Cavitación con 9 numero de zonas, metido de tarjeta de ¢300 y 4 zonas, 1 estrella [1] => Masaje relajante con ¢550, otro método de pago y 3 estrellas [2] => Depilación con 10 números de zonas, la zona del cuerpo que es 23 y con 4 de calificación y $500 )
@@ -128,7 +128,7 @@
                     $string_zonas .= $k.",";
                 }
                 //tempVentaTratamiento           = $id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
-                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago[$i-1], $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
+                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
                 //tempClienteTratamientoEspecial = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $numZonas, $timeStamp, $numsesion;
                 $tempClienteTratamientoEspecial  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $string_zonas, $detalle_zona[$i-1], $timeStamp, ''];
                 //tempClienteBitacora            = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
@@ -137,7 +137,7 @@
                 array_push($temp, [$tratamiento[$i-1]], $tempVentaTratamiento, $tempClienteTratamientoEspecial, $tempClienteBitacora);
             }else{  //es un tratamiento normal
                 //tempVentaTratamiento   = $id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
-                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago[$i-1], $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
+                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
                 //tempClienteTratamiento = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp
                 $tempClienteTratamiento  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], '', $timeStamp];
                 //tempClienteBitacora    = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
