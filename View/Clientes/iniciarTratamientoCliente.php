@@ -31,6 +31,12 @@
         getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
+    <div class="container">
+        <div class="row">
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
         <div class="container">
             <h1>Registrar tratamiento</h1>
             <form action="iniciarTratamientoCliente.php" method="POST" autocomplete="">
@@ -39,18 +45,20 @@
                         $info = $ModelCliente->getClienteWhereID($id);
                         foreach($info as $infoCliente){
                     ?>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">ID</label>
-                                <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $infoCliente['id_cliente'];?> readonly>
-                                <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']." ".$infoCliente['apellidos_cliente']."'";?> readonly>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="exampleInputEmail1">ID</label>
+                                    <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $infoCliente['id_cliente'];?> readonly>
+                                    <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="exampleInputEmail1">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']." ".$infoCliente['apellidos_cliente']."'";?> readonly>
+                                </div>
                             </div>
                             <div class="form-group" hidden>
                                 <label for="exampleInputEmail1">Sucursal</label>
-                                <select name="idCentro" id="idCentro" class="form-control" readonly><option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option>
+                                <select name="id_centro" id="id_centro" class="form-control" readonly><option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option>
                                 </select>
                             </div>
                             <div id="tratamientos">
@@ -81,15 +89,23 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Comentarios</label>
-                                                <textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength='250' placeholder="Escribe algo relevante de este tratamiento"></textarea>
-                                            </div>
+                                                    <div class="form-group">
+                                                        <label>Comentarios</label>
+                                                        <textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength='250' placeholder="Escribe algo relevante de este tratamiento"></textarea>
+                                                    </div>
 
-                                            
+                                                    
+                                                </div> 
+                                            </div>   
                                         </div> 
                                     </div>   
                             </div>
+                            <div class="col-sm">
+                                    <div id="productos">
+                                    
+                                        
+                                    </div>
+                                </div>
                             <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
                                 <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
                                 <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 

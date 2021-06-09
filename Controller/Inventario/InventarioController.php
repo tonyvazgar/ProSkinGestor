@@ -46,11 +46,11 @@
     }
 
     if(isset($_POST['venderProducto'])){
-        $id_producto     = mysqli_real_escape_string($con, $_POST['id']);
-        $precio_unitario = mysqli_real_escape_string($con, $_POST['precioUnitario']);
-        $cantidad        = mysqli_real_escape_string($con, $_POST['cantidad']); //la introduce el usuario
-        $stock           = mysqli_real_escape_string($con, $_POST['stock']);    //Disponibles, le serán restados $cantidad al final
-        $total           = mysqli_real_escape_string($con, $_POST['total']);    //$cantidad * $precio_unitario
+        $id_producto     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['id_producto_seleccionado'])));
+        $precio_unitario = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioUnitario_producto_seleccionado'])));
+        $cantidad        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidad_producto_seleccionado']))); //la introduce el usuario
+        $stock           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['stock_producto_seleccionado'])));    //Disponibles, le serán restados $cantidad al final
+        $total           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['total_producto_seleccionado'])));    //$cantidad * $precio_unitario
         $metodo_pago     = mysqli_real_escape_string($con, $_POST['metodoPago']);
 
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
@@ -59,22 +59,31 @@
         $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
 
 
-        $nuevo_stock = $stock - $cantidad;
 
-
+        $numero_de_productos   = sizeof($id_producto);
         $suma_ventas = $ModelProducto->getSumVentas()[0]['numVentas'];
         $suma_ventas += 1;
-        $id_venta = $id_producto.$num_centro.$id_cosmetologa.$suma_ventas;
+        $id_venta = $id_producto[0].$num_centro.$id_cosmetologa.$suma_ventas;
 
-       
-        
-        //Actualizar stock de producto
-        $ModelProducto->updateStockProducto($id_producto, $nuevo_stock);
+        //************LOGICA PARA REGISTRAR 1 O MUCHOS PRODUCTOS EN UN POST************
+        for ($i=0; $i <= $numero_de_productos-1 ; $i++) { 
+            $id_producto_temp       = $id_producto[$i];
+            $stock_inicial_temp     = $stock[$i];
+            $cantidad_producto_temp = $cantidad[$i];
+            $nuevo_stock_temp       = $stock_inicial_temp - $cantidad_producto_temp;
+            $metodo_pago_temp       = $metodo_pago;
+            $precio_total_temp      = $total[$i];
+            $precio_unitario_temp   = $precio_unitario[$i];
 
+            //Actualizar stock de producto
+            $ModelProducto->updateStockProducto($id_producto_temp, $nuevo_stock_temp, $num_centro);
 
-        //Insertar venta
-        $ModelProducto->insertarVentaProducto($id_venta, '', '', $metodo_pago, $total, $timeStamp, $num_centro, '', $id_producto, $precio_unitario, $cantidad, $id_cosmetologa);
-
+            //Insertar venta
+            $ModelProducto->insertarVentaProducto($id_venta, '', '', $metodo_pago_temp, $precio_total_temp, $timeStamp, $num_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+        }
+        //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
+ 
     }
 ?>

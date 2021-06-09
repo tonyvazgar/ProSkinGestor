@@ -23,10 +23,10 @@ function getNavbar($name, $sucursal){
                         // </li>
                         echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Inventario/'>Inventario/Productos</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='../../View/Reportes/'>Reportes</a>
                         </li>";
-                        // <li class='nav-item'>
-                        //     <a class='nav-link' href='../../View/Reportes/reportes.php'>Reportes</a>
-                        // </li>
                         // <li class='nav-item'>
                         //     <a class='nav-link' href='../../View/Recursos/recursos.php'>Recursos</a>
                         // </li>
