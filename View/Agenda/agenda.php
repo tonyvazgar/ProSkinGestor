@@ -1,16 +1,16 @@
-<?php require_once "../Controller/controllerUserData.php"; ?>
 <?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email == false && $password == false){
-  header('Location: login.php');
-}else{
-  $sql = "SELECT * FROM usertable WHERE email = '$email'";
-  $run_Sql = mysqli_query($con, $sql);
-  if($run_Sql){
-    $fetch_info = mysqli_fetch_assoc($run_Sql);
-  }
-}
+  require_once "../../Controller/Clientes/ClienteController.php"; 
+  require_once "../../Controller/ControllerSesion.php";
+  require_once "../../Model/Usuario/Usuario.php";
+
+  $session = new ControllerSesion();
+  $ModeloUsuario = new Usuario();
+  
+  $email    = $_SESSION['email'];
+  $password = $_SESSION['password'];
+  
+  $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,14 +25,15 @@ if($email == false && $password == false){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./include/navbar.css">
-    <script src="include/loadNavbar.js"></script>
+    <link rel="stylesheet" href="../include/navbar.css">
+    <script src="../include/loadNavbar.js"></script>
 </head>
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
-        require_once("./include/navbar.php");
-        getNavbar($fetch_info['name']);
+        require_once("../include/navbar.php");
+        
+        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
       <div class="container">
@@ -44,7 +45,7 @@ if($email == false && $password == false){
           <li class="list-group-item">Tratamiento X....</li>
           <li class="list-group-item">Tratamiento X....s</li>
         </ul>
-        <img src="./img/img1.jpg" class="img-fluid" alt="Responsive image">
+        <img src="../img/img1.jpg" class="img-fluid" alt="Responsive image">
       </div>
     </main>
     <?php

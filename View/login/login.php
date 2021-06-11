@@ -1,4 +1,4 @@
-<?php require_once "../Controller/controllerUserData.php"; ?>
+<?php require_once "../../Controller/controllerUserData.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
     <title>ProSkin - Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="./include/style.css">
+    <link rel="stylesheet" href="../include/style.css">
 </head>
 <body>
     <div class="container">
@@ -15,7 +15,7 @@
             <div class="col-md-4 offset-md-4 form login-form">
                 <form action="login.php" method="POST" autocomplete="">
                     <div class="text-center">
-                        <img src="./img/logoProSkin.png" height="60" class="d-inline-block align-center" alt="">
+                        <img src="../img/logoProSkin.png" height="60" class="d-inline-block align-center" alt="">
                     </div>
                     <br>
                     <!-- <h2 class="text-center">Iniciar sesión</h2> -->
@@ -46,6 +46,6 @@
             </div>
         </div>
     </div>
-    <script src="./include/validateForm.js"></script>
+    <script src="../include/validateForm.js"></script>
 </body>
 </html>
