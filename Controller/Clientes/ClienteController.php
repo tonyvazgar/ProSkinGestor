@@ -122,7 +122,7 @@
             $precioUnit_productos_seleccionados = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioUnitario_producto_seleccionado'])));
             $cantidad_producto_seleccionado = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidad_producto_seleccionado'])));
             $precioTotal_producto_seleccionado = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['total_producto_seleccionado'])));
-            $metodoPago_producto_seleccionado = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago_producto_seleccionado'])));    
+            $metodoPago_producto_seleccionado = mysqli_real_escape_string($con, $_POST['metodoPago']); 
         }
 
         //Otros datos del formulario para ser de utilidad
@@ -226,7 +226,7 @@
             $stock_inicial_temp     = $stock_productos_seleccionados[$i];
             $cantidad_producto_temp = $cantidad_producto_seleccionado[$i];
             $nuevo_stock_temp       = $stock_inicial_temp - $cantidad_producto_temp;
-            $metodo_pago_temp       = $metodoPago_producto_seleccionado[$i];
+            $metodo_pago_temp       = $metodoPago_producto_seleccionado;
             $precio_total_temp      = $precioTotal_producto_seleccionado[$i];
             $precio_unitario_temp   = $precioUnit_productos_seleccionados[$i];
 
