@@ -36,60 +36,69 @@
                     foreach($info as $infoProducto){
                 ?>
                     <h1>Detalles de la venta</h1>
+                    <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
+                        <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
+                    </div>
                     <form action="ventaProducto.php" method="POST" autocomplete="">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoProducto['id_producto'];?> readonly>
-                        <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden>
-                        <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
+                    <div class="productos">
+                        <div class="plantilla">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">ID</label>
+                                <input type="text" class="form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" value=<?php echo $infoProducto['id_producto'];?> readonly>
+                                <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden>
+                                <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Descripción</label>
+                                <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Unidades disponibles</label>
+                                <input type="text" class="form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <label for="exampleInputEmail1">Precio por pieza</label>
+                                                <input type="number" class="form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
+                                            </td>
+                                            <td>
+                                                <label for="exampleInputEmail1">Cantidad</label>
+                                                <input type="number" class="form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" required>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <label for="exampleInputEmail1">Precio de venta</label>
+                                                <input type="text" class="form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" readonly>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Descripción</label>
-                        <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Unidades disponibles</label>
-                        <input type="text" class="form-control" id="stock" name="stock" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
-                    </div>
-                    <div class="form-group">
-                        <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label for="exampleInputEmail1">Precio por pieza</label>
-                                    <input type="number" class="form-control" id="precioUnitario" name="precioUnitario" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
-                                </td>
-                                <td>
-                                    <label for="exampleInputEmail1">Cantidad</label>
-                                    <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Unidades a verder" required>
-                                </td>
-                            </tr>
-                        </tbody></table>
-                    </div>
-                    <div class="form-group">
 
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <label for="exampleInputEmail1">Precio de venta</label>
-                                        <input type="text" class="form-control" id="total" name="total" readonly>
-                                    </td>
-                                    <td>
-                                        <label>Método de pago: </label>
-                                        <select name='metodoPago' id='metodoPago' class='form-control'>
-                                            <option value='1'>Efectivo</option>
-                                            <option value='2'>[TDD]Tarjeta de débito</option>
-                                            <option value='3'>[TDC]Tarjeta de crédito</option>
-                                            <option value='4'>Transferencia</option>
-                                            <option value='5'>Cheque de regalo</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="form-group">
+                        <td>
+                            <label>Método de pago: </label>
+                            <select name='metodoPago' id='metodoPago' class='form-control'>
+                                <option value='1'>Efectivo</option>
+                                <option value='2'>[TDD]Tarjeta de débito</option>
+                                <option value='3'>[TDC]Tarjeta de crédito</option>
+                                <option value='4'>Transferencia</option>
+                                <option value='5'>Cheque de regalo</option>
+                            </select>
+                        </td>
                     </div>
-                    
                     <button type="submit" id="venderProducto" name="venderProducto" class="btn btn-success">Vender producto</button>
                 <?php
                     }

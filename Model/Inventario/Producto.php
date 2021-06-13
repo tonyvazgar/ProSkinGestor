@@ -34,12 +34,13 @@
             return $tratamientos;
         }
 
-        function updateStockProducto($id_producto, $nuevo_stock){
+        function updateStockProducto($id_producto, $nuevo_stock, $id_centro){
             //UPDATE `Productos` SET `stock_disponible_producto` = '70' WHERE `Productos`.`id_producto` = 'SHA3';
             $db = new DB();
             $sql_statement = "UPDATE `Productos` 
                               SET `stock_disponible_producto` = '$nuevo_stock' 
-                              WHERE `Productos`.`id_producto` = '$id_producto';";
+                              WHERE `Productos`.`id_producto` = '$id_producto'
+                              AND `Productos`.`centro_producto` = '$id_centro';";
 
             $account = $db->query($sql_statement);
             $db->close();
