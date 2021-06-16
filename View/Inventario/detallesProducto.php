@@ -32,35 +32,52 @@
                     $info = $ModelProducto->getProductoWereID($id);
                     foreach($info as $infoProducto){
                 ?>
-                    <h1>Detalles del producto <?php echo $infoProducto['descripcion_producto'];?></h1>
+                    <h1>Detalles del producto <br><em><?php echo $infoProducto['descripcion_producto'];?></em></h1>
                     <form action="buscarCliente.php" method="POST" autocomplete="">
+                    <hr/>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoProducto['id_producto'];?> readonly>
+                        <table class="table table-borderless" style="table-layout: fixed;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4>ID producto:</h4>
+                                        <p class="lead"><?php echo $infoProducto['id_producto'];?></p><input type="text" class="form-control" id="id" name="id" value=<?php echo $infoProducto['id_producto'];?> hidden readonly>
+                                    </td>
+                                    <td>
+                                        <h4>Marca</h4>
+                                        <p class="lead"><?php echo $infoProducto['marca_producto'];?></p><input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['marca_producto']."'";?> hidden readonly>
+                                    </td>
+                                    <td>
+                                        <h4>Linea</h4>
+                                        <p class="lead"><?php echo $infoProducto['linea_producto'];?></p><input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['linea_producto']."'";?> hidden readonly>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Marca</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['marca_producto']."'";?> readonly>
+                        <h4>Descripción</h4>
+                        <p class="lead"><em><?php echo $infoProducto['descripcion_producto'];?></em></p><input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> hidden readonly>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Linea</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['linea_producto']."'";?> readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Descripción</label>
-                        <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Presentación</label>
-                        <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Precio</label>
-                        <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['costo_unitario_producto'];?> readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Unidades disponibles</label>
-                        <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
+                        <table class="table table-borderless" style="table-layout: fixed;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4>Presentación</h4>
+                                        <p class="lead"><?php echo $infoProducto['presentacion_producto'];?></p><input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> hidden readonly>
+                                    </td>
+                                    <td>
+                                        <h4>Precio</h4>
+                                        <p class="lead"><?php echo $infoProducto['costo_unitario_producto'];?></p><input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['costo_unitario_producto'];?> hidden readonly>
+                                    </td>
+                                    <td>
+                                        <h4>Unidades disponibles</h4>
+                                        <p class="lead"><?php echo $infoProducto['stock_disponible_producto'];?></p><input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['stock_disponible_producto'];?> hidden readonly>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="form-group">
                         <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>

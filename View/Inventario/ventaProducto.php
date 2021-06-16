@@ -22,7 +22,6 @@
   getHeadHTML("ProSkin - Venta individual de producto");
 ?>
 <body style='background-color: #f9f3f3;'>
-    <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
         
@@ -36,37 +35,43 @@
                     foreach($info as $infoProducto){
                 ?>
                     <h1>Detalles de la venta</h1>
-                    <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
-                        <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
-                    </div>
                     <form action="ventaProducto.php" method="POST" autocomplete="">
                     <div class="productos">
                         <div class="plantilla">
+                            <h2 class='numProductos'>Producto #1</h2>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">ID</label>
-                                <input type="text" class="form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" value=<?php echo $infoProducto['id_producto'];?> readonly>
-                                <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden>
-                                <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Descripción</label>
-                                <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Unidades disponibles</label>
-                                <input type="text" class="form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" value=<?php echo $infoProducto['stock_disponible_producto'];?> readonly>
-                            </div>
-                            <div class="form-group">
-                                <table class="table table-borderless">
+                                <table class="table table-borderless" style="table-layout: fixed;">
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <label for="exampleInputEmail1">Precio por pieza</label>
-                                                <input type="number" class="form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
+                                                <h4>ID producto:</h4>
+                                                <p class="last lead"><?php echo $infoProducto['id_producto'];?></p><input type="text" class="last form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" value=<?php echo $infoProducto['id_producto'];?> hidden readonly>
+                                                <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden>
+                                                <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
                                             </td>
                                             <td>
-                                                <label for="exampleInputEmail1">Cantidad</label>
-                                                <input type="number" class="form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" required>
+                                                <h4>Unidades disponibles</h4>
+                                                <p class="last lead"><?php echo $infoProducto['stock_disponible_producto'];?></p><input type="text" class="last form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" value=<?php echo $infoProducto['stock_disponible_producto'];?> hidden readonly>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group">
+                                <h4>Descripción:</h4>
+                                <p class="last lead"><?php echo $infoProducto['descripcion_producto'];?></p><input type="text" class="last form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> hidden readonly>
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-borderless" style="table-layout: fixed;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h4>Precio por pieza</h4>
+                                                <input type="number" class="last form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
+                                            </td>
+                                            <td>
+                                                <h4>Cantidad</h4>
+                                                <input type="number" class="last form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" required>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -77,8 +82,8 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <label for="exampleInputEmail1">Precio de venta</label>
-                                                <input type="text" class="form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" readonly>
+                                                <h4>Precio de venta</h4>
+                                                <p class="last lead total_producto_seleccionado_label"></p><input type="text" class="last form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -86,10 +91,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
+                        <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
+                    </div>
                     <div class="form-group">
                         <td>
-                            <label>Método de pago: </label>
+                            <h4>Método de pago:</h4>
                             <select name='metodoPago' id='metodoPago' class='form-control'>
                                 <option value='1'>Efectivo</option>
                                 <option value='2'>[TDD]Tarjeta de débito</option>

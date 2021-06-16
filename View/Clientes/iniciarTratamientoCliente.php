@@ -40,13 +40,13 @@
                 ?>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="exampleInputEmail1">ID</label>
-                        <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $infoCliente['id_cliente'];?> readonly>
+                        <h3>ID</h3>
+                        <p class="lead"><?php echo $infoCliente['id_cliente'];?></p><input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $infoCliente['id_cliente'];?> hidden readonly>
                         <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
                     </div>
                     <div class="col-sm">
-                        <label for="exampleInputEmail1">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']." ".$infoCliente['apellidos_cliente']."'";?> readonly>
+                        <h3>Nombre</h3>
+                        <p class="lead"><?php echo $infoCliente['nombre_cliente']." ".$infoCliente['apellidos_cliente'];?></p><input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoCliente['nombre_cliente']." ".$infoCliente['apellidos_cliente']."'";?> hidden readonly>
                     </div>
                 </div>
                 <div class="form-group" hidden>
