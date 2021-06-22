@@ -53,52 +53,14 @@
                     <label for="exampleInputEmail1">Sucursal</label>
                     <select name="id_centro" id="id_centro" class="form-control" readonly><option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option></select>
                 </div>
-                <div id="tratamientos">
-                    <div class="col-xs-4">
-                        <h3 class='numTratamientos'>Tratamiento #1</h3>
-                        <div class="well well-sm">
-                            <div class="form-group">
-                                <label>Tratamiento a empezar</label>
-                                <select name="tratamiento[]" id="tratamiento" class="last form-control">
-                                    <option>*** SELECCIONA ***</option>
-                                    <option value="1">Depilación</option>
-                                    <option value="2">Cavitación</option>
-                                    <option value="3">Otros tratamientos</option>
-                                </select>
-                            </div>
-                            <div class="last form-group" id="otro" name="otro">
-                                                
-                            </div>
-                                            
-                            <div class="form-group" hidden>
-                                <label>Calificación</label>
-                                <select name="calificacion[]" id="calificacion" class="form-control" hidden>
-                                    <option value="1">☆</option>
-                                    <option value="2">☆☆</option>
-                                    <option value="3">☆☆☆</option>
-                                    <option value="4">☆☆☆☆</option>
-                                    <option value="5">☆☆☆☆☆</option>
-                                </select>
-                            </div>
+                <div class="form-group" id="elementos">
 
-                            <div class="form-group">
-                                <label>Comentarios</label>
-                                <textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength='250' placeholder="Escribe algo relevante de este tratamiento"></textarea>
-                            </div>
-
-                                                    
-                        </div> 
-                    </div>   
                 </div>
-                <div class="col-sm">
-                    <div id="productos">
-                    </div>
-                </div>
-                <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
+                <div class="form-group text-center" id='div-agregarTratamiento' name='div-agregarTratamiento'>
                     <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
                     <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: none;" id="metodo_pago_div">
                     <label>Método de pago: </label>
                     <select name='metodoPago' id='metodoPago' class='form-control'>
                         <option value='1'>Efectivo</option>
@@ -108,7 +70,7 @@
                         <option value='5'>Cheque de regalo</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: none;" id="firma_div">
                     <label>Firma requerida del cliente</label>
                     <select name="aviso" id="aviso" class="form-control">
                         <option>*** SELECCIONA ***</option>
@@ -116,8 +78,11 @@
                         <option value="1">Ya se firmó</option>
                     </select>
                 </div>
-                <div class="form-group" id='botonComenzar' name='botonComenzar'>
+                <div class="form-group justify-content-center" id='botonComenzar' name='botonComenzar'>
                     <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registar tratamiento</button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <a class="btn btn-danger" href="index.php" role="button">Cancelar</a>
                 </div>
                 <?php
                         }
