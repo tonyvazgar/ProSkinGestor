@@ -80,6 +80,14 @@ $('body').on('click','#selecionarProductoBtn',function () {
     let id = $("#selectOptionIdProducto.last_producto").val();
     if(id != ""){
         buscarInfoProducto(id);
+        $('#cantidad_producto_seleccionado.last_producto').on('keyup',function(){
+            v = parseInt($(this).val());
+            min = parseInt($(this).attr('min'));
+            max = parseInt($(this).attr('max'));
+            if (v > max){
+                $(this).val(max);
+            }
+        });
         $('#total_producto_seleccionado.last_producto').val(0.0);
         $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(0));
         $('#cantidad_producto_seleccionado.last_producto').keyup(function() {
@@ -115,6 +123,14 @@ $('body').on('click','#selecionarProductoBtn',function () {
 });
 
 $(document).ready(function(){
+    $('#cantidad_producto_seleccionado.last_producto').on('keyup',function(){
+        v = parseInt($(this).val());
+        min = parseInt($(this).attr('min'));
+        max = parseInt($(this).attr('max'));
+        if (v > max){
+            $(this).val(max);
+        }
+    });
     recargarLista();
 })
 
@@ -194,7 +210,13 @@ function buscarInfoProducto(id){
             $('#stock_producto_seleccionado.last_producto').attr('value', json.stock_disponible_producto);
             $('.stock_producto_seleccionado_label.last_producto').html(json.stock_disponible_producto);
             $('#precioUnitario_producto_seleccionado.last_producto').attr('value', json.costo_unitario_producto);
-            
+
+            $('#cantidad_producto_seleccionado.last_producto').attr({
+                "max" : parseInt(json.stock_disponible_producto),
+                "min" : 0,
+                "step": 1,
+                "oninput": "this.value=(parseInt(this.value)||0)"
+             });
         }
     });   
 }
