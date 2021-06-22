@@ -45,13 +45,13 @@
                                         <tr>
                                             <td>
                                                 <h4>ID producto:</h4>
-                                                <p class="last lead"><?php echo $infoProducto['id_producto'];?></p><input type="text" class="last form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" value=<?php echo $infoProducto['id_producto'];?> hidden readonly>
+                                                <p class="last_producto lead"><?php echo $infoProducto['id_producto'];?></p><input type="text" class="last_producto form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" value=<?php echo $infoProducto['id_producto'];?> hidden readonly>
                                                 <input type="text" class="form-control" id="centro" name="centro" value=<?php echo "'".$numeroSucursal['id_sucursal']."'"; ?> hidden>
                                                 <input type="text" class="form-control" id="idCosmetologa" name="idCosmetologa" value=<?php echo "'".$id_cosmetologa['id']."'";?> hidden>
                                             </td>
                                             <td>
                                                 <h4>Unidades disponibles</h4>
-                                                <p class="last lead"><?php echo $infoProducto['stock_disponible_producto'];?></p><input type="text" class="last form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" value=<?php echo $infoProducto['stock_disponible_producto'];?> hidden readonly>
+                                                <p class="last_producto lead"><?php echo $infoProducto['stock_disponible_producto'];?></p><input type="text" class="last_producto form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" value=<?php echo $infoProducto['stock_disponible_producto'];?> hidden readonly>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                 <h4>Descripción:</h4>
-                                <p class="last lead"><?php echo $infoProducto['descripcion_producto'];?></p><input type="text" class="last form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> hidden readonly>
+                                <p class="last_producto lead"><?php echo $infoProducto['descripcion_producto'];?></p><input type="text" class="last_producto form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> hidden readonly>
                             </div>
                             <div class="form-group">
                                 <table class="table table-borderless" style="table-layout: fixed;">
@@ -67,11 +67,11 @@
                                         <tr>
                                             <td>
                                                 <h4>Precio por pieza</h4>
-                                                <input type="number" class="last form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
+                                                <input type="number" class="last_producto form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" value=<?php echo $infoProducto['costo_unitario_producto'];?>>
                                             </td>
                                             <td>
                                                 <h4>Cantidad</h4>
-                                                <input type="number" class="last form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" required>
+                                                <input type="number" class="last_producto form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" required>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -83,7 +83,7 @@
                                         <tr>
                                             <td>
                                                 <h4>Precio de venta</h4>
-                                                <p class="last lead total_producto_seleccionado_label"></p><input type="text" class="last form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly>
+                                                <p class="last_producto lead total_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly>
                                             </td>
                                         </tr>
                                     </tbody>
