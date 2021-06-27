@@ -20,6 +20,7 @@
   $ModelProducto = new Producto();
 
   getHeadHTML("ProSkin - Venta individual de producto");
+  getApartados();
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
@@ -31,10 +32,10 @@
         <div class="container">
                 <?php
                     $id = $_GET['id'];
-                    $info = $ModelProducto->getProductoWereID($id);
-                    foreach($info as $infoProducto){
+                    $infoProducto = $ModelProducto->getProductoWereID($id);
                 ?>
                     <h1>Detalles de la venta</h1>
+                    <hr/>
                     <form action="ventaProducto.php" method="POST" autocomplete="">
                     <div class="productos">
                         <div class="plantilla">
@@ -85,6 +86,10 @@
                                                 <h4>Precio de venta</h4>
                                                 <p class="last_producto lead total_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly>
                                             </td>
+                                            <td>
+                                                <h4>.</h4>
+                                                <button id="btn-apartar-producto" class="last_producto btn btn-success btn-apartar-producto" type="button" disabled="disabled">Apartar producto(s)</button> 
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -92,7 +97,7 @@
                         </div>
                     </div>
                     <div class="form-group" id='div-agregarTratamiento' name='div-agregarTratamiento'>
-                        <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
+                        <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button" disabled="disabled">Agregar otro producto</button> 
                     </div>
                     <div class="form-group">
                         <td>
@@ -107,9 +112,6 @@
                         </td>
                     </div>
                     <button type="submit" id="venderProducto" name="venderProducto" class="btn btn-success">Vender producto</button>
-                <?php
-                    }
-                ?>
             </form>
         </div>
     </main>

@@ -8,6 +8,6 @@
     if(isset($_POST['id_producto'])){
         $id_producto = $_POST['id_producto'];
         $info = $ModelProducto->getProductoWereID($id_producto);
-        echo json_encode($info[0]);
+        echo json_encode($info);
     }
 ?>

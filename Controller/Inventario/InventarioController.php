@@ -75,11 +75,11 @@
             $precio_total_temp      = $total[$i];
             $precio_unitario_temp   = $precio_unitario[$i];
 
-            //Actualizar stock de producto
-            $ModelProducto->updateStockProducto($id_producto_temp, $nuevo_stock_temp, $num_centro);
-
             //Insertar venta
             $ModelProducto->insertarVentaProducto($id_venta, '', '', $metodo_pago_temp, $precio_total_temp, $timeStamp, $num_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+            
+            //Quitar de ProductosApartados (Borrar de tabla ProductosApartados el registro)
+            $ModelProducto -> deleteProductoApartadoFinalizar($id_producto_temp, $cantidad_producto_temp);
         }
         //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

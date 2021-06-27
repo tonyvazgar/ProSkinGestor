@@ -16,6 +16,7 @@
   $productos = $ModelProducto->getAllProductos();
   
   getHeadHTML("ProSkin - Inventario");
+  getApartados();
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php

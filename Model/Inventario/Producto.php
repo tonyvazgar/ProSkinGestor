@@ -1,4 +1,5 @@
 <?php
+    require_once "../../Model/Db.php";
     class Producto {
         public function altaProducto($id_producto, $marca_producto, $linea_producto, $descripcion_producto, $presentacion_producto, $stock_disponible_producto, $costo_unitario_producto, $centro_producto){
             //INSERT INTO `Productos`(`id_producto`, `nombre_producto`, `descripcion_producto`, `costo_unitario_producto`, `stock_disponible_producto`, `centro_producto`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
@@ -23,6 +24,31 @@
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();
+        }
+
+        //Insertar a ProductosApartados
+        function insertProductosApartados($id_producto, $centro_producto, $cantidad_producto, $id_cosmetologa, $timestamp_inicial, $timestamp_final){
+            //INSERT INTO `ProductosApartados`(`id_producto`, `cantidad_producto`, `id_cosmetologa`, `timestamp_inicial`, `timestamp_final`) VALUES
+            $db = new DB();
+            $sql_statement = "INSERT INTO `ProductosApartados`(`id_producto`, `centro_producto`, `cantidad_producto`, `id_cosmetologa`, `timestamp_inicial`, `timestamp_final`) 
+                              VALUES
+                              ('$id_producto', '$centro_producto', '$cantidad_producto', '$id_cosmetologa', $timestamp_inicial, '$timestamp_final')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
+        function getProductoApartadoParaCerrarVenta($id_producto, $id_centro, $cantidad_producto, $id_cosmetologa, $timeStampInicial, $timeStampFinal){
+    
+        }
+
+        function selectAllFromProductosApartados(){
+            //SELECT * FROM `ProductosApartados` ORDER BY `timestamp_inicial` DESC
+            $db = new DB();
+            $productos = $db->query('SELECT * 
+                                        FROM `ProductosApartados` 
+                                        ORDER BY `timestamp_inicial` DESC')->fetchAll();
+            $db->close();
+            return $productos;
         }
 
 
@@ -86,7 +112,7 @@
             $sql_statement = "SELECT *
                               FROM Productos 
                               WHERE id_producto='$id_producto'";
-            $account = $db->query($sql_statement)->fetchAll();
+            $account = $db->query($sql_statement)->fetchArray();
             $db->close();
             return $account;
         }
@@ -108,6 +134,28 @@
             $db->close();
             return $tratamientos;
         }
+
+        function deleteProductoApartado($id_producto, $cantidad_producto, $timestamp_inicial){
+            // DELETE FROM `ProductosApartados` 
+            // WHERE `ProductosApartados`.`id_producto` = 'R2401' 
+            // AND `ProductosApartados`.`cantidad_producto` = '2' 
+            // AND `ProductosApartados`.`timestamp_inicial` = '1624401000'
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM ProductosApartados 
+                                        WHERE ProductosApartados.id_producto = '$id_producto' 
+                                        AND ProductosApartados.cantidad_producto = '$cantidad_producto' 
+                                        AND ProductosApartados.timestamp_inicial = '$timestamp_inicial'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+        function deleteProductoApartadoFinalizar($id_producto, $cantidad_producto){
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM ProductosApartados 
+                                        WHERE ProductosApartados.id_producto = '$id_producto' 
+                                        AND ProductosApartados.cantidad_producto = '$cantidad_producto'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
         //-----------------------------------------------------------------------------------------------
         public function getNumProductosParaID(){
             $db = new Db();
@@ -123,6 +171,37 @@
             $siguienteNumeroParaID = $this->getNumProductosParaID()['numProductos'] + 1;
             $id = $substr.$siguienteNumeroParaID;
             return $id;
+        }
+    }
+
+    function getApartados(){
+        $productoModel = new Producto();
+        $productosApartados = $productoModel->selectAllFromProductosApartados();   //Obtener todos los status de clientes en la BDD
+        $date              = new DateTime("now", new DateTimeZone('America/Mexico_City') );
+        $hoy = strtotime($date->format('H:i'));                            //Obtenemos la fecha de hoy
+
+
+        foreach($productosApartados as $producto){
+            echo "<br>";
+            $timestamp_final = $producto['timestamp_final'];         //la ultima visita del cliente
+            $diferencia = $hoy - $timestamp_final;
+            if($diferencia >= 5){
+                echo "****";
+                //[id_producto] => R2401 [centro_producto] => 2 [cantidad_producto] => 2 [id_cosmetologa] => 9 [timestamp_inicial] => 1624401000 [timestamp_final] => 1624401300 
+                $id_producto       = $producto['id_producto'];
+                $centro_producto   = $producto['centro_producto'];
+                $cantidad_producto = $producto['cantidad_producto'];
+                $id_cosmetologa    = $producto['id_cosmetologa'];
+                $timestamp_inicial = $producto['timestamp_inicial'];
+                //Regresar al inventario el stock apartado
+                $stock_original_producto = $productoModel -> getProductoWereID($id_producto)['stock_disponible_producto'];
+                $nuevo_stock_producto = $stock_original_producto + $cantidad_producto;
+                print_r($stock_original_producto."-->".$nuevo_stock_producto);
+                $productoModel->updateStockProducto($id_producto, $nuevo_stock_producto, $centro_producto);
+
+                //Borrar de tabla ProductosApartados el registro
+                $productoModel -> deleteProductoApartado($id_producto, $cantidad_producto, $timestamp_inicial);
+            }
         }
     }
 ?>
