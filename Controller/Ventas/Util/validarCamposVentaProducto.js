@@ -143,7 +143,8 @@ $(document).ready(function () {
             data: "id_producto=" + id_producto + "&cantidad_producto=" + cantidad_producto + "&stock_original_producto=" + stock_original_producto + "&id_cosmetologa=" + id_cometologa + "&id_centro=" + id_centro,
             success:function(info){
                 // var json = JSON.parse(info);
-                $('#btn-apartar-producto.last_producto').append(info);
+                $('#btn-apartar-producto.last_producto').html("APARTADO");
+                $("#btn-apartar-producto.last_producto").attr('disabled', true);
                 console.log(info);
                 $("#btn-agregar-producto").attr('disabled', false);
             }

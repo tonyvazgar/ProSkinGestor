@@ -29,8 +29,7 @@
         <div class="container">
                 <?php
                     $id = $_GET['id'];
-                    $info = $ModelProducto->getProductoWereID($id);
-                    foreach($info as $infoProducto){
+                    $infoProducto = $ModelProducto->getProductoWereID($id);
                 ?>
                     <h1>Detalles del producto <br><em><?php echo $infoProducto['descripcion_producto'];?></em></h1>
                     <form action="buscarCliente.php" method="POST" autocomplete="">
@@ -82,9 +81,6 @@
                     <div class="form-group">
                         <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
                     </div>
-                <?php
-                    }
-                ?>
             </form>
         </div>
     </main>

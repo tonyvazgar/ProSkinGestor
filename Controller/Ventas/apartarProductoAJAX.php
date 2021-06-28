@@ -1,5 +1,6 @@
 <?php
     require_once "../../Model/Inventario/Producto.php";
+    include "../../Model/Db.php";
     $ModelProducto = new Producto();
 
     //------------------------------------------------------------------------------------------
