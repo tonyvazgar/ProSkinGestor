@@ -11,8 +11,11 @@
     $id_cosmetologa    = $_POST['id_cosmetologa'];
     $id_centro         = $_POST['id_centro'];
 
-    $date              = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-    $timeStampInicial  = strtotime($date->format('H:i'));
+    date_default_timezone_set('America/Mexico_City');
+    $datetime = new DateTime();
+    $timezone = new DateTimeZone('America/Mexico_City');
+    $datetime->setTimezone($timezone);
+    $timeStampInicial = strtotime($datetime->format('H:i'));
 
     $timeStampFinal    = strtotime("+5 minute", $timeStampInicial);
 

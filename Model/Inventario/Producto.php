@@ -164,9 +164,9 @@
         function getAllVentasDeCosmetologa($email){
             $db = new DB();
             $tratamientos = $db->query("SELECT Ventas.* 
-                                        FROM Ventas, usertable
-                                        WHERE usertable.email='$email'
-                                        AND Ventas.id_cosmetologa=usertable.id")->fetchAll();
+                                        FROM Ventas, Usuarios
+                                        WHERE Usuarios.email='$email'
+                                        AND Ventas.id_cosmetologa=Usuarios.id")->fetchAll();
             $db->close();
             return $tratamientos;
         }
@@ -185,12 +185,13 @@
     function getApartados(){
         $productoModel = new Producto();
         $productosApartados = $productoModel->selectAllFromProductosApartados();   //Obtener todos los status de clientes en la BDD
-        $date              = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-        $hoy = strtotime($date->format('H:i'));                            //Obtenemos la fecha de hoy
-
+        date_default_timezone_set('America/Mexico_City');
+        $datetime = new DateTime();
+        $timezone = new DateTimeZone('America/Mexico_City');
+        $datetime->setTimezone($timezone);
+        $hoy = strtotime($datetime->format('H:i'));
 
         foreach($productosApartados as $producto){
-            echo "<br>";
             $timestamp_final = $producto['timestamp_final'];         //la ultima visita del cliente
             $diferencia = $hoy - $timestamp_final;
             if($diferencia >= 5){
