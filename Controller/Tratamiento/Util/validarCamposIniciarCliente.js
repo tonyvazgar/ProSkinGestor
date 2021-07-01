@@ -31,7 +31,7 @@ $(document).ready(function () {
         
         $("#aviso").val("");
         $("#botonComenzar").hide();
-        alert("Se agregó otro tratamiento");
+        alert("Se agregó otro tratamiento.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
     });
 
     $("#div-agregarTratamiento").on('click', '.btn-agregar-producto', function(){
@@ -44,7 +44,7 @@ $(document).ready(function () {
         $("#elementos").append(front_producto);
         $("#elementos .plantilla:last").append('<button class="btn-danger btn btn-block btn-quitar-producto" type="button">Eliminar producto #'+num_producto+'</button>');
 
-        alert("Se agregó un producto");
+        alert("Se agregó un producto.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
     });
 
     $("#elementos").on('click', '.btn-quitar-tratamiento', function(){

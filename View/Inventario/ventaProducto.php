@@ -36,6 +36,8 @@
                 ?>
                     <h1>Detalles de la venta</h1>
                     <hr/>
+                    <h4>Nota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR <i>F5</i></h4>
+                    <hr/>
                     <form action="ventaProducto.php" method="POST" autocomplete="">
                     <div class="productos">
                         <div class="plantilla">
@@ -87,7 +89,7 @@
                                                 <p class="last_producto lead total_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly>
                                             </td>
                                             <td>
-                                                <h4>.</h4>
+                                                <h4>&nbsp;</h4>
                                                 <button id="btn-apartar-producto" class="last_producto btn btn-success btn-apartar-producto" type="button" disabled="disabled">Apartar producto(s)</button> 
                                             </td>
                                         </tr>

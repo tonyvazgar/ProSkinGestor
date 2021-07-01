@@ -32,6 +32,9 @@
     <main role="main" class="container">
         <div class="container">
             <h1>Registrar tratamiento</h1>
+            <hr/>
+            <h4>Nota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR <i>F5</i></h4>
+            <hr/>
             <form action="iniciarTratamientoCliente.php" method="POST" autocomplete="">
                 <?php
                     $id = $_GET['id'];
