@@ -32,7 +32,7 @@
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">OTROS TRATAMIENTOS</button>
                 </p>
                 <div class="form-group">
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
                             <?php
                                 $tratamientosAplicados = $ModelCliente->getDepilacionesFromCliente($_GET['id']);

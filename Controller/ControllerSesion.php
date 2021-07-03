@@ -2,7 +2,7 @@
     class ControllerSesion{
         public function verificarSesion($ModeloUsuario, $email, $password){
             if($email == false && $password == false){
-                header('Location: ../../View/login/login.php');
+                header('Location: ../../View/login/');
             }else{
                 return $ModeloUsuario->getUsuarioWhereEmail($email);
             }

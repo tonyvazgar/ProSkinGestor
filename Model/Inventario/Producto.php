@@ -164,9 +164,9 @@
         function getAllVentasDeCosmetologa($email){
             $db = new DB();
             $tratamientos = $db->query("SELECT Ventas.* 
-                                        FROM Ventas, Usuarios
-                                        WHERE Usuarios.email='$email'
-                                        AND Ventas.id_cosmetologa=Usuarios.id")->fetchAll();
+                                        FROM Ventas, usertable
+                                        WHERE usertable.email='$email'
+                                        AND Ventas.id_cosmetologa=usertable.id")->fetchAll();
             $db->close();
             return $tratamientos;
         }

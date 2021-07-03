@@ -37,5 +37,6 @@
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Clientes/Util/buscarCliente.js"></script>
 </body>
 </html>

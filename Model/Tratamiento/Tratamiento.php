@@ -118,11 +118,11 @@
         function getAllTratamientosAplicadosDeCosmetologa($email){
             $db = new DB();
             $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.*, Ventas.id_venta
-                                        FROM `ClienteBitacora`, Usuarios, Tratamiento, Ventas
-                                        WHERE ClienteBitacora.id_cosmetologa=Usuarios.id 
+                                        FROM `ClienteBitacora`, usertable, Tratamiento, Ventas
+                                        WHERE ClienteBitacora.id_cosmetologa=usertable.id 
                                         AND ClienteBitacora.timestamp=Ventas.timestamp
                                         AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento 
-                                        AND Usuarios.email='$email'
+                                        AND usertable.email='$email'
                                         ORDER by ClienteBitacora.timestamp DESC")->fetchAll();
             $db->close();
             return $tratamientos;
@@ -130,11 +130,11 @@
         function getAllVentasDeCosmetologa($email){
             $db = new DB();
             $tratamientos = $db->query("SELECT Ventas.*, Productos.*
-                                        FROM Usuarios, Ventas, Productos
-                                        WHERE Usuarios.id=Ventas.id_cosmetologa
+                                        FROM usertable, Ventas, Productos
+                                        WHERE usertable.id=Ventas.id_cosmetologa
                                         AND Ventas.id_productos=Productos.id_producto
                                         AND Ventas.id_productos!=''
-                                        AND Usuarios.email='$email'
+                                        AND usertable.email='$email'
                                         ORDER by Ventas.timestamp DESC")->fetchAll();
             $db->close();
             return $tratamientos;
