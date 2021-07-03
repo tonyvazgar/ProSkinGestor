@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 form login-form">
-                <form action="login.php" method="POST" autocomplete="">
+                <form action="index.php" method="POST" autocomplete="">
                     <div class="text-center">
                         <img src="../img/logoProSkin.png" height="60" class="d-inline-block align-center" alt="">
                     </div>
