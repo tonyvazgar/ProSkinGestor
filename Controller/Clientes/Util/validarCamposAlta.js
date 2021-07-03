@@ -3,6 +3,15 @@ $(document).ready(function () {
     $("#altaCliente").hide();
     
     //use keyup event on email field
+    $(document).on('keyup',"#nombre", function () {
+        $(this).val($(this).val().toUpperCase());  
+    });
+
+    $(document).on('keyup',"#apellidos", function () {
+        $(this).val($(this).val().toUpperCase());  
+    });
+
+    //use keyup event on email field
     $(document).on('keyup',"#email", function () {
         if (validateEmail()) {
             //if the email is valid set input email border green

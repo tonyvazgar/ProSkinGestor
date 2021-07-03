@@ -11,7 +11,7 @@ require "connection.php";
 // $dbname = 'userform';
 
 // $db = new Db($dbhost, $dbuser, $dbpass, $dbname);
-// $account = $db->query('SELECT * FROM Usuarios')->fetchArray();
+// $account = $db->query('SELECT * FROM usertable')->fetchArray();
 // print_r($account);
 //----------------------
 $email = "";
@@ -27,7 +27,7 @@ if (isset($_POST['signup'])) {
     if ($password !== $cpassword) {
         $errors['password'] = "Las contraseñas no coinciden!";
     }
-    $email_check = "SELECT * FROM Usuarios WHERE email = '$email'";
+    $email_check = "SELECT * FROM usertable WHERE email = '$email'";
     $res = mysqli_query($con, $email_check);
     if (mysqli_num_rows($res) > 0) {
         $errors['email'] = "Ese correo ya está registrado, inicia sesión <a href='login.php'>aqui</a>!";
@@ -36,7 +36,7 @@ if (isset($_POST['signup'])) {
         $encpass = password_hash($password, PASSWORD_BCRYPT);
         $code = rand(999999, 111111);
         $status = "notverified";
-        $insert_data = "INSERT INTO Usuarios (name, email, password, code, status)
+        $insert_data = "INSERT INTO usertable (name, email, password, code, status)
                         values('$name', '$email', '$encpass', '$code', '$status')";
         $data_check = mysqli_query($con, $insert_data);
         if ($data_check) {
@@ -54,7 +54,7 @@ if (isset($_POST['signup'])) {
 if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
-    $check_email = "SELECT * FROM Usuarios WHERE email = '$email'";
+    $check_email = "SELECT * FROM usertable WHERE email = '$email'";
     $res = mysqli_query($con, $check_email);
     if (mysqli_num_rows($res) > 0) {
         $fetch = mysqli_fetch_assoc($res);

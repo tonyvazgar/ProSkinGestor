@@ -79,7 +79,7 @@
                 <tr>
                   <td>
                     <h3>Fecha</h3>
-                    <p class="lead"><?php echo date('Y-m-d h:m',$detalles['timestamp']);?> </p>
+                    <p class="lead"><?php echo date('Y-m-d H:i:s',$detalles[0]['timestamp']);?> </p>
                   </td>
                   <td>
                     <h3>Centro de belleza</h3>
@@ -105,7 +105,6 @@
                             echo '<div class="card">
                               <div class="card-body">
                                 <h5 class="card-title">'.$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto'].'</h5>
-                                <h6 class="card-title">$'.number_format($prod[2]).'</h6>
                                 <h6 class="card-subtitle mb-2 text-muted">Cantidad: '.$prod[4].' producto(s)</h6>
                               </div>
                             </div>';
@@ -132,8 +131,7 @@
                             }
                             echo '<div class="card">
                               <div class="card-body">
-                                <h5 class="card-title">'.$informacion_gral_tratamiento['nombre_tratamiento'].'</h5>
-                                <h6 class="card-title">$'.number_format($trat[2]).'</h6>
+                                <h5 class="card-title">'.$informacion_gral_tratamiento['nombre_tratamiento']." - $".number_format($trat[2]).'</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
                                 <p class="card-text">'.$informacion_gral_tratamiento['comentarios'].'</p>
                               </div>
@@ -149,9 +147,6 @@
               </tbody>
             </table>
           </div>
-        <?php
-            // print_r($detalles);
-        ?>
         <div class="form-group text-center">
           <a class="btn btn-success" href="../index.php" role="button">Finalizar</a>
         </div>
