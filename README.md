@@ -9,6 +9,7 @@ Fecha: <b>01-Julio-2021</b><br>
       <li>Fechas no encontradas en detalles de venta mostraban <i>1971-01-01...</i></li>
       <li>Mayusculas en alta de clientes para tener consistencia en los datos</li>
       <li>Corrección de errores en la UI de registrar tatamiento donde permitía al usuario registrar un tratamiento sin seleccionarlo (dando una venta sin ningún tratamiento)</li>
+      <li>Eliminacion de acentos y nombre en mayusculas en formulario de alta de cliente</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
