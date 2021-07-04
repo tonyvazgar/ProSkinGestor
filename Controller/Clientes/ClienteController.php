@@ -15,8 +15,8 @@
 
     if (isset($_POST['altaCliente'])) {
         //Valores del front
-        $nombre      = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
-        $apellidos   = mysqli_real_escape_string($con, ucwords($_POST['apellidos']));
+        $nombre      = mysqli_real_escape_string($con, $_POST['nombre']);
+        $apellidos   = mysqli_real_escape_string($con, $_POST['apellidos']);
         $email       = mysqli_real_escape_string($con, $_POST['email']);
         $numero      = mysqli_real_escape_string($con, $_POST['numero']);
         $tipo_numero = mysqli_real_escape_string($con, $_POST['tipo']);

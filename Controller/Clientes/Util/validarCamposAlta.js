@@ -4,11 +4,13 @@ $(document).ready(function () {
     
     //use keyup event on email field
     $(document).on('keyup',"#nombre", function () {
-        $(this).val($(this).val().toUpperCase());  
+        var i = $(this).val().toUpperCase();
+        $(this).val(RemoveAccents(i));  
     });
 
     $(document).on('keyup',"#apellidos", function () {
-        $(this).val($(this).val().toUpperCase());  
+        var i = $(this).val().toUpperCase();
+        $(this).val(RemoveAccents(i));
     });
 
     //use keyup event on email field
@@ -217,4 +219,21 @@ function buttonState() {
     } else {
         $("#altaCliente").hide();
     }
+}
+function RemoveAccents(strAccents) {
+    var strAccents    = strAccents.split('');
+    var strAccentsOut = new Array();
+    var strAccentsLen = strAccents.length;
+    var accents       = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+    var accentsOut    = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+    for (var y = 0; y < strAccentsLen; y++) {
+      if (accents.indexOf(strAccents[y]) != -1) {
+        strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+      } else {
+        strAccentsOut[y] = strAccents[y];
+      }
+    }
+    strAccentsOut = strAccentsOut.join('');
+    console.log(strAccentsOut);
+    return strAccentsOut;
 }

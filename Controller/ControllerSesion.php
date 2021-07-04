@@ -14,6 +14,7 @@
               <html lang='es'>
               <head>
                 <meta charset='UTF-8'>
+                <meta http-equiv = 'Content-Type' content = 'text/html; charset=utf-8' />
                 <meta name='viewport' content='width=device-width, initial-scale=1'>
                 <link rel='apple-touch-icon' sizes='57x57' href='../../View/img/favicon/apple-icon-57x57.png'>
                 <link rel='apple-touch-icon' sizes='60x60' href='../../View/img/favicon/apple-icon-60x60.png'>
