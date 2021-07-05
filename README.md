@@ -1,6 +1,6 @@
 # Main Branch (Producción)
 Última versión: <b>1.0.4</b><br>
-Fecha: <b>01-Julio-2021</b><br>
+Fecha: <b>05-Julio-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -17,3 +17,7 @@ Fecha: <b>01-Julio-2021</b><br>
       <li>La UI permite agregar tratamientos y productos al momento de registrarle a un cliente una venta</li>
    </ul>
  </ul>
+ 
+ 
+<h4>Previous commit:</h4>
+<i>21fa0cae9f8ddb500aa95811639f0046c37cad2e</i>
