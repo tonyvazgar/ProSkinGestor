@@ -28,13 +28,16 @@
         $siguienteConsecutivo = strval(sizeof($ModelCliente->getAllUsuarios())+1);
         $id = "";
         $fechaParaId = "";
-        $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-        $fecha_creacion  = strtotime($date->format('Y-m-d'));
+        date_default_timezone_set('America/Mexico_City');
+        $datetime = new DateTime();
+        $timezone = new DateTimeZone('America/Mexico_City');
+        $datetime->setTimezone($timezone);
+        $fecha_creacion = strtotime($datetime->format('Y-m-d'));
         $ultima_visita = $fecha_creacion;
         $aviso_privacidad = "1";
         
         if($fecha == ""){
-            $fecha = $fecha_creacion;
+            $fecha = date("Y-m-d", $fecha_creacion);
         }
         $fechaParaId = $fecha[2].$fecha[3].$fecha[5].$fecha[6].$fecha[8].$fecha[9];
         $arregloApellidos = explode(" ",$apellidos);

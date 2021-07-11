@@ -59,6 +59,7 @@
                 <div class="form-group" id="elementos">
 
                 </div>
+                <hr/>
                 <div class="form-group text-center" id='div-agregarTratamiento' name='div-agregarTratamiento'>
                     <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
                     <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 

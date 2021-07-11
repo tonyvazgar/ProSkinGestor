@@ -83,7 +83,7 @@
                   </td>
                   <td>
                     <h3>Centro de belleza</h3>
-                    <p class="lead"><?php echo $nombreSucursal;?> </p>
+                    <p class="lead"><?php echo $nombreSucursal." [".$ModeloUsuario->getNombreCosmetologaWhereID($divisionProductosTratamientos['cosmetologa'])."]";?> </p>
                   </td>
                 </tr>
               </tbody>

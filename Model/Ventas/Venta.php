@@ -83,8 +83,10 @@
             $metodo_pago = $registro['metodo_pago'];
             $nombre = $registro['nombre_cliente']." ".$registro['apellidos_cliente'];
             $id_venta = $registro['id_venta'];
+            $id_cosmetologa = $registro['id_cosmetologa'];
         }
         return ["id_venta" => $id_venta,
+                "cosmetologa" => $id_cosmetologa,
                 "nombre" => $nombre,
                 "productos" => $productos, 
                 "num_productos" => sizeof($productos), 

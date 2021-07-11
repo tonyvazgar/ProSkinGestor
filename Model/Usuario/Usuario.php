@@ -37,6 +37,13 @@
             $db->close();
             return $account;
         }
+        public function getNombreCosmetologaWhereID($id){
+            $db = new Db();
+            $sql_statement = "SELECT name FROM usertable WHERE id = '$id'";
+            $account = $db->query($sql_statement)->fetchArray()['name'];
+            $db->close();
+            return $account;
+        }
 
         public function getNumeroSucursalUsuario($email_usuario){
             $db = new Db();
