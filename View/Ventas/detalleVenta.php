@@ -61,7 +61,7 @@
                     <p class="lead">
                     <?php 
                       $metodo_pago = $divisionProductosTratamientos['metodo_pago'];
-                      echo getMetodoPagoNombre($metodo_pago);?> 
+                      echo getMetodoPagoNombre($metodo_pago)." ".$divisionProductosTratamientos['referencia_pago'];?> 
                     </p>
                   </td>
                   <td>

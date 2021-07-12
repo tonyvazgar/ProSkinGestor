@@ -63,6 +63,9 @@
             case 5:
                 $string = "Cheque de regalo";
                 break;
+            case 6:
+                $string = "Depósito";
+                break;
         }
         return $string;
     }

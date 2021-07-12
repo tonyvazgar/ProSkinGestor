@@ -105,12 +105,14 @@
                         <td>
                             <h4>Método de pago:</h4>
                             <select name='metodoPago' id='metodoPago' class='form-control'>
+                                <option value='6'>Depósito</option>
                                 <option value='1'>Efectivo</option>
                                 <option value='2'>[TDD]Tarjeta de débito</option>
                                 <option value='3'>[TDC]Tarjeta de crédito</option>
                                 <option value='4'>Transferencia</option>
                                 <option value='5'>Cheque de regalo</option>
                             </select>
+                            <input type="text" class="form-control" id="referencia" name="referencia" placeholder="Número de referencia del pago">
                         </td>
                     </div>
                     <button type="submit" id="venderProducto" name="venderProducto" class="btn btn-success">Vender producto</button>

@@ -264,10 +264,10 @@ function verificarClienteExistente(numero){
             let stringData = "";
             if(Object.entries(data).length !== 0){
                 data.forEach(element => {
-                    stringData += element.nombre_cliente + " " + element.apellidos_cliente +  " [" + element.email_cliente + "]\n";
+                    stringData += "*" + element.nombre_cliente + " " + element.apellidos_cliente +  " [" + element.email_cliente + "]\n";
                 });
                 console.log(stringData);
-                alert("YA EXISTEN CLIENTES CON ESTE NUMERO: \n" + stringData);
+                alert("YA EXISTEN CLIENTES CON ESTE NUMERO: \n\n" + stringData);
             }
         }
     });

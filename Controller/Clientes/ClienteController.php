@@ -112,7 +112,8 @@
         $precio_tratamiento = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioTratamiento'])));                   //Es un Array: [precioTratamiento] => Array([0] => 300 [1] => 550 [2] => 500)
         $zona               = $_POST['zonas_cuerpo'];                        //Es un Array de Arrays (si es vacio es un tratamiento normal): [zonas_cuerpo] => Array([0] => Array ([0] => 20 [1] => 22 [2] => 15 [3] => 1 ) [1] => Array ([0] => ) [2] => Array ([0] => 23))
         $detalle_zona       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['detalleZona'])));
-        $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);                 
+        $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
+        $referencia_pago    = mysqli_real_escape_string($con, $_POST['referencia']);           
         $calificacion       = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['calificacion'])));                        //Es un Array: [calificacion] => Array([0] => 1 [1] => 3 [2] => 4)
         $id_centro          = mysqli_real_escape_string($con, $_POST['id_centro']);                                                       //Es un valor: [idCentro] => 1
         $comentarios        = explode(",",mysqli_real_escape_string($con, implode(",", str_replace(",", ".", $_POST['comentarios']))));  //Es un Array: [comentarios] => Array([0] => Cavitación con 9 numero de zonas, metido de tarjeta de ¢300 y 4 zonas, 1 estrella [1] => Masaje relajante con ¢550, otro método de pago y 3 estrellas [2] => Depilación con 10 números de zonas, la zona del cuerpo que es 23 y con 4 de calificación y $500 )
@@ -146,7 +147,7 @@
                     $string_zonas .= $k.",";
                 }
                 //tempVentaTratamiento           = $id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
-                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
+                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa, $referencia_pago];
                 //tempClienteTratamientoEspecial = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $numZonas, $timeStamp, $numsesion;
                 $tempClienteTratamientoEspecial  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $string_zonas, $detalle_zona[$i-1], $timeStamp, ''];
                 //tempClienteBitacora            = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
@@ -155,7 +156,7 @@
                 array_push($temp, [$tratamiento[$i-1]], $tempVentaTratamiento, $tempClienteTratamientoEspecial, $tempClienteBitacora);
             }else{  //es un tratamiento normal
                 //tempVentaTratamiento   = $id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
-                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa];
+                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa, $referencia_pago];
                 //tempClienteTratamiento = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp
                 $tempClienteTratamiento  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], '', $timeStamp];
                 //tempClienteBitacora    = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
@@ -183,7 +184,7 @@
             $insertarClienteBitacora      = $tar[3];
             $insertarClienteBitacora[8]   = $ID_VENTA_UUID;
             if($tar[0][0] == 3){    //aplicar metodos de insertar tratamiento normal
-                $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
+                $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[12], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
 
                 //Insertar a ClienteTratamiento
                 $ModelCliente->insertarClienteTratamiento($insertarAClienteTratamiento[0], $insertarAClienteTratamiento[1], $insertarAClienteTratamiento[2], $insertarAClienteTratamiento[3], $insertarAClienteTratamiento[4], $insertarAClienteTratamiento[5]);
@@ -198,7 +199,7 @@
                     $insertarAClienteTratamiento[7] = $ModelCliente->getNumeroSesionesDepilacion($id_cliente)[0]['sesiones'] + 1;
 
                     //Insertar a venta
-                    $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
+                    $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[12], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
 
                     $ModelCliente->insertarClienteTratamientoEspecial($insertarAClienteTratamiento[0], $insertarAClienteTratamiento[1], $insertarAClienteTratamiento[2], $insertarAClienteTratamiento[3], $insertarAClienteTratamiento[4], $insertarAClienteTratamiento[5], $insertarAClienteTratamiento[6], $insertarAClienteTratamiento[7]);
 
@@ -209,7 +210,7 @@
 
 
                     //Insertar a venta
-                    $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
+                    $ModelTratamiento->insertarVentaTratamiento($insertarAVentaTratamiento[0], $insertarAVentaTratamiento[1], $insertarAVentaTratamiento[2], $insertarAVentaTratamiento[3], $insertarAVentaTratamiento[12], $insertarAVentaTratamiento[4], $insertarAVentaTratamiento[5], $insertarAVentaTratamiento[6], $insertarAVentaTratamiento[7], '', '', '', $insertarAVentaTratamiento[11]);
 
                     $ModelCliente->insertarClienteTratamientoEspecial($insertarAClienteTratamiento[0], $insertarAClienteTratamiento[1], $insertarAClienteTratamiento[2], $insertarAClienteTratamiento[3], $insertarAClienteTratamiento[4], $insertarAClienteTratamiento[5], $insertarAClienteTratamiento[6], $insertarAClienteTratamiento[7]);
 
@@ -238,7 +239,7 @@
 
             //Insertar venta
             //public function insertarVentaProducto( $id_venta, $id_cliente, $id_tratamiento, $metodo_pago, $monto, $timestamp, $centro, $costo_tratamiento, $id_productos, $costo_producto, $cantidad_producto, $id_cosmetologa )
-            $ModelProducto->insertarVentaProducto($ID_VENTA_UUID, $id_cliente, '', $metodo_pago_temp, $precio_total_temp, $timeStamp, $id_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+            $ModelProducto->insertarVentaProducto($ID_VENTA_UUID, $id_cliente, '', $metodo_pago_temp, $referencia_pago, $precio_total_temp, $timeStamp, $id_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
         }
         //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

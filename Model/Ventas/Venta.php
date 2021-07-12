@@ -67,6 +67,7 @@
         $tratamientos = [];
         $total = 0;
         $metodo_pago = "";
+        $referencia_pago = "";
         $nombre = "";
         $id_venta = "";
 
@@ -81,6 +82,7 @@
             }
             $total += $registro['monto'];
             $metodo_pago = $registro['metodo_pago'];
+            $referencia_pago = $registro['referencia_pago'];
             $nombre = $registro['nombre_cliente']." ".$registro['apellidos_cliente'];
             $id_venta = $registro['id_venta'];
             $id_cosmetologa = $registro['id_cosmetologa'];
@@ -93,6 +95,7 @@
                 "tratamientos" => $tratamientos, 
                 "num_tratamientos" => sizeof($tratamientos), 
                 "total" => number_format($total, 2),
-                "metodo_pago" => $metodo_pago];
+                "metodo_pago" => $metodo_pago,
+                "referencia_pago" => $referencia_pago];
     }
 ?>

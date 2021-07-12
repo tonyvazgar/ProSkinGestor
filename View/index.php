@@ -1,4 +1,5 @@
 <?php 
+  header("Location: ../View/Clientes");
   require_once "../Controller/Index/IndexController.php"; 
   require_once "../Controller/ControllerSesion.php";
   require_once "../Model/Usuario/Usuario.php";
@@ -24,7 +25,7 @@
     ?>
     <main role="main" class="container">
       <div class="container">
-        <img src="../View/img/en_construccion.png" class="img-fluid" alt="Responsive image">
+        <!-- <img src="../View/img/en_construccion.png" class="img-fluid" alt="Responsive image"> -->
       </div>
       <!-- <div class="container">
         <h1>Eventos de hoy</h1>
