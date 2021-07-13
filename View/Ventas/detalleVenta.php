@@ -61,7 +61,7 @@
                     <p class="lead">
                     <?php 
                       $metodo_pago = $divisionProductosTratamientos['metodo_pago'];
-                      echo getMetodoPagoNombre($metodo_pago);?> 
+                      echo getMetodoPagoNombre($metodo_pago)." ".$divisionProductosTratamientos['referencia_pago'];?> 
                     </p>
                   </td>
                   <td>
@@ -83,7 +83,7 @@
                   </td>
                   <td>
                     <h3>Centro de belleza</h3>
-                    <p class="lead"><?php echo $nombreSucursal;?> </p>
+                    <p class="lead"><?php echo $nombreSucursal." [".$ModeloUsuario->getNombreCosmetologaWhereID($divisionProductosTratamientos['cosmetologa'])."]";?> </p>
                   </td>
                 </tr>
               </tbody>

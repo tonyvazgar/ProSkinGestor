@@ -52,6 +52,7 @@
         $stock           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['stock_producto_seleccionado'])));    //Disponibles, le serán restados $cantidad al final
         $total           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['total_producto_seleccionado'])));    //$cantidad * $precio_unitario
         $metodo_pago     = mysqli_real_escape_string($con, $_POST['metodoPago']);
+        $referencia_pago = mysqli_real_escape_string($con, $_POST['referencia']);
 
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
@@ -72,11 +73,12 @@
             $cantidad_producto_temp = $cantidad[$i];
             $nuevo_stock_temp       = $stock_inicial_temp - $cantidad_producto_temp;
             $metodo_pago_temp       = $metodo_pago;
+            $referencia_pago_temp   = $referencia_pago;
             $precio_total_temp      = $total[$i];
             $precio_unitario_temp   = $precio_unitario[$i];
 
             //Insertar venta
-            $ModelProducto->insertarVentaProducto($id_venta, '', '', $metodo_pago_temp, $precio_total_temp, $timeStamp, $num_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+            $ModelProducto->insertarVentaProducto($id_venta, '', '', $metodo_pago_temp, $referencia_pago_temp, $precio_total_temp, $timeStamp, $num_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
             
             //Quitar de ProductosApartados (Borrar de tabla ProductosApartados el registro)
             $ModelProducto -> deleteProductoApartadoFinalizar($id_producto_temp, $cantidad_producto_temp);

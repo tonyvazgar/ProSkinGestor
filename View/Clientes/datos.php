@@ -98,7 +98,7 @@
     }
     $cadena .= "</select></div>";
       $cadena .= "<div class='form-group form-inline' {$ishiden}><label>Número de zonas</label><select name='detalleZona[]' id='detalleZona' class='last_tratamiento form-control'>";
-      for ($i=1; $i <= 18 ; $i++) { 
+      for ($i=0; $i <= 18 ; $i++) { 
         $cadena .= "<option value='$i'>$i</option>";
       }
       $cadena .= "</select></div><div class='form-group form-inline'>";
@@ -171,6 +171,9 @@
     $cadena .= "<select name='nombreTratamiento[]' id='nombreTratamiento' class='last_tratamiento form-control'>
                 <option value=''>*** Selecciona tratamiento ***</option>";
     foreach($tratamientos as $tratamiento){
+      if(($tratamiento['id_tratamiento'] == "CAV01") or ($tratamiento['id_tratamiento'] == "DEP01")){
+        continue;
+      }
       $cadena .= "<option value='".$tratamiento['id_tratamiento']."'>".$tratamiento['nombre_tratamiento']."</option>";
     }
     $cadena.="</select>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 16, 2021 at 04:37 AM
+-- Generation Time: Jul 12, 2021 at 05:02 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -133,6 +133,21 @@ CREATE TABLE `Productos` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ProductosApartados`
+--
+
+CREATE TABLE `ProductosApartados` (
+  `id_producto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `centro_producto` varchar(50) COLLATE utf8_bin NOT NULL,
+  `cantidad_producto` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp_inicial` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp_final` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Sucursal`
 --
 
@@ -178,7 +193,8 @@ CREATE TABLE `usertable` (
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
   `code` mediumint(50) NOT NULL,
   `status` text COLLATE utf8_bin NOT NULL,
-  `id_sucursal_usuario` int(11) NOT NULL
+  `id_sucursal_usuario` int(11) NOT NULL,
+  `jerarquia` varchar(5) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -192,6 +208,7 @@ CREATE TABLE `Ventas` (
   `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
   `metodo_pago` int(5) NOT NULL,
+  `referencia_pago` varchar(255) COLLATE utf8_bin NOT NULL,
   `monto` varchar(255) COLLATE utf8_bin NOT NULL,
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
   `centro` varchar(2) COLLATE utf8_bin NOT NULL,

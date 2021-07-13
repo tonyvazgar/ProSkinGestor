@@ -26,6 +26,8 @@ $(document).ready(function () {
     });
     //use keyup event on numero
     $(document).on('keyup',"#numero", function () {
+        var i = $(this).val();
+        $(this).val(i.trim());  
         if (validatenumero()) {
             //if the numero is valid set input email border green
             $("#numero").css("border", "2px solid green");
@@ -46,6 +48,20 @@ $(document).ready(function () {
     });
 
     $("#aviso").change(function () {
+        var i = $("#nombre").val();
+        $("#nombre").val(i.trim());  
+
+        var i = $("#apellidos").val();
+        $("#apellidos").val(i.trim()); 
+
+        //AJAX A ARCHIVO DE BUSCARCLIENTE
+        //MANDANDO TELEFONO Y APELLIDO
+        //SI EL TELEFONO EXISTE
+        //CONSOLE.LOG 
+
+        let numero = $("#numero").val();
+        verificarClienteExistente(numero);
+
         if (validateAvisoPrivacidad()) {
             $("#altaCliente").css("border", "2px solid green");
         } else {
@@ -214,7 +230,7 @@ function validatecp() {
 }
 
 function buttonState() {
-    if (validateEmail() && validatenumero() && validateAvisoPrivacidad()) {
+    if (validatenumero() && validateAvisoPrivacidad()) {
         $("#altaCliente").show();
     } else {
         $("#altaCliente").hide();
@@ -234,6 +250,33 @@ function RemoveAccents(strAccents) {
       }
     }
     strAccentsOut = strAccentsOut.join('');
-    console.log(strAccentsOut);
+    console.log(strAccents);
     return strAccentsOut;
+}
+
+function verificarClienteExistente(numero){
+    $.ajax({
+        type:"POST",
+        url:"../../Controller/Clientes/verificarClienteExistente.php",
+        data:"numero=" + numero,
+        success:function(r){
+            let data = JSON.parse(r);
+            let stringData = "";
+            if(Object.entries(data).length !== 0){
+                data.forEach(element => {
+                    stringData += "*" + element.nombre_cliente + " " + element.apellidos_cliente +  " [" + element.email_cliente + "]\n";
+                });
+                console.log(stringData);
+                alert("YA EXISTEN CLIENTES CON ESTE NUMERO: \n\n" + stringData);
+            }
+        }
+    });
+}
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
 }
