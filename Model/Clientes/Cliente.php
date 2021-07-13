@@ -205,6 +205,16 @@
             $db->close();
             return $query->affectedRows();
         }
+
+        function buscarUsuario($numero){
+            $db = new DB();
+            $sql_statement = "SELECT nombre_cliente, apellidos_cliente, email_cliente
+                              FROM `Cliente`
+                              WHERE telefono_cliente='$numero'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
     }
 
     function verificarStatusClientes($limite){

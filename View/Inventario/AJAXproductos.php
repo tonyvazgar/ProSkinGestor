@@ -44,9 +44,9 @@
                       <option value='OLIVE'>OLIVE</option>
                       <option value='SPECIFIC'>SPECIFIC</option>
                       <option value='HYALURONIC'>HYALURONIC</option>
-                      <option value='SKIN PRIMES'>SKIN PRIMES</option>
+                      <option value='SKIN PRIMERS'>SKIN PRIMERS</option>
                       <option value='BODY LINE UP'>BODY LINE UP</option>
-                      <option value='CANNABI7'>CANNABI7</option>
+                      <option value='CANNABI'>CANNABI</option>
                       <option value='SPA LUXURY'>SPA LUXURY</option>
                       <option value='OTRO'>OTRO</option>
                       <option value='PACKS'>PACKS</option>

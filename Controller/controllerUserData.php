@@ -64,26 +64,10 @@ if (isset($_POST['login'])) {
             $status = $fetch['status'];
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $password;
-            header('location: ../index.php');
+            header('location: ../Clientes/index.php');
         } else {
             $errors['email'] = "Contraseña incorrecta!";
         }
     }
 }
-// if (isset($_POST['altaCliente'])) {
-//     $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
-//     $edad   = mysqli_real_escape_string($con, $_POST['edad']);
-//     $numero = mysqli_real_escape_string($con, $_POST['numero']);
-
-//     $insert_query = "INSERT INTO `Cliente`(`Nombre`, `Edad`, `Numero`) 
-//                      VALUES ('$nombre', $edad, '$numero')";
-//     $data_check   = mysqli_query($con, $insert_query);
-//     if ($data_check) {
-//         header('location: clientes.php');
-//         exit();
-//     } else {
-//         $errors['db-error'] = "Error al darse de alta!";
-//     }
-//     // echo $insert_query;
-// }
 ?>

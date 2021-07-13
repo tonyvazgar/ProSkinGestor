@@ -227,7 +227,7 @@
                                 <td>
                                     <h3>Fecha de nacimiento</h3>
                                     <!-- <input type="date" class="form-control" id="fecha" name="fecha" value=<?php echo $infoCliente['fecha_cliente'];?> readonly> -->
-                                    <p class="lead" id="fecha" name="fecha"><?php echo $infoCliente['fecha_cliente'];?></p>
+                                    <p class="lead" id="fecha" name="fecha"><?php echo is_numeric($infoCliente['fecha_cliente']) ? date("Y-m-d", $infoCliente['fecha_cliente']) : $infoCliente['fecha_cliente'];?></p>
                                 </td>    
                                 <td>
                                     <h3>CP</h3>

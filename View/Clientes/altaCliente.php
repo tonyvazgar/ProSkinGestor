@@ -27,26 +27,26 @@
     <main role="main" class="container">
         <div class="container">
             <h1>Nuevo Cliente</h1>
-            <form action="altaCliente.php" method="POST" autocomplete="">
+            <form action="altaCliente.php" method="POST" autocomplete="off">
                 <div class="form-group">
                     <label>Nombre *</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del cliente" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del cliente" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label>Apellidos *</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingresar apellidos del cliente" required>
-                </div>
-                <div class="form-group">
-                    <label>E-mail *</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa correo electronico del cliente" autocomplete="off"  required>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingresar apellidos del cliente" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label>Télefono *</label>
-                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "10" class="form-control" id="numero" name="numero" placeholder="Télefono del cliente Ej. 2227883728" required>
+                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "10" class="form-control" id="numero" name="numero" placeholder="Télefono del cliente Ej. 2227883728" autocomplete="off" required>
                     <select name="tipo" id="tipo" class="form-control">
                         <option value="0">Celular</option>
                         <option value="1">Fijo</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa correo electronico del cliente" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label>Centro</label>
@@ -71,6 +71,7 @@
                     </select>
                 </div>
                 <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
+                <a class="btn btn-danger" href="../index.php" role="button">Cancelar registro</a>
             </form>
         </div>
     </main>
