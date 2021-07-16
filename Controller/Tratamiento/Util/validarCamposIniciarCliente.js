@@ -56,21 +56,21 @@ $(document).ready(function () {
     });
 
     $("#elementos").on('click', '.btn-quitar-tratamiento', function(){
-        alert("Hola prro tratamiento");
         $(this).closest('.col-xs-4').remove();
         $("#aviso").val("");
         $("#botonComenzar").hide();
         alert("Se quitó un tratamiento");
         verificarAntesNuevoTratamiento();
         verificarAntesNuevoProducto();
+        verificarEliminarElemento();
     });
 
     $("#elementos").on('click', '.btn-quitar-producto', function(){
-        alert("Hola prro producto");
         $(this).closest('.plantilla').remove();
         alert("Se quitó un producto de la lista");
         verificarAntesNuevoTratamiento();
         verificarAntesNuevoProducto();
+        verificarEliminarElemento();
     });
     $("#elementos").on('keyup', '#precioTratamiento.last_tratamiento', function(){
         verificarAntesNuevoTratamiento();
@@ -338,4 +338,20 @@ function verificarAntesNuevoProducto(){
 
 function verificacionGeneral(tratamientos, productos){
     
+}
+
+function verificarEliminarElemento() {
+    var num_tratamiento = $("#elementos .col-xs-4").length;
+    var num_producto    = $("#elementos .plantilla").length;
+    console.log("EXISTEN " + num_tratamiento + "tratamientos y " + num_producto + " productos");
+    if($('#elementos').html() != ''){
+        $("#btn-agregar-tratamiento").attr('disabled', false);
+        $("#btn-agregar-producto").attr('disabled', false);
+    }
+    if(num_producto > num_tratamiento || num_producto < num_tratamiento){
+        $("#btn-agregar-tratamiento").attr('disabled', false);
+        $("#btn-agregar-producto").attr('disabled', false);
+        $("#metodo_pago_div").show();
+        $("#firma_div").show();
+    }
 }
