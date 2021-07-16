@@ -42,7 +42,6 @@
         }
 
         function iniciarTratamientoCliente($id_cliente, $id_tratamiento, $sesiones, $zona, $firma, $timestamp){
-            echo "Hola prros ". $id_cliente. ", ". $id_tratamiento. ", ".$sesiones.", ".$zona.", = ". $timestamp." firmado? -> ".$firma;
             //INSERT INTO `ClienteTratamiento`(`id_cliente`, `id_tratamiento`, `fecha_aplicacion`, `consentimiento`, `sesiones`, `zona_cuerpo`) VALUES
             $db = new DB();
             $sql_statement = "INSERT INTO `ClienteTratamiento`(`id_cliente`, `id_tratamiento`, `fecha_aplicacion`, `consentimiento`, `sesiones`, `zona_cuerpo`) VALUES
