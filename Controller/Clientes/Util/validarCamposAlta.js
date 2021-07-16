@@ -261,13 +261,25 @@ function verificarClienteExistente(numero){
         data:"numero=" + numero,
         success:function(r){
             let data = JSON.parse(r);
-            let stringData = "";
+            let stringData = [];
             if(Object.entries(data).length !== 0){
+                stringData.push("<h3>Considera los siguientes registros</h3>");
                 data.forEach(element => {
-                    stringData += "*" + element.nombre_cliente + " " + element.apellidos_cliente +  " [" + element.email_cliente + "]\n";
+                    // stringData += "*" + element.nombre_cliente + " " + element.apellidos_cliente +  " [" + element.email_cliente + "]\n";
+                    let registros = "<div class='container'><ul class='list-group'><li class='list-group-item d-flex justify-content-between align-items-center'>" +
+                                element.nombre_cliente + " " + element.apellidos_cliente + "<br>" +
+                                "Fecha de Nacimiento: " + element.fecha_cliente +"<br>" +
+                                "E-Mail: " + element.email_cliente + "<br>"+
+                                "Número: " + element.telefono_cliente + "<br>"+
+                                "Sucursal: " + element.nombre_sucursal + "<div>"+
+                                "<a class='btn btn-warning' href='informacionCliente.php?id=" + element.id_cliente + "' role='button'>Ver información</a></div></li>";
+                    stringData.push(registros);
                 });
+                console.log(data);
+                alert("YA EXISTEN CLIENTES CON ESTE NUMERO: \n\n VERIFICA LOS SIGUIENTES REGISTROS");
+                
+                $('#existentes').html(stringData);
                 console.log(stringData);
-                alert("YA EXISTEN CLIENTES CON ESTE NUMERO: \n\n" + stringData);
             }
         }
     });

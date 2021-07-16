@@ -70,6 +70,9 @@
                         <option value="1">Ya se firmó</option>
                     </select>
                 </div>
+                <div class="form-group" id="existentes">
+                    
+                </div>
                 <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
                 <a class="btn btn-danger" href="../index.php" role="button">Cancelar registro</a>
             </form>

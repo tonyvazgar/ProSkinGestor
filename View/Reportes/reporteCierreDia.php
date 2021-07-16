@@ -24,7 +24,7 @@
       <div class="container">
         <h1>
             <?php
-                echo "Hola ".$fetch_info['name']."! <br> hoy ".date("d")." de ".date("M")." hiciste lo siguiente:";
+                //echo "Hola ".$fetch_info['name']."! <br> hoy ".date("d")." de ".date("M")." hiciste lo siguiente:";
             ?>
         </h1>
         <div class="row">
