@@ -35,7 +35,7 @@
             <hr/>
             <h4>Nota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR <i>F5</i></h4>
             <hr/>
-            <form action="iniciarTratamientoCliente.php" method="POST" autocomplete="">
+            <form action="iniciarTratamientoCliente.php" method="POST" autocomplete="off">
                 <?php
                     $id = $_GET['id'];
                     $info = $ModelCliente->getClienteWhereID($id);

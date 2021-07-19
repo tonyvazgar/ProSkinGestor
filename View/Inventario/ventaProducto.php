@@ -38,7 +38,7 @@
                     <hr/>
                     <h4>Nota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR <i>F5</i></h4>
                     <hr/>
-                    <form action="ventaProducto.php" method="POST" autocomplete="">
+                    <form action="ventaProducto.php" method="POST" autocomplete="off">
                     <div class="productos">
                         <div class="plantilla">
                             <h2 class='numProductos'>Producto #1</h2>

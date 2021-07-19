@@ -103,7 +103,7 @@
 
         <div class="container">
             <h1>Informacion de cliente</h1>
-            <form action="buscarCliente.php" method="POST" autocomplete="">
+            <form action="informacionCliente.php" method="POST" autocomplete="">
                 <?php
                     $id = $_GET['id'];
                     $info = $ModelCliente->getClienteWhereID($id);

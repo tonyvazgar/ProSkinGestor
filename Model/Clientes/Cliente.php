@@ -110,7 +110,7 @@
             $db = new DB();
             //SELECT * FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%maria%') AS Nombre WHERE ClienteOpcional.id_cliente=Nombre.id_cliente
             $sql_statement = "SELECT * 
-                              FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%$nombre%') AS Nombre 
+                              FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%$nombre%' OR BINARY apellidos_cliente LIKE '%$nombre%') AS Nombre 
                               WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
