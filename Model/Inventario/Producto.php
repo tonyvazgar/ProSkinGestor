@@ -195,7 +195,6 @@
             $timestamp_final = $producto['timestamp_final'];         //la ultima visita del cliente
             $diferencia = $hoy - $timestamp_final;
             if($diferencia >= 5){
-                echo "****";
                 //[id_producto] => R2401 [centro_producto] => 2 [cantidad_producto] => 2 [id_cosmetologa] => 9 [timestamp_inicial] => 1624401000 [timestamp_final] => 1624401300 
                 $id_producto       = $producto['id_producto'];
                 $centro_producto   = $producto['centro_producto'];
@@ -205,7 +204,6 @@
                 //Regresar al inventario el stock apartado
                 $stock_original_producto = $productoModel -> getProductoWereID($id_producto)['stock_disponible_producto'];
                 $nuevo_stock_producto = $stock_original_producto + $cantidad_producto;
-                print_r($stock_original_producto."-->".$nuevo_stock_producto);
                 $productoModel->updateStockProducto($id_producto, $nuevo_stock_producto, $centro_producto);
 
                 //Borrar de tabla ProductosApartados el registro

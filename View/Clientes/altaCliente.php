@@ -44,11 +44,12 @@
                         <option value="1">Fijo</option>
                     </select>
                 </div>
+                <hr/>
                 <div class="form-group">
                     <label>E-mail</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa correo electronico del cliente" autocomplete="off">
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label>Centro</label>
                     <select name="centro" id="centro" class="form-control" readonly>
                         <option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option>
@@ -62,6 +63,7 @@
                     <label>Código Postal</label>
                     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "text" maxlength = "5" class="form-control" id="cp" name="cp" placeholder="Ingresa CP del cliente">
                 </div>
+                <hr/>
                 <div class="form-group">
                     <label>Aviso de privacidad</label>
                     <select name="aviso" id="aviso" class="form-control">

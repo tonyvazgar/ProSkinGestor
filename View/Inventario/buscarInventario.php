@@ -1,3 +1,4 @@
+<script>if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}</script>
 <?php 
   require_once "../../Controller/Clientes/ClienteController.php"; 
   require_once "../../Controller/Inventario/InventarioController.php"; 
@@ -26,7 +27,7 @@
     <main role="main" class="container">
         <div class="container">
             <h1>Busqueda de un producto en el inventario</h1>
-            <form action="buscarInventario.php" method="POST" autocomplete="">
+            <form action="buscarInventario.php" method="POST" autocomplete="off">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del producto a buscar" required>
@@ -38,5 +39,6 @@
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Inventario/Util/validarCamposAltaProducto.js"></script>
 </body>
 </html>

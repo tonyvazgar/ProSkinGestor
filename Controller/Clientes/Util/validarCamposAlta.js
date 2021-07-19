@@ -95,7 +95,7 @@ $(document).ready(function () {
             return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>";
         });
         $('#email').replaceWith( function() {
-            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>";
+            return "<input type=\"text\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" />";
         });
         $('#numero').replaceWith( function() {
             console.log("<input oninput=\"numberOnly(this.id);\" type=\"text\" pattern=\"\d*\" maxlength=\"10\" class=\"form-control\" id=\"" + $( this ).attr('id') + "\" name=\"" + $( this ).attr('name') + "\" value=\"" + $( this ).html() + "\" required/>");
