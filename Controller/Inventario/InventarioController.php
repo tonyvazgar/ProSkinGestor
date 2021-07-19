@@ -7,7 +7,7 @@
     if (isset($_POST['altaInventario'])) {
         $clave                     = mysqli_real_escape_string($con, $_POST['clave']);
         $marca                     = mysqli_real_escape_string($con, $_POST['marca']);
-        $linea                     = mysqli_real_escape_string($con, $_POST['linea']);
+        $linea                     = mysqli_real_escape_string($con, str_replace("%2B", "+", $_POST['linea']));
         $descripcion_producto      = mysqli_real_escape_string($con, strtoupper($_POST['descripcion']));
         $presentacion              = mysqli_real_escape_string($con, $_POST['presentacion']);
         $costo_unitario_producto   = mysqli_real_escape_string($con, $_POST['precio']);
