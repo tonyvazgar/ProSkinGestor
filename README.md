@@ -1,18 +1,23 @@
 # Main Branch (Producción)
 Última versión: <b>1.0.5</b><br>
-Fecha: <b>16-Julio-2021</b><br>
+Fecha: <b>19-Julio-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
   <li>Bug Fixes:</li>
     <ul>
-      <li>Mejoras de UX/UI de registro de productos/tratamientos</li>
-      <li>Mejoras en la generación de ID de cliente</li>
-      <li>E-mail es opcional al momento del registro del nuevo cliente</li>
-      <li>Datos de cometologa en un ticket de registro de tratamiento</li>
-      <li>Eliminacion de comentarios</li>
-      <li>Lista de usuarios con mismo nuevo numero</li>
-      <li>BUG de inventario donde no mostraba nada</li>
+      <li>BUG 001: Mejoras de UX/UI de registro de productos/tratamientos #SOLVED</li>
+      <li>BUG 002: Mejoras en la generación de ID de cliente #SOLVED</li>
+      <li>BUG 003: E-mail es opcional al momento del registro del nuevo cliente #SOLVED</li>
+      <li>BUG 004: Datos de cometologa en un ticket de registro de tratamiento #SOLVED</li>
+      <li>BUG 005: Eliminacion de comentarios #SOLVED</li>
+      <li>BUG 006: Lista de usuarios con mismo nuevo numero #SOLVED</li>
+      <li>BUG 007: Inventario donde no mostraba nada #SOLVED</li>
+      <li>BUG 008: Correo opcional en registro de nuevo cliente, UI diferencia entre campos optionals y required #SOLVED</li>
+      <li>BUG 009: Formularios ya no se autocompletan solos (inputs) #SOLVED</li>
+      <li>BUG 010: Collagen+ ya se muestra correctamente #SOLVED</li>
+      <li>BUG 011: Busqueda de cliente por nombre o por apellido #SOLVED</li>
+      <li>BUG 012: Muestra de error cuando se busca un cliente/producto #SOLVED</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
@@ -23,5 +28,5 @@ Fecha: <b>16-Julio-2021</b><br>
  </ul>
  
  
-<h4>Previous commit:</h4>
-<i>883496c6f82dc4b8f50fd771b051487de769e846</i>
+<h4>Previous commit en producción:</h4>
+<i>1a9db5d98b3af98c3da25cbd633af72fe883ca79</i>
