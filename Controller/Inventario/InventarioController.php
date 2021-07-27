@@ -21,22 +21,48 @@
         }
         print_r(var_dump($_POST));
     }
+
+    if (isset($_POST['agregarStockSubmit'])){
+        $id_producto = mysqli_real_escape_string($con, $_POST['id']);
+        $cantidad    = mysqli_real_escape_string($con, $_POST['stockDisponible']);
+        $id_centro   = mysqli_real_escape_string($con, $_POST['idSucursal']);
+
+        $ModelProducto -> updateStockProducto($id_producto, $cantidad, $id_centro);
+        header("Location: ../../View/Inventario/detallesProducto.php?id={$id_producto}");
+        // print_r($_POST);
+    }
+
     if (isset($_POST['buscarProducto'])){
         // $nombre    = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
         $nombre    = mysqli_real_escape_string($con, strtoupper($_POST['nombre']));
+        $idSucursal= mysqli_real_escape_string($con, strtoupper($_POST['idSucursal']));
         $resultado = $ModelProducto->getProductoWereDescripcion($nombre);
         if(sizeof($resultado) >= 1){
             $front = "<div class='container'><ul class='list-group'>";
             foreach($resultado as $producto){
-                $front .= "<li class='list-group-item d-flex justify-content-between align-items-center'>"
-                            .$producto['nombre_producto']." ".$producto['apellidos_cliente']."<br>
-                            Descripción: ".$producto['descripcion_producto']."<br> 
-                            Costo unitario: $".$producto['costo_unitario_producto']."<br> 
-                            Piezas disponibles: ".$producto['stock_disponible_producto']."<br>
-                            <div><a class='btn btn-warning' href='detallesProducto.php?id=".$producto['id_producto']."' role='button'>Más detalles</a><br>
-                            <a class='btn btn-success' href='ventaProducto.php?id=".$producto['id_producto']."' role='button'>Vender</a></div>
-                          </li>";
+                $sucursalProductoBuscado = $producto['centro_producto'];
+                $nombreSucursalProductoBuscado = $ModelProducto -> getNombreSucursalProducto($sucursalProductoBuscado)['nombre_sucursal'];
+                if($idSucursal == $sucursalProductoBuscado){
+                    $front .= "<li class='list-group-item d-flex justify-content-between align-items-center'>"
+                                .$producto['nombre_producto']." ".$producto['apellidos_cliente']."<br>
+                                Descripción: ".$producto['descripcion_producto']."<br> 
+                                Costo unitario: $".$producto['costo_unitario_producto']."<br> 
+                                Piezas disponibles: ".$producto['stock_disponible_producto']."<br>
+                                <div><a class='btn btn-warning' href='detallesProducto.php?id=".$producto['id_producto']."' role='button'>Más detalles</a><br>
+                                <a class='btn btn-success' href='ventaProducto.php?id=".$producto['id_producto']."' role='button'>Vender producto</a></div>
+                              </li>";
+                }else{
+                    $front .= "<li class='list-group-item d-flex justify-content-between align-items-center'>"
+                                .$producto['nombre_producto']." ".$producto['apellidos_cliente']."<br>
+                                Descripción: ".$producto['descripcion_producto']."<br> 
+                                Costo unitario: $".$producto['costo_unitario_producto']."<br> 
+                                Piezas disponibles: ".$producto['stock_disponible_producto']."<br>
+                                <div>
+                                <a class='btn btn-info' role='button'>".$nombreSucursalProductoBuscado."**</a></div>
+                              </li>";
+                }
             }
+            $front .= "<p class='text-right font-weight-light'>**Sucursales donde se tiene el producto<//p>";
             echo $front;
         }else{
             echo "<li class='list-group-item text-center'>

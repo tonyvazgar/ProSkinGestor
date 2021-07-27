@@ -23,6 +23,7 @@
         require_once("../include/navbar.php");
         
         getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $id_sucursal = $ModeloUsuario -> getNumeroSucursalUsuario($email)['id_sucursal'];
     ?>
     <main role="main" class="container">
         <div class="container">
@@ -31,6 +32,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre del producto a buscar" required>
+                    <input type="text" class="form-control" id="idSucursal" name="idSucursal" value=<?php echo $id_sucursal;?> hidden readonly>
                 </div>
                 <button type="submit" id="buscarProducto" name="buscarProducto" class="btn btn-success">Buscar</button>
             </form>
