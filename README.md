@@ -1,6 +1,6 @@
 # Main Branch (Producción)
 Última versión: <b>1.0.5</b><br>
-Fecha: <b>19-Julio-2021</b><br>
+Fecha: <b>27-Julio-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -17,16 +17,18 @@ Fecha: <b>19-Julio-2021</b><br>
       <li>BUG 009: Formularios ya no se autocompletan solos (inputs) #SOLVED</li>
       <li>BUG 010: Collagen+ ya se muestra correctamente #SOLVED</li>
       <li>BUG 011: Busqueda de cliente por nombre o por apellido #SOLVED</li>
-      <li>BUG 012: Muestra de error cuando se busca un cliente/producto #SOLVED</li>
+      <li>BUG 012: UX responsivo de detalles de producto #SOLVED</li>
+      <li>BUG 013: Busqueda de productos mejorada para mencionar donde se tienen disponibles #SOLVED</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
       <li>Busqueda de un cliente nuevo para ver si ya está registrado (por num de teléfono)</li>
       <li>Nuevo método de pago y referencia del pago</li>
       <li>Mejoras en UX de registro tratamiento</li>
+      <li>Agregar productos a stock temporalmente</li>
    </ul>
  </ul>
  
  
 <h4>Previous commit en producción:</h4>
-<i>1a9db5d98b3af98c3da25cbd633af72fe883ca79</i>
+<i>d8c02f9ba82e3cef3ede64c4e4831199fdb75caa</i>
