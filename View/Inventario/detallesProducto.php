@@ -24,69 +24,90 @@
         require_once("../include/navbar.php");
         
         getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $id_sucursal = $ModeloUsuario -> getNumeroSucursalUsuario($email)['id_sucursal'];
+        $id = $_GET['id'];
+        $infoProducto = $ModelProducto->getProductoWereID($id);
     ?>
     <main role="main" class="container">
-        <div class="container">
-                <?php
-                    $id = $_GET['id'];
-                    $infoProducto = $ModelProducto->getProductoWereID($id);
-                ?>
-                    <h1>Detalles del producto <br><em><?php echo $infoProducto['descripcion_producto'];?></em></h1>
-                    <form action="buscarCliente.php" method="POST" autocomplete="">
-                    <hr/>
-                    <div class="form-group">
-                        <table class="table table-borderless" style="table-layout: fixed;">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <h4>ID producto:</h4>
-                                        <p class="lead"><?php echo $infoProducto['id_producto'];?></p><input type="text" class="form-control" id="id" name="id" value=<?php echo $infoProducto['id_producto'];?> hidden readonly>
-                                    </td>
-                                    <td>
-                                        <h4>Marca</h4>
-                                        <p class="lead"><?php echo $infoProducto['marca_producto'];?></p><input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['marca_producto']."'";?> hidden readonly>
-                                    </td>
-                                    <td>
-                                        <h4>Linea</h4>
-                                        <p class="lead"><?php echo $infoProducto['linea_producto'];?></p><input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['linea_producto']."'";?> hidden readonly>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <form action="detallesProducto.php" method="POST" autocomplete="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <h1>Detalles del producto <br>
+                            <em>
+                                <?php echo $infoProducto['descripcion_producto'];?>
+                            </em>
+                        </h1>
                     </div>
-                    <div class="form-group">
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm">
+                        <h4>ID producto:</h4>
+                        <p class="lead">
+                            <?php echo $infoProducto['id_producto'];?>
+                        </p>
+                        <input type="text" class="form-control" id="id" name="id" value=<?php echo $infoProducto['id_producto'];?> hidden readonly>
+                        <input type="text" class="form-control" id="idSucursal" name="idSucursal" value=<?php echo $id_sucursal;?> hidden readonly>
+                    </div>
+                    <div class="col-sm">
+                        <h4>Marca</h4>
+                        <p class="lead">
+                            <?php echo $infoProducto['marca_producto'];?>
+                        </p>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['marca_producto']."'";?> hidden readonly>
+                    </div>
+                    <div class="col-sm">
+                        <h4>Linea</h4>
+                        <p class="lead">
+                            <?php echo $infoProducto['linea_producto'];?>
+                        </p>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo "'".$infoProducto['linea_producto']."'";?> hidden readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
                         <h4>Descripción</h4>
-                        <p class="lead"><em><?php echo $infoProducto['descripcion_producto'];?></em></p><input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['descripcion_producto']."'";?> hidden readonly>
+                        <p class="lead">
+                            <em><?php echo $infoProducto['descripcion_producto'];?></em></p>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'" .$infoProducto['descripcion_producto']."'";?> hidden readonly>
                     </div>
-                    <div class="form-group">
-                        <table class="table table-borderless" style="table-layout: fixed;">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <h4>Presentación</h4>
-                                        <p class="lead"><?php echo $infoProducto['presentacion_producto'];?></p><input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> hidden readonly>
-                                    </td>
-                                    <td>
-                                        <h4>Precio</h4>
-                                        <p class="lead"><?php echo $infoProducto['costo_unitario_producto'];?></p><input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['costo_unitario_producto'];?> hidden readonly>
-                                    </td>
-                                    <td>
-                                        <h4>Unidades disponibles</h4>
-                                        <p class="lead"><?php echo $infoProducto['stock_disponible_producto'];?></p><input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['stock_disponible_producto'];?> hidden readonly>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <h4>Presentación</h4>
+                            <p class="lead">
+                                <?php echo $infoProducto['presentacion_producto'];?>
+                            </p>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> hidden readonly>
                     </div>
-                    <div class="form-group">
-                        <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
+                    <div class="col-sm">
+                        <h4>Precio</h4>
+                        <p class="lead">
+                            <?php echo "$".number_format($infoProducto['costo_unitario_producto']);?>
+                        </p>
+                        <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['costo_unitario_producto'];?> hidden readonly>
                     </div>
-            </form>
-        </div>
+                    <div class="col-sm">
+                        <h4>Unidades disponibles</h4>
+                        <p class="lead" id="stockDisponibleLbl">
+                            <?php echo $infoProducto['stock_disponible_producto'];?>
+                        </p>
+                        <input type="number" class="form-control" id="stockDisponible" name="stockDisponible" value=<?php echo $infoProducto['stock_disponible_producto'];?> style="display: none;" readonly>
+                    </div>
+                </div>
+            </div>
+                <div class="text-center">
+                    <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
+                    <button type="button" id="cancelarAgregarStock" name="cancelarAgregarStock" class="btn btn-danger" style="display: none;">Cancelar agregar Stock</button>
+                    <button type="button" id="agregarStock" name="agregarStock" class="btn btn-info">Agregar Stock</button>
+                    <button type="submit" id="agregarStockSubmit" name="agregarStockSubmit" class="btn btn-success" style="display: none;">Agregar Stock</button>
+                </div>
+        </form>
     </main>
     <?php
       getFooter();
     ?>
-    <script src="../../Controller/Clientes/Util/validarCamposAlta.js"></script>
+    <script src="../../Controller/Inventario/Util/validarCamposAltaProducto.js"></script>
 </body>
 </html>

@@ -22,6 +22,21 @@ $(document).ready(function () {
         var i = $(this).val().toUpperCase();
         $(this).val(RemoveAccents(i));
     });
+    //agregarStock
+    $(document).on('click', "#agregarStock", function () {
+        $('#stockDisponibleLbl').hide();
+        $('#stockDisponible').show();
+        $('#cancelarAgregarStock').show();
+        //
+        $('#stockDisponible').attr("readonly", false); 
+        $('#agregarStock').hide();
+        $('#agregarStockSubmit').show();
+    });
+
+    //agregarStock
+    $(document).on('click', "#cancelarAgregarStock", function () {
+        location.reload();
+    });
 
 $(document).on('change','#marca',function () {
     if($(this).val() == 'AINHOA'){
