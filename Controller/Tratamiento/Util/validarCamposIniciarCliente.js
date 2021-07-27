@@ -303,7 +303,7 @@ function verificarAntesNuevoTratamiento(){
     var precio = $('#precioTratamiento.last_tratamiento').val();
 
     console.log("EL PRECIOO QUE ES ES: " + precio);
-    if(precio > 0){
+    if(precio >= 0){
         $("#btn-agregar-tratamiento").attr('disabled', false);
         $("#btn-agregar-producto").attr('disabled', false);
         $("#metodo_pago_div").show();
