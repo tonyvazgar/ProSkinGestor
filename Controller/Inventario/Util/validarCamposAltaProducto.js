@@ -33,6 +33,13 @@ $(document).ready(function () {
         $('#agregarStockSubmit').show();
     });
 
+    $(document).on('keyup', "#stockDisponible", function () {
+        let v = parseInt($(this).val());
+        if (v <= 0){
+            $(this).val(0);
+        }
+    });
+
     //agregarStock
     $(document).on('click', "#cancelarAgregarStock", function () {
         location.reload();

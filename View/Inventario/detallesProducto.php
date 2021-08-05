@@ -29,7 +29,7 @@
         $infoProducto = $ModelProducto->getProductoWereID($id);
     ?>
     <main role="main" class="container">
-        <form action="detallesProducto.php" method="POST" autocomplete="">
+        <form action="detallesProducto.php" method="POST" autocomplete="" onsubmit="return confirm('¿Estás seguro de modificar el inventario?');">
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
@@ -99,9 +99,9 @@
             </div>
                 <div class="text-center">
                     <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
-                    <button type="button" id="cancelarAgregarStock" name="cancelarAgregarStock" class="btn btn-danger" style="display: none;">Cancelar agregar Stock</button>
-                    <button type="button" id="agregarStock" name="agregarStock" class="btn btn-info">Agregar Stock</button>
-                    <button type="submit" id="agregarStockSubmit" name="agregarStockSubmit" class="btn btn-success" style="display: none;">Agregar Stock</button>
+                    <button type="button" id="cancelarAgregarStock" name="cancelarAgregarStock" class="btn btn-danger" style="display: none;">Cancelar</button>
+                    <button type="button" id="agregarStock" name="agregarStock" class="btn btn-info">Modificar Stock</button>
+                    <button type="submit" id="agregarStockSubmit" name="agregarStockSubmit" class="btn btn-success" style="display: none;">Confirmar Stock</button>
                 </div>
         </form>
     </main>
