@@ -184,7 +184,7 @@
         function getNumeroSesionesDepilacion($id_cliente){
             //SELECT * FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='AVG21032610'
             $db = new DB();
-            $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='$id_cliente'")->fetchAll();
+            $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='DEP01' AND id_cliente='$id_cliente'")->fetchAll();
             $db->close();
             return $account;
         }
@@ -192,7 +192,7 @@
         function getNumeroSesionesCavitacion($id_cliente){
             //SELECT * FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Depilacion' AND id_cliente='AVG21032610'
             $db = new DB();
-            $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='Cavitacion' AND id_cliente='$id_cliente'")->fetchAll();
+            $account = $db->query("SELECT COUNT(*) as sesiones FROM `ClienteTratamientoEspecial` WHERE nombre_tratamiento='CAV01' AND id_cliente='$id_cliente'")->fetchAll();
             $db->close();
             return $account;
         }
