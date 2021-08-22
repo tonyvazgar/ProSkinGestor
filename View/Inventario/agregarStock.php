@@ -28,8 +28,9 @@
     <main role="main" class="container">
         <div class="container">
                 <?php
+                    $id_sucursal = $ModeloUsuario -> getNumeroSucursalUsuario($email)['id_sucursal'];
                     $id = $_GET['idProducto'];
-                    $infoProducto = $ModelProducto->getProductoWereID($id);
+                    $infoProducto = $ModelProducto->getProductoWereID($id, $id_sucursal);
                 ?>
                     <h1>Detalles del producto <br><em><?php echo $infoProducto['descripcion_producto'];?></em></h1>
                     <form action="buscarCliente.php" method="POST" autocomplete="">

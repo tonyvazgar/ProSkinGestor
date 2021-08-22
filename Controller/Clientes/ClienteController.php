@@ -235,7 +235,7 @@
         $numero_de_productos   = sizeof($id_productos);
 
         for ($i=0; $i <= $numero_de_productos-1 ; $i++) { 
-            print_r("Los datos son: ");
+            // print_r("Los datos son: ");
             $id_producto_temp       = $id_productos[$i];
             $stock_inicial_temp     = $stock_productos_seleccionados[$i];
             $cantidad_producto_temp = $cantidad_producto_seleccionado[$i];

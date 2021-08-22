@@ -32,7 +32,8 @@
         <div class="container">
                 <?php
                     $id = $_GET['id'];
-                    $infoProducto = $ModelProducto->getProductoWereID($id);
+                    $id_sucursal = $ModeloUsuario -> getNumeroSucursalUsuario($email)['id_sucursal'];
+                    $infoProducto = $ModelProducto->getProductoWereID($id, $id_sucursal);
                 ?>
                     <h1>Detalles de la venta</h1>
                     <hr/>

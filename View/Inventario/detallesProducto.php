@@ -26,7 +26,7 @@
         getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
         $id_sucursal = $ModeloUsuario -> getNumeroSucursalUsuario($email)['id_sucursal'];
         $id = $_GET['id'];
-        $infoProducto = $ModelProducto->getProductoWereID($id);
+        $infoProducto = $ModelProducto->getProductoWereID($id, $id_sucursal);
     ?>
     <main role="main" class="container">
         <form action="detallesProducto.php" method="POST" autocomplete="" onsubmit="return confirm('¿Estás seguro de modificar el inventario?');">
