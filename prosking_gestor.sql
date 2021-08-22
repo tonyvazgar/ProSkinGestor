@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 12, 2021 at 05:02 AM
+-- Generation Time: Aug 22, 2021 at 01:00 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -67,7 +67,8 @@ CREATE TABLE `ClienteBitacora` (
 CREATE TABLE `ClienteOpcional` (
   `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `fecha_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
-  `cp_cliente` varchar(10) COLLATE utf8_bin NOT NULL
+  `cp_cliente` varchar(10) COLLATE utf8_bin NOT NULL,
+  `id_monedero` varchar(50) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -111,6 +112,29 @@ CREATE TABLE `ClienteTratamientoEspecial` (
   `detalle_zona` varchar(255) COLLATE utf8_bin NOT NULL,
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
   `num_sesion` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Monedero`
+--
+
+CREATE TABLE `Monedero` (
+  `id_monedero` varchar(50) COLLATE utf8_bin NOT NULL,
+  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa_venta` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa_uso` varchar(255) COLLATE utf8_bin NOT NULL,
+  `dinero_inicial` varchar(255) COLLATE utf8_bin NOT NULL,
+  `tratamientos_inicial` varchar(255) COLLATE utf8_bin NOT NULL,
+  `precios_unitarios` varchar(255) COLLATE utf8_bin NOT NULL,
+  `num_zonas` varchar(255) COLLATE utf8_bin NOT NULL,
+  `zonas_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `cantidad` varchar(255) COLLATE utf8_bin NOT NULL,
+  `dinero_final` varchar(255) COLLATE utf8_bin NOT NULL,
+  `tratamientos_final` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp_creacion` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp_uso` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -271,10 +295,16 @@ ALTER TABLE `ClienteTratamientoEspecial`
   ADD PRIMARY KEY (`id_cliente`,`zona`,`detalle_zona`,`timestamp`);
 
 --
+-- Indexes for table `Monedero`
+--
+ALTER TABLE `Monedero`
+  ADD PRIMARY KEY (`id_monedero`);
+
+--
 -- Indexes for table `Productos`
 --
 ALTER TABLE `Productos`
-  ADD PRIMARY KEY (`id_producto`);
+  ADD PRIMARY KEY (`id_producto`,`centro_producto`);
 
 --
 -- Indexes for table `Sucursal`
