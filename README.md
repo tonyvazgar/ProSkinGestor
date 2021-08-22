@@ -33,4 +33,4 @@ Fecha: <b>21-Agosto-2021</b><br>
  
  
 <h4>Previous commit en producción:</h4>
-<i>d8c02f9ba82e3cef3ede64c4e4831199fdb75caa</i>
+<i>618c2928914e26a195a912068de68039816b3c4a</i>
