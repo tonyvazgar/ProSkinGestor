@@ -141,11 +141,11 @@
             return $account;
         }
 
-        public function getProductoWereID($id_producto){
+        public function getProductoWereID($id_producto, $id_centro){
             $db = new Db();
             $sql_statement = "SELECT *
                               FROM Productos 
-                              WHERE id_producto='$id_producto'";
+                              WHERE id_producto='$id_producto' AND centro_producto='$id_centro'";
             $account = $db->query($sql_statement)->fetchArray();
             $db->close();
             return $account;
@@ -213,7 +213,7 @@
                 $id_cosmetologa    = $producto['id_cosmetologa'];
                 $timestamp_inicial = $producto['timestamp_inicial'];
                 //Regresar al inventario el stock apartado
-                $stock_original_producto = $productoModel -> getProductoWereID($id_producto)['stock_disponible_producto'];
+                $stock_original_producto = $productoModel -> getProductoWereID($id_producto, $centro_producto)['stock_disponible_producto'];
                 $nuevo_stock_producto = $stock_original_producto + $cantidad_producto;
                 $productoModel->updateStockProducto($id_producto, $nuevo_stock_producto, $centro_producto);
 
