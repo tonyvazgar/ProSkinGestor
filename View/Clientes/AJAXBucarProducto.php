@@ -7,7 +7,8 @@
 
     if(isset($_POST['id_producto'])){
         $id_producto = $_POST['id_producto'];
-        $info = $ModelProducto->getProductoWereID($id_producto);
+        $id_centro   = $_POST['id_centro'];
+        $info = $ModelProducto->getProductoWereID($id_producto, $id_centro);
         echo json_encode($info);
     }
 ?>

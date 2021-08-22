@@ -181,7 +181,7 @@ function buscarInfoProducto(id){
     $.ajax({
         type:"POST",
         url:"../../View/Clientes/AJAXBucarProducto.php",
-        data:"id_producto=" + id,
+        data:"id_producto=" + id + "&id_centro=" + $("#centro").val(),
         success:function(info){
             var json = JSON.parse(info);
             $('#id_producto_seleccionado.last_producto').attr('value', json.id_producto);
