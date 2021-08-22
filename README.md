@@ -1,6 +1,6 @@
 # Main Branch (Producción)
 Última versión: <b>1.0.5</b><br>
-Fecha: <b>27-Julio-2021</b><br>
+Fecha: <b>21-Agosto-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -19,6 +19,7 @@ Fecha: <b>27-Julio-2021</b><br>
       <li>BUG 011: Busqueda de cliente por nombre o por apellido #SOLVED</li>
       <li>BUG 012: UX responsivo de detalles de producto #SOLVED</li>
       <li>BUG 013: Busqueda de productos mejorada para mencionar donde se tienen disponibles #SOLVED</li>
+      <li>BUG 014: Corrección de registro de tratamiento cuando solo habia un tratamiento. #SOLVED</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
