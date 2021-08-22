@@ -20,6 +20,7 @@ Fecha: <b>21-Agosto-2021</b><br>
       <li>BUG 012: UX responsivo de detalles de producto #SOLVED</li>
       <li>BUG 013: Busqueda de productos mejorada para mencionar donde se tienen disponibles #SOLVED</li>
       <li>BUG 014: Corrección de registro de tratamiento cuando solo habia un tratamiento. #SOLVED</li>
+      <li>BUG 015: Corrección de la función getProductoWereID($id_producto, $id_centro) para trabajar con los productos del centro correcto. #SOLVED</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
