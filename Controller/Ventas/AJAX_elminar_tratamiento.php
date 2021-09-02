@@ -12,12 +12,23 @@
     $id_venta = mysqli_real_escape_string($con, $_POST['id_venta']);
     $timeStamp = mysqli_real_escape_string($con, $_POST['timeStamp']);
 
-    // echo json_encode($_POST);
+    if($id_tratamiento == 'DEP01' || $id_tratamiento == 'CAV01'){
+        //$ModelVenta->deleteTratamientoFromVentas($id_tratamiento, $id_venta, $timeStamp
+        //deleteTratamientoFromClienteTratamientoEspecial($id_tratamiento, $id_venta, $timeStamp)
+        //deleteTratamientoFromClienteBitacora($id_tratamiento, $id_venta, $timeStamp)
 
-    if(($ModelVenta->deleteTratamientoFromVentas($id_tratamiento, $id_venta, $timeStamp) >= 1) && ($ModelVenta->deleteTratamientoFromClienteTratamiento($id_tratamiento, $id_venta, $timeStamp) >= 1) && ($ModelVenta->deleteTratamientoFromClienteBitacora($id_tratamiento, $id_venta, $timeStamp))){
-        print_r(true);
-    } else {
-        print_r(false);
+        if(($ModelVenta->deleteTratamientoFromVentas($id_tratamiento, $id_venta, $timeStamp) >= 1) && ($ModelVenta->deleteTratamientoFromClienteTratamientoEspecial($id_tratamiento, $id_venta, $timeStamp) >= 1) && ($ModelVenta->deleteTratamientoFromClienteBitacora($id_tratamiento, $id_venta, $timeStamp))){
+            print_r(true);
+        } else {
+            print_r(false);
+        }
+    // echo json_encode($_POST);
+    }else{
+        if(($ModelVenta->deleteTratamientoFromVentas($id_tratamiento, $id_venta, $timeStamp) >= 1) && ($ModelVenta->deleteTratamientoFromClienteTratamiento($id_tratamiento, $id_venta, $timeStamp) >= 1) && ($ModelVenta->deleteTratamientoFromClienteBitacora($id_tratamiento, $id_venta, $timeStamp))){
+            print_r(true);
+        } else {
+            print_r(false);
+        }
     }
 
 ?>

@@ -137,7 +137,7 @@ $(document).on('click', "#eliminarTratamientoButton", function () {
     if (result) {
         const clase = '.' + $(this).attr('class');
 
-        //FALTA ELIMINAR TRATAMIENTOS especiales Y AGREGAR
+        //FALTA AGREGAR
 
         $.ajax({
             type: "POST",
@@ -149,6 +149,7 @@ $(document).on('click', "#eliminarTratamientoButton", function () {
                 } else {
                     alert('no se hizo');
                 }
+                // alert(r);
             }
         });
         // alert("Ya se eliminó!");

@@ -187,6 +187,16 @@
             $db->close();
             return $tratamientos;
         }
+        public function deleteTratamientoFromClienteTratamientoEspecial($id_tratamiento, $id_venta, $timeStamp){
+            // DELETE FROM ClienteTratamiento 
+            // WHERE ClienteTratamiento.id_cliente = 'LVG96110722' AND ClienteTratamiento.id_tratamiento = 'FAC19' AND ClienteTratamiento.fecha_aplicacion = '1629552472'
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM ClienteTratamientoEspecial
+                                        WHERE ClienteTratamientoEspecial.timestamp = '$timeStamp'
+                                        AND ClienteTratamientoEspecial.id_tratamiento = '$id_tratamiento'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
 
         public function deleteTratamientoFromClienteBitacora($id_tratamiento, $id_venta, $timeStamp){
             // DELETE FROM ClienteBitacora
