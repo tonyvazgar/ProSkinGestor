@@ -236,6 +236,7 @@
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idTratamiento" name="idTratamiento" value="'.$trat[0].'" hidden readonly>
   
                                           <h5 class="card-title ">'.$ModelTratamiento->getNombreTratamientoWhereID($trat[0]).'</h5>
+                                          <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
                                           <label>Número de zonas:</label>
                                           <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="numZonasTratamiento" id="numZonasTratamiento" type="number" step=".01" value="'.$numeroDeZonas.'">
                                           <label>Precio:</label>
@@ -270,6 +271,7 @@
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idTratamiento" name="idTratamiento" value="'.$trat[0].'" hidden readonly>
   
                                           <h5 class="card-title ">'.$ModelTratamiento->getNombreTratamientoWhereID($trat[0]).'</h5>
+                                          <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
                                           
                                           <label>Precio:</label>
                                           <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'">

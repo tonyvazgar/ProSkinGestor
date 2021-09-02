@@ -137,7 +137,7 @@ $(document).on('click', "#eliminarTratamientoButton", function () {
     if (result) {
         const clase = '.' + $(this).attr('class');
 
-        //FALTA ELIMINAR TRATAMIENTOS Y EDITAR LOS ESPECIALES Y AGREGAR
+        //FALTA ELIMINAR TRATAMIENTOS especiales Y AGREGAR
 
         $.ajax({
             type: "POST",

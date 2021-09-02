@@ -108,6 +108,42 @@
             $db->close();
             return $account->affectedRows();
         }
+
+        public function updateCavitacionDepilacionVenta($id_venta, $id_tratamiento, $timeStamp, $nuevoPrecio){
+            $db = new Db();
+            $sql_statement = "UPDATE Ventas 
+                              SET Ventas.monto = '$nuevoPrecio', Ventas.costo_tratamiento = '$nuevoPrecio'
+                              WHERE Ventas.id_venta = '$id_venta' AND Ventas.id_tratamiento = '$id_tratamiento' AND Ventas.timestamp = '$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+        //UPDATE `ClienteTratamientoEspecial` SET `zona` = '18,23' WHERE `ClienteTratamientoEspecial`.`id_cliente` = 'PVR21071629' AND `ClienteTratamientoEspecial`.`zona` = '18,' AND `ClienteTratamientoEspecial`.`detalle_zona` = '0' AND `ClienteTratamientoEspecial`.`timestamp` = '1630395110';
+        public function updateClienteTratamientoEspecial($id_tratamiento, $timeStamp, $zona_cuerpo, $numZonasTratamiento){
+            $db = new Db();
+            $sql_statement = "UPDATE ClienteTratamientoEspecial 
+                              SET zona = '$zona_cuerpo', detalle_zona = '$numZonasTratamiento'
+                              WHERE ClienteTratamientoEspecial.id_tratamiento = '$id_tratamiento' AND ClienteTratamientoEspecial.timestamp = '$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+        public function updateTratamientoEspecialBitacora($id_venta, $id_tratamiento, $timeStamp, $comentarios, $zona_cuerpo){
+            //UPDATE `ClienteBitacora` SET `zona_cuerpo` = '18,23' WHERE `ClienteBitacora`.`id_cliente` = 'PVR21071629' AND `ClienteBitacora`.`id_tratamiento` = 'CAV01' AND `ClienteBitacora`.`id_cosmetologa` = '8' AND `ClienteBitacora`.`centro` = '1' AND `ClienteBitacora`.`calificacion` = '1' AND `ClienteBitacora`.`timestamp` = '1630395110';
+
+            $db = new Db();
+            $sql_statement = "UPDATE ClienteBitacora 
+                              SET zona_cuerpo = '$zona_cuerpo', comentarios='$comentarios'
+                              WHERE ClienteBitacora.id_venta = '$id_venta' AND ClienteBitacora.id_tratamiento = '$id_tratamiento' AND ClienteBitacora.timestamp = '$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+
+
         public function updateTatamientoNormalBitacora($id_venta, $id_tratamiento, $timeStamp, $comentarios){
             //UPDATE `ClienteBitacora` SET `comentarios` = 'el masajito editado' WHERE `ClienteBitacora`.`id_cliente` = 'LVG96110722' AND `ClienteBitacora`.`id_tratamiento` = 'MAS41' AND `ClienteBitacora`.`id_cosmetologa` = '8' AND `ClienteBitacora`.`centro` = '1' AND `ClienteBitacora`.`calificacion` = '1' AND `ClienteBitacora`.`timestamp` = '1626129539';
 

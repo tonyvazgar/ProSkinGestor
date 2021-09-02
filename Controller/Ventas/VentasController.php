@@ -64,13 +64,27 @@
 
 
         if($idTratamiento == 'DEP01'){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+            $numZonasTratamiento = mysqli_real_escape_string($con, $_POST['numZonasTratamiento']);
+            $zonas_cuerpo= mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
+            // updateCavitacionDepilacionVenta($idVenta, $idTratamiento, $timeStamp, $precioTratamiento)
+            // updateClienteTratamientoEspecial($idTratamiento, $timeStamp, $zonas_cuerpo, $numZonasTratamiento)
+            // updateTratamientoEspecialBitacora($idVenta, $idTratamiento, $timeStamp, $comentarioTratamiento, $zonas_cuerpo)
+            
+            if(($ModelVenta->updateCavitacionDepilacionVenta($idVenta, $idTratamiento, $timeStamp, $precioTratamiento) >= 0) && ($ModelVenta->updateClienteTratamientoEspecial($idTratamiento, $timeStamp, $zonas_cuerpo, $numZonasTratamiento) >= 0) && ($ModelVenta->updateTratamientoEspecialBitacora($idVenta, $idTratamiento, $timeStamp, $comentarioTratamiento, $zonas_cuerpo) >= 0)){
+                header('Location: detalleVenta.php?idVenta='.$idVenta);
+                exit();
+            } else {
+                $errors['db-error'] = "Error al darse de alta!";
+            }
         }else if($idTratamiento == 'CAV01'){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+            $zonas_cuerpo= mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
+
+            if(($ModelVenta->updateCavitacionDepilacionVenta($idVenta, $idTratamiento, $timeStamp, $precioTratamiento) >= 0) && ($ModelVenta->updateClienteTratamientoEspecial($idTratamiento, $timeStamp, $zonas_cuerpo, 0) >= 0) && ($ModelVenta->updateTratamientoEspecialBitacora($idVenta, $idTratamiento, $timeStamp, $comentarioTratamiento, $zonas_cuerpo) >= 0)){
+                header('Location: detalleVenta.php?idVenta='.$idVenta);
+                exit();
+            } else {
+                $errors['db-error'] = "Error al darse de alta!";
+            }
         }else{
             if(($ModelVenta->updateTratamientoNormalVenta($idVenta, $idTratamiento, $timeStamp, $precioTratamiento) >= 0) && ($ModelVenta->updateTatamientoNormalBitacora($idVenta, $idTratamiento, $timeStamp, $comentarioTratamiento) >= 0)){
                 header('Location: detalleVenta.php?idVenta='.$idVenta);
