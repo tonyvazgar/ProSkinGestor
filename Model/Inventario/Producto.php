@@ -190,6 +190,17 @@
             $db->close();
             return $account;
         }
+
+        public function getStockProducto($id_producto, $id_centro){
+            $db = new Db();
+            $sql_statement = "SELECT Productos.stock_disponible_producto 
+                              FROM Productos 
+                              WHERE Productos.id_producto='$id_producto' AND Productos.centro_producto='$id_centro'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account['stock_disponible_producto'];
+        }
+
         //-----------------------------------------------------------------------------------------------
     }
 

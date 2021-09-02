@@ -105,7 +105,8 @@
                             echo '<div class="card">
                               <div class="card-body">
                                 <h5 class="card-title">'.$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto'].'</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Cantidad: '.$prod[4].' producto(s)</h6>
+                                <h5 class="card-title">$'.$prod[2].'</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Cantidad: '.$prod[4].' producto(s) | $'.$prod[3].'</h6>
                               </div>
                             </div>';
                           }
@@ -149,6 +150,11 @@
           </div>
         <div class="form-group text-center">
           <a class="btn btn-success" href="../index.php" role="button">Finalizar</a>
+        </div>
+        <div class="form-group text-center">
+          <a class="btn btn-warning" href=<?php
+            echo "'./editarVenta.php?idVenta=".$id_venta."'";
+          ?>role="button">Editar registro</a>
         </div>
       </div>
     <?php

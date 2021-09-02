@@ -52,6 +52,7 @@
             return $account;
         }
         public function getDetallesProducto($id_producto){
+            //BUGGGGGG
             $db = new Db();
             $sql_statement = "SELECT * 
                               FROM Productos
@@ -59,6 +60,108 @@
             $account = $db->query($sql_statement)->fetchArray();
             $db->close();
             return $account;
+        }
+
+        //******* EDICION DE VENTA FUNCIONES *******/
+        public function updateMetodoPago($id_venta, $timeStamp, $metodo_pago, $referencia_pago){
+            //UPDATE `Ventas` SET `metodo_pago`='6',`referencia_pago`='Hola' WHERE Ventas.id_venta='JKS21071127DEP01115' AND Ventas.timestamp='1629917408'
+            $db = new Db();
+            $sql_statement = "UPDATE Ventas 
+                              SET metodo_pago='$metodo_pago',referencia_pago='$referencia_pago' 
+                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+        public function updatePrecioTotalVenta(){
+            //UPDATE `Ventas` SET `metodo_pago`='6',`referencia_pago`='Hola' WHERE Ventas.id_venta='JKS21071127DEP01115' AND Ventas.timestamp='1629917408'
+            $db = new Db();
+            $sql_statement = "UPDATE Ventas 
+                              SET metodo_pago='$metodo_pago',referencia_pago='$referencia_pago' 
+                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+        public function updateProductoVenta($id_venta, $timeStamp, $idProducto, $precioUnitarioProducto, $cantidadProducto, $precioTotalProducto){
+            // UPDATE `Ventas` 
+            // SET `costo_producto`='360',`cantidad_producto`='2', `monto`='720' 
+            // WHERE Ventas.id_venta='JKS21071127DEP01115' AND Ventas.timestamp='1629917408' AND Ventas.id_productos='PP02'
+
+            $db = new Db();
+            $sql_statement = "UPDATE Ventas
+                              SET costo_producto='$precioTotalProducto', cantidad_producto='$cantidadProducto', monto='$precioUnitarioProducto' 
+                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_productos='$idProducto'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+        public function updateTratamientoNormalVenta($id_venta, $id_tratamiento, $timeStamp, $nuevoPrecio){
+            //UPDATE `Ventas` SET `monto` = '700' WHERE `Ventas`.`id_cliente` = 'LVG96110722' AND `Ventas`.`id_tratamiento` = 'MAS41' AND `Ventas`.`timestamp` = '1626129539';
+            $db = new Db();
+            $sql_statement = "UPDATE Ventas 
+                              SET Ventas.monto = '$nuevoPrecio', Ventas.costo_tratamiento = '$nuevoPrecio'
+                              WHERE Ventas.id_venta = '$id_venta' AND Ventas.id_tratamiento = '$id_tratamiento' AND Ventas.timestamp = '$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+        public function updateTatamientoNormalBitacora($id_venta, $id_tratamiento, $timeStamp, $comentarios){
+            //UPDATE `ClienteBitacora` SET `comentarios` = 'el masajito editado' WHERE `ClienteBitacora`.`id_cliente` = 'LVG96110722' AND `ClienteBitacora`.`id_tratamiento` = 'MAS41' AND `ClienteBitacora`.`id_cosmetologa` = '8' AND `ClienteBitacora`.`centro` = '1' AND `ClienteBitacora`.`calificacion` = '1' AND `ClienteBitacora`.`timestamp` = '1626129539';
+
+            $db = new Db();
+            $sql_statement = "UPDATE ClienteBitacora
+                              SET ClienteBitacora.comentarios = '$comentarios'
+                              WHERE ClienteBitacora.id_venta = '$id_venta' AND ClienteBitacora.id_tratamiento = '$id_tratamiento' AND ClienteBitacora.timestamp = '$timeStamp'";
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+
+        public function deleteProductoFromVenta($id_venta, $id_producto){
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM Ventas
+                                        WHERE Ventas.id_venta = '$id_venta' AND Ventas.id_productos = '$id_producto'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
+        public function deleteTratamientoFromVentas($id_tratamiento, $id_venta, $timeStamp){
+            // DELETE FROM Ventas 
+            // WHERE Ventas.id_venta = '$id_venta' 
+            // AND Ventas.id_tratamiento = '$id_tratamiento' AND Ventas.timestamp = '$timeStamp'
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM Ventas 
+                                        WHERE Ventas.id_venta = '$id_venta' 
+                                        AND Ventas.id_tratamiento = '$id_tratamiento' AND Ventas.timestamp = '$timeStamp'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
+        public function deleteTratamientoFromClienteTratamiento($id_tratamiento, $id_venta, $timeStamp){
+            // DELETE FROM ClienteTratamiento 
+            // WHERE ClienteTratamiento.id_cliente = 'LVG96110722' AND ClienteTratamiento.id_tratamiento = 'FAC19' AND ClienteTratamiento.fecha_aplicacion = '1629552472'
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM ClienteTratamiento 
+                                        WHERE ClienteTratamiento.fecha_aplicacion = '$timeStamp'
+                                        AND ClienteTratamiento.id_tratamiento = '$id_tratamiento'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
+        public function deleteTratamientoFromClienteBitacora($id_tratamiento, $id_venta, $timeStamp){
+            // DELETE FROM ClienteBitacora
+            // WHERE ClienteBitacora.id_cliente = 'LVG96110722' 
+            // AND ClienteBitacora.id_tratamiento = 'FAC19' AND ClienteBitacora.id_cosmetologa = '8' AND ClienteBitacora.centro = '1' AND ClienteBitacora.calificacion = '1' AND ClienteBitacora.timestamp = '1629552472'
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM ClienteBitacora
+                                        WHERE ClienteBitacora.id_venta = '$id_venta' 
+                                        AND ClienteBitacora.id_tratamiento = '$id_tratamiento' AND ClienteBitacora.timestamp = '$timeStamp'")->affectedRows();
+            $db->close();
+            return $tratamientos;
         }
         
     }
@@ -96,6 +199,7 @@
                 "num_tratamientos" => sizeof($tratamientos), 
                 "total" => number_format($total, 2),
                 "metodo_pago" => $metodo_pago,
-                "referencia_pago" => $referencia_pago];
+                "referencia_pago" => $referencia_pago,
+                "total_noFormat" => $total];
     }
 ?>
