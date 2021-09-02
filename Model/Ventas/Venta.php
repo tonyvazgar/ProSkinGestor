@@ -91,7 +91,7 @@
 
             $db = new Db();
             $sql_statement = "UPDATE Ventas
-                              SET costo_producto='$precioTotalProducto', cantidad_producto='$cantidadProducto', monto='$precioUnitarioProducto' 
+                              SET costo_producto='$precioUnitarioProducto', cantidad_producto='$cantidadProducto', monto='$precioTotalProducto' 
                               WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_productos='$idProducto'";
             $account = $db->query($sql_statement);
             $db->close();
