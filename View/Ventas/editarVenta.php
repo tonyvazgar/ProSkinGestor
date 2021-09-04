@@ -127,21 +127,14 @@
             </table>
           </div>
           
-
-          <?php
-            // echo '<pre>';
-            // print_r('DIVISION PRODUCTOS TRATAMIENTO: <br>');
-            // print_r($divisionProductosTratamientos);
-            // echo '</pre>';
-          ?>
-
-
           <div class="form-group">
             <table class='table table-borderless' style='table-layout: fixed;'>
               <tbody>
                 <tr>
-                  <td><h3>Productos <button id='agregarProductoButton'><i class="fas fa-plus-circle"></i></button></h3></td>
-                  <td><h3>Tratamientos <button id='agregarTratamientoButton'><i class="fas fa-plus-circle"></i></button></h3></td>
+                  <!-- <td><h3>Productos <button id='agregarProductoButton'><i class="fas fa-plus-circle"></i></button></h3></td> -->
+                  <td><h3>Productos</h3></td>
+                  <!-- <td><h3>Tratamientos <button id='agregarTratamientoButton'><i class="fas fa-plus-circle"></i></button></h3></td> -->
+                  <td><h3>Tratamientos</h3></td>
                 </tr>
                 <tr>
                   <!-- PRODUCTOS -->
@@ -179,7 +172,7 @@
                                         <input class="form-control Producto'.$numero_de_producto.'" name="precioTotalProducto" id="precioTotalProducto" type="number" step=".01" value="'.$prod[2].'">
 
 
-                                        <button type="submit" class="form-control btn-success Producto'.$numero_de_producto.'" id="editarProductoSubmit" name="editarProductoSubmit" id="editarProductoSubmit">Confirmar</button>
+                                        <button type="submit" class="form-control btn-success Producto'.$numero_de_producto.'" id="editarProductoSubmit" name="editarProductoSubmit" id="editarProductoSubmit" onclick="return confirm(\'¿Estás seguro de editar este producto?\')">Confirmar</button>
                                         <button type="button" id="cancelarProductoButton" name="Producto'.$numero_de_producto.'" class="form-control btn-warning Producto'.$numero_de_producto.'">Cancelar</button>
                                       </form>
                                     </div>
@@ -247,7 +240,7 @@
                                           <label>Zonas del cuerpo:</label><div><div><div class="form-check"><input class="form-check-input check" type="checkbox" value="23" name="zonas_cuerpo[]" id="flexCheckDefault23"><label class="form-check-label" for="flexCheckDefault23">**TODO EL CUERPO**</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="17" name="zonas_cuerpo[]" id="flexCheckDefault17"><label class="form-check-label" for="flexCheckDefault17">Abdomen</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="3" name="zonas_cuerpo[]" id="flexCheckDefault3"><label class="form-check-label" for="flexCheckDefault3">Antebrazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="2" name="zonas_cuerpo[]" id="flexCheckDefault2"><label class="form-check-label" for="flexCheckDefault2">Axilas</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="4" name="zonas_cuerpo[]" id="flexCheckDefault4"><label class="form-check-label" for="flexCheckDefault4">Brazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="12" name="zonas_cuerpo[]" id="flexCheckDefault12"><label class="form-check-label" for="flexCheckDefault12">Entrecejo</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="18" name="zonas_cuerpo[]" id="flexCheckDefault18"><label class="form-check-label" for="flexCheckDefault18">Espalda</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="13" name="zonas_cuerpo[]" id="flexCheckDefault13"><label class="form-check-label" for="flexCheckDefault13">Frente</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="10" name="zonas_cuerpo[]" id="flexCheckDefault10"><label class="form-check-label" for="flexCheckDefault10">Glúteos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="19" name="zonas_cuerpo[]" id="flexCheckDefault19"><label class="form-check-label" for="flexCheckDefault19">Hombro</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="7" name="zonas_cuerpo[]" id="flexCheckDefault7"><label class="form-check-label" for="flexCheckDefault7">Ingles</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="24" name="zonas_cuerpo[]" id="flexCheckDefault24"><label class="form-check-label" for="flexCheckDefault24">LSMP</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="14" name="zonas_cuerpo[]" id="flexCheckDefault14"><label class="form-check-label" for="flexCheckDefault14">Labio Superior</label></div></div><div><div class="form-check"><input class="form-check-input check" type="checkbox" value="21" name="zonas_cuerpo[]" id="flexCheckDefault21"><label class="form-check-label" for="flexCheckDefault21">Lumbares</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="5" name="zonas_cuerpo[]" id="flexCheckDefault5"><label class="form-check-label" for="flexCheckDefault5">Manos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="16" name="zonas_cuerpo[]" id="flexCheckDefault16"><label class="form-check-label" for="flexCheckDefault16">Mentón</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="8" name="zonas_cuerpo[]" id="flexCheckDefault8"><label class="form-check-label" for="flexCheckDefault8">Muslo</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="20" name="zonas_cuerpo[]" id="flexCheckDefault20"><label class="form-check-label" for="flexCheckDefault20">Nuca</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="22" name="zonas_cuerpo[]" id="flexCheckDefault22"><label class="form-check-label" for="flexCheckDefault22">Orejas</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="15" name="zonas_cuerpo[]" id="flexCheckDefault15"><label class="form-check-label" for="flexCheckDefault15">Patillas</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="1" name="zonas_cuerpo[]" id="flexCheckDefault1"><label class="form-check-label" for="flexCheckDefault1">Pecho</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="9" name="zonas_cuerpo[]" id="flexCheckDefault9"><label class="form-check-label" for="flexCheckDefault9">Pierna</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="6" name="zonas_cuerpo[]" id="flexCheckDefault6"><label class="form-check-label" for="flexCheckDefault6">Pubis</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="11" name="zonas_cuerpo[]" id="flexCheckDefault11"><label class="form-check-label" for="flexCheckDefault11">Zona Alba</label></div></div></div>
   
   
-                                          <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit">Confirmar</button>
+                                          <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit" onclick="return confirm(\'¿Estás seguro de editar este tratamiento?\')">Confirmar</button>
                                           <button type="button" id="cancelarTratamientoButton" name="Tratamiento'.$numero_de_tratamiento.'" class="form-control btn-warning Tratamiento'.$numero_de_tratamiento.'">Cancelar</button>
                                         </form>
                                       </div>
@@ -281,7 +274,7 @@
                                           <label>Zonas del cuerpo:</label><div><div class="form-check"><input class="form-check-input check" type="checkbox" value="17" name="zonas_cuerpo[]" id="flexCheckDefault17"><label class="form-check-label" for="flexCheckDefault17">Abdomen</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="4" name="zonas_cuerpo[]" id="flexCheckDefault4"><label class="form-check-label" for="flexCheckDefault4">Brazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="18" name="zonas_cuerpo[]" id="flexCheckDefault18"><label class="form-check-label" for="flexCheckDefault18">Espalda</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="10" name="zonas_cuerpo[]" id="flexCheckDefault10"><label class="form-check-label" for="flexCheckDefault10">Glúteos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="9" name="zonas_cuerpo[]" id="flexCheckDefault9"><label class="form-check-label" for="flexCheckDefault9">Pierna</label></div></div>
   
   
-                                          <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit">Confirmar</button>
+                                          <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit" onclick="return confirm(\'¿Estás seguro de editar este tratamiento?\')">Confirmar</button>
                                           <button type="button" id="cancelarTratamientoButton" name="Tratamiento'.$numero_de_tratamiento.'" class="form-control btn-warning Tratamiento'.$numero_de_tratamiento.'">Cancelar</button>
                                         </form>
                                       </div>
@@ -312,7 +305,7 @@
                                           <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
 
   
-                                          <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit">Confirmar</button>
+                                          <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit" onclick="return confirm(\'¿Estás seguro de editar este tratamiento?\')">Confirmar</button>
                                           <button type="button" id="cancelarTratamientoButton" name="Tratamiento'.$numero_de_tratamiento.'" class="form-control btn-warning Tratamiento'.$numero_de_tratamiento.'">Cancelar</button>
                                         </form>
                                       </div>

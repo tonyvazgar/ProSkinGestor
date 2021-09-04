@@ -47,8 +47,8 @@
         print_r($_POST);
         echo '</pre>';
 
-        if($ModelVenta->updateProductoVenta($idVenta, $timeStamp, $idProducto, $precioUnitarioProducto, $cantidadProducto, $precioTotalProducto) >= 1){
-            header('Location: editarVenta.php?idVenta='.$idVenta);
+        if($ModelVenta->updateProductoVenta($idVenta, $timeStamp, $idProducto, $precioUnitarioProducto, $cantidadProducto, $precioTotalProducto) >= 0){
+            header('Location: detalleVenta.php?idVenta='.$idVenta);
             exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";

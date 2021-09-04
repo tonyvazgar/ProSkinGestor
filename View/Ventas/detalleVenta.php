@@ -27,6 +27,7 @@
   getHeadHTML("ProSkin - Resumen Venta");
 
   $divisionProductosTratamientos = getDesgloseProductosTratamientosVenta($detalles);
+  $id_cosmetologa_from_db = $divisionProductosTratamientos['cosmetologa'];
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
@@ -151,11 +152,12 @@
         <div class="form-group text-center">
           <a class="btn btn-success" href="../index.php" role="button">Finalizar</a>
         </div>
-        <div class="form-group text-center">
-          <a class="btn btn-warning" href=<?php
-            echo "'./editarVenta.php?idVenta=".$id_venta."'";
-          ?>role="button">Editar registro</a>
-        </div>
+
+        <?php
+          if($id_cosmetologa == $id_cosmetologa_from_db){
+            echo '<div class="form-group text-center"><a class="btn btn-warning" href="./editarVenta.php?idVenta='.$id_venta.'" role="button">Editar registro</a></div>';
+          }
+        ?>
       </div>
     <?php
       getFooter();
