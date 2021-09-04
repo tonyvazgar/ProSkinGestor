@@ -192,7 +192,9 @@
                     <p class="lead">
                       <?php 
                         $zonas_cuerpo_array = [ '**TODO EL CUERPO**' => 23, 'Abdomen' => 17, 'Antebrazos' => 3, 'Axilas' => 2, 'Brazos' => 4, 'Entrecejo' => 12, 'Espalda' => 18, 'Frente' => 13, 'Glúteos' => 10, 'Hombro' => 19, 'Ingles' => 7, 'LSMP' => 24, 'Labio Superior' => 14, 'Lumbares' => 21, 'Manos' => 5, 'Mentón' => 16, 'Muslo' => 8, 'Nuca' => 20, 'Orejas' => 22, 'Patillas' => 15, 'Pecho' => 1, 'Pierna' => 9, 'Pubis' => 6, 'Zona Alba' => 11 ];
-                        
+
+                        $zonas_cuerpo_array_cavitacion =['Abdomen' => 17, 'Brazos' => 4, 'Espalda' => 18, 'Glúteos' => 10, 'Pierna' => 9];
+
                         $numero_de_tratamiento = 1;
                         if($divisionProductosTratamientos['num_tratamientos'] != 0){
                           foreach($divisionProductosTratamientos['tratamientos'] as $trat){
@@ -201,11 +203,13 @@
                             $str_zonas = [];
                             if(!empty($informacion_gral_tratamiento['zona_cuerpo'])){
                               $array_zonas = explode(",", $informacion_gral_tratamiento['zona_cuerpo']);
+                              array_pop($array_zonas);
                               foreach($array_zonas as $num_zona){
                                 $nombre_zona = $ModelTratamiento -> getNombreZonaCuerpoWhereID($num_zona)['nombre_zona'];
                                 array_push($str_zonas, $nombre_zona);
                               }
                             }
+                            // print_r($str_zonas);
 
                             if($informacion_gral_tratamiento['id_tratamiento'] == 'DEP01'){
                               // print_r($informacion_gral_tratamiento);
@@ -237,9 +241,17 @@
                                           <label>Comentarios:</label>
                                           <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
                                           
-                                          <label>Zonas del cuerpo:</label><div><div><div class="form-check"><input class="form-check-input check" type="checkbox" value="23" name="zonas_cuerpo[]" id="flexCheckDefault23"><label class="form-check-label" for="flexCheckDefault23">**TODO EL CUERPO**</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="17" name="zonas_cuerpo[]" id="flexCheckDefault17"><label class="form-check-label" for="flexCheckDefault17">Abdomen</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="3" name="zonas_cuerpo[]" id="flexCheckDefault3"><label class="form-check-label" for="flexCheckDefault3">Antebrazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="2" name="zonas_cuerpo[]" id="flexCheckDefault2"><label class="form-check-label" for="flexCheckDefault2">Axilas</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="4" name="zonas_cuerpo[]" id="flexCheckDefault4"><label class="form-check-label" for="flexCheckDefault4">Brazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="12" name="zonas_cuerpo[]" id="flexCheckDefault12"><label class="form-check-label" for="flexCheckDefault12">Entrecejo</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="18" name="zonas_cuerpo[]" id="flexCheckDefault18"><label class="form-check-label" for="flexCheckDefault18">Espalda</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="13" name="zonas_cuerpo[]" id="flexCheckDefault13"><label class="form-check-label" for="flexCheckDefault13">Frente</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="10" name="zonas_cuerpo[]" id="flexCheckDefault10"><label class="form-check-label" for="flexCheckDefault10">Glúteos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="19" name="zonas_cuerpo[]" id="flexCheckDefault19"><label class="form-check-label" for="flexCheckDefault19">Hombro</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="7" name="zonas_cuerpo[]" id="flexCheckDefault7"><label class="form-check-label" for="flexCheckDefault7">Ingles</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="24" name="zonas_cuerpo[]" id="flexCheckDefault24"><label class="form-check-label" for="flexCheckDefault24">LSMP</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="14" name="zonas_cuerpo[]" id="flexCheckDefault14"><label class="form-check-label" for="flexCheckDefault14">Labio Superior</label></div></div><div><div class="form-check"><input class="form-check-input check" type="checkbox" value="21" name="zonas_cuerpo[]" id="flexCheckDefault21"><label class="form-check-label" for="flexCheckDefault21">Lumbares</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="5" name="zonas_cuerpo[]" id="flexCheckDefault5"><label class="form-check-label" for="flexCheckDefault5">Manos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="16" name="zonas_cuerpo[]" id="flexCheckDefault16"><label class="form-check-label" for="flexCheckDefault16">Mentón</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="8" name="zonas_cuerpo[]" id="flexCheckDefault8"><label class="form-check-label" for="flexCheckDefault8">Muslo</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="20" name="zonas_cuerpo[]" id="flexCheckDefault20"><label class="form-check-label" for="flexCheckDefault20">Nuca</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="22" name="zonas_cuerpo[]" id="flexCheckDefault22"><label class="form-check-label" for="flexCheckDefault22">Orejas</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="15" name="zonas_cuerpo[]" id="flexCheckDefault15"><label class="form-check-label" for="flexCheckDefault15">Patillas</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="1" name="zonas_cuerpo[]" id="flexCheckDefault1"><label class="form-check-label" for="flexCheckDefault1">Pecho</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="9" name="zonas_cuerpo[]" id="flexCheckDefault9"><label class="form-check-label" for="flexCheckDefault9">Pierna</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="6" name="zonas_cuerpo[]" id="flexCheckDefault6"><label class="form-check-label" for="flexCheckDefault6">Pubis</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="11" name="zonas_cuerpo[]" id="flexCheckDefault11"><label class="form-check-label" for="flexCheckDefault11">Zona Alba</label></div></div></div>
-  
-  
+                                          <label>Zonas del cuerpo:</label><div>';
+
+                                          foreach($zonas_cuerpo_array as $nombre => $num){
+                                            $checked = '';
+                                            if( in_array($num, $array_zonas)){ $checked = ' checked'; }
+                                            echo '<div class="form-check">
+                                                    <input class="form-check-input check" type="checkbox" value="'.$num.'" name="zonas_cuerpo[]" id="flexCheckDefault'.$num.'"'.$checked.'>
+                                                    <label class="form-check-label" for="flexCheckDefault'.$num.'">'.$nombre.'</label>
+                                                  </div>';
+                                          }
+                                          echo '</div>
                                           <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit" onclick="return confirm(\'¿Estás seguro de editar este tratamiento?\')">Confirmar</button>
                                           <button type="button" id="cancelarTratamientoButton" name="Tratamiento'.$numero_de_tratamiento.'" class="form-control btn-warning Tratamiento'.$numero_de_tratamiento.'">Cancelar</button>
                                         </form>
@@ -271,9 +283,17 @@
                                           <label>Comentarios:</label>
                                           <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
                                           
-                                          <label>Zonas del cuerpo:</label><div><div class="form-check"><input class="form-check-input check" type="checkbox" value="17" name="zonas_cuerpo[]" id="flexCheckDefault17"><label class="form-check-label" for="flexCheckDefault17">Abdomen</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="4" name="zonas_cuerpo[]" id="flexCheckDefault4"><label class="form-check-label" for="flexCheckDefault4">Brazos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="18" name="zonas_cuerpo[]" id="flexCheckDefault18"><label class="form-check-label" for="flexCheckDefault18">Espalda</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="10" name="zonas_cuerpo[]" id="flexCheckDefault10"><label class="form-check-label" for="flexCheckDefault10">Glúteos</label></div><div class="form-check"><input class="form-check-input check" type="checkbox" value="9" name="zonas_cuerpo[]" id="flexCheckDefault9"><label class="form-check-label" for="flexCheckDefault9">Pierna</label></div></div>
-  
-  
+                                          <label>Zonas del cuerpo:</label><div>';
+
+                                          foreach($zonas_cuerpo_array_cavitacion as $nombre => $num){
+                                            $checked = '';
+                                            if( in_array($num, $array_zonas)){ $checked = ' checked'; }
+                                            echo '<div class="form-check">
+                                                    <input class="form-check-input check" type="checkbox" value="'.$num.'" name="zonas_cuerpo[]" id="flexCheckDefault'.$num.'"'.$checked.'>
+                                                    <label class="form-check-label" for="flexCheckDefault'.$num.'">'.$nombre.'</label>
+                                                  </div>';
+                                          }
+                                          echo '</div>
                                           <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit" onclick="return confirm(\'¿Estás seguro de editar este tratamiento?\')">Confirmar</button>
                                           <button type="button" id="cancelarTratamientoButton" name="Tratamiento'.$numero_de_tratamiento.'" class="form-control btn-warning Tratamiento'.$numero_de_tratamiento.'">Cancelar</button>
                                         </form>
@@ -323,14 +343,11 @@
               </tbody>
             </table>
           </div>
-        <!-- <div class="form-group text-center">
-          <button class="btn btn-warning" id="edicionVenta" name="edicionVenta" type="submit"></button>
-        </div> -->
+
         <div class="form-group text-center">
           <a class="btn btn-danger" href=<?php
               echo "'./detalleVenta.php?idVenta=".$id_venta."'";
             ?>role="button">Cancelar edición</a>
-          <!-- <a class="btn btn-danger" href='../' role="button">Cancelar edición</a> -->
         </div>
       </div>
     <?php
