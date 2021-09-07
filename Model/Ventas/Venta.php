@@ -62,6 +62,67 @@
             return $account;
         }
 
+        public function insertIntoDetallesEdicionVenta($id_venta, $timestamp_venta, $timestamp_edicion, $tipo_edicion, $antes, $despues){
+            $db = new DB();
+            //INSERT INTO `DetallesEdicionVenta`(`id_edicion`, `antes`, `despues`) VALUES ([value-1],[value-2],[value-3])
+            //(NULL, 'd', 'f');
+            $sql_statement = "INSERT INTO `DetallesEdicionVenta`(`id_venta`, `timestamp_venta`, `timestamp_edicion`, `tipo_edicion`, `antes`, `despues`) 
+                              VALUES ('$id_venta', '$timestamp_venta', '$timestamp_edicion', '$tipo_edicion', '$antes', '$despues')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
+
+        public function getInfoJSONVentas($id_venta, $timeStamp){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Ventas 
+                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return json_encode($account);
+        }
+
+        public function getInfoJSONVentasProducto($id_venta, $timeStamp, $idProducto){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Ventas 
+                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_productos='$idProducto'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return json_encode($account);
+        }
+
+        public function getInfoJSONVentasTratamiento($id_venta, $timeStamp, $id_tratamiento){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM Ventas 
+                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_tratamiento='$id_tratamiento'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return json_encode($account);
+        }
+
+        public function getInfoJSONClienteTratamientoEspecial($id_tratamiento, $timeStamp){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM ClienteTratamientoEspecial 
+                              WHERE ClienteTratamientoEspecial.id_tratamiento='$id_tratamiento' AND ClienteTratamientoEspecial.timestamp='$timeStamp'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return json_encode($account);
+        }
+
+        public function getInfoJSONClienteBitacora($id_venta, $timeStamp, $id_tratamiento){
+            $db = new Db();
+            $sql_statement = "SELECT *
+                              FROM ClienteBitacora 
+                              WHERE ClienteBitacora.id_venta='$id_venta' AND ClienteBitacora.id_tratamiento='$id_tratamiento' AND ClienteBitacora.timestamp='$timeStamp'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return json_encode($account);
+        }
+
         //******* EDICION DE VENTA FUNCIONES *******/
         public function updateMetodoPago($id_venta, $timeStamp, $metodo_pago, $referencia_pago){
             //UPDATE `Ventas` SET `metodo_pago`='6',`referencia_pago`='Hola' WHERE Ventas.id_venta='JKS21071127DEP01115' AND Ventas.timestamp='1629917408'
