@@ -95,9 +95,6 @@
 
             $numZonasTratamiento = mysqli_real_escape_string($con, $_POST['numZonasTratamiento']);
             $zonas_cuerpo= mysqli_real_escape_string($con, implode(",", $_POST['zonas_cuerpo']));
-            // updateCavitacionDepilacionVenta($idVenta, $idTratamiento, $timeStamp, $precioTratamiento)
-            // updateClienteTratamientoEspecial($idTratamiento, $timeStamp, $zonas_cuerpo, $numZonasTratamiento)
-            // updateTratamientoEspecialBitacora($idVenta, $idTratamiento, $timeStamp, $comentarioTratamiento, $zonas_cuerpo)
             
             if(($ModelVenta->updateCavitacionDepilacionVenta($idVenta, $idTratamiento, $timeStamp, $precioTratamiento) >= 0) && ($ModelVenta->updateClienteTratamientoEspecial($idTratamiento, $timeStamp, $zonas_cuerpo, $numZonasTratamiento) >= 0) && ($ModelVenta->updateTratamientoEspecialBitacora($idVenta, $idTratamiento, $timeStamp, $comentarioTratamiento, $zonas_cuerpo) >= 0)){
 

@@ -75,7 +75,7 @@
 
         public function getInfoJSONVentas($id_venta, $timeStamp){
             $db = new Db();
-            $sql_statement = "SELECT *
+            $sql_statement = "SELECT Ventas.metodo_pago, Ventas.referencia_pago 
                               FROM Ventas 
                               WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp'";
             $account = $db->query($sql_statement)->fetchAll();
@@ -85,7 +85,7 @@
 
         public function getInfoJSONVentasProducto($id_venta, $timeStamp, $idProducto){
             $db = new Db();
-            $sql_statement = "SELECT *
+            $sql_statement = "SELECT Ventas.costo_producto, Ventas.cantidad_producto
                               FROM Ventas 
                               WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_productos='$idProducto'";
             $account = $db->query($sql_statement)->fetchAll();
@@ -95,7 +95,7 @@
 
         public function getInfoJSONVentasTratamiento($id_venta, $timeStamp, $id_tratamiento){
             $db = new Db();
-            $sql_statement = "SELECT *
+            $sql_statement = "SELECT Ventas.monto, Ventas.costo_tratamiento
                               FROM Ventas 
                               WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_tratamiento='$id_tratamiento'";
             $account = $db->query($sql_statement)->fetchAll();
@@ -105,7 +105,7 @@
 
         public function getInfoJSONClienteTratamientoEspecial($id_tratamiento, $timeStamp){
             $db = new Db();
-            $sql_statement = "SELECT *
+            $sql_statement = "SELECT ClienteTratamientoEspecial.zona, ClienteTratamientoEspecial.detalle_zona
                               FROM ClienteTratamientoEspecial 
                               WHERE ClienteTratamientoEspecial.id_tratamiento='$id_tratamiento' AND ClienteTratamientoEspecial.timestamp='$timeStamp'";
             $account = $db->query($sql_statement)->fetchAll();
@@ -115,7 +115,7 @@
 
         public function getInfoJSONClienteBitacora($id_venta, $timeStamp, $id_tratamiento){
             $db = new Db();
-            $sql_statement = "SELECT *
+            $sql_statement = "SELECT ClienteBitacora.comentarios
                               FROM ClienteBitacora 
                               WHERE ClienteBitacora.id_venta='$id_venta' AND ClienteBitacora.id_tratamiento='$id_tratamiento' AND ClienteBitacora.timestamp='$timeStamp'";
             $account = $db->query($sql_statement)->fetchAll();
@@ -180,7 +180,6 @@
             return $account->affectedRows();
         }
 
-        //UPDATE `ClienteTratamientoEspecial` SET `zona` = '18,23' WHERE `ClienteTratamientoEspecial`.`id_cliente` = 'PVR21071629' AND `ClienteTratamientoEspecial`.`zona` = '18,' AND `ClienteTratamientoEspecial`.`detalle_zona` = '0' AND `ClienteTratamientoEspecial`.`timestamp` = '1630395110';
         public function updateClienteTratamientoEspecial($id_tratamiento, $timeStamp, $zona_cuerpo, $numZonasTratamiento){
             $db = new Db();
             $sql_statement = "UPDATE ClienteTratamientoEspecial 
@@ -203,8 +202,6 @@
             return $account->affectedRows();
         }
 
-
-
         public function updateTatamientoNormalBitacora($id_venta, $id_tratamiento, $timeStamp, $comentarios){
             //UPDATE `ClienteBitacora` SET `comentarios` = 'el masajito editado' WHERE `ClienteBitacora`.`id_cliente` = 'LVG96110722' AND `ClienteBitacora`.`id_tratamiento` = 'MAS41' AND `ClienteBitacora`.`id_cosmetologa` = '8' AND `ClienteBitacora`.`centro` = '1' AND `ClienteBitacora`.`calificacion` = '1' AND `ClienteBitacora`.`timestamp` = '1626129539';
 
@@ -216,7 +213,6 @@
             $db->close();
             return $account->affectedRows();
         }
-
 
         public function deleteProductoFromVenta($id_venta, $id_producto){
             $db = new DB();
