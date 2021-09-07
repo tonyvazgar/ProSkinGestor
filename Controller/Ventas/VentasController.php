@@ -23,7 +23,7 @@
         if($ModelVenta->updateMetodoPago($idCliente, $timeStamp, $metodoPago, $referenciaInput) >= 1){
             $despues_de_Actualizar = $ModelVenta->getInfoJSONVentas($idCliente, $timeStamp);
             $ModelVenta->insertIntoDetallesEdicionVenta($idCliente, $timeStamp, $timeStampEdicion, 'Pago', $antes_de_Actualizar, $despues_de_Actualizar);
-            header('Location: editarVenta.php?idVenta='.$idCliente);
+            header('Location: detalleVenta.php?idVenta='.$idCliente);
             // exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";

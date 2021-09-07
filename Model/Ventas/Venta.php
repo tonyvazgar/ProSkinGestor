@@ -11,6 +11,15 @@
             $db->close();
             return $account;
         }
+
+        public function getVentaFromDetallesEdicionVenta($id_venta){
+            $db = new Db();
+            $sql_statement = "SELECT * FROM `DetallesEdicionVenta` WHERE id_venta='$id_venta'";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
         public function getTodosLosDetallesVentaTratamiento($id_venta){
             $db = new Db();
             $sql_statement = "SELECT * FROM Cliente, Ventas, ClienteBitacora, Tratamiento 
@@ -85,7 +94,7 @@
 
         public function getInfoJSONVentasProducto($id_venta, $timeStamp, $idProducto){
             $db = new Db();
-            $sql_statement = "SELECT Ventas.costo_producto, Ventas.cantidad_producto
+            $sql_statement = "SELECT Ventas.id_productos, Ventas.costo_producto, Ventas.cantidad_producto
                               FROM Ventas 
                               WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_productos='$idProducto'";
             $account = $db->query($sql_statement)->fetchAll();
@@ -95,7 +104,7 @@
 
         public function getInfoJSONVentasTratamiento($id_venta, $timeStamp, $id_tratamiento){
             $db = new Db();
-            $sql_statement = "SELECT Ventas.monto, Ventas.costo_tratamiento
+            $sql_statement = "SELECT Ventas.id_tratamiento, Ventas.monto, Ventas.costo_tratamiento
                               FROM Ventas 
                               WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp' AND Ventas.id_tratamiento='$id_tratamiento'";
             $account = $db->query($sql_statement)->fetchAll();

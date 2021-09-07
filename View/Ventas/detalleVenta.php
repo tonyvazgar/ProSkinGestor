@@ -28,6 +28,13 @@
 
   $divisionProductosTratamientos = getDesgloseProductosTratamientosVenta($detalles);
   $id_cosmetologa_from_db = $divisionProductosTratamientos['cosmetologa'];
+  
+  $historial_ediciones= $ModeloVenta->getVentaFromDetallesEdicionVenta($id_venta);
+
+  $ediciones_style = 'style="display: none;"';
+  if(sizeof($historial_ediciones) != 0){
+    $ediciones_style = '';
+  }
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
@@ -37,6 +44,35 @@
     ?>
     <div class="container">
         <h1>Resumen de venta</h1>
+        <div id="accordion" <?php echo $ediciones_style;?>>
+          <p>
+            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Historial de ediciones</button>
+          </p>
+          <div class="form-group">
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <?php
+                // echo '<pre>';
+                // print_r($historial_ediciones);
+                // echo '</pre>';
+                $tratamientosAplicados = $historial_ediciones;
+                echo "<ul class='list-group'>";
+                  foreach($tratamientosAplicados as $d){
+                    echo '<div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">'.$d['tipo_edicion'].'</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Antes:<br>'.$d['antes'].'</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Después:<br>'.$d['despues'].'</h6>
+                            <span class="badge bg-warning rounded-pill">'.date('Y-m-d H:i:s', $d['timestamp_edicion']).'</span>
+                          </div>
+                        </div>';
+                  }
+                  echo "</ul>";
+                ?>
+              </div>
+            </div>
+          </div>
+          </div>
           <div class="form-group">
             <table class='table table-borderless' style='table-layout: fixed;'>
               <tbody>
