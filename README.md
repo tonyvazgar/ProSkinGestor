@@ -1,6 +1,6 @@
 # Main Branch (Producción)
 Última versión: <b>1.0.5</b><br>
-Fecha: <b>21-Agosto-2021</b><br>
+Fecha: <b>09-Septiembre-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -33,4 +33,4 @@ Fecha: <b>21-Agosto-2021</b><br>
  
  
 <h4>Previous commit en producción:</h4>
-<i>618c2928914e26a195a912068de68039816b3c4a</i>
+<i>23bef9f352bdf918f82ec1cfc34e8857c106806f</i>

@@ -26,8 +26,11 @@
         $id_producto = mysqli_real_escape_string($con, $_POST['id']);
         $cantidad    = mysqli_real_escape_string($con, $_POST['stockDisponible']);
         $id_centro   = mysqli_real_escape_string($con, $_POST['idSucursal']);
+        $descripcion = mysqli_real_escape_string($con, $_POST['descripcion']);
+        $presentacion= mysqli_real_escape_string($con, $_POST['presentacion']);
+        $precio      = mysqli_real_escape_string($con, $_POST['precio']);
 
-        $ModelProducto -> updateStockProducto($id_producto, $cantidad, $id_centro);
+        $ModelProducto -> updateInformacionProducto($id_producto, $cantidad, $id_centro, $descripcion, $presentacion, $precio);
         header("Location: ../../View/Inventario/detallesProducto.php?id={$id_producto}");
         // print_r($_POST);
     }
