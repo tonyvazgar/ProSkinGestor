@@ -24,10 +24,19 @@ $(document).ready(function () {
     });
     //agregarStock
     $(document).on('click', "#agregarStock", function () {
+        $('#descripcionLbl').hide();
+        $('#presentacionLbl').hide();
+        $('#precioLbl').hide();
         $('#stockDisponibleLbl').hide();
         $('#stockDisponible').show();
         $('#cancelarAgregarStock').show();
         //
+        $('#descripcion').show();
+        $('#descripcion').attr("readonly", false); 
+        $('#presentacion').show();
+        $('#presentacion').attr("readonly", false); 
+        $('#precio').show();
+        $('#precio').attr("readonly", false); 
         $('#stockDisponible').attr("readonly", false); 
         $('#agregarStock').hide();
         $('#agregarStockSubmit').show();

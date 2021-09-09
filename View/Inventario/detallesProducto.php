@@ -29,7 +29,7 @@
         $infoProducto = $ModelProducto->getProductoWereID($id, $id_sucursal);
     ?>
     <main role="main" class="container">
-        <form action="detallesProducto.php" method="POST" autocomplete="" onsubmit="return confirm('¿Estás seguro de modificar el inventario?');">
+        <form action="detallesProducto.php" method="POST" autocomplete="" onsubmit="return confirm('¿Estás seguro de modificar la información de este producto?');">
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
@@ -68,25 +68,25 @@
                 <div class="row">
                     <div class="col-sm">
                         <h4>Descripción</h4>
-                        <p class="lead">
+                        <p class="lead" id="descripcionLbl">
                             <em><?php echo $infoProducto['descripcion_producto'];?></em></p>
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'" .$infoProducto['descripcion_producto']."'";?> hidden readonly>
+                            <textarea type="text" class="form-control" id="descripcion" name="descripcion" style="display: none;" readonly><?php echo $infoProducto['descripcion_producto'];?></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
                         <h4>Presentación</h4>
-                            <p class="lead">
+                            <p class="lead" id="presentacionLbl">
                                 <?php echo $infoProducto['presentacion_producto'];?>
                             </p>
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> hidden readonly>
+                            <input type="text" class="form-control" id="presentacion" name="presentacion" value=<?php echo "'".$infoProducto['presentacion_producto']."'";?> style="display: none;" readonly>
                     </div>
                     <div class="col-sm">
                         <h4>Precio</h4>
-                        <p class="lead">
+                        <p class="lead" id="precioLbl">
                             <?php echo "$".number_format($infoProducto['costo_unitario_producto']);?>
                         </p>
-                        <input type="text" class="form-control" id="email" name="email" value=<?php echo $infoProducto['costo_unitario_producto'];?> hidden readonly>
+                        <input type="number" class="form-control" id="precio" name="precio" value=<?php echo $infoProducto['costo_unitario_producto'];?> style="display: none;" readonly>
                     </div>
                     <div class="col-sm">
                         <h4>Unidades disponibles</h4>
@@ -100,8 +100,8 @@
                 <div class="text-center">
                     <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
                     <button type="button" id="cancelarAgregarStock" name="cancelarAgregarStock" class="btn btn-danger" style="display: none;">Cancelar</button>
-                    <button type="button" id="agregarStock" name="agregarStock" class="btn btn-info">Modificar Stock</button>
-                    <button type="submit" id="agregarStockSubmit" name="agregarStockSubmit" class="btn btn-success" style="display: none;">Confirmar Stock</button>
+                    <button type="button" id="agregarStock" name="agregarStock" class="btn btn-info">Modificar Información</button>
+                    <button type="submit" id="agregarStockSubmit" name="agregarStockSubmit" class="btn btn-success" style="display: none;">Confirmar Modificación</button>
                 </div>
         </form>
     </main>
