@@ -58,11 +58,12 @@
                 $tratamientosAplicados = $historial_ediciones;
                 echo "<ul class='list-group'>";
                   foreach($tratamientosAplicados as $d){
+                    $asd = getDiferenciaDeEdicion($d['antes'], $d['despues'], $d['tipo_edicion']);
                     echo '<div class="card">
                           <div class="card-body">
-                            <h5 class="card-title">'.$d['tipo_edicion'].'</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Antes:<br>'.$d['antes'].'</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Después:<br>'.$d['despues'].'</h6>
+                            <h5 class="card-title">'.$d['tipo_edicion'].'-'.$asd[0].'</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Antes:<br>'.$asd[1].'</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Después:<br>'.$asd[2].'</h6>
                             <span class="badge bg-warning rounded-pill">'.date('Y-m-d H:i:s', $d['timestamp_edicion']).'</span>
                           </div>
                         </div>';

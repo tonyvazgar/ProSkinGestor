@@ -314,4 +314,44 @@
                 "referencia_pago" => $referencia_pago,
                 "total_noFormat" => $total];
     }
+
+    function getDiferenciaDeEdicion($antes, $despues, $tipo){
+        //Enter your code here, enjoy!
+        // Your code here!
+        $a = '[{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"}]';
+        $b = '[{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"}]';
+        
+
+        $array1 = json_decode($antes, true);
+        $array2 = json_decode($despues, true);
+
+        if($tipo == 'Pago' || $tipo == 'Producto'){
+            $array1 = array_unique($array1);
+            $array2 = array_unique($array2);
+            $resultado_antes = array_diff_assoc($array1[0], $array2[0]);
+            $resultado_despues = array_diff_assoc($array2[0], $array1[0]);
+            // print_r(array_diff_assoc($array1[0], $array2[0]));
+            // return array_diff_assoc($array2[0], $array1[0]);
+            if($tipo == 'Pago'){
+                return ['', json_encode($resultado_antes), json_encode($resultado_despues)];
+            }else{
+                return [$array2[0]['id_productos'], json_encode($resultado_antes), json_encode($resultado_despues)];
+            }
+        }else{
+            $nombre = '';
+            $resultado_antes = [];
+            $resultado_despues = [];
+            $size = sizeof($array1);
+            for($a = 0; $a < $size; $a++){
+                $nombre = $array2[0][0]['id_tratamiento'];
+                // print_r(array_diff_assoc($array1[$a][0], $array2[$a][0]));
+                array_push($resultado_antes, array_diff_assoc($array1[$a][0], $array2[$a][0]));
+                // array_push($ans, array_diff_assoc($array2[$a][0], $array1[$a][0]));
+                // print_r($array2[$a][0]);
+                array_push($resultado_despues, array_diff_assoc($array2[$a][0], $array1[$a][0]));
+            }
+            // return $ans;
+            return [$nombre, json_encode($resultado_antes), json_encode($resultado_despues)];
+        }
+    }
 ?>
