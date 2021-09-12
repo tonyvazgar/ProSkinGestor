@@ -318,7 +318,7 @@
     function getDiferenciaDeEdicion($antes, $despues, $tipo){
         //Enter your code here, enjoy!
         // Your code here!
-        $a = '[{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"},{"metodo_pago":2,"referencia_pago":"iojhkhh"}]';
+        $a = '[[{"id_tratamiento":"CAV01","monto":"400","costo_tratamiento":"400"}],[],[{"comentarios":"Ya se edito"}]]';
         $b = '[{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"}]';
         
 
@@ -326,18 +326,43 @@
         $array2 = json_decode($despues, true);
 
         if($tipo == 'Pago' || $tipo == 'Producto'){
-            $array1 = array_unique($array1);
-            $array2 = array_unique($array2);
-            $resultado_antes = array_diff_assoc($array1[0], $array2[0]);
-            $resultado_despues = array_diff_assoc($array2[0], $array1[0]);
-            // print_r(array_diff_assoc($array1[0], $array2[0]));
-            // return array_diff_assoc($array2[0], $array1[0]);
-            if($tipo == 'Pago'){
-                return ['', json_encode($resultado_antes), json_encode($resultado_despues)];
+            if(!empty($array2)){
+                $array1 = array_unique($array1);
+                $array2 = array_unique($array2);
+                $resultado_antes = array_diff_assoc($array1[0], $array2[0]);
+                $resultado_despues = array_diff_assoc($array2[0], $array1[0]);
+                // print_r('Antes: ');
+                // print_r($resultado_antes);
+                // print_r('<br>');
+                // print_r('Despues: ');
+                // print_r($resultado_despues);
+                // return array_diff_assoc($array2[0], $array1[0]);
+                if($tipo == 'Pago'){
+                    print_r(JSONtoString(json_encode($resultado_antes)));
+            
+                    print_r('<br>---------------------<br>');
+            
+                    print_r(JSONtoString(json_encode($resultado_despues)));
+                    return ['', json_encode($resultado_antes), json_encode($resultado_despues)];
+                }else{
+                    print_r(JSONtoString(json_encode($resultado_antes)));
+            
+                    print_r('<br>---------------------<br>');
+            
+                    print_r(JSONtoString(json_encode($resultado_despues)));
+                    return [$array2[0]['id_productos'], json_encode($resultado_antes), json_encode($resultado_despues)];
+                }
             }else{
-                return [$array2[0]['id_productos'], json_encode($resultado_antes), json_encode($resultado_despues)];
+
+                print_r(JSONtoString($antes));
+            
+                print_r('<br>---------------------<br>');
+        
+                print_r(JSONtoString($despues));
+                return [$array1[0]['id_productos'], $antes, $despues];
             }
         }else{
+            if(!empty($array2)){
             $nombre = '';
             $resultado_antes = [];
             $resultado_despues = [];
@@ -350,8 +375,49 @@
                 // print_r($array2[$a][0]);
                 array_push($resultado_despues, array_diff_assoc($array2[$a][0], $array1[$a][0]));
             }
-            // return $ans;
+
+            print_r(JSONtoString(json_encode($resultado_antes)));
+            
+            print_r('<br>---------------------<br>');
+    
+            print_r(JSONtoString(json_encode($resultado_despues)));
             return [$nombre, json_encode($resultado_antes), json_encode($resultado_despues)];
+            }else{
+
+                print_r(JSONtoString($antes));
+            
+                print_r('<br>---------------------<br>');
+        
+                print_r(JSONtoString($despues));
+                return [$array1[0][0]['id_tratamiento'], $antes, $despues];
+            }
+            
         }
+    }
+
+    function JSONtoString($json){
+        
+        $array = json_decode($json, true);
+        $ans = '';
+        foreach($array as $arreglo => $valor){
+            if(is_array($valor)){
+                foreach($valor as $a => $v){
+                    if(is_array($v)){
+                        foreach($v as $d => $f){
+                            if(is_array($f)){
+                                $ans .= $d.' -> '.$f.' | ';
+                            }else{
+                                $ans .= $d.' -> '.$f.' | ';
+                            }
+                        }
+                    }else{
+                        $ans .= $a.' -> '.$v.' | ';
+                    }
+                }
+            }else{
+                $ans .= $arreglo.' -> '.$valor.' | ';
+            }
+        }
+        return $ans;
     }
 ?>

@@ -98,7 +98,7 @@
                           <option value='5'>Cheque de regalo</option>
                       </select>
                       <input class="form-control" name="referenciaInput" id="referenciaInput" placeholder=<?php echo "'Referencia #".$divisionProductosTratamientos['referencia_pago']."'";?> type="text" value=<?php echo "'".$divisionProductosTratamientos['referencia_pago']."'";?>>
-                      <button type="submit" class='form-control btn-success' id="editarMetodoPagoSubmit" name="editarMetodoPagoSubmit" id='editarMetodoPagoSubmit'>Confirmar</button>
+                      <button type="submit" class='form-control btn-success' id="editarMetodoPagoSubmit" name="editarMetodoPagoSubmit" id='editarMetodoPagoSubmit'  onclick='return confirm("¿Estás seguro de editar el método de pago/transferencia?")'>Confirmar</button>
                       <button type='button' id='cancelarMetodoPagoButton' class='form-control btn-warning'>Cancelar</button>
                     </form>
                   </td>
@@ -208,6 +208,8 @@
                                 $nombre_zona = $ModelTratamiento -> getNombreZonaCuerpoWhereID($num_zona)['nombre_zona'];
                                 array_push($str_zonas, $nombre_zona);
                               }
+                            }else{
+                              $array_zonas = [];
                             }
                             // print_r($str_zonas);
 

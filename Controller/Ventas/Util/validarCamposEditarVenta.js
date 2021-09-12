@@ -67,7 +67,7 @@ $(document).on('click', "#eliminarProductoButton", function () {
         $.ajax({
             type: "POST",
             url: "../../Controller/Ventas/AJAX_elminar_producto.php",
-            data: "id_producto=" + $('#idProducto.form-control' + clase).val() + "&id_venta=" + $('#idCliente.form-control' + clase).val() + "&stock=" + $('#cantidadProducto.form-control' + clase).val(),
+            data: "id_producto=" + $('#idProducto.form-control' + clase).val() + "&id_venta=" + $('#idCliente.form-control' + clase).val() + "&stock=" + $('#cantidadProducto.form-control' + clase).val() + "&timestamp=" + $('#timeStamp.form-control' + clase).val(),
             success: function (r) {
                 if (r == '1') {
                     location.reload();
