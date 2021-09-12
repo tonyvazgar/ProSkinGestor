@@ -99,33 +99,27 @@ $(document).on('click', "#cancelarProductoButton", function () {
 });
 
 $(document).on('keyup', '#precioUnitarioProducto', function () {
-    // alert($(this).val());
+    var clase = $(this).attr('class').replace('form-control ','.');
+    
+    let precioUnitario      = parseFloat($(this).val());
+    let cantidad            = parseInt($('#cantidadProducto'+clase).val());
 
-    // $(this).parent().closest('#cantidadProducto').hide();
-    // let unidadesDisponibles = parseInt($('#stock_producto_seleccionado.last_producto').val());
-    // let precioUnitario      = parseFloat($('#precioUnitario_producto_seleccionado.last_producto').val());
-    // let cantidad            = parseInt($('#cantidad_producto_seleccionado.last_producto').val());
+    var total               = parseFloat(precioUnitario * cantidad);
+    total                   = isNaN(total) ? 0 : total.toFixed(2);
 
-    // var total               = parseFloat(precioUnitario * cantidad);
-    // total                   = isNaN(total) ? 0 : total.toFixed(2);
-
-    // if(cantidad <= unidadesDisponibles && cantidad > 0){
-    //     $("#cantidad_producto_seleccionado.last_producto").css("border", "2px solid green");
-    //     $("#venderProducto").show();
-    //     $("#btn-apartar-producto.last_producto").attr('disabled', false);
-    // }else{
-    //     $("#cantidad_producto_seleccionado.last_producto").css("border", "2px solid red");
-    //     $("#venderProducto").hide();
-    //     $("#btn-apartar-producto.last_producto").attr('disabled', true);
-    // }
-    // $('#total_producto_seleccionado.last_producto').val(total);
-    // $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+    $('#precioTotalProducto'+clase).val(total);
 });
 
 $(document).on('keyup', '#cantidadProducto', function () {
-    // alert($(this).val());
+    var clase = $(this).attr('class').replace('form-control ','.');
 
-    // $(this).closest('#precioTotalProducto').hide();
+    let precioUnitario      = parseFloat($('#precioUnitarioProducto'+clase).val());
+    let cantidad            = parseInt($(this).val());
+
+    var total               = parseFloat(precioUnitario * cantidad);
+    total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+    $('#precioTotalProducto'+clase).val(total);
 });
 
 $(document).on('keyup', '#precioTotalProducto', function () {

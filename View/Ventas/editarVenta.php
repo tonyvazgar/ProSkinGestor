@@ -86,7 +86,7 @@
                         </p>
                       </p>
                     </div>
-                    <form action="editarVenta.php" method="post" style='display: none;' id='metodoPagoForm'>
+                    <form action="editarVenta.php" method="post" style='display: none;' id='metodoPagoForm' autocomplete="off">
                       <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $divisionProductosTratamientos['id_venta'];?> hidden readonly>
                       <input type="text" class="form-control" id="timeStamp" name="timeStamp" value=<?php echo $detalles[0]['timestamp'];?> hidden readonly>
                       <select name='metodoPago' id='metodoPago' class='form-control'>
@@ -97,7 +97,7 @@
                           <option value='4'>Transferencia</option>
                           <option value='5'>Cheque de regalo</option>
                       </select>
-                      <input class="form-control" name="referenciaInput" id="referenciaInput" placeholder=<?php echo "'Referencia #".$divisionProductosTratamientos['referencia_pago']."'";?> type="text" value=<?php echo "'".$divisionProductosTratamientos['referencia_pago']."'";?>>
+                      <input class="form-control" name="referenciaInput" id="referenciaInput" placeholder=<?php echo "'Referencia #".$divisionProductosTratamientos['referencia_pago']."'";?> type="text" value=<?php echo "'".$divisionProductosTratamientos['referencia_pago']."'";?> autocomplete="off">
                       <button type="submit" class='form-control btn-success' id="editarMetodoPagoSubmit" name="editarMetodoPagoSubmit" id='editarMetodoPagoSubmit'  onclick='return confirm("¿Estás seguro de editar el método de pago/transferencia?")'>Confirmar</button>
                       <button type='button' id='cancelarMetodoPagoButton' class='form-control btn-warning'>Cancelar</button>
                     </form>
@@ -158,18 +158,18 @@
                                     </div>
 
                                     <div class="card-body Producto'.$numero_de_producto.'" style="display: none;" id="infoProductoForm">
-                                      <form action="editarVenta.php" method="post">
+                                      <form action="editarVenta.php" method="post" autocomplete="off">
                                         <input type="text" class="form-control Producto'.$numero_de_producto.'" id="idCliente" name="idCliente" value="'.$divisionProductosTratamientos['id_venta'].'" hidden readonly>
                                         <input type="text" class="form-control Producto'.$numero_de_producto.'" id="timeStamp" name="timeStamp" value="'.$detalles[0]['timestamp'].'" hidden readonly>
                                         <input type="text" class="form-control Producto'.$numero_de_producto.'" id="idProducto" name="idProducto" value="'.$prod[0].'" hidden readonly>
 
                                         <h5 class="card-title ">'.$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto'].'</h5>
                                         <label>Precio Unitario:</label>
-                                        <input class="form-control Producto'.$numero_de_producto.'" name="precioUnitarioProducto" id="precioUnitarioProducto" type="number" step=".01" value="'.$prod[3].'">
+                                        <input class="form-control Producto'.$numero_de_producto.'" name="precioUnitarioProducto" id="precioUnitarioProducto" type="number" step=".01" value="'.$prod[3].'" autocomplete="off">
                                         <label>Cantidad:</label>
-                                        <input class="form-control Producto'.$numero_de_producto.'" name="cantidadProducto" id="cantidadProducto" type="number" step=".01" value="'.$prod[4].'">
+                                        <input class="form-control Producto'.$numero_de_producto.'" name="cantidadProducto" id="cantidadProducto" type="number" step=".01" value="'.$prod[4].'" autocomplete="off">
                                         <label>Total:</label>
-                                        <input class="form-control Producto'.$numero_de_producto.'" name="precioTotalProducto" id="precioTotalProducto" type="number" step=".01" value="'.$prod[2].'">
+                                        <input class="form-control Producto'.$numero_de_producto.'" name="precioTotalProducto" id="precioTotalProducto" type="number" step=".01" value="'.$prod[2].'" autocomplete="off">
 
 
                                         <button type="submit" class="form-control btn-success Producto'.$numero_de_producto.'" id="editarProductoSubmit" name="editarProductoSubmit" id="editarProductoSubmit" onclick="return confirm(\'¿Estás seguro de editar este producto?\')">Confirmar</button>
@@ -229,7 +229,7 @@
                                       </div>
   
                                       <div class="card-body Tratamiento'.$numero_de_tratamiento.'" style="display: none;" id="infoTratamientoForm">
-                                        <form action="editarVenta.php" method="post">
+                                        <form action="editarVenta.php" method="post" autocomplete="off">
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idVenta" name="idVenta" value="'.$divisionProductosTratamientos['id_venta'].'" hidden readonly>
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="timeStamp" name="timeStamp" value="'.$informacion_gral_tratamiento['timestamp'].'" hidden readonly>
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idTratamiento" name="idTratamiento" value="'.$trat[0].'" hidden readonly>
@@ -237,11 +237,11 @@
                                           <h5 class="card-title ">'.$ModelTratamiento->getNombreTratamientoWhereID($trat[0]).'</h5>
                                           <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
                                           <label>Número de zonas:</label>
-                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="numZonasTratamiento" id="numZonasTratamiento" type="number" step=".01" value="'.$numeroDeZonas.'">
+                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="numZonasTratamiento" id="numZonasTratamiento" type="number" step=".01" value="'.$numeroDeZonas.'" autocomplete="off">
                                           <label>Precio:</label>
-                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'">
+                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'" autocomplete="off">
                                           <label>Comentarios:</label>
-                                          <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
+                                          <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento" autocomplete="off">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
                                           
                                           <label>Zonas del cuerpo:</label><div>';
 
@@ -272,7 +272,7 @@
                                       </div>
   
                                       <div class="card-body Tratamiento'.$numero_de_tratamiento.'" style="display: none;" id="infoTratamientoForm">
-                                        <form action="editarVenta.php" method="post">
+                                        <form action="editarVenta.php" method="post" autocomplete="off">
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idVenta" name="idVenta" value="'.$divisionProductosTratamientos['id_venta'].'" hidden readonly>
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="timeStamp" name="timeStamp" value="'.$informacion_gral_tratamiento['timestamp'].'" hidden readonly>
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idTratamiento" name="idTratamiento" value="'.$trat[0].'" hidden readonly>
@@ -281,9 +281,9 @@
                                           <h6 class="card-subtitle mb-2 text-muted">'.implode(", ", $str_zonas).'</h6>
                                           
                                           <label>Precio:</label>
-                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'">
+                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'" autocomplete="off">
                                           <label>Comentarios:</label>
-                                          <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
+                                          <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento" autocomplete="off">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
                                           
                                           <label>Zonas del cuerpo:</label><div>';
 
@@ -314,7 +314,7 @@
                                       </div>
   
                                       <div class="card-body Tratamiento'.$numero_de_tratamiento.'" style="display: none;" id="infoTratamientoForm">
-                                        <form action="" method="post">
+                                        <form action="" method="post" autocomplete="off">
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idVenta" name="idVenta" value="'.$divisionProductosTratamientos['id_venta'].'" hidden readonly>
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="timeStamp" name="timeStamp" value="'.$informacion_gral_tratamiento['timestamp'].'" hidden readonly>
                                           <input type="text" class="form-control Tratamiento'.$numero_de_tratamiento.'" id="idTratamiento" name="idTratamiento" value="'.$trat[0].'" hidden readonly>
@@ -322,9 +322,9 @@
                                           <h5 class="card-title ">'.$ModelTratamiento->getNombreTratamientoWhereID($trat[0]).'</h5>
                                           
                                           <label>Precio:</label>
-                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'">
+                                          <input class="form-control Tratamiento'.$numero_de_tratamiento.'" name="precioTratamiento" id="precioTratamiento" type="number" step=".01" value="'.$trat[3].'" autocomplete="off">
                                           <label>Comentarios:</label>
-                                          <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
+                                          <textarea class="form-control Tratamiento'.$numero_de_tratamiento.'" name="comentarioTratamiento" id="comentarioTratamiento" cols="30" rows="2" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento" autocomplete="off">'.$informacion_gral_tratamiento['comentarios'].'</textarea>
 
   
                                           <button type="submit" class="form-control btn-success Tratamiento'.$numero_de_tratamiento.'" id="editarTratamientoSubmit" name="editarTratamientoSubmit" id="editarTratamientoSubmit" onclick="return confirm(\'¿Estás seguro de editar este tratamiento?\')">Confirmar</button>
