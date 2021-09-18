@@ -7,6 +7,17 @@
             return $tratamientos;
         }
 
+        function getListaTratamientosConPrecio(){
+            // SELECT Tratamiento.nombre_tratamiento, TratamientoPrecio.precio FROM TratamientoPrecio, Tratamiento WHERE Tratamiento.id_tratamiento = TratamientoPrecio.id_tratamiento ORDER BY nombre_tratamiento ASC
+            $db = new DB();
+            $tratamientos = $db->query('SELECT Tratamiento.nombre_tratamiento, TratamientoPrecio.precio 
+                                        FROM TratamientoPrecio, Tratamiento 
+                                        WHERE Tratamiento.id_tratamiento = TratamientoPrecio.id_tratamiento 
+                                        ORDER BY nombre_tratamiento ASC')->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
         function getPrecioTratamiento($id_tratamiento){
             $db = new DB();
             //SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = 'ACN10'

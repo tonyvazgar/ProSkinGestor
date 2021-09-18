@@ -58,10 +58,17 @@
                 $tratamientosAplicados = $historial_ediciones;
                 echo "<ul class='list-group'>";
                   foreach($tratamientosAplicados as $d){
-                    $asd = getDiferenciaDeEdicion($d['antes'], $d['despues'], $d['tipo_edicion']);
+                    $tipo_edicion = $d['tipo_edicion'];
+                    $asd = getDiferenciaDeEdicion($d['antes'], $d['despues'], $tipo_edicion);
+                    $nombre_general = '';
+                    if($tipo_edicion == 'Tratamiento'){
+                      $nombre_general = '-'.$ModeloVenta->getNombreTratamientoDeVenta($asd[0]);
+                    }elseif($tipo_edicion == 'Producto'){
+                      $nombre_general = '-'.$ModeloVenta->getNombreProductoDeVenta($asd[0]);
+                    }
                     echo '<div class="card">
                           <div class="card-body">
-                            <h5 class="card-title">'.$d['tipo_edicion'].'-'.$asd[0].'</h5>
+                            <h5 class="card-title">'.$tipo_edicion.$nombre_general.'</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Antes:<br>'.$asd[1].'</h6>
                             <h6 class="card-subtitle mb-2 text-muted">Después:<br>'.$asd[2].'</h6>
                             <span class="badge bg-warning rounded-pill">'.date('Y-m-d H:i:s', $d['timestamp_edicion']).'</span>

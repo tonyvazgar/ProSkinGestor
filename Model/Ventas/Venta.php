@@ -12,6 +12,22 @@
             return $account;
         }
 
+        public function getNombreTratamientoDeVenta($id_tratamiento){
+            $db = new Db();
+            $sql_statement = "SELECT Tratamiento.nombre_tratamiento FROM Tratamiento WHERE id_tratamiento='$id_tratamiento'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account['nombre_tratamiento'];
+        }
+
+        public function getNombreProductoDeVenta($id_producto){
+            $db = new Db();
+            $sql_statement = "SELECT Productos.descripcion_producto FROM Productos WHERE id_producto='$id_producto'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account['descripcion_producto'];
+        }
+
         public function getVentaFromDetallesEdicionVenta($id_venta){
             $db = new Db();
             $sql_statement = "SELECT * FROM `DetallesEdicionVenta` WHERE id_venta='$id_venta'";
@@ -316,87 +332,63 @@
     }
 
     function getDiferenciaDeEdicion($antes, $despues, $tipo){
-        //Enter your code here, enjoy!
-        // Your code here!
-        $a = '[[{"id_tratamiento":"CAV01","monto":"400","costo_tratamiento":"400"}],[],[{"comentarios":"Ya se edito"}]]';
-        $b = '[{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"},{"metodo_pago":4,"referencia_pago":"iojhkhh"}]';
-        
 
-        $array1 = json_decode($antes, true);
-        $array2 = json_decode($despues, true);
+        $zonas_cuerpo_array = [ '**TODO EL CUERPO**' => 23, 'Abdomen' => 17, 'Antebrazos' => 3, 'Axilas' => 2, 'Brazos' => 4, 'Entrecejo' => 12, 'Espalda' => 18, 'Frente' => 13, 'Glúteos' => 10, 'Hombro' => 19, 'Ingles' => 7, 'LSMP' => 24, 'Labio Superior' => 14, 'Lumbares' => 21, 'Manos' => 5, 'Mentón' => 16, 'Muslo' => 8, 'Nuca' => 20, 'Orejas' => 22, 'Patillas' => 15, 'Pecho' => 1, 'Pierna' => 9, 'Pubis' => 6, 'Zona Alba' => 11 ];
+
+        $array_antes = json_decode($antes, true);
+        $array_despues = json_decode($despues, true);
 
         if($tipo == 'Pago' || $tipo == 'Producto'){
-            if(!empty($array2)){
-                $array1 = array_unique($array1);
-                $array2 = array_unique($array2);
-                $resultado_antes = array_diff_assoc($array1[0], $array2[0]);
-                $resultado_despues = array_diff_assoc($array2[0], $array1[0]);
-                // print_r('Antes: ');
-                // print_r($resultado_antes);
-                // print_r('<br>');
-                // print_r('Despues: ');
-                // print_r($resultado_despues);
-                // return array_diff_assoc($array2[0], $array1[0]);
+            if(!empty($array_despues)){
+                $array_antes = array_unique($array_antes);
+                $array_despues = array_unique($array_despues);
+                $resultado_antes = array_diff_assoc($array_antes[0], $array_despues[0]);
+                $resultado_despues = array_diff_assoc($array_despues[0], $array_antes[0]);
+                
                 if($tipo == 'Pago'){
-                    print_r(JSONtoString(json_encode($resultado_antes)));
-            
-                    print_r('<br>---------------------<br>');
-            
-                    print_r(JSONtoString(json_encode($resultado_despues)));
-                    return ['', json_encode($resultado_antes), json_encode($resultado_despues)];
+                    return ['', JSONtoString(json_encode($resultado_antes)), JSONtoString(json_encode($resultado_despues))];
                 }else{
-                    print_r(JSONtoString(json_encode($resultado_antes)));
-            
-                    print_r('<br>---------------------<br>');
-            
-                    print_r(JSONtoString(json_encode($resultado_despues)));
-                    return [$array2[0]['id_productos'], json_encode($resultado_antes), json_encode($resultado_despues)];
+                    return [$array_despues[0]['id_productos'], JSONtoString(json_encode($resultado_antes)), JSONtoString(json_encode($resultado_despues))];
                 }
             }else{
-
-                print_r(JSONtoString($antes));
-            
-                print_r('<br>---------------------<br>');
-        
-                print_r(JSONtoString($despues));
-                return [$array1[0]['id_productos'], $antes, $despues];
+                return [$array_antes[0]['id_productos'], JSONtoString($antes), "**** Eliminado ****"];
             }
         }else{
-            if(!empty($array2)){
-            $nombre = '';
-            $resultado_antes = [];
-            $resultado_despues = [];
-            $size = sizeof($array1);
-            for($a = 0; $a < $size; $a++){
-                $nombre = $array2[0][0]['id_tratamiento'];
-                // print_r(array_diff_assoc($array1[$a][0], $array2[$a][0]));
-                array_push($resultado_antes, array_diff_assoc($array1[$a][0], $array2[$a][0]));
-                // array_push($ans, array_diff_assoc($array2[$a][0], $array1[$a][0]));
-                // print_r($array2[$a][0]);
-                array_push($resultado_despues, array_diff_assoc($array2[$a][0], $array1[$a][0]));
-            }
-
-            print_r(JSONtoString(json_encode($resultado_antes)));
-            
-            print_r('<br>---------------------<br>');
-    
-            print_r(JSONtoString(json_encode($resultado_despues)));
-            return [$nombre, json_encode($resultado_antes), json_encode($resultado_despues)];
+            if(!empty($array_despues)){
+                $nombre = '';
+                $resultado_antes = [];
+                $resultado_despues = [];
+                $size = sizeof($array_antes);
+                for($a = 0; $a < $size; $a++){
+                    $nombre = $array_despues[0][0]['id_tratamiento'];
+                    if (array_key_exists('zona', $array_antes[$a][0])) {
+                        $zonas = explode(",", $array_antes[$a][0]['zona']);
+                        $string_de_zonas = '';
+                        foreach($zonas as $zona){
+                            $string_de_zonas .= array_search ($zona, $zonas_cuerpo_array).",";
+                        }
+                        $array_antes[$a][0]['zona'] = $string_de_zonas;
+                    }
+                    if (array_key_exists('zona', $array_despues[$a][0])) {
+                        $zonas = explode(",", $array_despues[$a][0]['zona']);
+                        $string_de_zonas = '';
+                        foreach($zonas as $zona){
+                            $string_de_zonas .= array_search ($zona, $zonas_cuerpo_array).",";
+                        }
+                        $array_despues[$a][0]['zona'] = $string_de_zonas;
+                    }
+                    array_push($resultado_antes, array_diff_assoc($array_antes[$a][0], $array_despues[$a][0]));
+                    array_push($resultado_despues, array_diff_assoc($array_despues[$a][0], $array_antes[$a][0]));
+                }
+                return [$nombre, JSONtoString(json_encode($resultado_antes)), JSONtoString(json_encode($resultado_despues))];
             }else{
-
-                print_r(JSONtoString($antes));
-            
-                print_r('<br>---------------------<br>');
-        
-                print_r(JSONtoString($despues));
-                return [$array1[0][0]['id_tratamiento'], $antes, $despues];
+                return [$array_antes[0][0]['id_tratamiento'], JSONtoString($antes), "**** Eliminado ****"];
             }
             
         }
     }
 
     function JSONtoString($json){
-        
         $array = json_decode($json, true);
         $ans = '';
         foreach($array as $arreglo => $valor){
