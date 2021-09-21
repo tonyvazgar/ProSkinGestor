@@ -25,6 +25,18 @@
             return $account->affectedRows();
         }
 
+        function updateInformacionProducto($id_producto, $nuevo_stock, $id_centro, $descripcion, $presentacion, $precio){
+            $db = new DB();
+            $sql_statement = "UPDATE `Productos`
+                              SET `stock_disponible_producto` = '$nuevo_stock', `descripcion_producto`='$descripcion', `presentacion_producto`='$presentacion', `costo_unitario_producto`='$precio'
+                              WHERE `Productos`.`id_producto` = '$id_producto'
+                              AND `Productos`.`centro_producto` = '$id_centro';";
+
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
         public function generateIdProducto($nombre_producto){
             $substr = strtoupper(substr($nombre_producto, 0, 3));
             $siguienteNumeroParaID = $this->getNumProductosParaID()['numProductos'] + 1;
@@ -190,6 +202,17 @@
             $db->close();
             return $account;
         }
+
+        public function getStockProducto($id_producto, $id_centro){
+            $db = new Db();
+            $sql_statement = "SELECT Productos.stock_disponible_producto 
+                              FROM Productos 
+                              WHERE Productos.id_producto='$id_producto' AND Productos.centro_producto='$id_centro'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account['stock_disponible_producto'];
+        }
+
         //-----------------------------------------------------------------------------------------------
     }
 

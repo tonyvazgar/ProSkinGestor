@@ -7,13 +7,44 @@
             return $tratamientos;
         }
 
+        function getListaTratamientosConPrecio(){
+            // SELECT Tratamiento.nombre_tratamiento, TratamientoPrecio.precio FROM TratamientoPrecio, Tratamiento WHERE Tratamiento.id_tratamiento = TratamientoPrecio.id_tratamiento ORDER BY nombre_tratamiento ASC
+            $db = new DB();
+            $tratamientos = $db->query('SELECT Tratamiento.nombre_tratamiento, TratamientoPrecio.precio 
+                                        FROM TratamientoPrecio, Tratamiento 
+                                        WHERE Tratamiento.id_tratamiento = TratamientoPrecio.id_tratamiento 
+                                        ORDER BY nombre_tratamiento ASC')->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
         function getPrecioTratamiento($id_tratamiento){
             $db = new DB();
             //SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = 'ACN10'
             $tratamientos = $db->query("SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = '$id_tratamiento'")->fetchAll();
             $db->close();
             return $tratamientos;
+        }
 
+        function getNombreTratamientoWhereID($id_tratamiento){
+            $db = new DB();
+            // SELECT Tratamiento.nombre_tratamiento FROM Tratamiento WHERE id_tratamiento='CAV01'
+            $tratamientos = $db->query("SELECT Tratamiento.nombre_tratamiento FROM Tratamiento WHERE id_tratamiento='$id_tratamiento'")->fetchArray();
+            $db->close();
+            return $tratamientos['nombre_tratamiento'];
+        }
+
+        function getNumDeZonasDepilacionFromClienteWhere($id_cliente, $timestamp){
+            //SELECT * FROM ClienteTratamientoEspecial WHERE ClienteTratamientoEspecial.id_cliente='PVR21071629' AND ClienteTratamientoEspecial.nombre_tratamiento='DEP01' AND ClienteTratamientoEspecial.timestamp='1629558445'
+
+            $db = new DB();
+            $tratamientos = $db->query("SELECT ClienteTratamientoEspecial.detalle_zona
+                                        FROM ClienteTratamientoEspecial 
+                                        WHERE ClienteTratamientoEspecial.id_cliente='$id_cliente' 
+                                        AND ClienteTratamientoEspecial.nombre_tratamiento='DEP01' 
+                                        AND ClienteTratamientoEspecial.timestamp='$timestamp'")->fetchArray();
+            $db->close();
+            return $tratamientos['detalle_zona'];
         }
 
         function getNombreZonaCuerpoWhereID($id_zona){
