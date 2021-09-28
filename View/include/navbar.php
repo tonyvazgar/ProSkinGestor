@@ -1,6 +1,10 @@
 <?php
 
-function getNavbar($name, $sucursal){
+function getNavbar($fecha, $name, $sucursal){
+    require_once("../../Model/Usuario/Usuario.php");
+    $ModelUsuario = new Usuario();
+    $id_centro = $ModelUsuario->getNumeroSucursalxNombre($sucursal);
+    
     echo "<nav class='navbar navbar-expand-lg navbar-light fixed-top' style='background-color: #f7d9d9;'>
                 <a class='navbar-brand' href='../index.php'>
                     <img src='../../View/img/logoProSkin.png' height='30' class='d-inline-block align-top' alt=''>
@@ -11,8 +15,9 @@ function getNavbar($name, $sucursal){
                     <span class='navbar-toggler-icon'></span>
                 </button>
                 <div class='collapse navbar-collapse' id='navbarNav'>
-                    <ul class='navbar-nav ml-auto'>
-                        <li class='nav-item'>
+                    <ul class='navbar-nav ml-auto'>";
+                    getBotonCorteCaja($fecha, $id_centro);
+                    echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Clientes'>Clientes</a>
                         </li>
                         <li class='nav-item'>
@@ -73,5 +78,15 @@ function getFooter(){
                     <span class='text-muted font-italic'>".getGitBranch()."==>[".getVersion()."]</span>
                 </div>
             </footer>";
+}
+function getBotonCorteCaja($fecha, $id_centro){
+    require_once("../../Model/Usuario/Usuario.php");
+    $ModelUsuario = new Usuario();
+    $corte = $ModelUsuario->existeCorteCaja($fecha, $id_centro);
+    if(!$corte){
+        echo "<li class='nav-item'>
+                <a href='../../View/Usuario/corteCaja.php' class='btn btn-success'>Cierre de caja</a>
+              </li>";
+    }
 }
 ?>

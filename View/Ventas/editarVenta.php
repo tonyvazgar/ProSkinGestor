@@ -33,8 +33,8 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
-        
-        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $fecha_para_corte_caja = date('Y-m-d');
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <div class="container">
         <h1>Edición de venta</h1>
