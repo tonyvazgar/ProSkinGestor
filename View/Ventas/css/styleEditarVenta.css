@@ -1,0 +1,41 @@
+#metodoPagoButton{
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    background-color: #f5c14f;
+    border-color: #f7d9d9;
+    padding: 10;
+    border: none;
+}
+#metodoPagoButton .fa-edit{
+    display: flex;
+    font-size: 20px;
+    text-align: center;
+    justify-content: center;
+}
+#metodoPagoButton:hover{
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+}
+#editarProductoButton, #editarTratamientoButton{
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    background-color: #f5c14f;
+    padding: 10;
+    border: none;
+}
+#eliminarProductoButton, #eliminarTratamientoButton{
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    background-color: red;
+    padding: 10;
+    border: none;
+}
+
+#editarProductoButton:hover, #eliminarProductoButton:hover{
+    background-color: #000;
+    color: #f9f3f3;
+}

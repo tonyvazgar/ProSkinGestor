@@ -24,6 +24,9 @@ function getNavbar($name, $sucursal){
                         echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Inventario/'>Inventario/Productos</a>
                         </li>";
+                        // echo "<li class='nav-item'>
+                        //     <a class='nav-link' href='../../View/Recursos/'>Documentos</a>
+                        // </li>";
                         // <li class='nav-item'>
                         //     <a class='nav-link' href='../../View/Reportes/reportes.php'>Reportes</a>
                         // </li>
@@ -47,7 +50,7 @@ function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");
     if (!$ex){
-        $ex = "1.0.5";
+        $ex = "1.2.0";
     }
     return $ex; 
 }

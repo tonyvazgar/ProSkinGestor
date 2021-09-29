@@ -27,6 +27,14 @@
   getHeadHTML("ProSkin - Resumen Venta");
 
   $divisionProductosTratamientos = getDesgloseProductosTratamientosVenta($detalles);
+  $id_cosmetologa_from_db = $divisionProductosTratamientos['cosmetologa'];
+  
+  $historial_ediciones= $ModeloVenta->getVentaFromDetallesEdicionVenta($id_venta);
+
+  $ediciones_style = 'style="display: none;"';
+  if(sizeof($historial_ediciones) != 0){
+    $ediciones_style = '';
+  }
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
@@ -36,6 +44,43 @@
     ?>
     <div class="container">
         <h1>Resumen de venta</h1>
+        <div id="accordion" <?php echo $ediciones_style;?>>
+          <p>
+            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Historial de ediciones</button>
+          </p>
+          <div class="form-group">
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <?php
+                // echo '<pre>';
+                // print_r($historial_ediciones);
+                // echo '</pre>';
+                $tratamientosAplicados = $historial_ediciones;
+                echo "<ul class='list-group'>";
+                  foreach($tratamientosAplicados as $d){
+                    $tipo_edicion = $d['tipo_edicion'];
+                    $asd = getDiferenciaDeEdicion($d['antes'], $d['despues'], $tipo_edicion);
+                    $nombre_general = '';
+                    if($tipo_edicion == 'Tratamiento'){
+                      $nombre_general = '-'.$ModeloVenta->getNombreTratamientoDeVenta($asd[0]);
+                    }elseif($tipo_edicion == 'Producto'){
+                      $nombre_general = '-'.$ModeloVenta->getNombreProductoDeVenta($asd[0]);
+                    }
+                    echo '<div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">'.$tipo_edicion.$nombre_general.'</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Antes:<br>'.$asd[1].'</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Después:<br>'.$asd[2].'</h6>
+                            <span class="badge bg-warning rounded-pill">'.date('Y-m-d H:i:s', $d['timestamp_edicion']).'</span>
+                          </div>
+                        </div>';
+                  }
+                  echo "</ul>";
+                ?>
+              </div>
+            </div>
+          </div>
+          </div>
           <div class="form-group">
             <table class='table table-borderless' style='table-layout: fixed;'>
               <tbody>
@@ -105,7 +150,8 @@
                             echo '<div class="card">
                               <div class="card-body">
                                 <h5 class="card-title">'.$ModeloVenta->getDetallesProducto($prod[0])['descripcion_producto'].'</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Cantidad: '.$prod[4].' producto(s)</h6>
+                                <h5 class="card-title">$'.$prod[2].'</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Cantidad: '.$prod[4].' producto(s) | $'.$prod[3].'</h6>
                               </div>
                             </div>';
                           }
@@ -150,6 +196,12 @@
         <div class="form-group text-center">
           <a class="btn btn-success" href="../index.php" role="button">Finalizar</a>
         </div>
+
+        <?php
+          if($id_cosmetologa == $id_cosmetologa_from_db){
+            echo '<div class="form-group text-center"><a class="btn btn-warning" href="./editarVenta.php?idVenta='.$id_venta.'" role="button">Editar registro</a></div>';
+          }
+        ?>
       </div>
     <?php
       getFooter();

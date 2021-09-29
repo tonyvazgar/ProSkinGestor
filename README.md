@@ -1,6 +1,6 @@
 # Main Branch (Producción)
-Última versión: <b>1.0.5</b><br>
-Fecha: <b>09-Septiembre-2021</b><br>
+Última versión: <b>1.2.0</b><br>
+Fecha: <b>16-Septiembre-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -28,9 +28,10 @@ Fecha: <b>09-Septiembre-2021</b><br>
       <li>Nuevo método de pago y referencia del pago</li>
       <li>Mejoras en UX de registro tratamiento</li>
       <li>Agregar productos a stock temporalmente</li>
+      <li>EDICION DE UNA VENTA</li>
    </ul>
  </ul>
  
  
 <h4>Previous commit en producción:</h4>
-<i>23bef9f352bdf918f82ec1cfc34e8857c106806f</i>
+<i>4c911b2c745a69b419cef092075cdc6cf3f9a69c</i>
