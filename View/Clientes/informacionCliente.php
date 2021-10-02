@@ -3,10 +3,12 @@
   require_once "../../Model/Clientes/Cliente.php";
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
+  require_once "../../Model/Inventario/Producto.php";
 
   $ModelCliente = new Cliente();
   $session = new ControllerSesion();
   $ModeloUsuario = new Usuario();
+  $ModelProducto = new Producto();
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
@@ -30,6 +32,7 @@
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">DEPILACIONES</button>
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">CAVITACIONES</button>
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">OTROS TRATAMIENTOS</button>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">PRODUCTOS</button>
                 </p>
                 <div class="form-group">
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -81,6 +84,26 @@
                                     foreach($tratamientosAplicados as $d){
                                         echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
                                                         <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$d['nombre_tratamiento']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
+                                                    </li>";
+                                        }
+                                    echo "</ul>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <?php
+                                $productosAplicados = $ModelCliente->getProductosFromCliente($_GET['id']);
+                                if(empty($productosAplicados)){
+                                        echo "<h3 class='text-center'>Aún no hay ningun producto adquirido :(</h3>";
+                                }else{
+                                    echo "<ul class='list-group'>";
+                                    foreach($productosAplicados as $d){
+                                        $infoProducto = $ModelProducto->getProductoWereID($d['id_productos'], $d['centro']);
+                                        echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
+                                                        <a href='../../View/Ventas/detalleVenta.php?idVenta=".$d['id_venta']."' role='button'>".$infoProducto['descripcion_producto']." ".$infoProducto['presentacion_producto']."</a><span class='badge bg-warning rounded-pill'>".date('Y-m-d', $d['timestamp'])."</span>
                                                     </li>";
                                         }
                                     echo "</ul>";

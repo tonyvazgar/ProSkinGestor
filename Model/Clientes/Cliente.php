@@ -30,6 +30,18 @@
             $db->close();
             return $tratamientos;
         }
+
+
+        function getProductosFromCliente($id_cliente){
+            $db = new DB();
+            $tratamientos = $db->query("SELECT * 
+                                        FROM `Ventas` 
+                                        WHERE id_cliente='$id_cliente' AND id_productos!=''
+                                        ORDER BY `timestamp` DESC")->fetchAll();
+            $db->close();
+            return $tratamientos;
+        }
+
         function getTratamientosFromCliente($id_cliente){
             $db = new DB();
             $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.nombre_tratamiento 

@@ -311,7 +311,7 @@
                 array_push($temp, $registro['id_productos'], $registro['metodo_pago'], $registro['monto'], $registro['costo_producto'], $registro['cantidad_producto']);
                 array_push($productos, $temp);
             }
-            $total += $registro['monto'];
+            $total += (float)$registro['monto'];
             $metodo_pago = $registro['metodo_pago'];
             $referencia_pago = $registro['referencia_pago'];
             $nombre = $registro['nombre_cliente']." ".$registro['apellidos_cliente'];
