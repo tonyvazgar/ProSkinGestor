@@ -85,7 +85,7 @@
                     </select>
                 </div>
                 <div class="form-group justify-content-center" id='botonComenzar' name='botonComenzar'>
-                    <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registar tratamiento</button>
+                    <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registrar tratamiento</button>
                 </div>
                 <div class="col d-flex justify-content-center">
                     <a class="btn btn-danger" href="index.php" role="button">Cancelar</a>

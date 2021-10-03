@@ -10,7 +10,7 @@
   </li>
   
   <li>
-    Cuando se accede al historial de movimientos que cada cosmetóloga realiza desde su cuenta, pudimos observar que algunos movimientos se encuentran duplicados. No sabemos si esto genere algún problema a futuro o no.
+    <s>Cuando se accede al historial de movimientos que cada cosmetóloga realiza desde su cuenta, pudimos observar que algunos movimientos se encuentran duplicados. No sabemos si esto genere algún problema a futuro o no.</s>
   </li>
   
   <li>
@@ -18,11 +18,11 @@
   </li>
   
   <li>
-    En algunas cuentas no aparece el botón que permite editar un tratamiento o una venta.
+    <s>En algunas cuentas no aparece el botón que permite editar un tratamiento o una venta.</s>
   </li>
   
   <li>
-    No hay algún dato de referencia al momento de dar de alta un nuevo cliente, que indique que dicho cliente ya fue registrado previamente, por lo que se han realizado registros dobles de algunos clientes. Dentro de éste mismo apartado, se sugiere que se pueda eliminar el registro de los clientes duplicados en la base de datos.
+    <s>No hay algún dato de referencia al momento de dar de alta un nuevo cliente, que indique que dicho cliente ya fue registrado previamente, por lo que se han realizado registros dobles de algunos clientes. Dentro de éste mismo apartado, se sugiere que se pueda eliminar el registro de los clientes duplicados en la base de datos.</s>
   </li>
   
   <li>
@@ -30,7 +30,7 @@
   </li>
   
   <li>
-    Cuando se está por concluir el registro de un tratamiento, el botón verde dice “registar” en vez de “registrar”.
+    <s>Cuando se está por concluir el registro de un tratamiento, el botón verde dice “registar” en vez de “registrar”.</s>
   </li>
 </ol>
 
