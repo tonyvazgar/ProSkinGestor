@@ -26,7 +26,7 @@
   </li>
   
   <li>
-    Tampoco se pueden eliminar del Inventario de Productos aquellos que se registraron accidentalmente más de una vez.
+    <s>Tampoco se pueden eliminar del Inventario de Productos aquellos que se registraron accidentalmente más de una vez.</s>
   </li>
   
   <li>
