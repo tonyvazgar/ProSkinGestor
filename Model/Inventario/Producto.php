@@ -44,6 +44,16 @@
             return $id;
         }
         //--------------------------------------DELETES--------------------------------------------------
+
+        function eliminarProducto($id_producto, $id_centro){
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM `Productos` 
+                                        WHERE `Productos`.`id_producto` = '$id_producto' 
+                                        AND `Productos`.`centro_producto` = '$id_centro'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
         function deleteProductoApartado($id_producto, $cantidad_producto, $timestamp_inicial){
             // DELETE FROM `ProductosApartados` 
             // WHERE `ProductosApartados`.`id_producto` = 'R2401' 

@@ -117,4 +117,15 @@
         header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$id_venta");
  
     }
+
+    if (isset($_POST['buttonEliminarProducto'])) {
+        $id_producto = mysqli_real_escape_string($con, $_POST['id']);
+        $id_centro   = mysqli_real_escape_string($con, $_POST['idSucursal']);
+        
+        if ($ModelProducto->eliminarProducto($id_producto, $id_centro)){
+            header("Location: exito.php");
+        }else{
+            //echo hubo un error;
+        }
+    }
 ?>
