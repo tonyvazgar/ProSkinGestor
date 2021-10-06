@@ -173,11 +173,12 @@
             return $account;
         }
 
-        public function getProductoWereDescripcion($descripcion){
+        public function getProductoWereDescripcion($descripcion, $centro_producto){
             $db = new Db();
             $sql_statement = "SELECT *
                               FROM Productos 
-                              WHERE BINARY descripcion_producto LIKE '%$descripcion%'";
+                              WHERE BINARY descripcion_producto LIKE '%$descripcion%'
+                              AND centro_producto='$centro_producto'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

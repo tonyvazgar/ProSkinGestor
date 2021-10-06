@@ -6,7 +6,7 @@
   </li>
   
   <li>
-    Cuando se ingresa al Inventario de Productos, la información que se muestra corresponde al nombre del producto y si se encuentra en stock o disponible para venta. No obstante, creemos sería conveniente, que al momento de realizar una consulta también se incluya el tamaño de la presentación, pues de muchos productos se cuenta con la presentación para cabina como la de venta al público y resulta difícil saber a primera vista si el producto que queremos consultar es el de venta al público o el de cabina, ya que el nombre es el mismo y el tamaño de la presentación solamente se hace visible hasta que lo seleccionamos y se despliega toda la información correspondiente al producto.
+    <s>Cuando se ingresa al Inventario de Productos, la información que se muestra corresponde al nombre del producto y si se encuentra en stock o disponible para venta. No obstante, creemos sería conveniente, que al momento de realizar una consulta también se incluya el tamaño de la presentación, pues de muchos productos se cuenta con la presentación para cabina como la de venta al público y resulta difícil saber a primera vista si el producto que queremos consultar es el de venta al público o el de cabina, ya que el nombre es el mismo y el tamaño de la presentación solamente se hace visible hasta que lo seleccionamos y se despliega toda la información correspondiente al producto.</s>
   </li>
   
   <li>
