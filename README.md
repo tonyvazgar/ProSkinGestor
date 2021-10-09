@@ -1,6 +1,6 @@
 # Main Branch (Producción)
-Última versión: <b>1.2.0</b><br>
-Fecha: <b>16-Septiembre-2021</b><br>
+Última versión: <b>1.2.1</b><br>
+Fecha: <b>9-Octubre-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -29,9 +29,10 @@ Fecha: <b>16-Septiembre-2021</b><br>
       <li>Mejoras en UX de registro tratamiento</li>
       <li>Agregar productos a stock temporalmente</li>
       <li>EDICION DE UNA VENTA</li>
+      <li>CORRECCIONES DE OBSERVACIONES 28 SEPTIEMBRE</li>
    </ul>
  </ul>
  
  
 <h4>Previous commit en producción:</h4>
-<i>4c911b2c745a69b419cef092075cdc6cf3f9a69c</i>
+<i>484fc3d24363d25c03e9204d3253decaa2c3cc65</i>
