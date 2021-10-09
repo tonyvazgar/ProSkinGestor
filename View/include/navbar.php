@@ -50,7 +50,7 @@ function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");
     if (!$ex){
-        $ex = "1.2.0";
+        $ex = "1.2.1";
     }
     return $ex; 
 }

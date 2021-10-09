@@ -19,7 +19,7 @@
           $optionsValue = "";
           foreach($productos as $d){
               if($d['stock_disponible_producto'] != 0){
-                $optionsValue .= "<option value='".$d['id_producto']."'>".$d['descripcion_producto']."</option>";
+                $optionsValue .= "<option value='".$d['id_producto']."'>".$d['descripcion_producto']." (".$d['presentacion_producto'].")</option>";
               }
           }
           if($optionsValue != ""){
@@ -43,7 +43,7 @@
                 $optionsValue = "";
                 foreach($productos as $d){
                     if($d['stock_disponible_producto'] != 0){
-                      $optionsValue .= "<option value='".$d['id_producto']."'>".$d['descripcion_producto']."</option>";
+                      $optionsValue .= "<option value='".$d['id_producto']."'>".$d['descripcion_producto']." (".$d['presentacion_producto'].")</option>";
                     }
                 }
                 if($optionsValue != ""){

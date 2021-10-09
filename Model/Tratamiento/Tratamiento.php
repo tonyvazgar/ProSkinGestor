@@ -162,6 +162,7 @@
             $tratamientos = $db->query("SELECT Ventas.*, Productos.*
                                         FROM usertable, Ventas, Productos
                                         WHERE usertable.id=Ventas.id_cosmetologa
+                                        AND Productos.centro_producto=Ventas.centro
                                         AND Ventas.id_productos=Productos.id_producto
                                         AND Ventas.id_productos!=''
                                         AND usertable.email='$email'
