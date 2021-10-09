@@ -47,6 +47,8 @@
         $resultado3 = $ModelProducto->getProductoWereDescripcion($nombre, '3');
         $size_resultado3 = sizeof($resultado3);
         
+        $colapsados = ['', '', ''];
+        $colapsados[intval($idSucursal)-1] = 'show';
 
         echo '<div class="container"><h1>Resultados para "'.$nombre.'"</h1>';
         if(empty($resultado1) && empty($resultado2) && empty($resultado3)){
@@ -61,8 +63,9 @@
                 <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">LA PAZ ('.$size_resultado3.')</button>
             </p>
             <div class="form-group">
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
-                    <div class="card-body">';
+                <div id="collapseOne" class="collapse'.$colapsados[0].'" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                    <div class="card-body">
+                    <label>SONATA</label>';
                     foreach($resultado1 as $producto){
                         $sucursalProductoBuscado = $producto['centro_producto'];
                         $nombreSucursalProductoBuscado = $ModelProducto -> getNombreSucursalProducto($sucursalProductoBuscado)['nombre_sucursal'];
@@ -89,8 +92,9 @@
                     echo '</div>
                 </div>
                 
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">';
+                <div id="collapseTwo" class="collapse'.$colapsados[1].'" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                    <label>PLAZA REAL</label>';
                     foreach($resultado2 as $producto){
                         $sucursalProductoBuscado = $producto['centro_producto'];
                         $nombreSucursalProductoBuscado = $ModelProducto -> getNombreSucursalProducto($sucursalProductoBuscado)['nombre_sucursal'];
@@ -117,8 +121,9 @@
                     echo '</div>
                 </div>
                 
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">';
+                <div id="collapseThree" class="collapse'.$colapsados[2].'" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                    <label>LA PAZ</label>';
                     foreach($resultado3 as $producto){
                         $sucursalProductoBuscado = $producto['centro_producto'];
                         $nombreSucursalProductoBuscado = $ModelProducto -> getNombreSucursalProducto($sucursalProductoBuscado)['nombre_sucursal'];
