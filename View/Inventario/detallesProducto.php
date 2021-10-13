@@ -99,9 +99,12 @@
             </div>
                 <div class="text-center">
                     <a href="../../View/Inventario/" class="btn btn-warning">Regresar</a>
-                    <button type="button" id="cancelarAgregarStock" name="cancelarAgregarStock" class="btn btn-danger" style="display: none;">Cancelar</button>
+                    <button type="button" id="cancelarAgregarStock" name="cancelarAgregarStock" class="btn btn-info" style="display: none;">Cancelar</button>
                     <button type="button" id="agregarStock" name="agregarStock" class="btn btn-info">Modificar Información</button>
                     <button type="submit" id="agregarStockSubmit" name="agregarStockSubmit" class="btn btn-success" style="display: none;">Confirmar Modificación</button>
+                </div>
+                <div class="text-center" id="buttonEliminarProductoDiv" style="display: none;">
+                    <button type="submit" id="buttonEliminarProducto" name="buttonEliminarProducto" class="btn btn-danger">Eliminar Producto</button>
                 </div>
         </form>
     </main>

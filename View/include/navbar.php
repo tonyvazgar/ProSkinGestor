@@ -55,7 +55,7 @@ function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");
     if (!$ex){
-        $ex = "1.0.4";
+        $ex = "1.2.1";
     }
     return $ex; 
 }
@@ -87,6 +87,16 @@ function getBotonCorteCaja($fecha, $id_centro){
         echo "<li class='nav-item'>
                 <a href='../../View/Usuario/corteCaja.php' class='btn btn-success'>Cierre de caja</a>
               </li>";
+    }
+}
+function esMetodoPagoSolo($metodo, $referencia, $total)
+{
+    if (strlen($metodo) == 1) {
+        return [[[$metodo, $total], $referencia]];
+    } else {
+        $array_metodos = json_decode($metodo);
+        $array_referencia = json_decode($referencia);
+        return array_map(null, $array_metodos, $array_referencia);
     }
 }
 ?>

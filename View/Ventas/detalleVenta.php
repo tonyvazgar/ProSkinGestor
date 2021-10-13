@@ -106,7 +106,17 @@
                     <p class="lead">
                     <?php 
                       $metodo_pago = $divisionProductosTratamientos['metodo_pago'];
-                      echo getMetodoPagoNombre($metodo_pago)." ".$divisionProductosTratamientos['referencia_pago'];?> 
+                      $referencia = $divisionProductosTratamientos['referencia_pago'];
+                      $total = $divisionProductosTratamientos['total'];
+
+                      $estandarizado = esMetodoPagoSolo($metodo_pago, $referencia, $total);
+
+                      foreach($estandarizado as $elemento){
+                        echo "*".getMetodoPagoNombre($elemento[0][0])." |".$elemento[1]."| - $".$elemento[0][1];
+                        echo "<br>";
+                      }
+                      
+                    ?> 
                     </p>
                   </td>
                   <td>

@@ -44,6 +44,16 @@
             return $id;
         }
         //--------------------------------------DELETES--------------------------------------------------
+
+        function eliminarProducto($id_producto, $id_centro){
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM `Productos` 
+                                        WHERE `Productos`.`id_producto` = '$id_producto' 
+                                        AND `Productos`.`centro_producto` = '$id_centro'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
         function deleteProductoApartado($id_producto, $cantidad_producto, $timestamp_inicial){
             // DELETE FROM `ProductosApartados` 
             // WHERE `ProductosApartados`.`id_producto` = 'R2401' 
@@ -88,7 +98,7 @@
             $db = new DB();
             $sql_statement = "INSERT INTO `Ventas`(`id_venta`, `id_cliente`, `id_tratamiento`, `metodo_pago`, `referencia_pago`, `monto`, `timestamp`, `centro`, `costo_tratamiento`, `id_productos`, `costo_producto`, `cantidad_producto`, `id_cosmetologa`) 
                               VALUES
-                              ('$id_venta', '$id_cliente', '$id_tratamiento', $metodo_pago, '$referencia', '$monto', '$timestamp', '$centro', '$costo_tratamiento', '$id_productos', '$costo_producto', '$cantidad_producto', '$id_cosmetologa')";
+                              ('$id_venta', '$id_cliente', '$id_tratamiento', '$metodo_pago', '$referencia', '$monto', '$timestamp', '$centro', '$costo_tratamiento', '$id_productos', '$costo_producto', '$cantidad_producto', '$id_cosmetologa')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();
@@ -163,11 +173,12 @@
             return $account;
         }
 
-        public function getProductoWereDescripcion($descripcion){
+        public function getProductoWereDescripcion($descripcion, $centro_producto){
             $db = new Db();
             $sql_statement = "SELECT *
                               FROM Productos 
-                              WHERE BINARY descripcion_producto LIKE '%$descripcion%'";
+                              WHERE BINARY descripcion_producto LIKE '%$descripcion%'
+                              AND centro_producto='$centro_producto'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

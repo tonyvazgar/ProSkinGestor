@@ -18,6 +18,7 @@ $('body').on('click', '#btn-agregar-producto', function(){
 $("body").on('click', '.btn-quitar-producto', function(){
     $(this).closest('.plantilla').remove();
     alert("Se quitó un producto de la lista");
+    actualizarTotalDeVenta();
 });
 
 $('body').on('change','#marca',function () {
@@ -147,8 +148,21 @@ $(document).ready(function () {
                 $("#btn-apartar-producto.last_producto").attr('disabled', true);
                 console.log(info);
                 $("#btn-agregar-producto").attr('disabled', false);
+                actualizarTotalDeVenta();
             }
         });
+    });
+
+
+    $("body").on('click', '#botonAgregarMetodoPago', function(){
+        const count = $(".metodosPagoDiv").length + 1;
+        const front_metodo_pago = "<br><div class='form-inline'><h4>Método "+count+":</h4><div><select name='metodoPago[]' id='metodoPago' class='form-control'><option value='6'>Depósito</option><option value='1'>Efectivo</option><option value='2'>[TDD]Tarjeta de débito</option><option value='3'>[TDC]Tarjeta de crédito</option><option value='4'>Transferencia</option><option value='5'>Cheque de regalo</option></select><input type='text' class='form-control' id='referencia' name='referencia[]' placeholder='Número de referencia del pago'><input type='number' class='form-control' id='totalMetodoPago' name='totalMetodoPago[]' placeholder='Cantidad de este método de pago' step='any'></div><button class='btn btn-danger' id='botonEliminarMetodoPago' type='button'><i class='far fa-trash-alt'></i></button></div>";
+        $('#metodosPagoDiv').append(front_metodo_pago);
+        verificarCantidadesMetodoPago();
+    });
+
+    $(document).on('keyup',"#totalMetodoPago", function () {
+        verificarCantidadesMetodoPago();
     });
 });
 
@@ -200,4 +214,49 @@ function buscarInfoProducto(id){
             });
         }
     });   
+}
+
+function actualizarTotalDeVenta(){
+    // var total = 0;
+    // $("form").each(function(){
+    //     total += parseFloat($(this).find('#precioUnitario_producto_seleccionado').val());
+    // });
+    // alert(total);
+
+    var formElements = new Array();
+    $("form #total_producto_seleccionado").each(function(){
+        formElements.push(parseFloat($(this).val()));
+    });
+    $('#sumaTotalPrecios').val(formElements.reduce(function(a, b) { return a + b; }, 0));
+    console.log(formElements);
+}
+
+function verificarCantidadesMetodoPago(){
+    var formElements = new Array();
+    $("form #totalMetodoPago").each(function(){
+        formElements.push(parseFloat($(this).val()));
+    });
+    // alert(formElements);
+    var sum = formElements.reduce(function(a, b) { return a + b; }, 0);
+
+    
+
+
+    if(sum == $('#sumaTotalPrecios').val()){
+        $("#venderProducto").attr('disabled', false);
+    }else{
+        $("#venderProducto").attr('disabled', true);
+    }
+
+    // if(sum == $('#sumaTotalPrecios').val() || formElements.length == 1){
+    //     $("#botonAgregarMetodoPago").attr('disabled', false);
+    //     if(formElements.length > 1 || formElements[0] == $('#sumaTotalPrecios').val()){
+    //         $("#venderProducto").attr('disabled', false);
+    //     }else{
+    //         $("#venderProducto").attr('disabled', true);
+    //     }
+    // }else{
+    //     $("#botonAgregarMetodoPago").attr('disabled', true);
+    //     $("#venderProducto").attr('disabled', true);
+    // }
 }
