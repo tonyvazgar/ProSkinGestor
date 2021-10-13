@@ -74,4 +74,14 @@ function getFooter(){
                 </div>
             </footer>";
 }
+function esMetodoPagoSolo($metodo, $referencia, $total)
+{
+    if (strlen($metodo) == 1) {
+        return [[[$metodo, $total], $referencia]];
+    } else {
+        $array_metodos = json_decode($metodo);
+        $array_referencia = json_decode($referencia);
+        return array_map(null, $array_metodos, $array_referencia);
+    }
+}
 ?>

@@ -82,22 +82,47 @@
                       <p class="lead">
                         <?php 
                           $metodo_pago = $divisionProductosTratamientos['metodo_pago'];
-                          echo getMetodoPagoNombre($metodo_pago)." ".$divisionProductosTratamientos['referencia_pago'];?> 
+                          $referencia = $divisionProductosTratamientos['referencia_pago'];
+                          $total = $divisionProductosTratamientos['total'];
+    
+                          $estandarizado = esMetodoPagoSolo($metodo_pago, $referencia, $total);
+    
+                          foreach($estandarizado as $elemento){
+                            echo "*".getMetodoPagoNombre($elemento[0][0])." |".$elemento[1]."| - $".$elemento[0][1];
+                            echo "<br>";
+                          }?> 
                         </p>
                       </p>
                     </div>
                     <form action="editarVenta.php" method="post" style='display: none;' id='metodoPagoForm' autocomplete="off">
                       <input type="text" class="form-control" id="idCliente" name="idCliente" value=<?php echo $divisionProductosTratamientos['id_venta'];?> hidden readonly>
                       <input type="text" class="form-control" id="timeStamp" name="timeStamp" value=<?php echo $detalles[0]['timestamp'];?> hidden readonly>
-                      <select name='metodoPago' id='metodoPago' class='form-control'>
-                          <option value='6'>Depósito</option>
-                          <option value='1'>Efectivo</option>
-                          <option value='2'>[TDD]Tarjeta de débito</option>
-                          <option value='3'>[TDC]Tarjeta de crédito</option>
-                          <option value='4'>Transferencia</option>
-                          <option value='5'>Cheque de regalo</option>
-                      </select>
-                      <input class="form-control" name="referenciaInput" id="referenciaInput" placeholder=<?php echo "'Referencia #".$divisionProductosTratamientos['referencia_pago']."'";?> type="text" value=<?php echo "'".$divisionProductosTratamientos['referencia_pago']."'";?> autocomplete="off">
+                      <?php 
+                          $metodo_pago = $divisionProductosTratamientos['metodo_pago'];
+                          $referencia = $divisionProductosTratamientos['referencia_pago'];
+                          $total = $divisionProductosTratamientos['total'];
+    
+                          $estandarizado = esMetodoPagoSolo($metodo_pago, $referencia, $total);
+    
+                          foreach($estandarizado as $elemento){
+                            echo "<select name='metodoPago[]' id='metodoPago[]' class='form-control'>
+                                    <option value='6'>Depósito</option>
+                                    <option value='1'>Efectivo</option>
+                                    <option value='2'>[TDD]Tarjeta de débito</option>
+                                    <option value='3'>[TDC]Tarjeta de crédito</option>
+                                    <option value='4'>Transferencia</option>
+                                    <option value='5'>Cheque de regalo</option>
+                                </select>";
+
+                            echo '<input class="form-control" name="referenciaInput[]" id="referenciaInput[]" placeholder="Referencia #'.$elemento[1].'" type="text" value="'.$elemento[1].'" autocomplete="off">';
+
+                            echo '<input class="form-control" name="totalMetodoPago[]" id="totalMetodoPago[]" placeholder="$'.$elemento[0][1].'" type="number" value="'.$elemento[0][1].'" autocomplete="off">';
+
+                            echo "<br>";
+                          }
+                      ?> 
+                      
+                      
                       <button type="submit" class='form-control btn-success' id="editarMetodoPagoSubmit" name="editarMetodoPagoSubmit" id='editarMetodoPagoSubmit'  onclick='return confirm("¿Estás seguro de editar el método de pago/transferencia?")'>Confirmar</button>
                       <button type='button' id='cancelarMetodoPagoButton' class='form-control btn-warning'>Cancelar</button>
                     </form>

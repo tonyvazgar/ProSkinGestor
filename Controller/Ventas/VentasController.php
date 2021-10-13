@@ -9,8 +9,10 @@
     if(isset($_POST['editarMetodoPagoSubmit'])){
         $idCliente = mysqli_real_escape_string($con, $_POST['idCliente']);
         $timeStamp = mysqli_real_escape_string($con, $_POST['timeStamp']);
-        $metodoPago = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $referenciaInput = mysqli_real_escape_string($con, $_POST['referenciaInput']);
+        $metodoPago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));
+        $referenciaInput = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['referenciaInput']))); 
+        $total_metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago']))); 
+
         echo '<pre>';
         print_r($_POST);
         echo '</pre>';
@@ -20,7 +22,7 @@
         $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStampEdicion = strtotime($date->format('Y-m-d H:i:s'));
 
-        if($ModelVenta->updateMetodoPago($idCliente, $timeStamp, $metodoPago, $referenciaInput) >= 1){
+        if($ModelVenta->updateMetodoPago($idCliente, $timeStamp, json_encode(array_map(null, $metodoPago, $total_metodo_pago)), json_encode($referenciaInput)) >= 1){
             $despues_de_Actualizar = $ModelVenta->getInfoJSONVentas($idCliente, $timeStamp);
             $ModelVenta->insertIntoDetallesEdicionVenta($idCliente, $timeStamp, $timeStampEdicion, 'Pago', $antes_de_Actualizar, $despues_de_Actualizar);
             header('Location: detalleVenta.php?idVenta='.$idCliente);

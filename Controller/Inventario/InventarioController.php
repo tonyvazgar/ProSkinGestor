@@ -162,8 +162,9 @@
         $cantidad        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidad_producto_seleccionado']))); //la introduce el usuario
         $stock           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['stock_producto_seleccionado'])));    //Disponibles, le serán restados $cantidad al final
         $total           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['total_producto_seleccionado'])));    //$cantidad * $precio_unitario
-        $metodo_pago     = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $referencia_pago = mysqli_real_escape_string($con, $_POST['referencia']);
+        $metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));
+        $referencia_pago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['referencia'])));
+        $total_metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago'])));
 
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
@@ -183,8 +184,8 @@
             $stock_inicial_temp     = $stock[$i];
             $cantidad_producto_temp = $cantidad[$i];
             $nuevo_stock_temp       = $stock_inicial_temp - $cantidad_producto_temp;
-            $metodo_pago_temp       = $metodo_pago;
-            $referencia_pago_temp   = $referencia_pago;
+            $metodo_pago_temp       = json_encode(array_map(null, $metodo_pago, $total_metodo_pago));
+            $referencia_pago_temp   = json_encode($referencia_pago);
             $precio_total_temp      = $total[$i];
             $precio_unitario_temp   = $precio_unitario[$i];
 
