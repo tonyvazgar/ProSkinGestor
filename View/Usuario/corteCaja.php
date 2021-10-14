@@ -11,7 +11,7 @@
   $ModelTratamiento = new Tratamiento();
   $ModelProducto    = new Producto();
 
-  $corte = $ModelUsuario->existeCorteCaja($fecha, $id_centro);
+  // $corte = $ModelUsuario->existeCorteCaja($fecha, $id_centro);
   // if($corte != 0){
   //   header("Location: ../../index.php");
   // }
@@ -40,19 +40,21 @@
         $beginOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 00:00:00'))->getTimestamp();
         $endOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 23:59:59'))->getTimestamp();
 
+        print_r($beginOfDay." ---- ".$endOfDay);
+
         $total_efectivo = $ModeloUsuario->getTotalEfectivoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_tdc = $ModeloUsuario->getTotalTDCWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_tdd = $ModeloUsuario->getTotalTDDWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_transferencia = $ModeloUsuario->getTotalTransferenciaWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_Deposito = $ModeloUsuario->getTotalDepositoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
 
-        // echo "<pre>";
-        // print_r($total_efectivo);
-        // print_r($total_tdc);
-        // print_r($total_tdd);
-        // print_r($total_transferencia);
-        // print_r($total_Deposito);
-        // echo "</pre>";
+        echo "<pre>";
+        print_r($total_efectivo);echo "<br>----<br>----<br>";
+        print_r($total_tdc);echo "<br>----<br>----<br>";
+        print_r($total_tdd);echo "<br>----<br>----<br>";
+        print_r($total_transferencia);echo "<br>----<br>----<br>";
+        print_r($total_Deposito);echo "<br>----<br>----<br>";
+        echo "</pre>";
     ?>
     <main role="main" class="container">
         <div class="container">
