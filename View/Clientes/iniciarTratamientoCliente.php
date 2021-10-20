@@ -88,7 +88,8 @@
                         <div class='form-inline'>
                             <h4>Método 1:</h4>
                             <div>
-                                <select name='metodoPago[]' id='metodoPago' class='form-control'>
+                                <select name='metodoPago[]' id='metodoPago' class='form-control select_metodo1'>
+                                    <option value=''>*** Selecciona ***</option>
                                     <option value='6'>Depósito</option>
                                     <option value='1'>Efectivo</option>
                                     <option value='2'>[TDD]Tarjeta de débito</option>
@@ -96,7 +97,7 @@
                                     <option value='4'>Transferencia</option>
                                     <option value='5'>Cheque de regalo</option>
                                 </select>
-                                <input type="text" class="form-control" id="referencia" name="referencia[]" placeholder="Número de referencia del pago">
+                                <input type="text" class="form-control referencia_metodo1" id="referencia" name="referencia[]" placeholder="Número de referencia del pago" style="display: none;">
                                 <input type="number" class="form-control" id="totalMetodoPago" name="totalMetodoPago[]" placeholder="Cantidad de este método de pago" step='any'>
                             </div>
                         </div>

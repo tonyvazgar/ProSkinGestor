@@ -86,12 +86,9 @@
             $sql_statement_todo = "SELECT * 
                                    FROM Ventas 
                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"1\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
+                                //    print_r($sql_statement_todo);
             $todo = $db->query($sql_statement_todo)->fetchAll();
-            $sql_statement_total = "SELECT SUM(monto) 
-                                    FROM Ventas 
-                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"1\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay";
-            $todo = $db->query($sql_statement_todo)->fetchAll();
-            $total = $db->query($sql_statement_total)->fetchArray()['SUM(monto)'];
+            $total = obtenerTotalMetodoPago('1', $todo);
             $db->close();
             return [$total, $todo];
         }
@@ -102,11 +99,7 @@
                                    FROM Ventas 
                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"3\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
             $todo = $db->query($sql_statement_todo)->fetchAll();
-            $sql_statement_total = "SELECT SUM(monto) 
-                                    FROM Ventas 
-                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"3\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay";
-            $todo = $db->query($sql_statement_todo)->fetchAll();
-            $total = $db->query($sql_statement_total)->fetchArray()['SUM(monto)'];
+            $total = obtenerTotalMetodoPago('3', $todo);
             $db->close();
             return [$total, $todo];
         }
@@ -117,11 +110,7 @@
                                    FROM Ventas 
                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"2\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
             $todo = $db->query($sql_statement_todo)->fetchAll();
-            $sql_statement_total = "SELECT SUM(monto) 
-                                    FROM Ventas 
-                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"2\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay";
-            $todo = $db->query($sql_statement_todo)->fetchAll();
-            $total = $db->query($sql_statement_total)->fetchArray()['SUM(monto)'];
+            $total = obtenerTotalMetodoPago('2', $todo);
             $db->close();
             return [$total, $todo];
         }
@@ -132,11 +121,7 @@
                                    FROM Ventas 
                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"4\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
             $todo = $db->query($sql_statement_todo)->fetchAll();
-            $sql_statement_total = "SELECT SUM(monto) 
-                                    FROM Ventas 
-                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"4\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay";
-            $todo = $db->query($sql_statement_todo)->fetchAll();
-            $total = $db->query($sql_statement_total)->fetchArray()['SUM(monto)'];
+            $total = obtenerTotalMetodoPago('4', $todo);
             $db->close();
             return [$total, $todo];
         }
@@ -146,13 +131,21 @@
             $sql_statement_todo = "SELECT * 
                                    FROM Ventas 
                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"6\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
-                                   print_r($sql_statement_todo);
+                                //    print_r($sql_statement_todo);
             $todo = $db->query($sql_statement_todo)->fetchAll();
-            $sql_statement_total = "SELECT SUM(monto) 
-                                    FROM Ventas 
-                                    WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"6\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay";
+            $total = obtenerTotalMetodoPago('6', $todo);
+            $db->close();
+            return [$total, $todo];
+        }
+
+        public function getTotalChequeWhereDia($beginOfDay, $endOfDay, $sucursal){
+            $db = new Db();
+            $sql_statement_todo = "SELECT * 
+                                   FROM Ventas 
+                                   WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"5\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
+                                //    print_r($sql_statement_todo);
             $todo = $db->query($sql_statement_todo)->fetchAll();
-            $total = $db->query($sql_statement_total)->fetchArray()['SUM(monto)'];
+            $total = obtenerTotalMetodoPago('5', $todo);
             $db->close();
             return [$total, $todo];
         }
@@ -164,5 +157,19 @@
             $db->close();
             return $query->affectedRows();
         }
+    }
+
+    function obtenerTotalMetodoPago($metodoPago, $datos){
+        $totalDelMetodoPago = 0;
+        
+        foreach($datos as $venta){
+            $metodos_venta = json_decode($venta['metodo_pago']);
+            foreach($metodos_venta as $individual){
+                if($individual[0] == $metodoPago){
+                    $totalDelMetodoPago += $individual[1];
+                }
+            }
+        }
+        return $totalDelMetodoPago;
     }
 ?>

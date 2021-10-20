@@ -11,3 +11,10 @@ $( document ).ready(function() {
         $('#confirmarCorteCaja').show();
     }
 });
+
+$("body").on('click', '#botonAgregarGasto', function(){
+    const count = $('#gastosdiv').children('div').length + 1;
+    const front_metodo_pago = '<div><label class="col-sm-2 col-form-label">Gasto #'+count+'</label><input class="form-control" type="text" id="nombreGasto[]" name="nombreGasto[]" placeholder="Nombre"><input class="form-control" type="number" id="totalGasto[]" name="totalGasto[]" placeholder="Total"></div>';
+    $('#gastosdiv').append(front_metodo_pago);
+    // verificarCantidadesMetodoPago();
+});
