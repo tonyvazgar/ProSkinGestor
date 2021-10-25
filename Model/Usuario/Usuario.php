@@ -150,12 +150,28 @@
             return [$total, $todo];
         }
 
-        public function insertIntoCierreCaja($timestamp, $id_documento, $id_cosmetologa, $id_centro, $total_efectivo, $num_ventas_efectivo, $total_tdc, $num_ventas_tdc, $total_tdd, $num_ventas_tdd, $total_transferencia, $num_ventas_transferencia, $total_deposito, $num_ventas_deposito, $id_corte_caja, $observaciones, $nombre_archivo){
+        public function insertIntoCierreCaja($timestamp, $id_centro, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos){
             $db = new DB();
-            $sql_statement = "INSERT INTO `CorteDeCaja`(`timestamp`, `id_documento`, `id_cosmetologa`, `id_centro`, `total_efectivo`, `num_ventas_efectivo`, `total_tdc`, `num_ventas_tdc`, `total_tdd`, `num_ventas_tdd`, `total_transferencia`, `num_ventas_transferencia`, `total_deposito`, `num_ventas_deposito`, `id_corte_caja`, `observaciones`, `nombre_archivo`) VALUES ('$timestamp', '$id_documento', '$id_cosmetologa', '$id_centro', '$total_efectivo', '$num_ventas_efectivo', '$total_tdc', '$num_ventas_tdc', '$total_tdd', '$num_ventas_tdd', '$total_transferencia', '$num_ventas_transferencia', '$total_deposito', '$num_ventas_deposito', '$id_corte_caja', '$observaciones', '$nombre_archivo')";
+            $sql_statement = "INSERT INTO `CorteDeCaja`(`timestamp`, `id_centro`, `id_cosmetologa`, `id_documento`, `id_corte_caja`, `total_ingresos`, `total_gastos`, `total_caja`, `nombre_archivo`, `observaciones`, `efectivo`, `tdc`, `tdd`, `transferencia`, `deposito`, `cheque`, `gastos`) VALUES ('$timestamp', '$id_centro', '$id_cosmetologa', '$id_documento', '$id_corte_caja', '$total_ingresos', '$total_gastos', '$total_caja', '$nombre_archivo', '$observaciones', '$efectivo', '$tdc', '$tdd', '$transferencia', '$deposito', '$cheque', '$gastos')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();
+        }
+
+        public function getNombreArchivoFromCorteCajaWhereID($id_corteCaja){
+            $db = new Db();
+            $sql_statement_todo = "SELECT * FROM `CorteDeCaja` WHERE id_corte_caja='$id_corteCaja'";
+            $info = $db->query($sql_statement_todo)->fetchArray();
+            $db->close();
+            return $info['nombre_archivo'];
+        }
+
+        public function numeroReportesFromSucursal($id_sucursal){
+            $db = new Db();
+            $sql_statement_todo = "SELECT COUNT(*) AS numReportes FROM `CorteDeCaja` WHERE id_centro='$id_sucursal'";
+            $info = $db->query($sql_statement_todo)->fetchArray();
+            $db->close();
+            return $info['numReportes'];
         }
     }
 

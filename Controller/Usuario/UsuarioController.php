@@ -39,6 +39,9 @@
         $observaciones = mysqli_real_escape_string($con, $_POST['observaciones']);
 
         $nombre_archivo = "corteCaja".$id_sucursal."-".$fecha."-".$id_cosmetologa.".pdf";
+        $id_corte_caja  = $id_sucursal.".".$id_cosmetologa.".".$fecha;
+
+        $id_documento = intval($ModelUsuario -> numeroReportesFromSucursal($id_sucursal)) + 1;
 
         $sumaGeneralMetodos = floatval($tdc) + floatval($tdd) + floatval($transferencia) + floatval($deposito) + floatval($cheque) + floatval($efectivo);
 
@@ -49,18 +52,19 @@
 
         $totalDelDia = $sumaGeneralMetodos - $sumaGeneralGastos;
        
-        // if ($ModelUsuario->insertIntoCierreCaja($fecha, 'xxxxx', $id_cosmetologa, $id_sucursal, $efectivo, $num_efectivo, $tdc, $num_tdc, $tdd, $num_tdd, $transferencia, $num_transferencia, $deposito, $num_deposito, '00xxxx', $observaciones, $nombre_archivo)){
+        //($timestamp, $id_centro, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos)
+        if ($ModelUsuario->insertIntoCierreCaja($fecha, $id_sucursal, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode([$nombres_gastos, $total_gastos]))){
             $conceptos = [["Efectivo", $num_efectivo, $efectivo],
                      ["TDC", $num_tdc, $tdc],
                      ["TDD", $num_tdd, $tdd],
                      ["Transferencia", $num_transferencia, $transferencia],
                      ["Deposito", $num_deposito, $deposito],
-                     [$sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia]];
-            generarPDF($conceptos, $observaciones.json_encode($nombres_gastos).json_encode($total_gastos), $nombre_archivo);
-            // header("Location: ../../index.php");
-        // }else{
-        //     //echo hubo un error;
-        // }
+                     ["Cheque", $num_cheque, $cheque]];
+            generarPDF($conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo);
+            header("Location: confirmacionCierreCaja.php?id=$id_corte_caja");
+        }else{
+            //echo hubo un error;
+        }
         echo '<pre>';
         print_r($_POST);
         echo '</pre>';
