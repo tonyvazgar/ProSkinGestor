@@ -11,16 +11,12 @@
             // Move to the right
             $this->Cell(80);
             // Title
+            $this->Ln(5);
+            $this->Cell(80);
             $this->Cell(30,10,'Reporte de ciere de caja',0,0,'C');
             $this->Ln(5);
-            $this->Cell(80);
-            $this->Cell(30,10,'Centro de belleza x',0,0,'C');
-            $this->Ln(5);
-            $this->Cell(80);
-            $this->Cell(30,10,'24/09/2021',0,0,'C');
-            $this->Ln(5);
             // Line break
-            $this->Ln(20);
+            $this->Ln(15);
         }
 
         // Page footer
@@ -98,7 +94,7 @@
         }
     }
 
-    function generarPDF($conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaConceptos, $sumaGastos, $totalDelDia, $filename){
+    function generarPDF($id_documento, $id_corte_caja, $diaCorteCaja, $numTotalVentasDia, $centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaConceptos, $sumaGastos, $totalDelDia, $filename){
         // Instanciation of inherited class
         $pdf = new PDF();
 
@@ -108,6 +104,21 @@
         
         $pdf->AliasNbPages();
         $pdf->AddPage();
+        $pdf->SetFont('Arial','B',15);
+        $pdf->Cell(20);
+        $pdf->Cell(40,10,utf8_decode($centro).' - ('.$diaCorteCaja.')');
+        $pdf->Cell(40);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(80,10,utf8_decode('ID documento: '.$id_documento));
+        $pdf->SetFont('Arial','B',15);
+        $pdf->Ln();
+        $pdf->Cell(20);
+        $pdf->Cell(40,10,utf8_decode('Ventas totales del día: '.$numTotalVentasDia));
+        $pdf->Cell(40);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(50,10,utf8_decode('Corte caja: '.$id_corte_caja));
+        $pdf->SetFont('Arial','B',15);
+        $pdf->Ln();
         $pdf->tablaIngresos($header, $data, $sumaConceptos);
         $pdf->Ln();
         $pdf->tablaGastos($header_gastos, $nombres_gastos, $total_gastos, $sumaGastos);
@@ -125,15 +136,4 @@
         // $pdf->Output();
         $pdf->Output('F', '../../Documents/ReportesCierreCaja/' . $filename, true); // save into some other location
     }
-
-    // $conceptos = [["Efectivo", $num_efectivo, $efectivo],
-    //                  ["TDC", $num_tdc, $tdc],
-    //                  ["TDD", $num_tdd, $tdd],
-    //                  ["Transferencia", $num_transferencia, $transferencia],
-    //                  ["Deposito", $num_deposito, $deposito],
-    //                  [$sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia]];
-    // $nombres_gastos = ["papel","limpiador","perfume"];
-    // $total_gastos = ["40","100","84"];
-    
-    // generarPDF($conceptos, "kuahsdasjkdas", $nombres_gastos, $total_gastos, "hola.pdf");
 ?>

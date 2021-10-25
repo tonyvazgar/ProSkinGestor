@@ -150,9 +150,20 @@
             return [$total, $todo];
         }
 
-        public function insertIntoCierreCaja($timestamp, $id_centro, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos){
+        public function getNumeroTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal){
+            $db = new Db();
+            $sql_statement_todo = "SELECT COUNT(*) as numVentasDia
+                                   FROM (SELECT COUNT(*)
+                                        FROM Ventas 
+                                        WHERE centro='$numeroSucursal' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta) AS Ventas";
+            $todo = $db->query($sql_statement_todo)->fetchArray();
+            $db->close();
+            return $todo['numVentasDia'];
+        }
+
+        public function insertIntoCierreCaja($timestamp, $id_centro, $num_ventas_general, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos){
             $db = new DB();
-            $sql_statement = "INSERT INTO `CorteDeCaja`(`timestamp`, `id_centro`, `id_cosmetologa`, `id_documento`, `id_corte_caja`, `total_ingresos`, `total_gastos`, `total_caja`, `nombre_archivo`, `observaciones`, `efectivo`, `tdc`, `tdd`, `transferencia`, `deposito`, `cheque`, `gastos`) VALUES ('$timestamp', '$id_centro', '$id_cosmetologa', '$id_documento', '$id_corte_caja', '$total_ingresos', '$total_gastos', '$total_caja', '$nombre_archivo', '$observaciones', '$efectivo', '$tdc', '$tdd', '$transferencia', '$deposito', '$cheque', '$gastos')";
+            $sql_statement = "INSERT INTO `CorteDeCaja`(`timestamp`, `id_centro`, `num_ventas_general`, `id_cosmetologa`, `id_documento`, `id_corte_caja`, `total_ingresos`, `total_gastos`, `total_caja`, `nombre_archivo`, `observaciones`, `efectivo`, `tdc`, `tdd`, `transferencia`, `deposito`, `cheque`, `gastos`) VALUES ('$timestamp', '$id_centro', '$num_ventas_general','$id_cosmetologa', '$id_documento', '$id_corte_caja', '$total_ingresos', '$total_gastos', '$total_caja', '$nombre_archivo', '$observaciones', '$efectivo', '$tdc', '$tdd', '$transferencia', '$deposito', '$cheque', '$gastos')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();

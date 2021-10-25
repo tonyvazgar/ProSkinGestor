@@ -35,11 +35,13 @@
         $total_gastos   = explode(",",mysqli_real_escape_string($con, implode(",", $temp_total_gasto))); 
 
         $id_sucursal = mysqli_real_escape_string($con, $_POST['id_centro']);
+        $nombre_centro = $ModelUsuario -> getNombreSucursalWhereIDSucursal($id_sucursal)['nombre_sucursal'];
         $id_cosmetologa = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
         $observaciones = mysqli_real_escape_string($con, $_POST['observaciones']);
+        $numTotalVentasDia = mysqli_real_escape_string($con, $_POST['numTotalVentasDia']);//
 
         $nombre_archivo = "corteCaja".$id_sucursal."-".$fecha."-".$id_cosmetologa.".pdf";
-        $id_corte_caja  = $id_sucursal.".".$id_cosmetologa.".".$fecha;
+        $id_corte_caja  = 'PROSK'.$id_sucursal.$id_cosmetologa.date('Ymd');
 
         $id_documento = intval($ModelUsuario -> numeroReportesFromSucursal($id_sucursal)) + 1;
 
@@ -53,14 +55,14 @@
         $totalDelDia = $sumaGeneralMetodos - $sumaGeneralGastos;
        
         //($timestamp, $id_centro, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos)
-        if ($ModelUsuario->insertIntoCierreCaja($fecha, $id_sucursal, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode([$nombres_gastos, $total_gastos]))){
+        if ($ModelUsuario->insertIntoCierreCaja($fecha, $id_sucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode([$nombres_gastos, $total_gastos]))){
             $conceptos = [["Efectivo", $num_efectivo, $efectivo],
                      ["TDC", $num_tdc, $tdc],
                      ["TDD", $num_tdd, $tdd],
                      ["Transferencia", $num_transferencia, $transferencia],
                      ["Deposito", $num_deposito, $deposito],
                      ["Cheque", $num_cheque, $cheque]];
-            generarPDF($conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo);
+            generarPDF($id_documento, $id_corte_caja, $fecha, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo);
             header("Location: confirmacionCierreCaja.php?id=$id_corte_caja");
         }else{
             //echo hubo un error;

@@ -48,6 +48,7 @@
         $total_transferencia = $ModeloUsuario->getTotalTransferenciaWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_Deposito = $ModeloUsuario->getTotalDepositoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_cheque = $ModeloUsuario->getTotalChequeWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $numeroTotalDeVentas = $ModeloUsuario -> getNumeroTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal);
 
         // echo "<pre>";
         // print_r($total_efectivo);echo "<br>----<br>----<br>";
@@ -75,6 +76,13 @@
                     <small id="passwordHelpBlock" class="form-text text-muted">
                       Esta es la fecha del día del corte de caja, no se puede cambiar ya que es automático
                     </small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <p for="diaCorteCaja" class="col-sm-2 lead">Ventas del día</p>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="numTotalVentasDia" name="numTotalVentasDia" value="<?php echo $numeroTotalDeVentas; ?>" placeholder='Número de ventas del día de hoy' readonly> 
+                    <small id="passwordHelpBlock" class="form-text text-muted">Número de ventas del día de hoy</small>
                   </div>
                 </div>
                 <hr>
@@ -295,7 +303,7 @@
                 <div class="form-group row">
                   <p for="total_deposito" class="col-sm-2 lead">Observaciones</p>
                   <div class="col-sm-10">
-                    <textarea class="form-control" name="observaciones" id="observaciones" rows="2" placeholder="Observaciones que tengas del corte de caja de este día"></textarea>
+                    <textarea maxlength="250" class="form-control" name="observaciones" id="observaciones" rows="6" placeholder="Observaciones que tengas del corte de caja de este día"></textarea>
                   </div>
                 </div>
 
