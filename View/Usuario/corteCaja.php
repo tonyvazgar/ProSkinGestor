@@ -31,14 +31,14 @@
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
-        $fecha_para_corte_caja = date('Y-m-d');
-        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
-
         $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
         $timestamp = strtotime($date->format('Y-m-d H:i:s'));
 
         $beginOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 00:00:00'))->getTimestamp();
         $endOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 23:59:59'))->getTimestamp();
+
+        $fecha_para_corte_caja = $date->format('Y-m-d');
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
 
         // print_r($beginOfDay." ---- ".$endOfDay);
 
@@ -72,7 +72,7 @@
                 <div class="form-group row">
                   <p for="diaCorteCaja" class="col-sm-2 lead">Fecha</p>
                   <div class="col-sm-10">
-                    <input type="date" class="form-control" id="diaCorteCaja" name="diaCorteCaja" value="<?php echo date('Y-m-d'); ?>" readonly> 
+                    <input type="date" class="form-control" id="diaCorteCaja" name="diaCorteCaja" value="<?php echo $fecha_para_corte_caja; ?>" readonly> 
                     <small id="passwordHelpBlock" class="form-text text-muted">
                       Esta es la fecha del día del corte de caja, no se puede cambiar ya que es automático
                     </small>
@@ -101,7 +101,7 @@
                             aria-expanded="false" aria-controls="collapseEfectivo">Ver ventas</button>
                         </p>
                         <div class="form-group">
-                          <div id="collapseEfectivo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                          <div id="collapseEfectivo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
                               <ul class="list-group">
                                 <?php
@@ -137,7 +137,7 @@
                             aria-expanded="false" aria-controls="collapseTDC">Ver ventas</button>
                         </p>
                         <div class="form-group">
-                          <div id="collapseTDC" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                          <div id="collapseTDC" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
                               <ul class="list-group">
                                 <?php
@@ -170,7 +170,7 @@
                             aria-expanded="false" aria-controls="collapseTDD">Ver ventas</button>
                         </p>
                         <div class="form-group">
-                          <div id="collapseTDD" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                          <div id="collapseTDD" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
                               <ul class="list-group">
                                 <?php
@@ -203,7 +203,7 @@
                             aria-expanded="false" aria-controls="collapseTransferencia">Ver ventas</button>
                         </p>
                         <div class="form-group">
-                          <div id="collapseTransferencia" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                          <div id="collapseTransferencia" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
                               <ul class="list-group">
                                 <?php
@@ -236,7 +236,7 @@
                             aria-expanded="false" aria-controls="collapseDeposito">Ver ventas</button>
                         </p>
                         <div class="form-group">
-                          <div id="collapseDeposito" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                          <div id="collapseDeposito" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
                               <ul class="list-group">
                                 <?php
@@ -269,7 +269,7 @@
                             aria-expanded="false" aria-controls="collapseCheque">Ver ventas</button>
                         </p>
                         <div class="form-group">
-                          <div id="collapseCheque" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                          <div id="collapseCheque" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
                               <ul class="list-group">
                                 <?php

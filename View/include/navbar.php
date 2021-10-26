@@ -99,4 +99,10 @@ function esMetodoPagoSolo($metodo, $referencia, $total)
         return array_map(null, $array_metodos, $array_referencia);
     }
 }
+
+function getFechaFormatoCDMX(){
+    $date = new DateTime('now', new DateTimeZone('America/Mexico_City') );
+    $fecha = $date->format('Y-m-d');
+    return $fecha;
+}
 ?>
