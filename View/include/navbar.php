@@ -82,6 +82,7 @@ function getFooter(){
 function getBotonCorteCaja($fecha, $id_centro){
     require_once("../../Model/Usuario/Usuario.php");
     $ModelUsuario = new Usuario();
+    $fecha = strtotime($fecha);
     $corte = $ModelUsuario->existeCorteCaja($fecha, $id_centro);
     if(!$corte){
         echo "<li class='nav-item'>

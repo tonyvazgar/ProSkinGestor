@@ -10,6 +10,7 @@
 
     if (isset($_POST['confirmarCorteCaja'])) {
         $fecha = mysqli_real_escape_string($con, $_POST['diaCorteCaja']);
+        $timestamp = mysqli_real_escape_string($con, $_POST['timestamp']); //
         $efectivo = mysqli_real_escape_string($con, $_POST['total_efectivo']);
         $num_efectivo = mysqli_real_escape_string($con, $_POST['num_efectivo']);
 
@@ -41,7 +42,7 @@
         $numTotalVentasDia = mysqli_real_escape_string($con, $_POST['numTotalVentasDia']);//
 
         $nombre_archivo = "corteCaja".$id_sucursal."-".$fecha."-".$id_cosmetologa.".pdf";
-        $id_corte_caja  = 'PROSK'.$id_sucursal.$id_cosmetologa.date('Ymd');
+        $id_corte_caja  = 'PROSK'.$id_sucursal.$id_cosmetologa.str_replace('-', '', $fecha);
 
         $id_documento = intval($ModelUsuario -> numeroReportesFromSucursal($id_sucursal)) + 1;
 
@@ -55,7 +56,7 @@
         $totalDelDia = $sumaGeneralMetodos - $sumaGeneralGastos;
        
         //($timestamp, $id_centro, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos)
-        if ($ModelUsuario->insertIntoCierreCaja($fecha, $id_sucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode([$nombres_gastos, $total_gastos]))){
+        if ($ModelUsuario->insertIntoCierreCaja($timestamp, $id_sucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode([$nombres_gastos, $total_gastos]))){
             $conceptos = [["Efectivo", $num_efectivo, $efectivo],
                      ["TDC", $num_tdc, $tdc],
                      ["TDD", $num_tdd, $tdd],

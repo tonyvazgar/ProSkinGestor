@@ -33,6 +33,7 @@
         require_once("../include/navbar.php");
         $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
         $timestamp = strtotime($date->format('Y-m-d H:i:s'));
+        $timestampFechaAEnviar = strtotime($date->format('Y-m-d'));
 
         $beginOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 00:00:00'))->getTimestamp();
         $endOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 23:59:59'))->getTimestamp();
@@ -73,6 +74,7 @@
                   <p for="diaCorteCaja" class="col-sm-2 lead">Fecha</p>
                   <div class="col-sm-10">
                     <input type="date" class="form-control" id="diaCorteCaja" name="diaCorteCaja" value="<?php echo $fecha_para_corte_caja; ?>" readonly> 
+                    <input type="number" class="form-control" id="timestamp" name="timestamp" value="<?php echo $timestampFechaAEnviar; ?>" hidden>
                     <small id="passwordHelpBlock" class="form-text text-muted">
                       Esta es la fecha del día del corte de caja, no se puede cambiar ya que es automático
                     </small>

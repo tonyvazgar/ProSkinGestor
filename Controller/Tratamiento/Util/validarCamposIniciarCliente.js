@@ -230,7 +230,7 @@ $("body").on('click', '#botonAgregarMetodoPago', function(){
     const count = $("#metodo_pago_div").children('div').length + 1;
     const front_metodo_pago = "<br><div class='form-inline div_metodo" + count + "'><h4>Método "+count+":</h4><div><select name='metodoPago[]' id='metodoPago' class='form-control select_metodo" + count + "'><option value=''>*** Selecciona ***</option><option value='6'>Depósito</option><option value='1'>Efectivo</option><option value='2'>[TDD]Tarjeta de débito</option><option value='3'>[TDC]Tarjeta de crédito</option><option value='4'>Transferencia</option><option value='5'>Cheque de regalo</option></select><input type='text' class='form-control referencia_metodo" + count + "' id='referencia' name='referencia[]' placeholder='Número de referencia del pago' style='display: none;'><input type='number' class='form-control' id='totalMetodoPago' name='totalMetodoPago[]' placeholder='Cantidad de este método de pago' step='any'></div><button class='btn btn-danger metodo" + count + "' id='botonEliminarMetodoPago' type='button'><i class='far fa-trash-alt'></i></button></div>";
     $('#metodo_pago_div').append(front_metodo_pago);
-    verificarCantidadesMetodoPago();
+    // verificarCantidadesMetodoPago();
 });
 $(document).on('keyup',"#totalMetodoPago", function () {
     verificarCantidadesMetodoPago();
@@ -416,9 +416,15 @@ function verificarCantidadesMetodoPago(){
     });
     var sum = formElements.reduce(function(a, b) { return a + b; }, 0);
 
+    $('#sumaTotalMetodosPago').val(sum);
+
     if(sum == $('#sumaTotalPrecios').val()){
+        $('#sumaTotalMetodosPago').css("border", "2px solid green");
+        $('#sumaTotalPrecios').css("border", "2px solid green");
         $("#firma_div").show();
     }else{
+        $('#sumaTotalMetodosPago').css("border", "2px solid red");
+        $('#sumaTotalPrecios').css("border", "2px solid red");
         $("#firma_div").hide();
     }
 }

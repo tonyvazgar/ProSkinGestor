@@ -84,7 +84,10 @@
                 </div>
                 <!--  -->
                     <div class="form-group metodosPagoDiv" id="metodo_pago_div" style="display: none;">
-                        <h3>Métodos de pago:</h3>
+                        <div class='form-inline'>
+                            <h3>Métodos de pago:</h3>
+                            <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" readonly>
+                        </div>
                         <div class='form-inline'>
                             <h4>Método 1:</h4>
                             <div>
