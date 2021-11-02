@@ -22,7 +22,7 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
-        $fecha_para_corte_caja = date('Y-m-d');
+        $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
         $id_sucursal = $ModeloUsuario -> getNumeroSucursalUsuario($email)['id_sucursal'];
         $id = $_GET['id'];

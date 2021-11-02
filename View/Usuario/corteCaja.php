@@ -5,13 +5,21 @@
   require_once "../../Model/Tratamiento/Tratamiento.php";
   require_once "../../Model/Inventario/Producto.php";
   require_once "../../Controller/Usuario/UsuarioController.php";
+  require_once("../include/navbar.php");
 
   $session          = new ControllerSesion();
   $ModeloUsuario    = new Usuario();
   $ModelTratamiento = new Tratamiento();
   $ModelProducto    = new Producto();
+  $email    = $_SESSION['email'];
+  $password = $_SESSION['password'];
+  
+  $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  $id_sucursal = $ModeloUsuario->getNumeroSucursalUsuario($email)['id_sucursal'];
 
-  // $corte = $ModelUsuario->existeCorteCaja($fecha, $id_centro);
+
+  $fecha_para_corte_caja = getFechaFormatoCDMX();
+  $corte = $ModelUsuario->existeCorteCaja(strtotime($fecha_para_corte_caja), $id_sucursal);
   // if($corte != 0){
   //   header("Location: ../../index.php");
   // }
@@ -30,7 +38,6 @@
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
-        require_once("../include/navbar.php");
         $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
         $timestamp = strtotime($date->format('Y-m-d H:i:s'));
         $timestampFechaAEnviar = strtotime($date->format('Y-m-d'));
@@ -309,7 +316,12 @@
                   </div>
                 </div>
 
-                <button type="submit" class="form-control btn-success" style="display: none;" id="confirmarCorteCaja" name="confirmarCorteCaja" onclick='return confirm("¿Estás seguro de confirmar el corte de caja?")'>Confirmar corte</button>
+                <div id="importante" class="form-group text-center" style="display: none;">
+                  <p class="lead">IMPORTANTE</p>
+                  <p class="lead text-uppercase">No existen ventas registradas en el día</p>
+                </div>
+
+                <button type="submit" class="form-control btn-success" id="confirmarCorteCaja" name="confirmarCorteCaja" onclick='return confirm("¿Estás seguro de confirmar el corte de caja?")'>Confirmar corte</button>
               </form>
             </div>
         </div>

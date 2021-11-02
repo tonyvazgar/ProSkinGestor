@@ -82,12 +82,18 @@ function getFooter(){
 function getBotonCorteCaja($fecha, $id_centro){
     require_once("../../Model/Usuario/Usuario.php");
     $ModelUsuario = new Usuario();
-    $fecha = strtotime($fecha);
-    $corte = $ModelUsuario->existeCorteCaja($fecha, $id_centro);
-    if(!$corte){
-        echo "<li class='nav-item'>
-                <a href='../../View/Usuario/corteCaja.php' class='btn btn-success'>Cierre de caja</a>
-              </li>";
+    $timestamp = strtotime($fecha);
+    
+    $ds = new DateTime('now', new DateTimeZone('America/Mexico_City') );
+    $hora = $ds->format('H');
+
+    if($hora >= 16 && $hora <= 21){
+        $corte = $ModelUsuario->existeCorteCaja($timestamp, $id_centro);
+        if(!$corte){
+            echo "<li class='nav-item'>
+                    <a href='../../View/Usuario/corteCaja.php' class='btn btn-success'>Cierre de caja</a>
+                  </li>";
+        }
     }
 }
 function esMetodoPagoSolo($metodo, $referencia, $total)

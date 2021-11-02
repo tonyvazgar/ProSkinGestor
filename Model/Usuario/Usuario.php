@@ -184,6 +184,14 @@
             $db->close();
             return $info['numReportes'];
         }
+
+        public function getCierresDeCajaFromCentro($id_sucursal, $primer_dia, $ultimo_dia){
+            $db = new Db();
+            $sql_statement_todo = "SELECT * FROM `CorteDeCaja` WHERE id_centro='$id_sucursal' AND timestamp BETWEEN $primer_dia AND $ultimo_dia";
+            $info = $db->query($sql_statement_todo)->fetchAll();
+            $db->close();
+            return $info;
+        }
     }
 
     function obtenerTotalMetodoPago($metodoPago, $datos){
