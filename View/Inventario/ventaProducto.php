@@ -26,6 +26,7 @@
         require_once("../include/navbar.php");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $corte = $ModeloUsuario->existeCorteCaja(strtotime($fecha_para_corte_caja), $numeroSucursal['id_sucursal']);
         getApartados();
     ?>
     <main role="main" class="container">
@@ -133,6 +134,14 @@
                     <hr>
                     <div class='form-group'>
                         <button class='btn btn-info' id="botonAgregarMetodoPago" type="button">Agregar método de pago <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="form-group text-center" id="notificaciones_div">
+                        <?php
+                            if($corte){
+                                echo '<p class="lead text-danger">IMPORTANTE</p>
+                                <p class="lead text-danger">Ya se hizo el corte de caja, esta venta se desplazará al siguiente día</p>';
+                            }
+                        ?>
                     </div>
                     <hr>
                     <button type="submit" id="venderProducto" name="venderProducto" class="btn btn-success" disabled>Vender producto</button>

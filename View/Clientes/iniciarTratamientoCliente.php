@@ -119,6 +119,15 @@
                         <option value="1">Ya se firmó</option>
                     </select>
                 </div>
+                <div class="form-group text-center" id="notificaciones_div">
+                    <?php
+                        $corte = $ModeloUsuario->existeCorteCaja(strtotime($fecha_para_corte_caja), $numeroSucursal['id_sucursal']);
+                        if($corte){
+                            echo '<p class="lead text-danger">IMPORTANTE</p>
+                            <p class="lead text-danger">Ya se hizo el corte de caja, esta venta se desplazará al siguiente día</p>';
+                        }
+                    ?>
+                </div>
                 <div class="form-group justify-content-center" id='botonComenzar' name='botonComenzar'>
                     <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registrar tratamiento</button>
                 </div>

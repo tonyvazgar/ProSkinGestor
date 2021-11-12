@@ -95,7 +95,6 @@
                                             <a href='../../View/Ventas/detalleVenta.php?idVenta=".$venta['id_venta']."'>".$venta['descripcion_producto']."</a><br>
                                             <span class='badge bg-info rounded-pill'>".date("Y-m-d", $venta['timestamp'])."</span>
                                             <span class='badge bg-info rounded-pill'>".$venta['cantidad_producto']." piezas</span>
-                                            <span class='badge bg-info rounded-pill'>$".$venta['monto']."</span>
                                           </li>";
                                     }
                                 }

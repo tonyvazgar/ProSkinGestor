@@ -143,7 +143,15 @@
         //Otros datos del formulario para ser de utilidad
         $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');                                                   //Es un valor: [aviso] => 1
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
+        $formato_con_hora = $date->format('Y-m-d H:i:s');
+        $timeStamp          = strtotime($formato_con_hora);
+
+        $corte = $ModelProducto->existeCorteCaja(strtotime($date->format('Y-m-d')), $id_centro);
+        if($corte){
+            $la_fecha = $date;
+            $la_fecha->modify('+'.(1).' days');
+            $timeStamp = strtotime($la_fecha->format('Y-m-d 10:00:00'));
+        }
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************LOGICA PARA REGISTRAR 1 O MUCHOS TRATAMIENTOS EN UN POST************
         $numero_de_tratamientos   = sizeof($tratamiento);
@@ -255,6 +263,9 @@
             //Insertar venta
             //public function insertarVentaProducto( $id_venta, $id_cliente, $id_tratamiento, $metodo_pago, $monto, $timestamp, $centro, $costo_tratamiento, $id_productos, $costo_producto, $cantidad_producto, $id_cosmetologa )
             $ModelProducto->insertarVentaProducto($ID_VENTA_UUID, $id_cliente, '', $metodo_pago_temp, json_encode($referencia_pago), $precio_total_temp, $timeStamp, $id_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+        }
+        if($corte){
+            $ModelProducto->insertVentasDesplazadas($ID_VENTA_UUID, strtotime($formato_con_hora), $timeStamp);
         }
         //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

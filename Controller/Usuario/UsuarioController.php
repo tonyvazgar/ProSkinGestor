@@ -41,12 +41,18 @@
         $observaciones = mysqli_real_escape_string($con, $_POST['observaciones']);
         $numTotalVentasDia = mysqli_real_escape_string($con, $_POST['numTotalVentasDia']);//
 
-        $nombre_archivo = "corteCaja".$id_sucursal."-".$fecha."-".$id_cosmetologa.".pdf";
-        $id_corte_caja  = 'PROSK'.$id_sucursal.$id_cosmetologa.str_replace('-', '', $fecha);
+        $nombre_centro_sin_espacios = str_replace(' ', '', $nombre_centro);
+
+        $nombre_archivo = $nombre_centro_sin_espacios."_corteCaja_".$fecha."_".$id_cosmetologa.".pdf";
+        $id_corte_caja  = 'PS'.strtoupper($nombre_centro_sin_espacios).$timestamp;
 
         $id_documento = intval($ModelUsuario -> numeroReportesFromSucursal($id_sucursal)) + 1;
 
         $sumaGeneralMetodos = floatval($tdc) + floatval($tdd) + floatval($transferencia) + floatval($deposito) + floatval($cheque) + floatval($efectivo);
+
+        if($num_efectivo == 0 && $num_tdc == 0 && $num_tdd == 0 && $num_transferencia == 0 && $num_deposito == 0 && $num_cheque == 0 && empty($temp_nombres_gasto) && empty($temp_total_gasto)){
+            $observaciones = "NO HUBO MOVIMIENTOS EN EL DIA \n" . $observaciones;
+        }
 
         $sumaGeneralGastos = 0;
         foreach($total_gastos as $gasto){
@@ -68,8 +74,8 @@
         }else{
             //echo hubo un error;
         }
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($_POST);
+        // echo '</pre>';
     }
 ?>

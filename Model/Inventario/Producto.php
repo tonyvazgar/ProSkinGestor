@@ -225,6 +225,28 @@
         }
 
         //-----------------------------------------------------------------------------------------------
+        public function existeCorteCaja($fecha, $id_centro){
+            $existe = 0;
+            $db = new Db();
+            $sql_statement = "SELECT * FROM `CorteDeCaja` WHERE timestamp='$fecha' AND id_centro='$id_centro'";
+            print_r($sql_statement);
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            if(!empty($account)){
+                $existe = TRUE;
+            }
+            return $existe;
+        }
+
+        public function insertVentasDesplazadas($id_venta, $fecha_original, $fecha_desplazada){
+            //INSERT INTO `VentasDesplazadas`(`id_venta`, `fecha_original`, `fecha_desplazada`) VALUES 
+            $db = new DB();
+            $sql_statement = "INSERT INTO `VentasDesplazadas`(`id_venta`, `fecha_original`, `fecha_desplazada`) VALUES 
+                              ('$id_venta', '$fecha_original', '$fecha_desplazada')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query->affectedRows();
+        }
     }
 
     function getApartados(){

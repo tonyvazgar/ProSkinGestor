@@ -169,8 +169,15 @@
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
+        $formato_con_hora = $date->format('Y-m-d H:i:s');
+        $timeStamp          = strtotime($formato_con_hora);
 
+        $corte = $ModelProducto->existeCorteCaja(strtotime($date->format('Y-m-d')), $num_centro);
+        if($corte){
+            $la_fecha = $date;
+            $la_fecha->modify('+'.(1).' days');
+            $timeStamp = strtotime($la_fecha->format('Y-m-d 10:00:00'));
+        }
 
 
         $numero_de_productos   = sizeof($id_producto);
@@ -194,6 +201,9 @@
             
             //Quitar de ProductosApartados (Borrar de tabla ProductosApartados el registro)
             $ModelProducto -> deleteProductoApartadoFinalizar($id_producto_temp, $cantidad_producto_temp);
+        }
+        if($corte){
+            $ModelProducto->insertVentasDesplazadas($id_venta, strtotime($formato_con_hora), $timeStamp);
         }
         //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -12,6 +12,8 @@
   $password = $_SESSION['password'];
   
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
+  $nombreSucursal = $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal'];
+  $numeroSucursal = $ModeloUsuario->getNumeroSucursalUsuario($email)['id_sucursal'];
   
   getHeadHTML("ProSkin - Corte de caja exitoso");
 ?>
@@ -21,7 +23,25 @@
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
 
-        $rutaArchivo = "../../Documents/ReportesCierreCaja/".$ModeloUsuario -> getNombreArchivoFromCorteCajaWhereID($_GET['id']);
+        $info_cierreCaja = $ModeloUsuario->getInformacionFromCierreCajaWhereID($_GET['id']);
+
+        $fechaCorteCaja = date('d-m-Y', $info_cierreCaja['timestamp']);
+        $total_ventas = number_format($info_cierreCaja['total_ingresos'], 2);
+        $total_gastos = number_format($info_cierreCaja['total_gastos'], 2);
+        $total_diferencia = number_format($info_cierreCaja['total_caja'], 2);
+
+
+        $dominio = "https://www.proskingestor.com/";
+        $rutaArchivo = "Documents/ReportesCierreCaja/".$ModeloUsuario -> getNombreArchivoFromCorteCajaWhereID($_GET['id']);
+
+        $texto = "Corte de caja de {$nombreSucursal} con fecha de {$fechaCorteCaja}, con un total de ventas de $".$total_ventas.", de gastos de $".$total_gastos." y $".$total_diferencia." de diferencia. Disponible  en: ";
+
+
+        $linkRuta = urlencode($texto).urlencode($dominio.$rutaArchivo);
+
+        // $linkWA = "https://wa.me/+5212222122484?text=".$linkRuta;
+        $linkWA = "https://wa.me/+5212222122484?text=".$linkRuta;
+
     ?>
     <main role="main" class="container"><br>
         <div class="container">
@@ -30,7 +50,11 @@
             </div><br>
             <div class="col d-flex justify-content-center">
                 <a class="btn btn-primary" href="../index.php" role="button">Regresar a inicio</a>
-                <a class="btn btn-success" href="<?php echo $rutaArchivo ?>" role="button">Ver Reporte</a>
+                <a class="btn btn-success" href="<?php echo $dominio.$rutaArchivo ?>" role="button">Ver Reporte</a>
+                <!-- <a class="btn btn-success" href="<?php echo "../../".$rutaArchivo ?>" role="button">Ver Reporte</a> -->
+            </div>
+            <div class="col d-flex justify-content-center">
+                <a class="btn btn-success" href="<?php echo $linkWA ?>" role="button">Notificar por <i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </main>

@@ -169,6 +169,14 @@
             return $query->affectedRows();
         }
 
+        public function getInformacionFromCierreCajaWhereID($id_corte_caja){
+            $db = new Db();
+            $sql_statement_todo = "SELECT * FROM `CorteDeCaja` WHERE id_corte_caja='$id_corte_caja'";
+            $info = $db->query($sql_statement_todo)->fetchArray();
+            $db->close();
+            return $info;
+        }
+
         public function getNombreArchivoFromCorteCajaWhereID($id_corteCaja){
             $db = new Db();
             $sql_statement_todo = "SELECT * FROM `CorteDeCaja` WHERE id_corte_caja='$id_corteCaja'";

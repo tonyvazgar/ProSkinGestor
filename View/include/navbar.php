@@ -55,7 +55,7 @@ function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");
     if (!$ex){
-        $ex = "1.2.1";
+        $ex = "1.3.0";
     }
     return $ex; 
 }
@@ -75,7 +75,7 @@ function getFooter(){
                 <div class='container text-center'>
                     <span class='text-muted font-italic'>La belleza comienza en el momento en que decides ser tú misma.</span>
                     <br>
-                    <span class='text-muted font-italic'>".getGitBranch()."==>[".getVersion()."]</span>
+                    <span class='text-muted font-italic'>".getGitBranch()."<br>[".getVersion()."]</span>
                 </div>
             </footer>";
 }
@@ -112,4 +112,26 @@ function getFechaFormatoCDMX(){
     $fecha = $date->format('Y-m-d');
     return $fecha;
 }
+
+function unaSemanaAtras($fecha_de_hoy){
+    $la_fecha = new DateTime($fecha_de_hoy, new DateTimeZone('America/Mexico_City') );
+    $la_fecha->modify('-'.(7).' days');
+
+    return $la_fecha->format('Y-m-d');
+}
+
+function diferenciaFechas($fechaUno, $fechaDos){
+    $date1 = new DateTime($fechaUno);
+    $date2 = new DateTime($fechaDos);
+    $interval = $date1->diff($date2);
+
+    $diferenciaEnDias = $interval->days;
+    // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
+    // // shows the total amount of days (not divided into years, months and days like above)
+    // echo "difference " . $interval->days . " days ";
+    // echo "<br>".$fechaUno."<br>".$fechaDos;
+
+    return $diferenciaEnDias;
+}
+
 ?>
