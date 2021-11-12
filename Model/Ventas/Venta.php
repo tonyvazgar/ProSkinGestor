@@ -291,7 +291,17 @@
             $db->close();
             return $tratamientos;
         }
-        
+        public function esVentaDesplazada($id_venta){
+            $existe = 0;
+            $db = new Db();
+            $sql_statement = "SELECT * FROM `VentasDesplazadas` WHERE id_venta='$id_venta'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            if(!empty($account)){
+                $existe = TRUE;
+            }
+            return $existe;
+        }
     }
     function getDesgloseProductosTratamientosVenta($array){
         $productos    = [];

@@ -162,14 +162,22 @@
         $cantidad        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidad_producto_seleccionado']))); //la introduce el usuario
         $stock           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['stock_producto_seleccionado'])));    //Disponibles, le serán restados $cantidad al final
         $total           = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['total_producto_seleccionado'])));    //$cantidad * $precio_unitario
-        $metodo_pago     = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $referencia_pago = mysqli_real_escape_string($con, $_POST['referencia']);
+        $metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));
+        $referencia_pago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['referencia'])));
+        $total_metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago'])));
 
         $num_centro      = mysqli_real_escape_string($con, $_POST['centro']);
         $id_cosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
+        $formato_con_hora = $date->format('Y-m-d H:i:s');
+        $timeStamp          = strtotime($formato_con_hora);
 
+        $corte = $ModelProducto->existeCorteCaja(strtotime($date->format('Y-m-d')), $num_centro);
+        if($corte){
+            $la_fecha = $date;
+            $la_fecha->modify('+'.(1).' days');
+            $timeStamp = strtotime($la_fecha->format('Y-m-d 10:00:00'));
+        }
 
 
         $numero_de_productos   = sizeof($id_producto);
@@ -183,8 +191,8 @@
             $stock_inicial_temp     = $stock[$i];
             $cantidad_producto_temp = $cantidad[$i];
             $nuevo_stock_temp       = $stock_inicial_temp - $cantidad_producto_temp;
-            $metodo_pago_temp       = $metodo_pago;
-            $referencia_pago_temp   = $referencia_pago;
+            $metodo_pago_temp       = json_encode(array_map(null, $metodo_pago, $total_metodo_pago));
+            $referencia_pago_temp   = json_encode($referencia_pago);
             $precio_total_temp      = $total[$i];
             $precio_unitario_temp   = $precio_unitario[$i];
 
@@ -193,6 +201,9 @@
             
             //Quitar de ProductosApartados (Borrar de tabla ProductosApartados el registro)
             $ModelProducto -> deleteProductoApartadoFinalizar($id_producto_temp, $cantidad_producto_temp);
+        }
+        if($corte){
+            $ModelProducto->insertVentasDesplazadas($id_venta, strtotime($formato_con_hora), $timeStamp);
         }
         //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

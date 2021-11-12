@@ -19,7 +19,9 @@ $(document).ready(function () {
     
     var front_tratamiento = '<hr><div class="col-xs-4"><h3 class="numTratamientos">Tratamiento #1</h3><div class="well well-sm"><div class="form-group"><label>Tratamiento a empezar</label><select name="tratamiento[]" id="tratamiento" class="last_tratamiento form-control"><option>*** SELECCIONA ***</option><option value="1">Depilación</option><option value="2">Cavitación</option><option value="3">Otros tratamientos</option></select></div><div class="last_tratamiento form-group" id="otro" name="otro"></div><div class="form-group" hidden><label>Calificación</label><select name="calificacion[]" id="calificacion" class="form-control" hidden><option value="1">☆</option><option value="2">☆☆</option><option value="3">☆☆☆</option><option value="4">☆☆☆☆</option><option value="5">☆☆☆☆☆</option></select></div><div class="form-group"><label>Comentarios</label><textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento"></textarea></div></div></div>';
     $("#div-agregarTratamiento").on('click', '.btn-agregar-tratamiento', function(){
+        actualizarTotalDeVenta();
         $("#metodo_pago_div").hide();
+        $("#agregar_boton_pago_div").hide();
         $("#firma_div").hide();
         // Agregamos el formulario
         var n = $("#elementos .col-xs-4").length + 1;
@@ -40,7 +42,9 @@ $(document).ready(function () {
     });
 
     $("#div-agregarTratamiento").on('click', '.btn-agregar-producto', function(){
+        actualizarTotalDeVenta();
         $("#metodo_pago_div").hide();
+        $("#agregar_boton_pago_div").hide();
         $("#firma_div").hide();
         var num_producto = $("#elementos .plantilla").length + 1;
         var front_producto = '<hr><div class="plantilla"><h2 class="numProductos">Producto #'+num_producto+'</h2><div class="form-group"><table class="table table-borderless"><thead><tr><td scope="col"><h4>Marca a buscar*</h4></td><td scope="col"><h4>Linea a buscar*</h4></td></tr></thead><tbody><tr><td><select name="marca" id="marca" class="last_producto form-control"><option value="">** SELECCIONA **</option><option value="MIGUETT">MIGUETT</option><option value="AINHOA">AINHOA</option><option value="GERMAINE">GERMAINE</option></select></td><td><select name="linea" id="linea" class="last_producto form-control"><option value="">** SELECCIONA **</option><option value="PURITY">PURITY</option><option value="WHITESS">WHITESS</option><option value="OXYGEN">OXYGEN</option><option value="SENSKIN">SENSKIN</option><option value="COLLAGEN%2B">COLLAGEN +</option><option value="MULTIVIT">MULTIVIT</option><option value="BIOME CARE">BIOME CARE</option><option value="OLIVE">OLIVE</option><option value="SPECIFIC">SPECIFIC</option><option value="HYALURONIC">HYALURONIC</option><option value="SKIN PRIMERS">SKIN PRIMERS</option><option value="BODY LINE UP">BODY LINE UP</option><option value="CANNABI">CANNABI</option><option value="SPA LUXURY">SPA LUXURY</option><option value="OTRO">OTRO</option><option value="PACKS">PACKS</option></select></td></tr></tbody></table><div class="last_producto form-group" id="otroProducto" name="otroProducto"></div><div class="last_producto form-group" id="productos" name="productos"></div><div class="form-group"><table class="table table-borderless" style="table-layout:fixed"><tbody><tr><td><h4>ID producto:</h4><p class="last_producto lead id_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" hidden readonly="readonly"></td><td><h4>Unidades disponibles</h4><p class="last_producto lead stock_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" hidden readonly="readonly"></td></tr></tbody></table></div><div class="form-group"><h4>Descripción:</h4><p class="last_producto lead desc_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="desc_producto_seleccionado" name="desc_producto_seleccionado" hidden readonly="readonly"></div><div class="form-group"><table class="table table-borderless"><tbody><tr><td><h4>Precio por pieza</h4><input type="number" class="last_producto form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" style="display: none;"></td><td><h4>Cantidad</h4><input type="number" class="last_producto form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" style="display: none;" required></td></tr></tbody></table></div><div class="form-group"><table class="table table-borderless"><tbody><tr><td><h4>Precio de venta</h4><p class="last_producto lead total_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly="readonly"></td></tr></tbody></table></div></div></div>';
@@ -63,6 +67,7 @@ $(document).ready(function () {
         verificarAntesNuevoTratamiento();
         verificarAntesNuevoProducto();
         verificarEliminarElemento();
+        actualizarTotalDeVenta();
     });
 
     $("#elementos").on('click', '.btn-quitar-producto', function(){
@@ -71,9 +76,11 @@ $(document).ready(function () {
         verificarAntesNuevoTratamiento();
         verificarAntesNuevoProducto();
         verificarEliminarElemento();
+        actualizarTotalDeVenta();
     });
     $("#elementos").on('keyup', '#precioTratamiento.last_tratamiento', function(){
         verificarAntesNuevoTratamiento();
+        actualizarTotalDeVenta();
     });    
 });
 
@@ -121,6 +128,7 @@ $('body').on('click','#selecionarProductoBtn',function () {
             $('#total_producto_seleccionado.last_producto').val(total);
             $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
             verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
+            actualizarTotalDeVenta();
         });
         $('#precioUnitario_producto_seleccionado.last_producto').keyup(function() {
             let unidadesDisponibles = parseInt($('#stock_producto_seleccionado.last_producto').val());
@@ -132,6 +140,7 @@ $('body').on('click','#selecionarProductoBtn',function () {
             $('#total_producto_seleccionado.last_producto').val(total);
             $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
             verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
+            actualizarTotalDeVenta();
         });
         $('#cantidad_producto_seleccionado.last_producto').show();
         $('#precioUnitario_producto_seleccionado.last_producto').show();
@@ -210,10 +219,36 @@ $(document).on('change','#detalleZona.last_tratamiento',function () {
         console.log(num + ' --> ' + precio);
     }
     verificarAntesNuevoTratamiento();
+    actualizarTotalDeVenta();
 });
 
 $(document).on('change','#nombreTratamiento.last_tratamiento',function () {
     recargarListaNombreTratamiento();
+});
+
+$("body").on('click', '#botonAgregarMetodoPago', function(){
+    const count = $("#metodo_pago_div").children('div').length + 1;
+    const front_metodo_pago = "<br><div class='form-inline div_metodo" + count + "'><h4>Método "+count+":</h4><div><select name='metodoPago[]' id='metodoPago' class='form-control select_metodo" + count + "'><option value=''>*** Selecciona ***</option><option value='6'>Depósito</option><option value='1'>Efectivo</option><option value='2'>[TDD]Tarjeta de débito</option><option value='3'>[TDC]Tarjeta de crédito</option><option value='4'>Transferencia</option><option value='5'>Cheque de regalo</option></select><input type='text' class='form-control referencia_metodo" + count + "' id='referencia' name='referencia[]' placeholder='Número de referencia del pago' style='display: none;'><input type='number' class='form-control' id='totalMetodoPago' name='totalMetodoPago[]' placeholder='Cantidad de este método de pago' step='any'></div><button class='btn btn-danger metodo" + count + "' id='botonEliminarMetodoPago' type='button'><i class='far fa-trash-alt'></i></button></div>";
+    $('#metodo_pago_div').append(front_metodo_pago);
+    // verificarCantidadesMetodoPago();
+});
+$(document).on('keyup',"#totalMetodoPago", function () {
+    verificarCantidadesMetodoPago();
+});
+
+$("body").on('click', '#botonEliminarMetodoPago', function(){
+    // $(this).closest('.plantilla').remove();
+    const clase = $(this).attr('class').replace('btn btn-danger ', '');
+    $(this).closest('.div_' + clase).remove();
+});
+
+$('body').on('change','#metodoPago',function () {
+    const num_clase = $(this).attr('class').replace('form-control select_metodo', '');
+    if($(this).val() == 6){
+        $('.referencia_metodo' + num_clase).show();
+    }else{
+        $('.referencia_metodo' + num_clase).hide();
+    }
 });
 
 //------------------------------------------------------------------------------------------
@@ -295,6 +330,7 @@ function recargarListaNombreTratamiento(){
         success:function(r){
             $('#precioTratamiento.last_tratamiento').val(r);
             verificarAntesNuevoTratamiento();
+            actualizarTotalDeVenta();
         }
     });
 }
@@ -307,11 +343,12 @@ function verificarAntesNuevoTratamiento(){
         $("#btn-agregar-tratamiento").attr('disabled', false);
         $("#btn-agregar-producto").attr('disabled', false);
         $("#metodo_pago_div").show();
-        $("#firma_div").show();
+        $("#agregar_boton_pago_div").show();
     }else{
         $("#btn-agregar-tratamiento").attr('disabled', true);
         $("#btn-agregar-producto").attr('disabled', true);
         $("#metodo_pago_div").hide();
+        $("#agregar_boton_pago_div").hide();
         $("#firma_div").hide();
     }
 }
@@ -327,11 +364,12 @@ function verificarAntesNuevoProducto(){
         $("#btn-agregar-tratamiento").attr('disabled', false);
         $("#btn-agregar-producto").attr('disabled', false);
         $("#metodo_pago_div").show();
-        $("#firma_div").show();
+        $("#agregar_boton_pago_div").show();
     }else{
         $("#btn-agregar-tratamiento").attr('disabled', true);
         $("#btn-agregar-producto").attr('disabled', true);
         $("#metodo_pago_div").hide();
+        $("#agregar_boton_pago_div").hide();
         $("#firma_div").hide();
     }
 }
@@ -352,6 +390,41 @@ function verificarEliminarElemento() {
         $("#btn-agregar-tratamiento").attr('disabled', false);
         $("#btn-agregar-producto").attr('disabled', false);
         $("#metodo_pago_div").show();
+        $("#agregar_boton_pago_div").show();
+    }
+}
+
+function actualizarTotalDeVenta(){
+
+    var formElements = new Array();
+    //----------------------------------------------------
+    $("form #precioTratamiento").each(function(){
+        formElements.push(parseFloat($(this).val()));
+    });
+    $("form #total_producto_seleccionado").each(function(){
+        formElements.push(parseFloat($(this).val()));
+    });
+    //----------------------------------------------------
+    $('#sumaTotalPrecios').val(formElements.reduce(function(a, b) { return a + b; }, 0));
+    console.log(formElements);
+}
+
+function verificarCantidadesMetodoPago(){
+    var formElements = new Array();
+    $("form #totalMetodoPago").each(function(){
+        formElements.push(parseFloat($(this).val()));
+    });
+    var sum = formElements.reduce(function(a, b) { return a + b; }, 0);
+
+    $('#sumaTotalMetodosPago').val(sum);
+
+    if(sum == $('#sumaTotalPrecios').val()){
+        $('#sumaTotalMetodosPago').css("border", "2px solid green");
+        $('#sumaTotalPrecios').css("border", "2px solid green");
         $("#firma_div").show();
+    }else{
+        $('#sumaTotalMetodosPago').css("border", "2px solid red");
+        $('#sumaTotalPrecios').css("border", "2px solid red");
+        $("#firma_div").hide();
     }
 }
