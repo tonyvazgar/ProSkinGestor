@@ -17,45 +17,54 @@
 
   $mis_tratamientos = $ModelTratamiento->getAllTratamientosAplicadosDeCosmetologa($email);
   $mis_ventas = $ModelTratamiento->getAllVentasDeCosmetologa($email);
-
+  $id_sucursal = $ModeloUsuario->getNumeroSucursalUsuario($email)['id_sucursal'];
   getHeadHTML("ProSkin - ".$fetch_info['name']);
 ?>
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
+        $fecha_para_corte_caja = getFechaFormatoCDMX();
+
+        $nbDay = date('N', strtotime($fecha_para_corte_caja));
+        $monday = new DateTime($fecha_para_corte_caja, new DateTimeZone('America/Mexico_City') );
+        $sunday = new DateTime($fecha_para_corte_caja, new DateTimeZone('America/Mexico_City') );
+        $monday->modify('-'.($nbDay-1).' days');
+        $sunday->modify('+'.(7-$nbDay).' days');
+        $primer_dia = strtotime($monday->format('Y-m-d'));
+        $ultimo_dia = strtotime($sunday->format('Y-m-d'));
+
+        $cortes_de_caja = $ModeloUsuario -> getCierresDeCajaFromCentro($id_sucursal, $primer_dia, $ultimo_dia);
+
         
-        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+      
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        // echo '<pre>';
+        // print_r($cortes_de_caja);
+        // echo '<pre>';
     ?>
     <main role="main" class="container">
         <div class="container">
-            <!-- <h2>Esta es tu información</h2>
-            <dl class="row">
-                <dt class="col-sm-3">Description lists</dt>
-                <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
-
-                <dt class="col-sm-3">Euismod</dt>
-                <dd class="col-sm-9">
-                    <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
-                    <p>Donec id elit non mi porta gravida at eget metus.</p>
-                </dd>
-
-                <dt class="col-sm-3">Malesuada porta</dt>
-                <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
-
-                <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
-                <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
-
-                <dt class="col-sm-3">Nesting</dt>
-                <dd class="col-sm-9">
-                    <dl class="row">
-                    <dt class="col-sm-4">Nested definition list</dt>
-                    <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
-                    </dl>
-                </dd>
-            </dl> -->
             <h1>Hola <?php echo $fetch_info['name']; ?></h1>
             <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <h3>Cierres de caja de la semana (<?php echo $monday->format('M-d').' al '.$sunday->format('M-d');?>):</h3>
+                        <ul class="list-group">
+                            <?php
+                                if(empty($cortes_de_caja)){
+                                    echo "<h3 class='text-center'>Aún no hay ningún cierre de caja disponible</h3>";
+                                }else{
+                                foreach($cortes_de_caja as $corte){
+                                    echo "<li class='list-group-item'>
+                                            <a href='../../Documents/ReportesCierreCaja/".$corte['nombre_archivo']."'>".$corte['id_corte_caja']."</a>
+                                          </li>";
+                                    }
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <h3>Los tratamientos que has aplicado:</h3>
@@ -65,8 +74,8 @@
                                     echo "<h3 class='text-center'>Aún no has registrado ningún tratamiento</h3>";
                                 }else{
                                 foreach($mis_tratamientos as $tratamiento){
-                                    echo "<li class='list-group-item d-flex justify-content-between align-items-center'>
-                                                <a href='../../View/Ventas/detalleVenta.php?idVenta=".$tratamiento['id_venta']."'>".$tratamiento['nombre_tratamiento']."</a>
+                                    echo "<li class='list-group-item'>
+                                                <a href='../../View/Ventas/detalleVenta.php?idVenta=".$tratamiento['id_venta']."'>".$tratamiento['nombre_tratamiento']."</a><br>
                                                 <span class='badge bg-info rounded-pill'>".date("Y-m-d", $tratamiento['timestamp'])."</span>
                                         </li>";
                                 }
@@ -86,7 +95,6 @@
                                             <a href='../../View/Ventas/detalleVenta.php?idVenta=".$venta['id_venta']."'>".$venta['descripcion_producto']."</a><br>
                                             <span class='badge bg-info rounded-pill'>".date("Y-m-d", $venta['timestamp'])."</span>
                                             <span class='badge bg-info rounded-pill'>".$venta['cantidad_producto']." piezas</span>
-                                            <span class='badge bg-info rounded-pill'>$".$venta['monto']."</span>
                                           </li>";
                                     }
                                 }
@@ -95,7 +103,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <img src="../img/bg.webp" class="img-fluid" alt="Responsive image"> -->
         </div>
     </main>
     <?php

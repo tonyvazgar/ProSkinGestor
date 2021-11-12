@@ -21,8 +21,8 @@
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
-        
-        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $fecha_para_corte_caja = getFechaFormatoCDMX();
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
         <div class="container">

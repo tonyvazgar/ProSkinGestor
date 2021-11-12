@@ -26,8 +26,8 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
-        
-        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $fecha_para_corte_caja = getFechaFormatoCDMX();
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
     <main role="main" class="container">
         <div class="container">
@@ -64,7 +64,13 @@
                     <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
                     <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
                 </div>
-                <div class="form-group" style="display: none;" id="metodo_pago_div">
+                <hr>
+                    <div class="form-inline justify-content-center" id='div-sumaTotalPrecios' name='div-sumaTotalPrecios'>
+                        <h4>Total de venta</h4>
+                        <input type="number" class="last_producto form-control" id="sumaTotalPrecios" name="sumaTotalPrecios" readonly>
+                    </div>
+                <hr>
+                <div class="form-group" style="display: none;">
                     <label>Método de pago: </label>
                     <select name='metodoPago' id='metodoPago' class='form-control'>
                         <option value='6'>Depósito</option>
@@ -76,6 +82,35 @@
                     </select>
                     <input type="text" class="form-control" id="referencia" name="referencia" placeholder="Número de referencia del pago">
                 </div>
+                <!--  -->
+                    <div class="form-group metodosPagoDiv" id="metodo_pago_div" style="display: none;">
+                        <div class='form-inline'>
+                            <h3>Métodos de pago:</h3>
+                            <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" readonly>
+                        </div>
+                        <div class='form-inline'>
+                            <h4>Método 1:</h4>
+                            <div>
+                                <select name='metodoPago[]' id='metodoPago' class='form-control select_metodo1'>
+                                    <option value=''>*** Selecciona ***</option>
+                                    <option value='6'>Depósito</option>
+                                    <option value='1'>Efectivo</option>
+                                    <option value='2'>[TDD]Tarjeta de débito</option>
+                                    <option value='3'>[TDC]Tarjeta de crédito</option>
+                                    <option value='4'>Transferencia</option>
+                                    <option value='5'>Cheque de regalo</option>
+                                </select>
+                                <input type="text" class="form-control referencia_metodo1" id="referencia" name="referencia[]" placeholder="Número de referencia del pago" style="display: none;">
+                                <input type="number" class="form-control" id="totalMetodoPago" name="totalMetodoPago[]" placeholder="Cantidad de este método de pago" step='any'>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class='form-group' style="display: none;" id="agregar_boton_pago_div">
+                        <button class='btn btn-info' id="botonAgregarMetodoPago" type="button">Agregar método de pago <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <hr>
+                <!--  -->
                 <div class="form-group" style="display: none;" id="firma_div">
                     <label>Firma requerida del cliente</label>
                     <select name="aviso" id="aviso" class="form-control">
@@ -83,6 +118,15 @@
                         <option value="0">No firmado</option>
                         <option value="1">Ya se firmó</option>
                     </select>
+                </div>
+                <div class="form-group text-center" id="notificaciones_div">
+                    <?php
+                        $corte = $ModeloUsuario->existeCorteCaja(strtotime($fecha_para_corte_caja), $numeroSucursal['id_sucursal']);
+                        if($corte){
+                            echo '<p class="lead text-danger">IMPORTANTE</p>
+                            <p class="lead text-danger">Ya se hizo el corte de caja, esta venta se desplazará al siguiente día</p>';
+                        }
+                    ?>
                 </div>
                 <div class="form-group justify-content-center" id='botonComenzar' name='botonComenzar'>
                     <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registrar tratamiento</button>

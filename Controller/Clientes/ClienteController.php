@@ -124,8 +124,9 @@
             $calificacion       = [];
             $comentarios        = [];
         }
-        $metodo_pago        = mysqli_real_escape_string($con, $_POST['metodoPago']);
-        $referencia_pago    = mysqli_real_escape_string($con, $_POST['referencia']);           
+        $metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));
+        $referencia_pago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['referencia']))); 
+        $total_metodo_pago     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago'])));       
         $id_centro          = mysqli_real_escape_string($con, $_POST['id_centro']);                                                       //Es un valor: [idCentro] => 1
         
         //Para Productos
@@ -136,13 +137,21 @@
             $precioUnit_productos_seleccionados = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioUnitario_producto_seleccionado'])));
             $cantidad_producto_seleccionado = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidad_producto_seleccionado'])));
             $precioTotal_producto_seleccionado = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['total_producto_seleccionado'])));
-            $metodoPago_producto_seleccionado = mysqli_real_escape_string($con, $_POST['metodoPago']); 
+            $metodoPago_producto_seleccionado = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago']))); 
         }
 
         //Otros datos del formulario para ser de utilidad
         $firma              = mysqli_real_escape_string($con, $_POST['aviso'] ?? '0');                                                   //Es un valor: [aviso] => 1
         $date               = new DateTime("now", new DateTimeZone('America/Mexico_City') );
-        $timeStamp          = strtotime($date->format('Y-m-d H:i:s'));
+        $formato_con_hora = $date->format('Y-m-d H:i:s');
+        $timeStamp          = strtotime($formato_con_hora);
+
+        $corte = $ModelProducto->existeCorteCaja(strtotime($date->format('Y-m-d')), $id_centro);
+        if($corte){
+            $la_fecha = $date;
+            $la_fecha->modify('+'.(1).' days');
+            $timeStamp = strtotime($la_fecha->format('Y-m-d 10:00:00'));
+        }
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //************LOGICA PARA REGISTRAR 1 O MUCHOS TRATAMIENTOS EN UN POST************
         $numero_de_tratamientos   = sizeof($tratamiento);
@@ -157,7 +166,7 @@
                     $string_zonas .= $k.",";
                 }
                 //tempVentaTratamiento           = $id_venta, $id_cliente, 'CAV01', $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
-                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa, $referencia_pago];
+                $tempVentaTratamiento            = ['', $id_cliente, $nombre_tratamiento[$i-1], json_encode(array_map(null, $metodo_pago, $total_metodo_pago)), $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa, json_encode($referencia_pago)];
                 //tempClienteTratamientoEspecial = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $numZonas, $timeStamp, $numsesion;
                 $tempClienteTratamientoEspecial  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], $string_zonas, $detalle_zona[$i-1], $timeStamp, ''];
                 //tempClienteBitacora            = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
@@ -166,7 +175,7 @@
                 array_push($temp, [$tratamiento[$i-1]], $tempVentaTratamiento, $tempClienteTratamientoEspecial, $tempClienteBitacora);
             }else{  //es un tratamiento normal
                 //tempVentaTratamiento   = $id_venta, $id_cliente, $nombre_tratamiento, $metodo_pago, $precio_tratamiento, $timeStamp, $id_centro, $precio_tratamiento, '', '', '', $id_cosmetologa
-                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], $metodo_pago, $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa, $referencia_pago];
+                $tempVentaTratamiento    = ['', $id_cliente, $nombre_tratamiento[$i-1], json_encode(array_map(null, $metodo_pago, $total_metodo_pago)), $precio_tratamiento[$i-1], $timeStamp, $id_centro, $precio_tratamiento[$i-1], '', '', '', $id_cosmetologa, json_encode($referencia_pago)];
                 //tempClienteTratamiento = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $nombre_tratamiento, $zona, $timeStamp
                 $tempClienteTratamiento  = [$id_cliente, $nombre_tratamiento[$i-1], $id_cosmetologa, $nombre_tratamiento[$i-1], '', $timeStamp];
                 //tempClienteBitacora    = $id_cliente, $nombre_tratamiento, $id_cosmetologa, $id_centro, $calificacion, $timeStamp, $zona, $comentarios, $id_venta
@@ -240,7 +249,7 @@
             $stock_inicial_temp     = $stock_productos_seleccionados[$i];
             $cantidad_producto_temp = $cantidad_producto_seleccionado[$i];
             $nuevo_stock_temp       = $stock_inicial_temp - $cantidad_producto_temp;
-            $metodo_pago_temp       = $metodoPago_producto_seleccionado;
+            $metodo_pago_temp       = json_encode(array_map(null, $metodo_pago, $total_metodo_pago));
             $precio_total_temp      = $precioTotal_producto_seleccionado[$i];
             $precio_unitario_temp   = $precioUnit_productos_seleccionados[$i];
 
@@ -253,7 +262,10 @@
 
             //Insertar venta
             //public function insertarVentaProducto( $id_venta, $id_cliente, $id_tratamiento, $metodo_pago, $monto, $timestamp, $centro, $costo_tratamiento, $id_productos, $costo_producto, $cantidad_producto, $id_cosmetologa )
-            $ModelProducto->insertarVentaProducto($ID_VENTA_UUID, $id_cliente, '', $metodo_pago_temp, $referencia_pago, $precio_total_temp, $timeStamp, $id_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+            $ModelProducto->insertarVentaProducto($ID_VENTA_UUID, $id_cliente, '', $metodo_pago_temp, json_encode($referencia_pago), $precio_total_temp, $timeStamp, $id_centro, '', $id_producto_temp, $precio_unitario_temp, $cantidad_producto_temp, $id_cosmetologa);
+        }
+        if($corte){
+            $ModelProducto->insertVentasDesplazadas($ID_VENTA_UUID, strtotime($formato_con_hora), $timeStamp);
         }
         //************ FIN LOGICA PARA REGISTRAR PRODUCTOS ************
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

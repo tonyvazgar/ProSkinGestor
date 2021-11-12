@@ -35,15 +35,24 @@
   if(sizeof($historial_ediciones) != 0){
     $ediciones_style = '';
   }
+
+  $esVentaEditada = $ModeloVenta->esVentaDesplazada($id_venta);
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
-        
-        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $fecha_para_corte_caja = getFechaFormatoCDMX();
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $fecha_de_la_venta = strtotime(date('Y-m-d',$detalles[0]['timestamp']));
+        $corteCajaHoy = $ModeloUsuario->existeCorteCaja($fecha_de_la_venta, $numeroSucursal);
     ?>
     <div class="container">
         <h1>Resumen de venta</h1>
+        <?php
+          if($esVentaEditada){
+            echo '<h3>(Desplazada por cierre de caja)</h3>';
+          }
+        ?>
         <div id="accordion" <?php echo $ediciones_style;?>>
           <p>
             <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Historial de ediciones</button>
@@ -106,7 +115,17 @@
                     <p class="lead">
                     <?php 
                       $metodo_pago = $divisionProductosTratamientos['metodo_pago'];
-                      echo getMetodoPagoNombre($metodo_pago)." ".$divisionProductosTratamientos['referencia_pago'];?> 
+                      $referencia = $divisionProductosTratamientos['referencia_pago'];
+                      $total = $divisionProductosTratamientos['total'];
+
+                      $estandarizado = esMetodoPagoSolo($metodo_pago, $referencia, $total);
+
+                      foreach($estandarizado as $elemento){
+                        echo "*".getMetodoPagoNombre($elemento[0][0])." |".$elemento[1]."| - $".$elemento[0][1];
+                        echo "<br>";
+                      }
+                      
+                    ?> 
                     </p>
                   </td>
                   <td>
@@ -198,7 +217,14 @@
         </div>
 
         <?php
-          if($id_cosmetologa == $id_cosmetologa_from_db){
+          $diferencia = diferenciaFechas(date('Y-m-d',$detalles[0]['timestamp']), $fecha_para_corte_caja);
+          if($id_cosmetologa == $id_cosmetologa_from_db && $diferencia <= 7){
+            if($corteCajaHoy){
+              echo '<div class="form-group text-center" id="notificaciones_div">
+                      <p class="lead text-danger">IMPORTANTE</p>
+                      <p class="lead text-danger">Ya se hizo el corte del día, si editas la venta NO se modificará el corte de caja</p>
+                    </div>';
+            }
             echo '<div class="form-group text-center"><a class="btn btn-warning" href="./editarVenta.php?idVenta='.$id_venta.'" role="button">Editar registro</a></div>';
           }
         ?>

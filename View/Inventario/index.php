@@ -16,13 +16,13 @@
   $productos = $ModelProducto->getAllProductos();
   
   getHeadHTML("ProSkin - Inventario");
-  getApartados();
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
-        
-        getNavbar($fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        $fecha_para_corte_caja = getFechaFormatoCDMX();
+        getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
+        getApartados();
     ?>
     <main role="main" class="container">
       <div class="container">
