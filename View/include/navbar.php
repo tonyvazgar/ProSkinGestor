@@ -2,8 +2,10 @@
 
 function getNavbar($fecha, $name, $sucursal){
     require_once("../../Model/Usuario/Usuario.php");
-    $ModelUsuario = new Usuario();
-    $id_centro = $ModelUsuario->getNumeroSucursalxNombre($sucursal);
+    $ModelUsuario   = new Usuario();
+    $id_centro      = $ModelUsuario->getNumeroSucursalxNombre($sucursal);
+    $email          = $_SESSION['email'];
+    $id_cosmetologa = $ModelUsuario->getIdCosmetologa($email)['id'];
     
     echo "<nav class='navbar navbar-expand-lg navbar-light fixed-top' style='background-color: #f7d9d9;'>
                 <a class='navbar-brand' href='../index.php'>
@@ -16,7 +18,7 @@ function getNavbar($fecha, $name, $sucursal){
                 </button>
                 <div class='collapse navbar-collapse' id='navbarNav'>
                     <ul class='navbar-nav ml-auto'>";
-                    getBotonCorteCaja($fecha, $id_centro);
+                    getBotonCorteCaja($fecha, $id_centro, $id_cosmetologa);
                     echo "<li class='nav-item'>
                             <a class='nav-link' href='../../View/Clientes'>Clientes</a>
                         </li>
@@ -55,7 +57,7 @@ function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");
     if (!$ex){
-        $ex = "1.3.0";
+        $ex = "1.4.0";
     }
     return $ex; 
 }
@@ -79,13 +81,16 @@ function getFooter(){
                 </div>
             </footer>";
 }
-function getBotonCorteCaja($fecha, $id_centro){
+function getBotonCorteCaja($fecha, $id_centro, $id_cosmetologa){
     require_once("../../Model/Usuario/Usuario.php");
     $ModelUsuario = new Usuario();
     $timestamp = strtotime($fecha);
     
     $ds = new DateTime('now', new DateTimeZone('America/Mexico_City') );
     $hora = $ds->format('H');
+
+    cierreCajaDiaAnterior($ModelUsuario, $id_cosmetologa, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 1);
+    // cierreCajaDiaAnterior($ModelUsuario, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 7);
 
     if($hora >= 16 && $hora <= 21){
         $corte = $ModelUsuario->existeCorteCaja($timestamp, $id_centro);
@@ -134,4 +139,73 @@ function diferenciaFechas($fechaUno, $fechaDos){
     return $diferenciaEnDias;
 }
 
+function cierreCajaDiaAnterior($ModeloUsuario, $idCosmetologa, $date_time, $numeroSucursal, $dias) {
+    require_once "../../Controller/Usuario/Util/generadorPDF.php";
+    
+    $date_time -> modify('-'.($dias).' days');
+    $fecha_a_verificar = $date_time->format('Y-m-d');
+    $timestamp         = strtotime($fecha_a_verificar);
+
+    if(!$ModeloUsuario->existeCorteCaja($timestamp, $numeroSucursal)){
+        $beginOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 00:00:00'))->getTimestamp();
+        $endOfDay   = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 23:59:59'))->getTimestamp();
+
+    
+        $total_efectivo      = $ModeloUsuario->getTotalEfectivoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $total_tdc           = $ModeloUsuario->getTotalTDCWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $total_tdd           = $ModeloUsuario->getTotalTDDWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $total_transferencia = $ModeloUsuario->getTotalTransferenciaWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $total_Deposito      = $ModeloUsuario->getTotalDepositoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $total_cheque        = $ModeloUsuario->getTotalChequeWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+
+        $numTotalVentasDia   = $ModeloUsuario -> getNumeroTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal);
+
+        $nombre_centro       = $ModeloUsuario -> getNombreSucursalWhereIDSucursal($numeroSucursal)['nombre_sucursal'];
+        $id_cosmetologa      = $idCosmetologa;
+        $observaciones       = "*** REPORTE GENERADO AUTOMATICAMENTE SIN GASTOS ***";
+
+
+
+        $efectivo          = $total_efectivo[0];
+        $num_efectivo      = sizeof($total_efectivo[1]);
+
+        $tdc               = $total_tdc[0];
+        $num_tdc           = sizeof($total_tdc[1]);
+
+        $tdd               = $total_tdd[0];
+        $num_tdd           = sizeof($total_tdd[1]);
+
+        $transferencia     = $total_transferencia[0];
+        $num_transferencia = sizeof($total_transferencia[1]);
+
+        $deposito          = $total_Deposito[0];
+        $num_deposito      = sizeof($total_Deposito[1]);
+
+        $cheque            = $total_cheque[0];
+        $num_cheque        = sizeof($total_cheque[1]);
+
+
+        $nombre_centro_sin_espacios = str_replace(' ', '', $nombre_centro);
+
+        $nombre_archivo = $nombre_centro_sin_espacios."_corteCaja_".$fecha_a_verificar."_".$id_cosmetologa.".pdf";
+        $id_corte_caja  = 'PS'.strtoupper($nombre_centro_sin_espacios).$timestamp;
+
+        $id_documento = intval($ModeloUsuario -> numeroReportesFromSucursal($numeroSucursal)) + 1;
+
+        $sumaGeneralMetodos = floatval($tdc) + floatval($tdd) + floatval($transferencia) + floatval($deposito) + floatval($cheque) + floatval($efectivo);
+
+
+        if ($ModeloUsuario->insertIntoCierreCaja($timestamp, $numeroSucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, '0', $sumaGeneralMetodos, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode(['', '']))){
+            $conceptos = [["Efectivo", $num_efectivo, $efectivo],
+                     ["TDC", $num_tdc, $tdc],
+                     ["TDD", $num_tdd, $tdd],
+                     ["Transferencia", $num_transferencia, $transferencia],
+                     ["Deposito", $num_deposito, $deposito],
+                     ["Cheque", $num_cheque, $cheque]];
+            generarPDF($id_documento, $id_corte_caja, $fecha_a_verificar, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, [], [], $sumaGeneralMetodos, 0, $sumaGeneralMetodos, $nombre_archivo);
+        }
+
+
+    }
+}
 ?>
