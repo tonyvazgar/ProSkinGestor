@@ -1,6 +1,6 @@
 # Main Branch (Producción)
-Última versión: <b>1.3.0</b><br>
-Fecha: <b>11-Noviembre-2021</b><br>
+Última versión: <b>1.4.0</b><br>
+Fecha: <b>25-Noviembre-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -32,9 +32,10 @@ Fecha: <b>11-Noviembre-2021</b><br>
       <li>CORRECCIONES DE OBSERVACIONES 28 SEPTIEMBRE</li>
       <li>CORTE DE CAJA</li>
       <li>METODOS DE PAGO MULTIPLES</li>
+      <li>CORTE DE CAJA AUTOMATICOS DEL DIA ANTERIOR</li>
    </ul>
  </ul>
  
  
 <h4>Previous commit en producción:</h4>
-<i>484fc3d24363d25c03e9204d3253decaa2c3cc65</i>
+<i>293b3f408bd87e3f89ee7a87a217f46b07a8e2a5</i>
