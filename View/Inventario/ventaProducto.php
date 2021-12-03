@@ -127,7 +127,7 @@
                                     <option value='5'>Cheque de regalo</option>
                                 </select>
                                 <input type="text" class="form-control referencia_metodo1" id="referencia" name="referencia[]" placeholder="Número de referencia del pago" style="display: none;">
-                                <input type="number" class="form-control" id="totalMetodoPago" name="totalMetodoPago[]" placeholder="Cantidad de este método de pago" step='any'>
+                                <input type="number" class="form-control totalMetodoPago1" id="totalMetodoPago" name="totalMetodoPago[]" style="display: none;" placeholder="Cantidad de este método de pago" step='any'>
                             </div>
                         </div>
                     </div>
