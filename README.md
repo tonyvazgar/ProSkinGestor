@@ -1,6 +1,6 @@
 # Main Branch (Producción)
-Última versión: <b>1.4.0</b><br>
-Fecha: <b>25-Noviembre-2021</b><br>
+Última versión: <b>1.4.1</b><br>
+Fecha: <b>2-Diciembre-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -21,6 +21,8 @@ Fecha: <b>25-Noviembre-2021</b><br>
       <li>BUG 013: Busqueda de productos mejorada para mencionar donde se tienen disponibles #SOLVED</li>
       <li>BUG 014: Corrección de registro de tratamiento cuando solo habia un tratamiento. #SOLVED</li>
       <li>BUG 015: Corrección de la función getProductoWereID($id_producto, $id_centro) para trabajar con los productos del centro correcto. #SOLVED</li>
+      <li>BUG 016: Corte de caja, mejoras en la redacción del documento, agregado el efectivo a regresar. #SOLVED</li>
+      <li>BUG 017: Mejoras en los métodos de pago múltiples. #SOLVED</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
@@ -38,4 +40,4 @@ Fecha: <b>25-Noviembre-2021</b><br>
  
  
 <h4>Previous commit en producción:</h4>
-<i>293b3f408bd87e3f89ee7a87a217f46b07a8e2a5</i>
+<i>fd2b5d1efa0a6f7da1b80897b43199b6dba24a56</i>
