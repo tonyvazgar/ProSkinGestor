@@ -92,7 +92,7 @@ function getBotonCorteCaja($fecha, $id_centro, $id_cosmetologa){
     cierreCajaDiaAnterior($ModelUsuario, $id_cosmetologa, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 1);
     // cierreCajaDiaAnterior($ModelUsuario, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 7);
 
-    if($hora >= 16 && $hora <= 21){
+    if($hora >= 13 && $hora <= 21){
         $corte = $ModelUsuario->existeCorteCaja($timestamp, $id_centro);
         if(!$corte){
             echo "<li class='nav-item'>
@@ -196,13 +196,13 @@ function cierreCajaDiaAnterior($ModeloUsuario, $idCosmetologa, $date_time, $nume
 
 
         if ($ModeloUsuario->insertIntoCierreCaja($timestamp, $numeroSucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, '0', $sumaGeneralMetodos, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode(['', '']))){
-            $conceptos = [["Efectivo", $num_efectivo, $efectivo],
-                     ["TDC", $num_tdc, $tdc],
-                     ["TDD", $num_tdd, $tdd],
-                     ["Transferencia", $num_transferencia, $transferencia],
-                     ["Deposito", $num_deposito, $deposito],
-                     ["Cheque", $num_cheque, $cheque]];
-            generarPDF($id_documento, $id_corte_caja, $fecha_a_verificar, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, [], [], $sumaGeneralMetodos, 0, $sumaGeneralMetodos, $nombre_archivo);
+            $conceptos = [["Efectivo", $efectivo],
+                     ["TDC", $tdc],
+                     ["TDD", $tdd],
+                     ["Transferencia", $transferencia],
+                     ["Deposito", $deposito],
+                     ["Cheque", $cheque]];
+            generarPDF($id_documento, $id_corte_caja, $fecha_a_verificar, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, [], [], $sumaGeneralMetodos, 0, $efectivo, $nombre_archivo);
         }
 
 

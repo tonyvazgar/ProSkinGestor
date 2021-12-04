@@ -32,11 +32,11 @@
         function tablaIngresos($header, $data, $sumaConceptos)
         {
             // Column widths
-            $w = array(70, 35, 40);
+            $w = array(105, 40);
             // Header
             $this->Cell(20);
             for($i=0;$i<count($header);$i++)
-                $this->Cell($w[$i],10,$header[$i],1,0,'C');
+                $this->Cell($w[$i],10,utf8_decode($header[$i]),1,0,'C');
             $this->Ln();
             // Data
             $num_ventas = 0;
@@ -44,17 +44,15 @@
             {
                 $this->Cell(20);
                 $this->Cell($w[0],6,$row[0],'LR');
-                $this->Cell($w[1],6,$row[1],0,0,'C');
+                $this->Cell($w[1],6,"$".number_format($row[1], 2),'LR',0,'R');
                 $num_ventas += $row[1];
-                $this->Cell($w[2],6,"$".number_format($row[2], 2),'LR',0,'R');
                 $this->Ln();
             }
             $this->Cell(20);
             $this->Cell(array_sum($w),0,'','T');
             $this->Ln();
             $this->Cell(20);
-            $this->Cell(70,6,"Total",'LR',0,'R');
-            $this->Cell(35,6,number_format($num_ventas),'LR',0,'C');
+            $this->Cell(105,6,"",'LR',0,'R');
             $this->Cell(40,6,"$".number_format($sumaConceptos, 2),'LR',0,'R');
             $this->Ln();
             // Closing line
@@ -74,11 +72,13 @@
             $this->Ln();
             // Data
             $size = sizeof($nombres);
-            for ($i=0; $i < $size; $i++) { 
-                $this->Cell(20);
-                $this->Cell($w[0],6,$nombres[$i],'LR');
-                $this->Cell($w[1],6,"$".$totales[$i],'LR',0,'R');
-                $this->Ln();
+            if($nombres[0] != '' && $totales[0] != ''){
+                for ($i=0; $i < $size; $i++) { 
+                    $this->Cell(20);
+                    $this->Cell($w[0],6,$nombres[$i],'LR');
+                    $this->Cell($w[1],6,"$".number_format($totales[$i], 2),'LR',0,'R');
+                    $this->Ln();
+                }
             }
             $this->Cell(20);
             $this->Cell(array_sum($w),0,'','T');
@@ -94,11 +94,11 @@
         }
     }
 
-    function generarPDF($id_documento, $id_corte_caja, $diaCorteCaja, $numTotalVentasDia, $centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaConceptos, $sumaGastos, $totalDelDia, $filename){
+    function generarPDF($id_documento, $id_corte_caja, $diaCorteCaja, $numTotalVentasDia, $centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaConceptos, $sumaGastos, $efectivo_a_entregar, $filename){
         // Instanciation of inherited class
         $pdf = new PDF();
 
-        $header = array('Concepto', '# de ventas', 'Total');
+        $header = array('Método de pago', 'Total');
         $header_gastos = array('Nombre del gasto', 'Total');
         $data = $conceptos;
         
@@ -124,7 +124,7 @@
         $pdf->tablaGastos($header_gastos, $nombres_gastos, $total_gastos, $sumaGastos);
         $pdf->SetFont('Arial','B',15);
         $pdf->Cell(20);
-        $pdf->Cell(40,10,utf8_decode('Total venta del día: $'.number_format($totalDelDia)));
+        $pdf->Cell(40,10,utf8_decode('Efectivo a entregar: $'.number_format($efectivo_a_entregar)));
         $pdf->Ln();
         $pdf->Cell(20);
         $pdf->Cell(40,10,'Observaciones:');

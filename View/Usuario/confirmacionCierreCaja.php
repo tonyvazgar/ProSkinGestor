@@ -29,12 +29,13 @@
         $total_ventas = number_format($info_cierreCaja['total_ingresos'], 2);
         $total_gastos = number_format($info_cierreCaja['total_gastos'], 2);
         $total_diferencia = number_format($info_cierreCaja['total_caja'], 2);
+        $efectivo_a_entregar = number_format(json_decode($info_cierreCaja['efectivo'])[1] - $total_gastos, 2);
 
 
         $dominio = "https://www.proskingestor.com/";
         $rutaArchivo = "Documents/ReportesCierreCaja/".$ModeloUsuario -> getNombreArchivoFromCorteCajaWhereID($_GET['id']);
 
-        $texto = "Corte de caja de {$nombreSucursal} con fecha de {$fechaCorteCaja}, con un total de ventas de $".$total_ventas.", de gastos de $".$total_gastos." y $".$total_diferencia." de diferencia. Disponible  en: ";
+        $texto = "Corte de caja de {$nombreSucursal} con fecha de {$fechaCorteCaja}, con un total de ventas de $".$total_ventas.", de gastos de $".$total_gastos.". \n Con $".$efectivo_a_entregar." de efectivo a entregar. Disponible  en: ";
 
 
         $linkRuta = urlencode($texto).urlencode($dominio.$rutaArchivo);
