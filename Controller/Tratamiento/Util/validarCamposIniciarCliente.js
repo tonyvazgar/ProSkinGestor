@@ -228,8 +228,9 @@ $(document).on('change','#nombreTratamiento.last_tratamiento',function () {
 
 $("body").on('click', '#botonAgregarMetodoPago', function(){
     const count = $("#metodo_pago_div").children('div').length + 1;
-    const front_metodo_pago = "<br><div class='form-inline div_metodo" + count + "'><h4>Método "+count+":</h4><div><select name='metodoPago[]' id='metodoPago' class='form-control select_metodo" + count + "'><option value=''>*** Selecciona ***</option><option value='6'>Depósito</option><option value='1'>Efectivo</option><option value='2'>[TDD]Tarjeta de débito</option><option value='3'>[TDC]Tarjeta de crédito</option><option value='4'>Transferencia</option><option value='5'>Cheque de regalo</option></select><input type='text' class='form-control referencia_metodo" + count + "' id='referencia' name='referencia[]' placeholder='Número de referencia del pago' style='display: none;'><input type='number' class='form-control' id='totalMetodoPago' name='totalMetodoPago[]' placeholder='Cantidad de este método de pago' step='any'></div><button class='btn btn-danger metodo" + count + "' id='botonEliminarMetodoPago' type='button'><i class='far fa-trash-alt'></i></button></div>";
+    const front_metodo_pago = "<br><div class='form-inline div_metodo" + count + "'><h4>Método "+count+":</h4><div><select name='metodoPago[]' id='metodoPago' class='form-control select_metodo" + count + "'><option value=''>*** Selecciona ***</option><option value='6'>Depósito</option><option value='1'>Efectivo</option><option value='2'>[TDD]Tarjeta de débito</option><option value='3'>[TDC]Tarjeta de crédito</option><option value='4'>Transferencia</option><option value='5'>Cheque de regalo</option></select><input type='text' class='form-control referencia_metodo" + count + "' id='referencia' name='referencia[]' placeholder='Número de referencia del pago' style='display: none;'><input type='number' class='form-control totalMetodoPago" + count + "' id='totalMetodoPago' name='totalMetodoPago[]' style='display: none;' placeholder='Cantidad de este método de pago' step='any'></div><button class='btn btn-danger metodo" + count + "' id='botonEliminarMetodoPago' type='button'><i class='far fa-trash-alt'></i></button></div>";
     $('#metodo_pago_div').append(front_metodo_pago);
+    $("#firma_div").hide();
     // verificarCantidadesMetodoPago();
 });
 $(document).on('keyup',"#totalMetodoPago", function () {
@@ -244,6 +245,12 @@ $("body").on('click', '#botonEliminarMetodoPago', function(){
 
 $('body').on('change','#metodoPago',function () {
     const num_clase = $(this).attr('class').replace('form-control select_metodo', '');
+    if($(this).val() != ''){
+        $('.totalMetodoPago' + num_clase).show();
+    }
+    if($(this).val() == ''){
+        $('.totalMetodoPago' + num_clase).hide();
+    }
     if($(this).val() == 6){
         $('.referencia_metodo' + num_clase).show();
     }else{

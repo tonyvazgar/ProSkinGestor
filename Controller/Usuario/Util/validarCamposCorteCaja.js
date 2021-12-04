@@ -5,11 +5,16 @@ $( document ).ready(function() {
     const transferencia = $("#total_transferencia").val();
     const deposito = $("#total_deposito").val();
 
+
+    $("#efectivo_a_entregar").val(efectivo);
+
     if(efectivo == '0' && tdc== '0' && tdd == '0' && transferencia == '0' && deposito == '0'){
         $('#importante').show();
     }else{
         $('#importante').hide();
     }
+
+    
 });
 
 $("body").on('click', '#botonAgregarGasto', function(){
@@ -18,3 +23,21 @@ $("body").on('click', '#botonAgregarGasto', function(){
     $('#gastosdiv').append(front_metodo_pago);
     // verificarCantidadesMetodoPago();
 });
+
+$(document).on('keyup', '*[id*=totalGasto]:visible',function () {
+    const esteValor = parseFloat($(this).val());
+    const efectivo_a_entregar = parseFloat($('#efectivo_a_entregar').val());
+
+    const nuevo = efectivo_a_entregar - esteValor;
+
+    $('#efectivo_a_entregar').val(nuevo);
+});
+
+
+function verificarEfectivoAentregar(){
+    const efectivo = $("#total_efectivo").val();
+    $('*[id*=totalGasto]:visible').each(function() {
+        console.log($(this).val());
+    });
+    $("#efectivo_a_entregar").val(efectivo);
+}

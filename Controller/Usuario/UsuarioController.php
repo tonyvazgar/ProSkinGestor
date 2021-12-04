@@ -60,16 +60,16 @@
         }
 
         $totalDelDia = $sumaGeneralMetodos - $sumaGeneralGastos;
-       
+        $efectivo_a_entregar = $efectivo - $sumaGeneralGastos;
         //($timestamp, $id_centro, $id_cosmetologa, $id_documento, $id_corte_caja, $total_ingresos, $total_gastos, $total_caja, $nombre_archivo, $observaciones, $efectivo, $tdc, $tdd, $transferencia, $deposito, $cheque, $gastos)
         if ($ModelUsuario->insertIntoCierreCaja($timestamp, $id_sucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode([$nombres_gastos, $total_gastos]))){
-            $conceptos = [["Efectivo", $num_efectivo, $efectivo],
-                     ["TDC", $num_tdc, $tdc],
-                     ["TDD", $num_tdd, $tdd],
-                     ["Transferencia", $num_transferencia, $transferencia],
-                     ["Deposito", $num_deposito, $deposito],
-                     ["Cheque", $num_cheque, $cheque]];
-            generarPDF($id_documento, $id_corte_caja, $fecha, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaGeneralMetodos, $sumaGeneralGastos, $totalDelDia, $nombre_archivo);
+            $conceptos = [["Efectivo", $efectivo],
+                     ["TDC", $tdc],
+                     ["TDD", $tdd],
+                     ["Transferencia", $transferencia],
+                     ["Deposito", $deposito],
+                     ["Cheque", $cheque]];
+            generarPDF($id_documento, $id_corte_caja, $fecha, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaGeneralMetodos, $sumaGeneralGastos, $efectivo_a_entregar, $nombre_archivo);
             header("Location: confirmacionCierreCaja.php?id=$id_corte_caja");
         }else{
             //echo hubo un error;
