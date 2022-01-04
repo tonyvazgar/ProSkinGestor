@@ -176,42 +176,61 @@ $(document).on('change','#detalleZona.last_tratamiento',function () {
     if(num == 1){
         precio = 400;
     }else if(num == 2){
-        precio = 640;
+        // precio = 640; PRECIO 2021
+        precio = 680;
     }if(num == 3){
-        precio = 960;
+        // precio = 960; PRECIO 2021
+        precio = 1020;
     }else if(num == 4){
-        precio = 1264;
+        // precio = 1264; PRECIO 2021
+        precio = 1344;
     }if(num == 5){
-        precio = 1580;
+        // precio = 1580; PRECIO 2021
+        precio = 1660;
     }else if(num == 6){
-        precio = 1872;
+        // precio = 1872; PRECIO 2021
+        precio = 1968;
     }if(num == 7){
-        precio = 2184;
+        // precio = 2184; PRECIO 2021
+        precio = 2296;
     }else if(num == 8){
-        precio = 2464;
+        // precio = 2464; PRECIO 2021
+        precio = 2592;
     }if(num == 9){
-        precio = 2772;
+        // precio = 2772; PRECIO 2021
+        precio = 2880;
     }else if(num == 10){
-        precio = 3040;
+        // precio = 3040; PRECIO 2021
+        precio = 3160;
     }if(num == 11){
-        precio = 3344;
+        // precio = 3344; PRECIO 2021
+        precio = 3476;
     }else if(num == 12){
-        precio = 3600;
+        // precio = 3600; PRECIO 2021
+        precio = 3744;
     }if(num == 13){
-        precio = 3900;
+        // precio = 3900; PRECIO 2021
+        precio = 4056;
     }else if(num == 14){
-        precio = 4144;
+        // precio = 4144; PRECIO 2021
+        precio = 4312;
     }if(num == 15){
-        precio = 4440;
+        // precio = 4440; PRECIO 2021
+        precio = 4620;
     }else if(num == 16){
-        precio = 4672;
+        // precio = 4672; PRECIO 2021
+        precio = 4864;
     }if(num == 17){
-        precio = 4964;
+        // precio = 4964; PRECIO 2021
+        precio = 5168;
     }else if(num == 18){
-        precio = 5184;
+        // precio = 5184; PRECIO 2021
+        precio = 5400;
     }if(num == 19){
-        precio = 5396;
+        // precio = 5396; PRECIO 2021
+        precio = 5548;
     }else if(num == 20){
+        // precio = 5600; PRECIO 2021
         precio = 5600;
     }
     if($('#tratamiento.last_tratamiento').val() == 1){
