@@ -41,7 +41,7 @@ class Db {
             }
             $this->query->execute();
            	if ($this->query->errno) {
-				$this->error('Unable to process MySQL query (check your params) - ' . $this->query->error);
+				$this->error('Unable to process MySQL query (check your params) - ' . $this->query->error . '<br> Query: <br>' . $query);
            	}
             $this->query_closed = FALSE;
 			$this->query_count++;
