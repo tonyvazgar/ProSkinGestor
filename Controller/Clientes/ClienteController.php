@@ -44,9 +44,12 @@
         $id = strtoupper($nombre[0]).strtoupper($arregloApellidos[0][0]).strtoupper($arregloApellidos[1][0]).$fechaParaId.$siguienteConsecutivo;
         
         //"INSERT INTO `Cliente`(`id_cliente`, `nombre_cliente`, `apellidos_cliente`, `telefono_cliente`, `tipo_numero_cliente`, `email_cliente`, `centro_cliente`, `creacion_cliente`, `ultima_visita_cliente`) VALUES ('$array[0]', '$array[1]', '$array[2]', $array[3], '$array[4]', '$array[5]', '$array[6]', '$array[7]', '$array[8]')";
+
+        $mensaje                   = urlencode("Agregaste a ".$nombre." existosamente a la lista.");
+        $link                      = urlencode("informacionCliente.php?id=".$id);
         
-        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $tipo_numero, $email, $centro, $fecha_creacion, $ultima_visita, $aviso_privacidad]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
-            header('location: exito.php');
+        if(($ModelCliente->insertUsuario([$id, $nombre, $apellidos, $numero, $tipo_numero, $email, $centro, $fecha_creacion, $ultima_visita, $aviso_privacidad]) == 1) && ($ModelCliente->insertClienteOpcional([$id, $fecha, $cp, ''])) && ($ModelCliente->insertClienteStatus([$id, 'activo']))){
+            header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
             exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";
@@ -93,9 +96,11 @@
         $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $fecha_visita  = strtotime($date->format('Y-m-d'));
 
+        $mensaje                   = urlencode("Se modificaron datos del cliente");
+        $link                      = urlencode("informacionCliente.php?id=".$id);
 
         if($ModelCliente->updateCliente([$id, $nombre, $apellidos, $numero, $tipo, $email, $centro, strtotime($fecha_registro),$fecha_visita, $fecha, $cp]) == 1){
-            header('location: exito.php');
+            header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
             // exit();
         } else {
             $errors['db-error'] = "Error al darse de alta!";
@@ -274,7 +279,6 @@
 
         header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$ID_VENTA_UUID");
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        print_r($_POST);
     }
 
 
