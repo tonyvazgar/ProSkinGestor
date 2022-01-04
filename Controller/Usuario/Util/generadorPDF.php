@@ -13,7 +13,7 @@
             // Title
             $this->Ln(5);
             $this->Cell(80);
-            $this->Cell(30,10,'Reporte de ciere de caja',0,0,'C');
+            $this->Cell(30,10,'Reporte de cierre de caja',0,0,'C');
             $this->Ln(5);
             // Line break
             $this->Ln(15);
