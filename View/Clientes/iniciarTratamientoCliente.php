@@ -56,6 +56,10 @@
                     <label for="exampleInputEmail1">Sucursal</label>
                     <select name="id_centro" id="id_centro" class="form-control" readonly><option value=<?php echo "'".$numeroSucursal['id_sucursal']."'";?>> <?php echo $nombreSucursal['nombre_sucursal'];?></option></select>
                 </div>
+                <input type="text" class="form-control soloDesdeMonedero" id="soloDesdeMonedero" name="soloDesdeMonedero" hidden readonly>
+                <?php
+                    include './tratamientosMonederoParaRegistro.php';
+                ?>
                 <div class="form-group" id="elementos">
 
                 </div>
@@ -89,7 +93,7 @@
                             <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" readonly>
                         </div>
                         <div class='form-inline'>
-                            <h4>Método 1:</h4>
+                            <h4 id='label_metodo1'>Método 1:</h4>
                             <div>
                                 <select name='metodoPago[]' id='metodoPago' class='form-control select_metodo1'>
                                     <option value=''>*** Selecciona ***</option>
@@ -99,9 +103,11 @@
                                     <option value='3'>[TDC]Tarjeta de crédito</option>
                                     <option value='4'>Transferencia</option>
                                     <option value='5'>Cheque de regalo</option>
+                                    <option value='7'>Monedero</option>
                                 </select>
                                 <input type="text" class="form-control referencia_metodo1" id="referencia" name="referencia[]" placeholder="Número de referencia del pago" style="display: none;">
                                 <input type="number" class="form-control totalMetodoPago1" id="totalMetodoPago" name="totalMetodoPago[]" style="display: none;" placeholder="Cantidad de este método de pago" step='any'>
+                                <button id="pagoCompleto" class="btn btn-info btn-agregar-pagoCompleto" style="display: none;" type="button">Total completo</button> 
                             </div>
                         </div>
                     </div>

@@ -276,10 +276,200 @@
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  
         $ModelCliente->updateUltimaVisita($id_cliente, $timeStamp);
+        
+
+        if($_POST['itemsAgregadosDeMonedero'] != ''){
+            $idMonedroCliente = mysqli_real_escape_string($con, $_POST['idMonederoActual']);  //$_POST['idMonederoActual'];
+            $idCliente        = mysqli_real_escape_string($con, $_POST['idCliente']);
+            $id_cosmetologa   = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+            $tratamientosDesdeMonedero = explode(',', mysqli_real_escape_string($con, $_POST['itemsAgregadosDeMonedero']));
+            restarElementosMonedero($id_cosmetologa, $idMonedroCliente, $idCliente, $tratamientosDesdeMonedero);
+        }else{
+            print_r('ESTA VACIO');
+        }
+        // echo "<pre>";
+        // print_r($_POST);
+        // echo "</pre>";
 
         header("Location: ../../View/Ventas/detalleVenta.php?idVenta=$ID_VENTA_UUID");
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 
+    if(isset($_POST['altaMonederoCliente'])){
+        $idCliente      = mysqli_real_escape_string($con, $_POST['idCliente']);
+        $idCosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+        $nombre         = mysqli_real_escape_string($con, $_POST['nombre']);
+        $idMonedero     = mysqli_real_escape_string($con, $_POST['idMonedero']);
+        $dineroTotal    = mysqli_real_escape_string($con, $_POST['dineroTotal']);
+        $centro         = mysqli_real_escape_string($con, $_POST['centro']); //centro
+        if(isset($_POST['nombreTratamientoLista'])){
+            $tratamientos   = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamientoLista'])));
+            $cantidadTrata  = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidadTratamientoLista'])));//
+            $precioIndividual = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioIndividual'])));
+            $zonasTrartam   = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['numDeZonas'])));
+            $precios        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioTratamientoLista'])));
+            $listaZonas     = $_POST['numZonas'];
+        }else{
+            $tratamientos   = '';
+            $cantidadTrata  = '';
+            $precioIndividual = '';
+            $zonasTrartam   = '';
+            $precios        = '';
+            $listaZonas     = '';
+        }
+
+        $tiposMetodosPago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));
+        $referenciasPago  = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['referencia'])));
+        $totalMetodosPago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago'])));
+
+        $tipoTotalMetodoPago = json_encode(array_map(null, $tiposMetodosPago, $totalMetodosPago));
+
+        // $zipInformacion = array_map(null, $tratamientos, $zonasTrartam, $precios);
+
+        $tratamientosString = json_encode($tratamientos);
+        $cantidadString     = json_encode($cantidadTrata);
+        $precioIndiString   = json_encode($precioIndividual);
+        $zonasString        = json_encode($zonasTrartam);
+        $preciosstring      = json_encode($precios);
+        $listaZonasString   = json_encode($listaZonas);
+
+        $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
+        $timeStampCreacion = strtotime($date->format('Y-m-d H:m:s'));
+
+        $id_venta = 'MON'.$idMonedero.$timeStampCreacion;
+
+        // ($id_monedero, $id_cliente, $id_cosmetologa_venta, $id_cosmetologa_uso, $dinero_inicial, $tratamientos_inicial, $precios_unitarios, $zonas_tratamiento, $cantidad, $dinero_final, $tratamientos_final, $timestamp_creacion, $timestamp_uso)
+        $ModelCliente -> insertarMonedero($idMonedero, $idCliente, $idCosmetologa, '', $dineroTotal, $tratamientosString, $precioIndiString, $zonasString, $listaZonasString, $cantidadString, '', '', $timeStampCreacion, '');
+        $ModelCliente -> updateClienteMonedero($idCliente, $idMonedero);
+
+
+        //insertarVentaMonedero($id_venta, $id_cliente, $metodo_pago, $referencia_pago , $monto, $timestamp, $centro, $id_cosmetologa)
+        $ModelCliente->insertarVentaMonedero($id_venta, $idCliente, $tipoTotalMetodoPago, json_encode($referenciasPago), $dineroTotal, $timeStampCreacion, $centro, $idCosmetologa);
+        
+
+        // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
+
+        $mensaje                   = urlencode("Se dió de alta el monedero ".$idMonedero);
+        $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+        
+        header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
+        exit();
+        echo "<pre>";
+        // print_r($_POST);
+        print_r($idCliente); echo '<br>';
+        print_r($idCosmetologa); echo '<br>';
+        print_r($nombre); echo '<br>';
+        print_r($idMonedero); echo '<br>';
+        print_r($dineroTotal); echo '<br>';
+        print_r($tratamientosString); echo '<br>';
+        print_r($cantidadString); echo '<br>';
+        print_r($precioIndiString); echo '<br>';
+        print_r($zonasString); echo '<br>';
+        print_r($preciosstring); echo '<br>';
+        print_r($listaZonasString); echo '<br>';
+        print_r("\n***\n");
+        print_r(json_encode($tratamientos)); print_r("\n");
+        print_r(json_encode($cantidadTrata)); print_r("\n");
+        print_r(json_encode($precioIndividual)); print_r("\n");
+        print_r(json_encode($zonasTrartam)); print_r("\n");
+        print_r(json_encode($precios)); print_r("\n");
+        print_r(json_encode($listaZonas)); print_r("\n");
+        print_r(json_encode($tiposMetodosPago)); print_r("\n");
+        print_r(json_encode($referenciasPago)); print_r("\n");
+        print_r(json_encode($totalMetodosPago)); print_r("\n");
+        // print_r("\n***\n");
+        // print_r(json_decode(json_encode($tratamientos)));
+        // print_r(json_decode(json_encode($tratamientos)));
+        // print_r(json_decode(json_encode($cantidadTrata)));
+        // print_r(json_decode(json_encode($precioIndividual)));
+        // print_r(json_decode(json_encode($zonasTrartam)));
+        // print_r(json_decode(json_encode($precios)));
+        // print_r(json_decode(json_encode($listaZonas)));
+        echo "</pre>";
+    }
+
+
+    if(isset($_POST['recargaMonedero'])){
+
+        // ---------------------------------------------------------------------------------------
+        //      POR EL MOMENTO SOLO FUNCIONA CON NUEVOS TRATAMIENTOS
+        //      FALTA QUE SE AGREGUE AL NUEVO DINERO SOLITO
+        // ---------------------------------------------------------------------------------------
+        $idCliente      = mysqli_real_escape_string($con, $_POST['idCliente']);
+        $idCosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
+        // $nombre         = mysqli_real_escape_string($con, $_POST['nombre']);
+        $idMonedero     = mysqli_real_escape_string($con, $_POST['idMonedero']);
+        $dineroTotal    = mysqli_real_escape_string($con, $_POST['dineroTotal']);
+        $centro         = mysqli_real_escape_string($con, $_POST['centro']); //centro
+        if(isset($_POST['nombreTratamientoLista'])){
+            $tratamientos   = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['nombreTratamientoLista'])));
+            $cantidadTrata  = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidadTratamientoLista'])));//
+            $precioIndividual = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioIndividual'])));
+            $zonasTrartam   = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['numDeZonas'])));
+            $precios        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioTratamientoLista'])));
+            $listaZonas     = $_POST['numZonas'];
+        }else{
+            $tratamientos   = '';
+            $cantidadTrata  = '';
+            $precioIndividual = '';
+            $zonasTrartam   = '';
+            $precios        = '';
+            $listaZonas     = '';
+        }
+
+        $tiposMetodosPago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['metodoPago'])));
+        $referenciasPago  = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['referencia'])));
+        $totalMetodosPago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago'])));
+
+        $tipoTotalMetodoPago = json_encode(array_map(null, $tiposMetodosPago, $totalMetodosPago));
+
+        $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
+        $timeStampCreacion = strtotime($date->format('Y-m-d H:m:s'));
+
+        $id_venta = 'RCMON'.$idMonedero.$timeStampCreacion;
+
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+
+        $infoMonederoActual = $ModelCliente -> getMonederoWhereIDandCliente($idMonedero, $idCliente);
+
+        $tratamientos_iniciales_original = json_decode($infoMonederoActual['tratamientos_inicial']);
+        $precios_unitarios_original      = json_decode($infoMonederoActual['precios_unitarios']);
+        $num_zonas_original              = json_decode($infoMonederoActual['num_zonas']);
+        $zonas_tratamiento_original      = json_decode($infoMonederoActual['zonas_tratamiento']);
+        $cantidad_original               = json_decode($infoMonederoActual['cantidad']);
+
+
+        $tratamientos_iniciales_actualizado = json_encode(array_merge($tratamientos_iniciales_original, $tratamientos));
+        $precios_unitarios_actualizado      = json_encode(array_merge($precios_unitarios_original, $precioIndividual));
+        $num_zonas_actualizado              = json_encode(array_merge($num_zonas_original, $zonasTrartam));
+        $zonas_tratamiento_actualizado      = json_encode(array_merge($zonas_tratamiento_original, $listaZonas));
+        $cantidad_actualizado               = json_encode(array_merge($cantidad_original, $cantidadTrata));
+
+
+        // echo '<pre>';
+        // print_r($infoMonederoActual);
+        // print_r($tratamientos_iniciales_actualizado); echo '<br>';
+        // // print_r($tratamientos);
+        // print_r($precios_unitarios_actualizado); echo '<br>';
+        // print_r($num_zonas_actualizado); echo '<br>';
+        // print_r($zonas_tratamiento_actualizado); echo '<br>';
+        // print_r($cantidad_actualizado); echo '<br>';
+        // echo '</pre>';
+
+        $ModelCliente -> updateNuevosTratamientosRecargaMonedero($idMonedero, $infoMonederoActual['timestamp_creacion'], $tratamientos_iniciales_actualizado, $precios_unitarios_actualizado, $num_zonas_actualizado, $zonas_tratamiento_actualizado, $cantidad_actualizado);
+
+        $ModelCliente->insertarVentaMonedero($id_venta, $idCliente, $tipoTotalMetodoPago, json_encode($referenciasPago), $dineroTotal, $timeStampCreacion, $centro, $idCosmetologa);
+        
+
+        // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
+
+        $mensaje                   = urlencode("Se recargó el monedero ".$idMonedero);
+        $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+        
+        header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
+        exit();
+    }
 
 ?>
