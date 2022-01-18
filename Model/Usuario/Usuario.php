@@ -217,6 +217,17 @@
             return $account;
         }
 
+        function getAllMonederosFromCliente($id_cliente){
+            $db = new DB();
+            $sql_statement = "SELECT * 
+                              FROM Monedero 
+                              WHERE id_cliente = '$id_cliente'
+                              ORDER BY id_monedero DESC";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
         function getNombreZonaCuerpoWhereID($id_zona){
             $db = new DB();
             //SELECT * FROM `ZonasCuerpo` WHERE id_zona='17'

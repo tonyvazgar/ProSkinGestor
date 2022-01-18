@@ -89,13 +89,11 @@
       echo "<div class='form-group'> <label for='exampleInputEmail1'>Zona del cuerpo:</label> <table class='table table-borderless zonasCheckbox' id='zonasCheckbox'> <tbody> <td>";
       foreach($zonas_cuerpo_array as $nombre => $num){
         $checked = '';
-        if( in_array($num, explode(',', $zonas_tratamiento_producto))){ 
-          $checked = ' checked';
-          echo '<div class="form-check">
-                  <input class="form-check-input check" type="checkbox" value="'.$num.'" name="zonas_cuerpo[]" id="flexCheckDefault'.$num.'"'.$checked.'>
-                  <label class="form-check-label" for="flexCheckDefault'.$num.'">'.$nombre.'</label>
-                </div>';
-        }
+        if( in_array($num, explode(',', $zonas_tratamiento_producto))){ $checked = ' checked'; }
+        echo '<div class="form-check">
+                <input class="form-check-input check" type="checkbox" value="'.$num.'" name="zonas_cuerpo[]" id="flexCheckDefault'.$num.'"'.$checked.'>
+                <label class="form-check-label" for="flexCheckDefault'.$num.'">'.$nombre.'</label>
+              </div>';
       }
       echo "</td> </tbody> </div>";
     }

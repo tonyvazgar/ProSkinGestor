@@ -130,14 +130,14 @@
                                                 <a href='../../View/Clientes/infoMonedero.php?id_monedero=".$d['id_monedero']."' role='button'>Monedero #"
                                                     .$d['id_monedero'].
                                                 "</a>";
-                                                if($d['dinero_final'] == 0){
-                                                    echo "<span class='badge bg-warning rounded-pill'>Sin fondos</span>";
-                                                }else{
-                                                    echo "<span class='badge bg-success rounded-pill'>Actual</span>";
-                                                    // echo "<span class='badge bg-success rounded-pill'>$".$d['dinero_final']."</span>";
-                                                }
+                                                // if($d['dinero_final'] == 0){
+                                                //     echo "<span class='badge bg-warning rounded-pill'>Sin fondos</span>";
+                                                // }else{
+                                                //     echo "<span class='badge bg-success rounded-pill'>Actual</span>";
+                                                //     // echo "<span class='badge bg-success rounded-pill'>$".$d['dinero_final']."</span>";
+                                                // }
                                                 
-                                                echo "<span class='badge bg-warning rounded-pill'>"
+                                                echo "<span class='badge bg-warning rounded-pill'>Fecha de creación: "
                                                     .date('Y-m-d', $d['timestamp_creacion']).
                                                 "</span>
                                               </li>";

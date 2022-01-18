@@ -1,4 +1,4 @@
-<?php 
+<?php
   require_once "../../Controller/Clientes/ClienteController.php"; 
   require_once "../../Model/Clientes/Cliente.php";
   require_once "../../Controller/ControllerSesion.php";
@@ -38,9 +38,12 @@
     ?>
     <main role="main" class="container">
         <div class="container">
-            <?php
-                echo "<h1>Información del monedero #{$id_monedero}</h1>";
-            ?>
+            <div class="form-inline">
+                <?php
+                    echo "<h1>Información del monedero #{$id_monedero} </h1>";
+                ?>
+                <a class="btn btn-warning"  href=<?php echo "informacionCliente.php?id=".$infoCliente['id_cliente'];?> role="button">Usar monedero</a>
+            </div>
             <hr>
             <div class="row">
                 <div class="col-sm">
@@ -91,6 +94,7 @@
                 <?php
                 if(!empty($historial)){
                     $tratamientosOriginales = json_decode($infoCliente['tratamientos_inicial']);
+                    $zonasORiginales        = json_decode($infoCliente['zonas_tratamiento']);
                     foreach($historial as $idmov => $movimiento) {
                         $inicial = '';
                         $tratamientos_aplicados_short = '';
@@ -104,7 +108,18 @@
                             $tratamientos_aplicados_temp = array_diff_assoc($movimiento[1], $historial[$idmov-1][1]);
                             $tratamientos_aplicados = '';
                             foreach($tratamientos_aplicados_temp as $key => $val) {
-                                $tratamientos_aplicados .= '<p class="font-weight-bold"> • '.$ModelCliente -> getNombreTratamiento($tratamientosOriginales[$key]).'</p>';
+                                $nombreTratamientoTemp = $ModelCliente -> getNombreTratamiento($tratamientosOriginales[$key]);
+                                $zonasString = "";
+                                if($tratamientosOriginales[$key] == 'DEP01' || $tratamientosOriginales[$key] == 'CAV01'){
+                                    $zonas_cuerpo_array = [ 23 => '**TODO EL CUERPO**', 17 => 'Abdomen', 3 => 'Antebrazos', 2 => 'Axilas', 4 => 'Brazos', 12 => 'Entrecejo', 18 => 'Espalda', 13 => 'Frente', 10 =>  'Glúteos', 19 => 'Hombro', 7 => 'Ingles', 24 => 'LSMP', 14 => 'Labio Superior', 21 => 'Lumbares', 5 => 'Manos', 16 => 'Mentón', 8 => 'Muslo', 20 => 'Nuca', 22 => 'Orejas', 15 => 'Patillas', 1 => 'Pecho', 9 => 'Pierna', 6 => 'Pubis', 11 => 'Zona Alba'];
+
+                                    $zonasTempNum = explode(",", $zonasORiginales[$key]);
+                                    foreach($zonasTempNum as $nombrezona){
+                                        $zonasString .= $zonas_cuerpo_array[$nombrezona].",";
+                                    }
+                                    $zonasString = "(".$zonasString.")";
+                                }
+                                $tratamientos_aplicados .= '<p class="font-weight-bold"> • '.$nombreTratamientoTemp.$zonasString.'</p>';
                                 $tratamientos_aplicados_short .= $ModelCliente -> getNombreTratamiento($tratamientosOriginales[$key]).', ';
                             }
                         }
