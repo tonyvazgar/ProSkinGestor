@@ -16,6 +16,15 @@
                                         ORDER BY nombre_tratamiento ASC')->fetchAll();
             $db->close();
             return $tratamientos;
+
+        }
+        function getNombreTratamiento($id_tratamiento){
+            $db = new DB();
+            $tratamiento = $db->query("SELECT nombre_tratamiento 
+                                        FROM Tratamiento 
+                                        WHERE id_tratamiento='$id_tratamiento'")->fetchArray();
+            $db->close();
+            return $tratamiento['nombre_tratamiento'];
         }
 
         function getPrecioTratamiento($id_tratamiento){

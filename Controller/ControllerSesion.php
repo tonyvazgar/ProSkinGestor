@@ -67,6 +67,9 @@
             case 6:
                 $string = "Depósito";
                 break;
+            case 7:
+                $string = "Monedero";
+                break;
         }
         return $string;
     }

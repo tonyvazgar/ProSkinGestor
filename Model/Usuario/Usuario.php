@@ -200,6 +200,43 @@
             $db->close();
             return $info;
         }
+        public function verificarMonedero($id_cliente){  
+
+
+            // SE TIENE QUE MODIFICAR DEPENDIENDO DE LA ESTRUCTURA DE DINERO FINAL
+
+
+            $db = new Db();
+            //SELECT * FROM Monedero WHERE id_cliente = 'AJF00111231' AND dinero_final != '0'
+
+            $sql_statement = "SELECT * 
+                              FROM Monedero 
+                              WHERE id_cliente = '$id_cliente'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account;
+        }
+
+        function getAllMonederosFromCliente($id_cliente){
+            $db = new DB();
+            $sql_statement = "SELECT * 
+                              FROM Monedero 
+                              WHERE id_cliente = '$id_cliente'
+                              ORDER BY id_monedero DESC";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        function getNombreZonaCuerpoWhereID($id_zona){
+            $db = new DB();
+            //SELECT * FROM `ZonasCuerpo` WHERE id_zona='17'
+            $tratamientos = $db->query("SELECT * 
+                                        FROM `ZonasCuerpo` 
+                                        WHERE id_zona='$id_zona'")->fetchArray();
+            $db->close();
+            return $tratamientos['nombre_zona'];
+        }
     }
 
     function obtenerTotalMetodoPago($metodoPago, $datos){
