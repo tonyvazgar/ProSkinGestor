@@ -1,6 +1,6 @@
 # Main Branch (Producción)
-Última versión: <b>1.4.1</b><br>
-Fecha: <b>2-Diciembre-2021</b><br>
+Última versión: <b>2.0</b><br>
+Fecha: <b>18-Enero-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -40,4 +40,4 @@ Fecha: <b>2-Diciembre-2021</b><br>
  
  
 <h4>Previous commit en producción:</h4>
-<i>fd2b5d1efa0a6f7da1b80897b43199b6dba24a56</i>
+<i>7531937e62c39a9f5fe701e7451c296314de70b3</i>
