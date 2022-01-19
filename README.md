@@ -35,6 +35,7 @@ Fecha: <b>18-Enero-2021</b><br>
       <li>CORTE DE CAJA</li>
       <li>METODOS DE PAGO MULTIPLES</li>
       <li>CORTE DE CAJA AUTOMATICOS DEL DIA ANTERIOR</li>
+      <li>REGISTRO, RECARGA Y USO DE MONEDERO YA DISPONIBLE</li>
    </ul>
  </ul>
  
