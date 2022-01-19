@@ -16,6 +16,8 @@
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
   
   getHeadHTML("ProSkin - Editar Cliente");
+  $id = $_GET['id'];
+  $info = $ModelCliente->getClienteWhereID($id);
 ?>
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
@@ -33,6 +35,7 @@
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">CAVITACIONES</button>
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">OTROS TRATAMIENTOS</button>
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">PRODUCTOS</button>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">MONEDEROS</button>
                 </p>
                 <div class="form-group">
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -111,6 +114,39 @@
                             ?>
                         </div>
                     </div>
+
+                    <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <?php
+                                // echo "<a class='btn btn-primary'  href='../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente']."' role='button'>Registrar monedero</a>";
+                            
+                                $monederos = $ModelCliente->getAllMonederosFromCliente($_GET['id']);
+                                if(empty($monederos)){
+                                        echo "<h3 class='text-center'>Aún no hay ningun monedero registrado :(</h3>";
+                                }else{
+                                    echo "<ul class='list-group'>";
+                                    foreach($monederos as $d){
+                                        echo "<li class='list-group-item d-flex justify-content-between align-items-right'>
+                                                <a href='../../View/Clientes/infoMonedero.php?id_monedero=".$d['id_monedero']."' role='button'>Monedero #"
+                                                    .$d['id_monedero'].
+                                                "</a>";
+                                                // if($d['dinero_final'] == 0){
+                                                //     echo "<span class='badge bg-warning rounded-pill'>Sin fondos</span>";
+                                                // }else{
+                                                //     echo "<span class='badge bg-success rounded-pill'>Actual</span>";
+                                                //     // echo "<span class='badge bg-success rounded-pill'>$".$d['dinero_final']."</span>";
+                                                // }
+                                                
+                                                echo "<span class='badge bg-warning rounded-pill'>Fecha de creación: "
+                                                    .date('Y-m-d', $d['timestamp_creacion']).
+                                                "</span>
+                                              </li>";
+                                        }
+                                    echo "</ul>";
+                                }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- <div class="form-group">
@@ -128,8 +164,6 @@
             <h1>Informacion de cliente</h1>
             <form action="informacionCliente.php" method="POST" autocomplete="">
                 <?php
-                    $id = $_GET['id'];
-                    $info = $ModelCliente->getClienteWhereID($id);
                     foreach($info as $infoCliente){
                 ?>
 
@@ -137,6 +171,7 @@
                     <button type="button" id="editarCliente" name="editarCliente" class="btn btn-warning">Editar información</button>
                     <button type="button" id="cancelarEdicion" name="cancelarEdicion" class="btn btn-danger" hidden>Cancelar edición</button>
                     <a class="btn btn-primary"  href=<?php echo "../../View/Clientes/iniciarTratamientoCliente.php?id=".$infoCliente['id_cliente'];?> role="button">Registrar tratamiento</a>
+                    <a class="btn btn-info"  href=<?php echo "../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente'];?> role="button">Registrar un monedero</a>
                 </div>
 
                 <div class="form-group">

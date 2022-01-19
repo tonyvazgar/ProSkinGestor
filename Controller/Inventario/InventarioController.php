@@ -13,9 +13,12 @@
         $costo_unitario_producto   = mysqli_real_escape_string($con, $_POST['precio']);
         $stock_disponible_producto = mysqli_real_escape_string($con, $_POST['unidades']);
         $centro                    = mysqli_real_escape_string($con, $_POST['centro']);
-        
+
+        $mensaje                   = urlencode("Agregaste el producto al inventario con el ID ".$clave." existosamente");
+        $link                      = urlencode("detallesProducto.php?id=".$clave);
+
         if ($ModelProducto->altaProducto($clave, $marca, $linea, $descripcion_producto, $presentacion, $stock_disponible_producto, $costo_unitario_producto, $centro)){
-            header("Location: exito.php");
+            header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
         }else{
             //echo hubo un error;
         }
@@ -214,9 +217,10 @@
     if (isset($_POST['buttonEliminarProducto'])) {
         $id_producto = mysqli_real_escape_string($con, $_POST['id']);
         $id_centro   = mysqli_real_escape_string($con, $_POST['idSucursal']);
+        $mensaje     = urlencode("Eliminaste el producto con el ID ".$id_producto." existosamente!");
         
         if ($ModelProducto->eliminarProducto($id_producto, $id_centro)){
-            header("Location: exito.php");
+            header("Location: exito.php?mensaje=".$mensaje);
         }else{
             //echo hubo un error;
         }

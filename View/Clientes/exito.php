@@ -16,7 +16,6 @@
   getHeadHTML("ProSkin - Alta exitosa");
 ?>
 <body style='background-color: #f9f3f3;'>
-    <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
@@ -26,8 +25,17 @@
         <div class="container">
                 <div class="col d-flex justify-content-center">
                     <h1>Registro exitoso!</h1>
-                    
-                </div>
+                </div><br>
+                <div class="text-center">
+                    <?php
+                        $mensaje = $_GET['mensaje'];
+                        $link    = $_GET['link'];
+                        echo '<h2>'.$mensaje.'</h2>';
+                        if($link != ''){
+                            echo '<a class="btn btn-success" href="'.$link.'" role="button">Ver movimiento</a>';
+                        }
+                    ?>
+                </div><br>
                 <div class="col d-flex justify-content-center">
                     <a class="btn btn-primary" href="../index.php" role="button">Regresar a inicio</a>
                 </div>
