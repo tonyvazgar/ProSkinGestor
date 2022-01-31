@@ -444,9 +444,9 @@
         array_push($timeStamp_uso, $timeStamp_modificacion);
         array_push($dinero_final, strval($ultimo_precio));
         array_push($id_cosmetologa_uso, $id_cosmetologa);
-        echo '<pre>';
-        print_r($id_cosmetologa_uso);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($id_cosmetologa_uso);
+        // echo '</pre>';
         
         $ModelCliente -> updateCantidadMonedero($id_monedero, $infoDeMonedero['timestamp_creacion'], json_encode($cantidad_tratamientos_del_monedero));
         $ModelCliente -> updateMonedero_tratamientos_final($id_monedero, $infoDeMonedero['timestamp_creacion'], json_encode($tratamientos_final));
