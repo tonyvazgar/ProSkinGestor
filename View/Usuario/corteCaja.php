@@ -88,10 +88,10 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <p for="diaCorteCaja" class="col-sm-2 lead">Ventas del día</p>
+                  <p for="diaCorteCaja" class="col-sm-2 lead">Movimientos del día</p>
                   <div class="col-sm-10">
                     <input type="number" class="form-control" id="numTotalVentasDia" name="numTotalVentasDia" value="<?php echo $numeroTotalDeVentas; ?>" placeholder='Número de ventas del día de hoy' readonly> 
-                    <small id="passwordHelpBlock" class="form-text text-muted">Número de ventas del día de hoy</small>
+                    <small id="passwordHelpBlock" class="form-text text-muted">Número de movimientos del día de hoy</small>
                   </div>
                 </div>
                 <hr>
@@ -369,6 +369,13 @@
                     </div> -->
                   </div>
                   <button class="btn btn-info" id="botonAgregarGasto" type="button"><i class="fas fa-plus-circle"></i></button>
+                </div>
+                <hr>
+                <div class="form-group row">
+                  <p for="total_deposito" class="col-sm-2 lead">Efectivo a entregar</p>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="efectivo_a_entregar" name="efectivo_a_entregar" value="<?php echo $total_efectivo[0] != '' ? $total_efectivo[0] : 0; ?>" placeholder='Efectivo a entregar del día' readonly> 
+                  </div>
                 </div>
                 <hr>
                 <div class="form-group row">

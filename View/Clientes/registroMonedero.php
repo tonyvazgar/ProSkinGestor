@@ -115,7 +115,7 @@
                 </div>
                 <hr/>
                 <div class='form-group' id="agregar_boton_pago_div">
-                    <button class='btn btn-info' id="botonAgregarMetodoPago" type="button">Agregar método de pago <i class="fas fa-plus-circle"></i></button>
+                    <button class='btn btn-info' id="botonAgregarMetodoPago" type="button" disabled>Agregar método de pago <i class="fas fa-plus-circle"></i></button>
                 </div>
                 <hr>
                 <button type="submit" id="altaMonederoCliente" name="altaMonederoCliente" class="btn btn-success">Dar monedero de alta</button>

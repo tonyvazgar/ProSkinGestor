@@ -89,8 +89,9 @@ function getBotonCorteCaja($fecha, $id_centro, $id_cosmetologa){
     $ds = new DateTime('now', new DateTimeZone('America/Mexico_City') );
     $hora = $ds->format('H');
 
-    cierreCajaDiaAnterior($ModelUsuario, $id_cosmetologa, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 1);
-    // cierreCajaDiaAnterior($ModelUsuario, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 7);
+    if($id_cosmetologa != '' && $id_centro != ''){
+        cierreCajaDiaAnterior($ModelUsuario, $id_cosmetologa, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 1);
+    }
 
     if($hora >= 13 && $hora <= 21){
         $corte = $ModelUsuario->existeCorteCaja($timestamp, $id_centro);
