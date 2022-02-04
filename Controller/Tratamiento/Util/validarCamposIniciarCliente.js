@@ -188,14 +188,15 @@ $(document).ready(function () {
                     data: "idTratamiento=" + idTratamiento,
                     success:
                         setTimeout(function (r) {
+                            console.log("El id del tratamiento es: " + idTratamiento);
                             $('#precioTratamiento.last_tratamiento').val(0);
                             $('#nombreTratamiento.last_tratamiento').val(idTratamiento);//nombreTratamiento
                             // alert(idTratamiento);
                             verificarAntesNuevoTratamiento();
                             actualizarTotalDeVenta();
-                        }, 100)
+                        }, 800)
                 });
-            }, 500);
+            }, 800);
 
 
 

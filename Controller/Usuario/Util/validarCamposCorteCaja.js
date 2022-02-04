@@ -25,8 +25,8 @@ $("body").on('click', '#botonAgregarGasto', function(){
 });
 
 $(document).on('keyup', '*[id*=totalGasto]:visible',function () {
-    const esteValor = parseFloat($(this).val());
-    const efectivo_a_entregar = parseFloat($('#efectivo_a_entregar').val());
+    const esteValor = verificarEfectivoAentregar();
+    const efectivo_a_entregar = parseFloat($('#total_efectivo').val());
 
     const nuevo = efectivo_a_entregar - esteValor;
 
@@ -35,9 +35,16 @@ $(document).on('keyup', '*[id*=totalGasto]:visible',function () {
 
 
 function verificarEfectivoAentregar(){
-    const efectivo = $("#total_efectivo").val();
+    let suma_gastos = 0;
     $('*[id*=totalGasto]:visible').each(function() {
-        console.log($(this).val());
+        let esteValor = $(this).val();
+        if(esteValor == ''){
+            esteValor = 0;
+        }else{
+            esteValor = parseFloat(esteValor);
+        }
+        suma_gastos += esteValor;
     });
-    $("#efectivo_a_entregar").val(efectivo);
+    return suma_gastos;
+    // $("#efectivo_a_entregar").val(efectivo);
 }
