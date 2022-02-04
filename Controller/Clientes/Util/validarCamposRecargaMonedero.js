@@ -15,22 +15,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.btn-agregar-tratamiento', function () {
-        // Agregamos el formulario
-        // var front_tratamiento = '<hr><div class="col-xs-4"><h3 class="numTratamientos">Tratamiento #1</h3><div class="well well-sm"><div class="form-group"><label>Tratamiento a empezar</label><select name="tratamiento[]" id="tratamiento" class="last_tratamiento form-control"><option>*** SELECCIONA ***</option><option value="1">Depilación</option><option value="2">Cavitación</option><option value="3">Otros tratamientos</option></select></div><div class="last_tratamiento form-group" id="otro" name="otro"></div><div class="form-group" hidden><label>Calificación</label><select name="calificacion[]" id="calificacion" class="form-control" hidden><option value="1">☆</option><option value="2">☆☆</option><option value="3">☆☆☆</option><option value="4">☆☆☆☆</option><option value="5">☆☆☆☆☆</option></select></div></div></div>';
-        // var n = $("#listaTratamientos .col-xs-4").length + 1;
-        // $("#listaTratamientos .last_tratamiento").removeClass('last_tratamiento');
-        // $("#listaTratamientos").append(front_tratamiento);
-        // $("#listaTratamientos .col-xs-4:last .numTratamientos").html("Tratamiento #" + n);
 
-
-
-        // console.log("Vamos a agregar otro tratamiento");
-        // $("#listaTratamientos .col-xs-4:last .well").append('<button class="btn-danger btn btn-block btn-quitar-tratamiento" type="button">Eliminar tratamiento #' + n + '</button>');
-
-        // alert("Se agregó otro tratamiento.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
-        // $("#btn-agregar-tratamiento").attr('disabled', true);
-
-        //$(table).find('tbody').append("<tr><td>aaaa</td></tr>");
         switch (parseInt($('#tratamiento.last_tratamiento').val())) {
             case 1:
                 var idTratamiento = "DEP01";
@@ -41,13 +26,15 @@ $(document).ready(function () {
 
 
                 var zonasSeleccionadas = [];
+                var zonasText = [];
                 $.each($("input:checkbox[name='zonas_cuerpo[0][]']:checked"), function () {
                     zonasSeleccionadas.push($(this).val());
+                    zonasText.push($(this).parent().text().trim());
                 });
 
 
 
-                agregarFilaTabla(idTratamiento, nombreTratamiento, cantidadSesiones, numDeZonas, precioTratamiento, zonasSeleccionadas);
+                agregarFilaTabla(idTratamiento, nombreTratamiento, cantidadSesiones, numDeZonas, precioTratamiento, zonasSeleccionadas, zonasText);
                 limpiarFormulario();
                 break;
             case 2:
@@ -58,13 +45,15 @@ $(document).ready(function () {
 
 
                 var zonasSeleccionadas = [];
+                var zonasText = [];
                 $.each($("input:checkbox[name='zonas_cuerpo[0][]']:checked"), function () {
                     zonasSeleccionadas.push($(this).val());
+                    zonasText.push($(this).parent().text().trim());
                 });
 
 
 
-                agregarFilaTabla(idTratamientoc, nombreTratamientoc, cantidadSesionesc, 'N/A', precioTratamientoc, zonasSeleccionadas);
+                agregarFilaTabla(idTratamientoc, nombreTratamientoc, cantidadSesionesc, 'N/A', precioTratamientoc, zonasSeleccionadas, zonasText);
                 limpiarFormulario();
                 break;
             case 3:
@@ -72,7 +61,7 @@ $(document).ready(function () {
                 var nombreTratamientoo = $("#nombreTratamiento option:selected").text();
                 let precioTratamientoo = $('#precioTratamiento').val();
                 let cantidadSesioneso = $('#cantidadTratamiento').val();
-                agregarFilaTabla(idTratamientoo, nombreTratamientoo, cantidadSesioneso, 'N/A', precioTratamientoo, '');
+                agregarFilaTabla(idTratamientoo, nombreTratamientoo, cantidadSesioneso, 'N/A', precioTratamientoo, '', '');
                 limpiarFormulario();
                 break;
             default:
@@ -208,10 +197,17 @@ $(document).ready(function () {
     });
     
     $("body").on('click', '#botonAgregarMetodoPago', function () {
+        $(this).prop( "disabled", true );
         const count = $(".metodosPagoDiv").children('div').length + 1;
         const front_metodo_pago = "<br><div class='form-inline div_metodo" + count + "'><h4>Método " + count + ":</h4><div><select name='metodoPago[]' id='metodoPago' class='form-control select_metodo" + count + "'><option value=''>*** Selecciona ***</option><option value='6'>Depósito</option><option value='1'>Efectivo</option><option value='2'>[TDD]Tarjeta de débito</option><option value='3'>[TDC]Tarjeta de crédito</option><option value='4'>Transferencia</option><option value='5'>Cheque de regalo</option></select><input type='text' class='form-control referencia_metodo" + count + "' id='referencia' name='referencia[]' placeholder='Número de referencia del pago' style='display: none;'><input type='number' class='form-control totalMetodoPago" + count + "' id='totalMetodoPago' name='totalMetodoPago[]' placeholder='Cantidad de este método de pago' step='any' style='display: none;'></div><button class='btn btn-danger metodo" + count + "' id='botonEliminarMetodoPago' type='button'><i class='far fa-trash-alt'></i></button></div>";
         $('#metodosPagoDiv').append(front_metodo_pago);
         // verificarCantidadesMetodoPago();
+    });
+
+    $(document).on('click', '#botonEliminarMetodoPago', function(){
+        const clase = $(this).attr('class').replace('btn btn-danger metodo', '');
+        $(this).closest('.div_metodo' + clase).remove();
+        $('#botonAgregarMetodoPago').prop( "disabled", false );
     });
 
     $(document).on('keyup', "#totalMetodoPago", function () {
@@ -241,12 +237,16 @@ $(document).ready(function () {
         }
         verificarCantidadesMetodoPago();
         verificarDatos();
+        $('#botonAgregarMetodoPago').prop( "disabled", false );
     });
+
 
     $(document).on('click', '#eliminarTratamientoLista', function(){
         const clase = $(this).attr('class').replace('btn btn-danger eliminar', '');
         // alert(clase);
         $(this).closest('.tratamiento' + clase).remove();
+
+        actualizarSumaMonederoLista();
     });
     $(document).on('click', '#editarTratamientoLista', function(){
         const clase = $(this).attr('class').replace('btn btn-warning editar', '');
@@ -255,6 +255,10 @@ $(document).ready(function () {
         $("#cantidadTratamientoLista.form-control."+clase).show();
         $("#precioIndividual.form-control."+clase).removeAttr('hidden');
         $("#precioIndividual.form-control."+clase).show();
+        $("#cantidadLabel."+clase).removeAttr('hidden');
+        $("#cantidadLabel."+clase).show();
+        $("#precioLabel."+clase).removeAttr('hidden');
+        $("#precioLabel."+clase).show();
         $(this).hide();
         $("#cancelarTratamientoLista.btn.btn-warning.cancelar"+clase).removeAttr('hidden');
         $("#cancelarTratamientoLista.btn.btn-warning.cancelar"+clase).show();
@@ -269,11 +273,11 @@ $(document).ready(function () {
         let precioTratamientoc = $('#precioIndividual.' + clase).val();
         let cantidadSesionesc = $('#cantidadTratamientoLista.' + clase).val();
 
-        // alert(precioTratamientoc);
-        // alert(cantidadSesionesc);
 
         $("#cantidadTratamientoLista.form-control."+clase).hide();
         $("#precioIndividual.form-control."+clase).hide();
+        $("#cantidadLabel."+clase).hide();
+        $("#precioLabel."+clase).hide();
         $(this).hide();
         $("#editarTratamientoLista.btn.btn-warning.editar"+clase).removeAttr('hidden');
         $("#editarTratamientoLista.btn.btn-warning.editar"+clase).show();
@@ -346,7 +350,7 @@ function limpiarFormulario() {
     $('#tratamiento').val('');
 }
 
-function agregarFilaTabla(idTratamiento, nombre, cantidadTratamiento, numZonas, precio, zonas) {
+function agregarFilaTabla(idTratamiento, nombre, cantidadTratamiento, numZonas, precio, zonas, zonasText) {
 
     let parseoPrecio = isNaN(parseInt(precio)) ? 0 : parseInt(precio);
     let parseoCantidad = isNaN(parseFloat(cantidadTratamiento)) ? 0 : parseFloat(cantidadTratamiento);
@@ -354,7 +358,7 @@ function agregarFilaTabla(idTratamiento, nombre, cantidadTratamiento, numZonas, 
 
 
     var numero = $(".table >tbody >tr").length;
-    let front = '<tr class="tratamiento' + idTratamiento + numero + '"><td>' + nombre + '<input type="text" class="form-control ' + idTratamiento + numero + '" id="nombreTratamientoLista" name="nombreTratamientoLista[]" value="' + idTratamiento + '" hidden></td><td><label id="textoCantidad' + idTratamiento + numero + '">' + cantidadTratamiento + 'x$' + precio + '</label><input type="text" class="form-control ' + idTratamiento + numero + '" id="cantidadTratamientoLista" name="cantidadTratamientoLista[]" value="' + cantidadTratamiento + '" hidden><input type="text" class="form-control ' + idTratamiento + numero + '" id="precioIndividual" name="precioIndividual[]" value="' + precio + '" hidden></td><td>' + numZonas + '<input type="number" class="form-control ' + idTratamiento + numero + '" id="numDeZonas" name="numDeZonas[]" value="' + numZonas + '" hidden></td><td><label id="precio' + idTratamiento + numero + '">$' + precioFinal + '</label><input type="number" class="precioTratamiento last_tratamiento form-control ' + idTratamiento + numero + '" id="precioTratamientoLista" name="precioTratamientoLista[]" step=".01" required="" value="' + precioFinal + '" hidden></td><td>' + zonas + '<input type="text" class="form-control ' + idTratamiento + numero + '" id="numZonas" name="numZonas[]" value="' + zonas + '" hidden></td><td><button class="btn btn-warning cancelar' + idTratamiento + numero + '" id="cancelarTratamientoLista" type="button" hidden><i class="far fa-window-close"></i></button><button class="btn btn-warning editar' + idTratamiento + numero + '" id="editarTratamientoLista" type="button"><i class="fas fa-edit"></i></button><button class="btn btn-danger eliminar' + idTratamiento + numero + '" id="eliminarTratamientoLista" type="button" ><i class="far fa-trash-alt"></i></button></td></tr>';
+    let front = '<tr class="tratamiento' + idTratamiento + numero + '"><td>' + nombre + '<input type="text" class="form-control ' + idTratamiento + numero + '" id="nombreTratamientoLista" name="nombreTratamientoLista[]" value="' + idTratamiento + '" hidden></td><td><label id="textoCantidad' + idTratamiento + numero + '">' + cantidadTratamiento + 'x$' + precio + '</label><input type="text" class="form-control ' + idTratamiento + numero + '" id="cantidadTratamientoLista" name="cantidadTratamientoLista[]" value="' + cantidadTratamiento + '" hidden><input type="text" class="form-control ' + idTratamiento + numero + '" id="precioIndividual" name="precioIndividual[]" value="' + precio + '" hidden></td><td>' + numZonas + '<input type="number" class="form-control ' + idTratamiento + numero + '" id="numDeZonas" name="numDeZonas[]" value="' + numZonas + '" hidden></td><td><label id="precio' + idTratamiento + numero + '">$' + precioFinal + '</label><input type="number" class="precioTratamiento last_tratamiento form-control ' + idTratamiento + numero + '" id="precioTratamientoLista" name="precioTratamientoLista[]" step=".01" required="" value="' + precioFinal + '" hidden></td><td>' + zonasText + '<input type="text" class="form-control ' + idTratamiento + numero + '" id="numZonas" name="numZonas[]" value="' + zonas + '" hidden></td><td><button class="btn btn-warning cancelar' + idTratamiento + numero + '" id="cancelarTratamientoLista" type="button" hidden><i class="far fa-window-close"></i></button><button class="btn btn-warning editar' + idTratamiento + numero + '" id="editarTratamientoLista" type="button"><i class="fas fa-edit"></i></button><button class="btn btn-danger eliminar' + idTratamiento + numero + '" id="eliminarTratamientoLista" type="button" ><i class="far fa-trash-alt"></i></button></td></tr>';
     $(".table").find('tbody').append(front);
     actualizarSumaMonedero(precio, cantidadTratamiento);
 }

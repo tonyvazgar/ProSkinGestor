@@ -284,8 +284,6 @@
             $id_cosmetologa   = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
             $tratamientosDesdeMonedero = explode(',', mysqli_real_escape_string($con, $_POST['itemsAgregadosDeMonedero']));
             restarElementosMonedero($id_cosmetologa, $idMonedroCliente, $idCliente, $tratamientosDesdeMonedero);
-        }else{
-            print_r('ESTA VACIO');
         }
         // echo "<pre>";
         // print_r($_POST);
