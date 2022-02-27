@@ -124,6 +124,9 @@
                         echo "*".getMetodoPagoNombre($elemento[0][0])." |".$elemento[1]."| - $".$elemento[0][1];
                         if($elemento[0][0] == 7){
                           $id_monedero = $ModeloUsuario -> getAllMonederosFromCliente($detalles[0]['id_cliente'])[0]['id_monedero'];
+                          if(empty($id_monedero)){
+                            $id_monedero = $ModeloUsuario -> getMonederoDineroFromCliente($detalles[0]['id_cliente'])['id_monedero'];
+                          }
                           // print_r($id_monedero);
                           echo ' <a class="btn btn-info" href="../../View/Clientes/infoMonedero.php?id_monedero='.$id_monedero.'" role="button">Ver monedero</a>';
                         }

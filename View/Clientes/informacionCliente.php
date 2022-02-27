@@ -118,27 +118,30 @@
                     <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                         <div class="card-body">
                             <?php
-                                // echo "<a class='btn btn-primary'  href='../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente']."' role='button'>Registrar monedero</a>";
                             
                                 $monederos = $ModelCliente->getAllMonederosFromCliente($_GET['id']);
+                                $isHiddenBotonMonedero = '';
+                                $tipo_monedero = " (tratamientos)";
+                                $dineroDisponible = 0;
+                                if(empty(json_decode($monederos[0]['dinero_final']))){ $dineroDisponible = number_format($monederos[0]['dinero_inicial']); }else{ $dineroDisponible = number_format(end(json_decode($monederos[0]['dinero_final']))); }
+                                if(empty($monederos)){
+                                    $monederos = $ModelCliente->getAllMonederosDineroFromCliente($_GET['id']);
+                                    // $dineroDisponible     = number_format(end(json_decode($monederos[0]['dinero'])));
+                                    $tipo_monedero = " (dinero) ";
+                                }
                                 if(empty($monederos)){
                                         echo "<h3 class='text-center'>Aún no hay ningun monedero registrado :(</h3>";
                                 }else{
+                                    $isHiddenBotonMonedero = 'hidden';
                                     echo "<ul class='list-group'>";
                                     foreach($monederos as $d){
                                         echo "<li class='list-group-item d-flex justify-content-between align-items-right'>
-                                                <a href='../../View/Clientes/infoMonedero.php?id_monedero=".$d['id_monedero']."' role='button'>Monedero #"
+                                                <a href='../../View/Clientes/infoMonedero.php?id_monedero=".$d['id_monedero']."' role='button'>Monedero ".$tipo_monedero." #"
                                                     .$d['id_monedero'].
                                                 "</a>";
-                                                // if($d['dinero_final'] == 0){
-                                                //     echo "<span class='badge bg-warning rounded-pill'>Sin fondos</span>";
-                                                // }else{
-                                                //     echo "<span class='badge bg-success rounded-pill'>Actual</span>";
-                                                //     // echo "<span class='badge bg-success rounded-pill'>$".$d['dinero_final']."</span>";
-                                                // }
                                                 
-                                                echo "<span class='badge bg-warning rounded-pill'>Fecha de creación: "
-                                                    .date('Y-m-d', $d['timestamp_creacion']).
+                                                echo "<span class='badge bg-warning rounded-pill'>Monto disponible: $"
+                                                    .$dineroDisponible.
                                                 "</span>
                                               </li>";
                                         }
@@ -171,7 +174,7 @@
                     <button type="button" id="editarCliente" name="editarCliente" class="btn btn-warning">Editar información</button>
                     <button type="button" id="cancelarEdicion" name="cancelarEdicion" class="btn btn-danger" hidden>Cancelar edición</button>
                     <a class="btn btn-primary"  href=<?php echo "../../View/Clientes/iniciarTratamientoCliente.php?id=".$infoCliente['id_cliente'];?> role="button">Registrar tratamiento</a>
-                    <a class="btn btn-info"  href=<?php echo "../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente'];?> role="button">Registrar un monedero</a>
+                    <a class="btn btn-info"  href=<?php echo "../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente'];?> <?php echo $isHiddenBotonMonedero;?> role="button">Registrar un monedero</a>
                 </div>
 
                 <div class="form-group">

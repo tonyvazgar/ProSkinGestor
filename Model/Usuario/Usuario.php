@@ -216,6 +216,22 @@
             $db->close();
             return $account;
         }
+        public function verificarMonederoDinero($id_cliente){  
+
+
+            // SE TIENE QUE MODIFICAR DEPENDIENDO DE LA ESTRUCTURA DE DINERO FINAL
+
+
+            $db = new Db();
+            //SELECT * FROM Monedero WHERE id_cliente = 'AJF00111231' AND dinero_final != '0'
+
+            $sql_statement = "SELECT * 
+                              FROM MonederoDinero 
+                              WHERE id_cliente = '$id_cliente'";
+            $account = $db->query($sql_statement)->fetchArray();
+            $db->close();
+            return $account;
+        }
 
         function getAllMonederosFromCliente($id_cliente){
             $db = new DB();
@@ -224,6 +240,17 @@
                               WHERE id_cliente = '$id_cliente'
                               ORDER BY id_monedero DESC";
             $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        function getMonederoDineroFromCliente($id_cliente){
+            $db = new DB();
+            $sql_statement = "SELECT * 
+                              FROM MonederoDinero 
+                              WHERE id_cliente = '$id_cliente'
+                              ORDER BY id_monedero DESC";
+            $account = $db->query($sql_statement)->fetchArray();
             $db->close();
             return $account;
         }

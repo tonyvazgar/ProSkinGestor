@@ -71,7 +71,10 @@
                 <hr>
                     <div class="form-inline justify-content-center" id='div-sumaTotalPrecios' name='div-sumaTotalPrecios'>
                         <h4>Total de venta</h4>
-                        <input type="number" class="last_producto form-control" id="sumaTotalPrecios" name="sumaTotalPrecios" readonly>
+                        <input type="number" class="last_producto form-control" id="sumaTotalPrecios" name="sumaTotalPrecios" hidden readonly>
+                    </div>
+                    <div class="form-inline justify-content-center">
+                        <h1 id="totalVentaLabel" name="totalVentaLabel">$0</h1>
                     </div>
                 <hr>
                 <div class="form-group" style="display: none;">
@@ -89,8 +92,11 @@
                 <!--  -->
                     <div class="form-group metodosPagoDiv" id="metodo_pago_div" style="display: none;">
                         <div class='form-inline'>
-                            <h3>Métodos de pago:</h3>
-                            <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" readonly>
+                            <h4>Métodos de pago:</h4>
+                            <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" hidden readonly>
+                            <div class="form-inline justify-content-center">
+                                <h1 id="sumaTotalMetodosPagoLabel" name="sumaTotalMetodosPagoLabel"> $0</h1>
+                            </div>
                         </div>
                         <div class='form-inline'>
                             <h4 id='label_metodo1'>Método 1:</h4>
@@ -108,6 +114,7 @@
                                 <input type="text" class="form-control referencia_metodo1" id="referencia" name="referencia[]" placeholder="Número de referencia del pago" style="display: none;">
                                 <input type="number" class="form-control totalMetodoPago1" id="totalMetodoPago" name="totalMetodoPago[]" style="display: none;" placeholder="Cantidad de este método de pago" step='any'>
                                 <button id="pagoCompleto" class="btn btn-info btn-agregar-pagoCompleto" style="display: none;" type="button">Total completo</button> 
+                                <button id="botonPagarConDineroMonedero" class="btn btn-info btn-agregar-pagoCompleto" style="display: none;" type="button">Usar dinero del monedero</button>
                             </div>
                         </div>
                     </div>
@@ -133,6 +140,12 @@
                             <p class="lead text-danger">Ya se hizo el corte de caja, esta venta se desplazará al siguiente día</p>';
                         }
                     ?>
+                </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;" id="alertaMonedero" name="alertaMonedero">
+                    <strong>Estás usando monedero!</strong> Recuerda que una parte será pagada con el monedero del cliente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="form-group justify-content-center" id='botonComenzar' name='botonComenzar'>
                     <button type="submit" id="comenzarTratamiento" name="comenzarTratamiento" class="btn btn-success">Registrar tratamiento</button>

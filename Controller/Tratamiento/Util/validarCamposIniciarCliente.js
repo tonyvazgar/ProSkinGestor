@@ -217,7 +217,7 @@ $(document).ready(function () {
 
         if ($('#soloDesdeMonedero').val() == 1) {
             $("#metodo_pago_div").show();
-            $("#metodoPago.select_metodo1").val('7');
+            $("#metodoPago.select_metodo1").val('7').change();
 
             const valor_a_agregar = preciosEnCascada();
             $('.totalMetodoPago1').show();
@@ -349,6 +349,7 @@ $(document).on('change','#tratamiento.last_tratamiento',function () {
     recargarLista();
     // verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
     $('#metodoPago option[value="7"]').remove();
+    mostrarBotonPagarConDineroDeMonedero();
 });
 
 $(document).on('change','#detalleZona.last_tratamiento',function () {
@@ -424,6 +425,7 @@ $(document).on('change','#detalleZona.last_tratamiento',function () {
 
 $(document).on('change','#nombreTratamiento.last_tratamiento',function () {
     recargarListaNombreTratamiento();
+    mostrarBotonPagarConDineroDeMonedero();
     $('#metodoPago option[value="7"]').remove();
 });
 
@@ -435,6 +437,41 @@ $(document).on('click', '#botonAgregarMetodoPago', function(){
     // $("#pagoCompleto").hide();
     // verificarCantidadesMetodoPago();
 });
+
+$(document).on('click', '#botonPagarConDineroMonedero', function(){
+    let optionText = 'Monedero';
+    let optionValue = '7';
+    $('#metodoPago.select_metodo1').append(`<option value="${optionValue}">${optionText}</option>`);
+    $('#seUsaMonedero').append('<input type="text" class="form-control" id="usoDeMonedero" name="usoDeMonedero" value="1" hidden>');
+
+
+    let montoEnMonedero = parseFloat($('#dineroDeMonedero').val()).toFixed(2);
+
+    
+    $('#totalMetodoPago.totalMetodoPago1').attr({
+        "max" : montoEnMonedero,
+        "min" : 0
+     });
+     $('#totalMetodoPago.totalMetodoPago1').on('keyup',function(){
+        v = parseInt($(this).val());
+        min = parseInt($(this).attr('min'));
+        max = parseInt($(this).attr('max'));
+        if (v > max){
+            $(this).val(max);
+        }
+    });
+    
+    $('#metodoPago.select_metodo1').val(7);
+    $('#metodoPago.select_metodo1').val(7).change();
+    $('#metodoPago.select_metodo1 option[value="1"]').remove();
+    $('#metodoPago.select_metodo1 option[value="2"]').remove();
+    $('#metodoPago.select_metodo1 option[value="3"]').remove();
+    $('#metodoPago.select_metodo1 option[value="4"]').remove();
+    $('#metodoPago.select_metodo1 option[value="5"]').remove();
+    $('#metodoPago.select_metodo1 option[value="6"]').remove();
+    
+    $('#botonPagarConDineroMonedero').hide();
+});
 $(document).on('keyup',"#totalMetodoPago", function () {
     verificarCantidadesMetodoPago();
 });
@@ -444,14 +481,37 @@ $("body").on('click', '#botonEliminarMetodoPago', function(){
     const clase = $(this).attr('class').replace('btn btn-danger ', '');
     $(this).closest('.div_' + clase).remove();
 });
+$("body").on('click', '#mostrarComentariosMonedero', function(){
+    $("#comentariosMonedero").toggle();
+    $("#abrirComentarios").toggle();
+    $("#cerrarComentarios").toggle();
+});
 
-$(document).on('click', '#ocultarModal', function () {
+$(document).on("keydown", ":input:not(textarea)", function(event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+    }
+});
+
+$(document).on('mousedown', '#ocultarModal', function () {
     setCookie('modalMensajeTratamientoMonedero', '1', 30);
 });
 
 $('body').on('change','#metodoPago',function () {
     const num_clase = $(this).attr('class').replace('form-control select_metodo', '');
-    const valor_a_agregar = preciosEnCascada();
+
+    let valor_a_agregar = parseFloat(preciosEnCascada()).toFixed(2);
+    if ($(this).val() == 7) {
+        $('#alertaMonedero').show();
+        let montoEnMonedero = parseFloat($('#dineroDeMonedero').val()).toFixed(2);
+
+        if (montoEnMonedero != undefined) {   //Si existe un monedero con solo dinero disponible
+            if (parseFloat(valor_a_agregar) > parseFloat(montoEnMonedero)) {
+                valor_a_agregar = montoEnMonedero;
+            }
+        }
+    }
+    
     if($(this).val() != ''){
         $('.totalMetodoPago' + num_clase).show();
         $('.totalMetodoPago' + num_clase).val(valor_a_agregar);
@@ -592,6 +652,7 @@ function verificarAntesNuevoProducto(){
         $("#btn-agregar-producto").attr('disabled', false);
         $("#metodo_pago_div").show();
         $("#agregar_boton_pago_div").show();
+        mostrarBotonPagarConDineroDeMonedero();
     }else{
         $("#btn-agregar-tratamiento").attr('disabled', true);
         $("#btn-agregar-producto").attr('disabled', true);
@@ -633,6 +694,7 @@ function actualizarTotalDeVenta(){
     });
     //----------------------------------------------------
     $('#sumaTotalPrecios').val(formElements.reduce(function(a, b) { return a + b; }, 0));
+    $('#totalVentaLabel').text("$" + formElements.reduce(function(a, b) { return a + b; }, 0));
     console.log(formElements);
 }
 
@@ -644,6 +706,7 @@ function verificarCantidadesMetodoPago(){
     var sum = formElements.reduce(function(a, b) { return a + b; }, 0);
 
     $('#sumaTotalMetodosPago').val(sum);
+    $('#sumaTotalMetodosPagoLabel').text(" $" + sum);
 
     if(sum == $('#sumaTotalPrecios').val()){
         $('#sumaTotalMetodosPago').css("border", "2px solid green");
@@ -698,6 +761,16 @@ function preciosEnCascada() {
     var suma = formElements.reduce(function (a, b) { return a + b; }, 0);
     var diferencia = totalGeneral - suma;
     return diferencia;
+}
+
+function mostrarBotonPagarConDineroDeMonedero(){
+    let montoEnMonedero = $('#dineroDeMonedero').val();
+
+    if(montoEnMonedero != undefined && montoEnMonedero != 0){   //Si existe un monedero con solo dinero disponible
+        $('#botonPagarConDineroMonedero').show();
+    }else{      //Si no existe ningun mondero o  si existe uno con tratamientos normales
+        $('#metodoPago option[value="7"]').remove();
+    }
 }
 
 function insertarSoloDesdeMonedero() {

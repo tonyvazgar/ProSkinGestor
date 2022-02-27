@@ -94,7 +94,7 @@
         }
     }
 
-    function generarPDF($id_documento, $id_corte_caja, $diaCorteCaja, $numTotalVentasDia, $centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaConceptos, $sumaGastos, $efectivo_a_entregar, $filename){
+    function generarPDF($id_documento, $id_corte_caja, $diaCorteCaja, $numTotalVentasDia, $centro, $conceptos, $observaciones, $nombres_gastos, $total_gastos, $sumaConceptos, $sumaGastos, $efectivo_a_entregar, $efectivo_entregado, $pendiente, $filename){
         // Instanciation of inherited class
         $pdf = new PDF();
 
@@ -125,6 +125,12 @@
         $pdf->SetFont('Arial','B',15);
         $pdf->Cell(20);
         $pdf->Cell(40,10,utf8_decode('Efectivo a entregar: $'.number_format($efectivo_a_entregar)));
+        $pdf->Ln();
+        $pdf->Cell(20);
+        $pdf->Cell(40,10,utf8_decode('Efectivo entregado: $'.number_format($efectivo_entregado)));
+        $pdf->Ln();
+        $pdf->Cell(20);
+        $pdf->Cell(40,10,utf8_decode('Efectivo pendiente: $'.number_format($pendiente)));
         $pdf->Ln();
         $pdf->Cell(20);
         $pdf->Cell(40,10,'Observaciones:');
