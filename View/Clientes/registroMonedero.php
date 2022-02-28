@@ -117,7 +117,7 @@
                 <hr/>
                 <div class="form-group">
                     <h3>Comentarios del monedero:</h3>
-                    <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="5"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc."></textarea>
+                    <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="5"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc." maxlength="180"></textarea>
                 </div>
                 <hr/>
                 <div class='form-group' id="agregar_boton_pago_div">

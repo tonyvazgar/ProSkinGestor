@@ -90,7 +90,7 @@
                 <hr/>
                 <div class="form-group">
                         <h3>Comentarios del monedero</h3>
-                        <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="2"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc."><?php echo $infoClienteMonederoTratamiento['comentarios'];?></textarea>
+                        <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="2"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc." maxlength="180"><?php echo $infoClienteMonederoTratamiento['comentarios'];?></textarea>
                 </div>
                 <hr/>
                 <hr/>
@@ -219,7 +219,7 @@
                 <hr/>
                 <div class="form-group">
                         <h3>Comentarios del monedero</h3>
-                        <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="2"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc."><?php echo $infoClienteMonederoDinero['comentarios'];?></textarea>
+                        <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="2"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc." maxlength="180"><?php echo $infoClienteMonederoDinero['comentarios'];?></textarea>
                 </div>
                 <hr/>
                 <div <?php echo $display_tratamientos;?>>
