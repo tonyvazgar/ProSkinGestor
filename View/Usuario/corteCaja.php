@@ -379,6 +379,20 @@
                 </div>
                 <hr>
                 <div class="form-group row">
+                  <p for="total_deposito" class="col-sm-2 lead">Efectivo entregado</p>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="efectivo_entregado" name="efectivo_entregado" placeholder='Lo que se va a entregar'> 
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group row">
+                  <p for="total_deposito" class="col-sm-2 lead">Pendiente</p>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="efectivo_pendiente" name="efectivo_pendiente" placeholder='Dinero pendiente' readonly> 
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group row">
                   <p for="total_deposito" class="col-sm-2 lead">Observaciones</p>
                   <div class="col-sm-10">
                     <textarea maxlength="150" class="form-control" name="observaciones" id="observaciones" rows="6" placeholder="Observaciones que tengas del corte de caja de este día"></textarea>

@@ -29,7 +29,7 @@
                         <label>Precio:</label>
                         <input type="number" class="last_tratamiento form-control" id="precioTratamiento" name="precioTratamiento[]" step=".01" required="">
                         <label>¿Cuantas sesiones?:</label>
-                        <input type="number" class="last_tratamiento form-control" id="cantidadTratamiento" name="cantidadTratamiento[]" step=".01" required="">
+                        <input type="number" class="last_tratamiento form-control" id="cantidadTratamiento" name="cantidadTratamiento[]" step="1" required="">
                     </div>';
         echo $cadena;
     }

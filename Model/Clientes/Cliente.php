@@ -230,12 +230,23 @@
             return $account;
         }
 
-        function insertarMonedero($id_monedero, $id_cliente, $id_cosmetologa_venta, $id_cosmetologa_uso, $dinero_inicial, $tratamientos_inicial, $precios_unitarios, $num_zonas, $zonas_tratamiento, $cantidad, $dinero_final, $tratamientos_final, $timestamp_creacion, $timestamp_uso){
+        function getNombreTratamiento($id_tratamiento){
+            $db = new DB();
+            //SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = 'ACN10'
+            $tratamiento = $db->query("SELECT nombre_tratamiento FROM `Tratamiento` WHERE id_tratamiento = '$id_tratamiento'")->fetchArray();
+            $db->close();
+            return $tratamiento['nombre_tratamiento'];
+
+        }
+
+        // ------------ MONEDERO ------------
+
+        function insertarMonedero($id_monedero, $id_cliente, $id_cosmetologa_venta, $id_cosmetologa_uso, $dinero_inicial, $tratamientos_inicial, $precios_unitarios, $num_zonas, $zonas_tratamiento, $cantidad, $dinero_final, $tratamientos_final, $timestamp_creacion, $timestamp_uso, $comentarios){
             // INSERT INTO `Monedero` (`id_monedero`, `id_cliente`, `id_cosmetologa_venta`, `id_cosmetologa_uso`, `dinero_inicial`, `tratamientos_inicial`, `precios_unitarios`, `num_zonas`, `zonas_tratamiento`, `cantidad`, `dinero_final`, `tratamientos_final`, `timestamp_creacion`, `timestamp_uso`)
             // VALUES ('xx', 'xx', 'xx', '', 'xxx', 'xx', '', '', 'xxx', '');
             $db = new DB();
-            $sql_statement = "INSERT INTO `Monedero` (`id_monedero`, `id_cliente`, `id_cosmetologa_venta`, `id_cosmetologa_uso`, `dinero_inicial`, `tratamientos_inicial`, `precios_unitarios`, `num_zonas`, `zonas_tratamiento`, `cantidad`, `dinero_final`, `tratamientos_final`, `timestamp_creacion`, `timestamp_uso`)
-                              VALUES ('$id_monedero', '$id_cliente', '$id_cosmetologa_venta', '$id_cosmetologa_uso', '$dinero_inicial', '$tratamientos_inicial', '$precios_unitarios', '$num_zonas', '$zonas_tratamiento',  '$cantidad', '$dinero_final', '$tratamientos_final', '$timestamp_creacion', '$timestamp_uso')";
+            $sql_statement = "INSERT INTO `Monedero` (`id_monedero`, `id_cliente`, `id_cosmetologa_venta`, `id_cosmetologa_uso`, `dinero_inicial`, `tratamientos_inicial`, `precios_unitarios`, `num_zonas`, `zonas_tratamiento`, `cantidad`, `dinero_final`, `tratamientos_final`, `timestamp_creacion`, `timestamp_uso`, `comentarios`)
+                              VALUES ('$id_monedero', '$id_cliente', '$id_cosmetologa_venta', '$id_cosmetologa_uso', '$dinero_inicial', '$tratamientos_inicial', '$precios_unitarios', '$num_zonas', '$zonas_tratamiento',  '$cantidad', '$dinero_final', '$tratamientos_final', '$timestamp_creacion', '$timestamp_uso', '$comentarios')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query;
@@ -251,12 +262,53 @@
             $db->close();
             return $account;
         }
+
+        function deleteMonederoTratamiento($id_monedero, $timestamp_creacion){
+            // DELETE FROM `Monedero` WHERE `Monedero`.`id_monedero` = \'aas\' AND `Monedero`.`timestamp_creacion` = \'1644793332\'
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM `Monedero` 
+                                        WHERE `Monedero`.`id_monedero` = '$id_monedero' 
+                                        AND `Monedero`.`timestamp_creacion` = '$timestamp_creacion'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
+        function deleteMonederoDinero($id_monedero, $id_cliente){
+            $db = new DB();
+            $tratamientos = $db->query("DELETE FROM `MonederoDinero` 
+                                        WHERE `MonederoDinero`.`id_monedero` = '$id_monedero' 
+                                        AND `MonederoDinero`.`id_cliente` = '$id_cliente'")->affectedRows();
+            $db->close();
+            return $tratamientos;
+        }
+
+        function getAllMonederosDineroFromCliente($id_cliente){
+            $db = new DB();
+            $sql_statement = "SELECT * 
+                              FROM MonederoDinero 
+                              WHERE id_cliente = '$id_cliente'
+                              ORDER BY id_monedero DESC";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+        
         public function getMonederoWhereID($id_monedero){
             $db = new DB();
             $sql_statement = "SELECT * 
                               FROM `Monedero`
                               WHERE id_monedero='$id_monedero'";
             $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function getMonederoDineroWhereID($id_monedero){
+            $db = new DB();
+            $sql_statement = "SELECT * 
+                              FROM `MonederoDinero`
+                              WHERE id_monedero='$id_monedero'";
+            $account = $db->query($sql_statement)->fetchArray();
             $db->close();
             return $account;
         }
@@ -271,13 +323,14 @@
             return $account;
         }
 
-        function getNombreTratamiento($id_tratamiento){
+        public function getMonederoDineroWhereIDandCliente($id_monedero, $idCliente){
             $db = new DB();
-            //SELECT * FROM `TratamientoPrecio` WHERE id_tratamiento = 'ACN10'
-            $tratamiento = $db->query("SELECT nombre_tratamiento FROM `Tratamiento` WHERE id_tratamiento = '$id_tratamiento'")->fetchArray();
+            $sql_statement = "SELECT * 
+                              FROM `MonederoDinero`
+                              WHERE id_monedero='$id_monedero' AND id_cliente='$idCliente'";
+            $account = $db->query($sql_statement)->fetchArray();
             $db->close();
-            return $tratamiento['nombre_tratamiento'];
-
+            return $account;
         }
 
         public function updateClienteMonedero($id_cliente, $id_monedero){
@@ -362,21 +415,61 @@
             return $account->affectedRows();
         }
 
-        function updateNuevosTratamientosRecargaMonedero($id_monedero, $timestamp_creacion, $tratamientos_iniciales_actualizado, $precios_unitarios_actualizado, $num_zonas_actualizado, $zonas_tratamiento_actualizado, $cantidad_actualizado){
+        function updateNuevosTratamientosRecargaMonedero($id_monedero, $dinero_inicial, $timestamp_creacion, $tratamientos_iniciales_actualizado, $precios_unitarios_actualizado, $num_zonas_actualizado, $zonas_tratamiento_actualizado, $cantidad_actualizado, $dinero_final, $tratamientos_final, $comentariosMonedero){
             $db = new DB();
             
             $sql_statement = "UPDATE `Monedero` 
-                              SET `tratamientos_inicial` = '$tratamientos_iniciales_actualizado',
+                              SET `dinero_inicial` = '$dinero_inicial',
+                              `tratamientos_inicial` = '$tratamientos_iniciales_actualizado',
                               `precios_unitarios` = '$precios_unitarios_actualizado',
                               `num_zonas` = '$num_zonas_actualizado',
                               `zonas_tratamiento` = '$zonas_tratamiento_actualizado',
-                              `cantidad` = '$cantidad_actualizado'
+                              `cantidad` = '$cantidad_actualizado',
+                              `dinero_final` = '$dinero_final',
+                              `tratamientos_final` = '$tratamientos_final',
+                              `comentarios` = '$comentariosMonedero'
                               WHERE `Monedero`.`id_monedero` = '$id_monedero' AND `Monedero`.`timestamp_creacion` = '$timestamp_creacion';";
     
-            print_r($sql_statement);
             $account = $db->query($sql_statement);
             $db->close();
             return $account->affectedRows();
+        }
+
+        function updateMonederoDineroTable($id_monedero, $id_cliente, $id_cosmetologa, $timestamp, $dinero, $comentarios){
+            $db = new DB();
+            $sql_statement = "UPDATE `MonederoDinero` 
+                              SET `id_cosmetologa` = '$id_cosmetologa',
+                              `timestamp` = '$timestamp',
+                              `dinero` = '$dinero',
+                              `comentarios` = '$comentarios'
+                              WHERE `MonederoDinero`.`id_monedero` = '$id_monedero' AND `MonederoDinero`.`id_cliente` = '$id_cliente';";
+    
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+        function updateMonederoDineroTableSinComentarios($id_monedero, $id_cliente, $id_cosmetologa, $timestamp, $dinero){
+            $db = new DB();
+            $sql_statement = "UPDATE `MonederoDinero` 
+                              SET `id_cosmetologa` = '$id_cosmetologa',
+                              `timestamp` = '$timestamp',
+                              `dinero` = '$dinero'
+                              WHERE `MonederoDinero`.`id_monedero` = '$id_monedero' AND `MonederoDinero`.`id_cliente` = '$id_cliente';";
+    
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
+        function insertarMonederoDinero($id_monedero, $id_cliente, $id_cosmetologa, $timestamp, $dinero, $comentarios){
+            $db = new DB();
+
+            //INSERT INTO `MonederoDinero`(`id_monedero`, `id_cliente`, `id_cosmetologa`, `timestamp`, `dinero`) VALUES
+
+            $sql_statement = "INSERT INTO `MonederoDinero`(`id_monedero`, `id_cliente`, `id_cosmetologa`, `timestamp`, `dinero`, `comentarios`) VALUES ('$id_monedero', '$id_cliente', '$id_cosmetologa', '$timestamp', '$dinero', '$comentarios')";
+            $query = $db->query($sql_statement);
+            $db->close();
+            return $query;
         }
     }
 
@@ -457,5 +550,27 @@
 
         //insertar en historial
         //update el timestamp/cosmetologa/dinero de uso
+    }
+
+
+
+    function restarDineroMonedero($id_cosmetologa, $id_monedero, $id_cliente, $monto){
+        $ModelCliente           = new Cliente();
+        $infoDeMonedero         = $ModelCliente -> getMonederoDineroWhereIDandCliente($id_monedero, $id_cliente);
+        
+        $timeStamp_uso          = json_decode($infoDeMonedero['timestamp']);
+        $dinero_final           = json_decode($infoDeMonedero['dinero']);
+        $id_cosmetologa_uso     = json_decode($infoDeMonedero['id_cosmetologa']);
+        $ultimo_precio          = end($dinero_final);
+        $date                   = new DateTime('now', new DateTimeZone('America/Mexico_City') );
+        $timeStamp_modificacion = strval(strtotime($date->format('Y-m-d H:i:s')));
+        $ultimo_precio          = $ultimo_precio - $monto;
+        
+        array_push($id_cosmetologa_uso, $id_cosmetologa);
+        array_push($timeStamp_uso, $timeStamp_modificacion);
+        array_push($dinero_final, strval($ultimo_precio));
+        
+        $ModelCliente -> updateMonederoDineroTableSinComentarios($id_monedero, $id_cliente, json_encode($id_cosmetologa_uso), json_encode($timeStamp_uso), json_encode($dinero_final));
+
     }
 ?>

@@ -159,16 +159,7 @@
             $db->close();
             return $account->affectedRows();
         }
-        public function updatePrecioTotalVenta(){
-            //UPDATE `Ventas` SET `metodo_pago`='6',`referencia_pago`='Hola' WHERE Ventas.id_venta='JKS21071127DEP01115' AND Ventas.timestamp='1629917408'
-            $db = new Db();
-            $sql_statement = "UPDATE Ventas 
-                              SET metodo_pago='$metodo_pago',referencia_pago='$referencia_pago' 
-                              WHERE Ventas.id_venta='$id_venta' AND Ventas.timestamp='$timeStamp'";
-            $account = $db->query($sql_statement);
-            $db->close();
-            return $account->affectedRows();
-        }
+        
 
         public function updateProductoVenta($id_venta, $timeStamp, $idProducto, $precioUnitarioProducto, $cantidadProducto, $precioTotalProducto){
             // UPDATE `Ventas` 
