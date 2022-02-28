@@ -1,6 +1,6 @@
 # Main Branch (Producción)
-Última versión: <b>2.0</b><br>
-Fecha: <b>18-Enero-2021</b><br>
+Última versión: <b>2.1</b><br>
+Fecha: <b>28-Febrero-2021</b><br>
 
 <h2>CHANGELOG:</h2>
 <ul>
@@ -23,6 +23,7 @@ Fecha: <b>18-Enero-2021</b><br>
       <li>BUG 015: Corrección de la función getProductoWereID($id_producto, $id_centro) para trabajar con los productos del centro correcto. #SOLVED</li>
       <li>BUG 016: Corte de caja, mejoras en la redacción del documento, agregado el efectivo a regresar. #SOLVED</li>
       <li>BUG 017: Mejoras en los métodos de pago múltiples. #SOLVED</li>
+      <li>BUG 017: Mejoras en la recarga de monederos. #SOLVED</li>
    </ul>
   <li>Nuevo:</li>
     <ul>
@@ -36,6 +37,7 @@ Fecha: <b>18-Enero-2021</b><br>
       <li>METODOS DE PAGO MULTIPLES</li>
       <li>CORTE DE CAJA AUTOMATICOS DEL DIA ANTERIOR</li>
       <li>REGISTRO, RECARGA Y USO DE MONEDERO YA DISPONIBLE</li>
+      <li>MONEDEROS CON TRATAMIENTOS O DINERO, COMENTARIOS Y NUEVOS CAMPOS DEL CORTE DE CAJA</li>
    </ul>
  </ul>
  
