@@ -57,7 +57,7 @@ function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");
     if (!$ex){
-        $ex = "2.0";
+        $ex = "2.1";
     }
     return $ex; 
 }
@@ -77,7 +77,7 @@ function getFooter(){
                 <div class='container text-center'>
                     <span class='text-muted font-italic'>La belleza comienza en el momento en que decides ser tú misma.</span>
                     <br>
-                    <span class='text-muted font-italic'>".getGitBranch()."<br>[".getVersion()."]</span>
+                    <span class='text-muted font-italic'>".getGitBranch()." [".getVersion()."]</span>
                 </div>
             </footer>";
 }
@@ -203,7 +203,7 @@ function cierreCajaDiaAnterior($ModeloUsuario, $idCosmetologa, $date_time, $nume
                      ["Transferencia", $transferencia],
                      ["Deposito", $deposito],
                      ["Cheque", $cheque]];
-            generarPDF($id_documento, $id_corte_caja, $fecha_a_verificar, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, [], [], $sumaGeneralMetodos, 0, $efectivo, $nombre_archivo);
+            generarPDF($id_documento, $id_corte_caja, $fecha_a_verificar, $numTotalVentasDia, $nombre_centro, $conceptos, $observaciones, [], [], $sumaGeneralMetodos, 0, $efectivo, 0, 0, $nombre_archivo);
         }
 
 

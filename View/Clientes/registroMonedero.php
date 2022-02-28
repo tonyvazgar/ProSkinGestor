@@ -49,8 +49,9 @@
                 <hr/>
                 <div class="form-group">
                     <h3>ID monedero:</h3>
-                    <input type="text" class="form-control" id="idMonedero" name="idMonedero" placeholder="Ingresa el ID o número de la tarjeta física" autocomplete="off" required>
+                    <input type="number" class="form-control" id="idMonedero" name="idMonedero" placeholder="Ingresa el ID o número de la tarjeta física" autocomplete="off" maxlength="10" required>
                 </div>
+                <hr/>
                 <div class="form-group">
                     <h3>Tratamientos para el monedero:</h3>
                     <div id="listaTratamientos">
@@ -112,6 +113,11 @@
                             <input type="number" class="form-control totalMetodoPago1" id="totalMetodoPago" name="totalMetodoPago[]" placeholder="Cantidad de este método de pago" style="display: none;" step='any'>
                         </div>
                     </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <h3>Comentarios del monedero:</h3>
+                    <textarea  class="form-control" name="comentariosMonedero" id="comentariosMonedero" rows="5"  placeholder="Puedes escribir detalles como: precio individual de la sesión, descuentos, etc." maxlength="180"></textarea>
                 </div>
                 <hr/>
                 <div class='form-group' id="agregar_boton_pago_div">

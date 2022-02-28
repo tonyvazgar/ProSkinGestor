@@ -1,7 +1,8 @@
 <?php
-    $monedero = $ModeloUsuario -> verificarMonedero($id);
-    if(!empty($monedero)){
-        $idMonedero       = $monedero['id_monedero'];
+    $monederoTratamientos = $ModeloUsuario -> verificarMonedero($id);
+    $monederoDinero       = $ModeloUsuario -> verificarMonederoDinero($id);
+    if(!empty($monederoTratamientos)){
+        $idMonedero       = $monederoTratamientos['id_monedero'];
         $infoMonedero     = $ModelCliente->getMonederoWhereID($idMonedero)[0];
         $dineroDisponible = 0;
         if(json_decode($infoMonedero['tratamientos_final']) == ''){
@@ -13,10 +14,10 @@
             $timestamp_uso      = json_decode($infoMonedero['timestamp_uso']);
             $historial          = array_map(null, $dinero_final, $tratamientos_final, $id_cosmetologa_uso, $timestamp_uso);
         }
-        if(empty(json_decode($monedero['dinero_final']))){
-            $dineroDisponible = number_format($monedero['dinero_inicial']);
+        if(empty(json_decode($monederoTratamientos['dinero_final']))){
+            $dineroDisponible = number_format($monederoTratamientos['dinero_inicial']);
         }else{
-            $dineroDisponible = number_format(end(json_decode($monedero['dinero_final'])));
+            $dineroDisponible = number_format(end(json_decode($monederoTratamientos['dinero_final'])));
         }
         $tratamientosOriginales = json_decode($infoMonedero['tratamientos_inicial']);
         
@@ -34,20 +35,24 @@
                 }
             }
         }
-        echo '<input type="text" class="form-control idMonederoActual" id="idMonederoActual" name="idMonederoActual" value="'.$monedero['id_monedero'].'" hidden>';
+        echo '<input type="text" class="form-control idMonederoActual" id="idMonederoActual" name="idMonederoActual" value="'.$monederoTratamientos['id_monedero'].'" hidden>';
         echo '<input type="text" class="form-control agregadoDeMonedero" id="itemsAgregadosDeMonedero" name="itemsAgregadosDeMonedero" hidden>';
         echo '<div class="form-group">
                 <h3>
-                    Monedero existente
-                    <a href="infoMonedero.php?id_monedero='.$monedero['id_monedero'].'" role="button" class="btn btn-link btn-sm" target="_blank">
+                    Monedero existente(tratamientos)
+                    <a href="infoMonedero.php?id_monedero='.$monederoTratamientos['id_monedero'].'" role="button" class="btn btn-link btn-sm" target="_blank">
                         <i class="fas fa-info-circle"></i>
                     </a>
+                    <button type="button" class="btn btn-light" id="mostrarComentariosMonedero" name="mostrarComentariosMonedero">
+                        <i id="abrirComentarios" style="display: block;" class="fas fa-angle-down"></i>
+                        <i id="cerrarComentarios" style="display: none;" class="fas fa-angle-up" ></i>
+                    </button>
                 </h3>
                 <label class="lead text-muted">Puedes registrar lo siguiente (en caso de usar el monedero):</label><br>
                 <label class="lead text-muted">Monto en monedero: $'.$dineroDisponible.'</label>
                 <div class="row">';
-                if(!empty(json_decode($monedero['tratamientos_inicial']))){
-                    $data_temporal = array_map(null, json_decode($monedero['tratamientos_inicial']), json_decode($monedero['cantidad']), json_decode($monedero['precios_unitarios']), json_decode($monedero['num_zonas']), json_decode($monedero['zonas_tratamiento']));
+                if(!empty(json_decode($monederoTratamientos['tratamientos_inicial']))){
+                    $data_temporal = array_map(null, json_decode($monederoTratamientos['tratamientos_inicial']), json_decode($monederoTratamientos['cantidad']), json_decode($monederoTratamientos['precios_unitarios']), json_decode($monederoTratamientos['num_zonas']), json_decode($monederoTratamientos['zonas_tratamiento']));
 
                     foreach($data_temporal as $tratamiento){
                         $id_shuffle = str_shuffle($tratamiento[0]);
@@ -116,7 +121,12 @@
                                                                     <div class="modal-body">
                                                                         Agregaste a la lista para registrar <b>'.$ModelTratamiento->getNombreTratamiento($tratamiento[0]).'</b> desde el monedero.<br>
                                                                         Los datos de este tratamiento son precargados automáticamente.
-                                                                        <button type="button" class="btn btn-warning" id="ocultarModal" data-dismiss="modal">No volver a mostrar</button>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="ocultarModal">
+                                                                            <label class="form-check-label" for="ocultarModal">
+                                                                                No volver a mostrar
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
@@ -129,6 +139,35 @@
                         print_r("<br>");
                     }
                 }
+        echo '</div>
+        </div>
+        <div class="row" id="comentariosMonedero" style="display: none;">
+            <div class="col-sm">
+                <h3>Comentarios del monedero</h3>
+                <p class="lead" id="status" name="status">
+                    '.$monederoTratamientos['comentarios'].'
+                </p>
+            </div>
+        </div>';
+    }
+
+    if(!empty($monederoDinero)) {
+        
+        $idMonedero       = $monederoDinero['id_monedero'];
+        $dinero_final     = json_decode($monederoDinero['dinero']);
+        
+        echo '<input type="text" class="form-control idMonederoActual" id="idMonederoActual" name="idMonederoActual" value="'.$idMonedero.'" hidden>';
+        echo '<input type="text" class="form-control dineroDeMonedero" id="dineroDeMonedero" name="dineroDeMonedero" value="'.end($dinero_final).'" hidden>';
+        echo '<div id="seUsaMonedero"></div>';
+        echo '<div class="form-group">
+                <h3>
+                    Monedero existente (solo dinero)
+                    <a href="infoMonedero.php?id_monedero='.$idMonedero.'" role="button" class="btn btn-link btn-sm" target="_blank">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </h3>
+                <label class="lead text-muted">Monto en monedero: $'.number_format(end($dinero_final), 2).'</label>
+                <div class="row">';
         echo '</div>
         </div>';
     }
