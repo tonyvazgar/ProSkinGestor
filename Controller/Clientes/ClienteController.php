@@ -349,7 +349,7 @@
             // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
 
             $mensaje                   = urlencode("Se dió de alta el monedero ".$idMonedero);
-            $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+            $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero."&id_cliente=".$idCliente);
             
             header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
             exit();
@@ -381,7 +381,7 @@
             // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
 
             $mensaje                   = urlencode("Se dió de alta el monedero ".$idMonedero);
-            $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+            $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero."&id_cliente=".$idCliente);
             
             header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
             exit();
@@ -453,7 +453,7 @@
                 // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
 
                 $mensaje                   = urlencode("Se dió de alta el monedero ".$idMonedero);
-                $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+                $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero."&id_cliente=".$idCliente);
                 
                 header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
                 exit();
@@ -521,7 +521,7 @@
                 // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
         
                 $mensaje                   = urlencode("Se recargó el monedero ".$idMonedero);
-                $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+                $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero."&id_cliente=".$idCliente);
                 
                 header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
                 exit();
@@ -568,7 +568,7 @@
             // INSERTAR A VENTAS CON EL ID DE LA VENTA Y EL TOTAL JUNTO CON LOS METODOS DE PAGO
 
             $mensaje                   = urlencode("Se dió de alta el monedero ".$idMonedero);
-            $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero);
+            $link                      = urlencode("infoMonedero.php?id_monedero=".$idMonedero."&id_cliente=".$idCliente);
             
             header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
             exit();
@@ -596,7 +596,7 @@
 
         // Redirect
         $mensaje = urlencode("Se canjeó  monedero ".$id_monedero." por dinero exitosamente");
-        $link    = urlencode("infoMonedero.php?id_monedero=".$id_monedero);
+        $link    = urlencode("infoMonedero.php?id_monedero=".$id_monedero."&id_cliente=".$id_cliente);
             
         header("Location: exito.php?mensaje=".$mensaje."&link=".$link);
         exit();

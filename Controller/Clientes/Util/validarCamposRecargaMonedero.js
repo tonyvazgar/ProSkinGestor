@@ -214,6 +214,8 @@ $(document).ready(function () {
         const clase = $(this).attr('class').replace('btn btn-danger metodo', '');
         $(this).closest('.div_metodo' + clase).remove();
         $('#botonAgregarMetodoPago').prop( "disabled", false );
+        verificarCantidadesMetodoPago();
+        verificarDatos();
     });
 
     $(document).on('keyup', "#totalMetodoPago", function () {

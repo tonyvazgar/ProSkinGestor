@@ -128,7 +128,7 @@
                             $id_monedero = $ModeloUsuario -> getMonederoDineroFromCliente($detalles[0]['id_cliente'])['id_monedero'];
                           }
                           // print_r($id_monedero);
-                          echo ' <a class="btn btn-info" href="../../View/Clientes/infoMonedero.php?id_monedero='.$id_monedero.'" role="button">Ver monedero</a>';
+                          echo ' <a class="btn btn-info" href="../../View/Clientes/infoMonedero.php?id_monedero='.$id_monedero.'&id_cliente='.$detalles[0]['id_cliente'].'" role="button">Ver monedero</a>';
                         }
                         echo "<br>";
                       }
