@@ -214,6 +214,8 @@ $(document).ready(function () {
         const clase = $(this).attr('class').replace('btn btn-danger metodo', '');
         $(this).closest('.div_metodo' + clase).remove();
         $('#botonAgregarMetodoPago').prop( "disabled", false );
+        verificarCantidadesMetodoPago();
+        verificarDatos();
     });
 
     $(document).on('keyup',"#totalMetodoPago", function () {
@@ -390,6 +392,7 @@ function verificarCantidadesMetodoPago(){
     var sum = formElements.reduce(function(a, b) { return a + b; }, 0);
 
     $('#sumaTotalMetodosPago').val(sum);
+    $('#sumaTotalMetodosPagoLabel').text(" $" + sum);
 
     if(sum == $('#dineroTotal').val()){
         $('#sumaTotalMetodosPago').css("border", "2px solid green");

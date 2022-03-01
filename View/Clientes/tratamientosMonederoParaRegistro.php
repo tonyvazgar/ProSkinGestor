@@ -40,7 +40,7 @@
         echo '<div class="form-group">
                 <h3>
                     Monedero existente(tratamientos)
-                    <a href="infoMonedero.php?id_monedero='.$monederoTratamientos['id_monedero'].'" role="button" class="btn btn-link btn-sm" target="_blank">
+                    <a href="infoMonedero.php?id_monedero='.$monederoTratamientos['id_monedero'].'&id_cliente='.$id.'" role="button" class="btn btn-link btn-sm" target="_blank">
                         <i class="fas fa-info-circle"></i>
                     </a>
                     <button type="button" class="btn btn-light" id="mostrarComentariosMonedero" name="mostrarComentariosMonedero">
@@ -162,7 +162,7 @@
         echo '<div class="form-group">
                 <h3>
                     Monedero existente (solo dinero)
-                    <a href="infoMonedero.php?id_monedero='.$idMonedero.'" role="button" class="btn btn-link btn-sm" target="_blank">
+                    <a href="infoMonedero.php?id_monedero='.$idMonedero.'&id_cliente='.$id.'" role="button" class="btn btn-link btn-sm" target="_blank">
                         <i class="fas fa-info-circle"></i>
                     </a>
                 </h3>

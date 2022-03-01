@@ -27,8 +27,8 @@
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
 
-        $infoClienteMonederoTratamiento = $ModelCliente->getMonederoWhereID($idMonedero)[0];
-        $infoClienteMonederoDinero      = $ModelCliente->getMonederoDineroWhereID($idMonedero);
+        $infoClienteMonederoTratamiento = $ModelCliente->getMonederoWhereIDandCliente($idMonedero, $idCliente);
+        $infoClienteMonederoDinero      = $ModelCliente->getMonederoDineroWhereIDandCliente($idMonedero, $idCliente);
 
         $tipo_recarga           = $_GET['tipo'];
         $isReadOnlyTratamientos ='';

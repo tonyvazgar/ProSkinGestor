@@ -96,8 +96,13 @@
                     <input type="number" class="form-control" id="dineroTotal" name="dineroTotal" placeholder="Cantidad del valor del monedero" autocomplete="off" required>
                 </div>
                 <div class="form-group metodosPagoDiv" id="metodosPagoDiv">
-                    <h4>Forma de pago</h4>
-                    <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" readonly>
+                    <div class="form-inline">
+                        <h4>Formas de pago&nbsp;</h4>
+                        <input type="number" class="last_producto form-control" id="sumaTotalMetodosPago" name="sumaTotalMetodosPago" placeholder="Suma total métodos" hidden readonly>
+                        <div class="form-inline justify-content-center">
+                            <h4 id="sumaTotalMetodosPagoLabel" name="sumaTotalMetodosPagoLabel"> $0</h4>
+                        </div>
+                    </div>
                     <div class='form-inline'>
                         <h4>Método 1:</h4>
                         <div>

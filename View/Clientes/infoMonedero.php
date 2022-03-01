@@ -14,6 +14,7 @@
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
   
   $id_monedero = $_GET['id_monedero'];
+  $id_cliente  = $_GET['id_cliente'];
   getHeadHTML("ProSkin - Información monedero #{$id_monedero}");
 ?>
 <body style='background-color: #f9f3f3;'>
@@ -22,7 +23,7 @@
         
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
-        $infoCliente = $ModelCliente->getMonederoWhereID($id_monedero)[0];
+        $infoCliente = $ModelCliente->getMonederoWhereIDandCliente($id_monedero, $id_cliente);
         if(!empty($infoCliente)){
             if(json_decode($infoCliente['tratamientos_final']) == ''){
                 $historial          = [];
@@ -169,7 +170,7 @@
         </main>
     <?php
         }else{
-            $infoCliente = $ModelCliente->getMonederoDineroWhereID($id_monedero);
+            $infoCliente = $ModelCliente->getMonederoDineroWhereIDandCliente($id_monedero, $id_cliente);
 
             $dinero_final       = json_decode($infoCliente['dinero']);
             $id_cosmetologa_uso = json_decode($infoCliente['id_cosmetologa']);

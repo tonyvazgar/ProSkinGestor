@@ -16,6 +16,7 @@
   
   
   $id_monedero = $_GET['idMonedero'];
+  $id_cliente  = $_GET['idCliente'];
   getHeadHTML("ProSkin - Canje de monedero #{$id_monedero} a dinero disponible");
 ?>
 <body style='background-color: #f9f3f3;'>
@@ -24,9 +25,9 @@
         
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
-        $infoCliente = $ModelCliente->getMonederoWhereID($id_monedero)[0];
+        $infoCliente = $ModelCliente->getMonederoWhereIDandCliente($id_monedero, $id_cliente);
         if(empty($infoCliente)){
-            $infoCliente = $ModelCliente->getMonederoDineroWhereID($id_monedero);
+            $infoCliente = $ModelCliente->getMonederoDineroWhereIDandCliente($id_monedero, $id_cliente);
         }
         if(json_decode($infoCliente['tratamientos_final']) == ''){
             $historial          = [];
