@@ -136,7 +136,7 @@
                                     echo "<ul class='list-group'>";
                                     foreach($monederos as $d){
                                         echo "<li class='list-group-item d-flex justify-content-between align-items-right'>
-                                                <a href='../../View/Clientes/infoMonedero.php?id_monedero=".$d['id_monedero']."' role='button'>Monedero ".$tipo_monedero." #"
+                                                <a href='../../View/Clientes/infoMonedero.php?id_monedero=".$d['id_monedero']."&id_cliente=".$d['id_cliente']."' role='button'>Monedero ".$tipo_monedero." #"
                                                     .$d['id_monedero'].
                                                 "</a>";
                                                 
