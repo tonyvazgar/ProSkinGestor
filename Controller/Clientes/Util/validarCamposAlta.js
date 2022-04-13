@@ -175,11 +175,25 @@ $(document).ready(function () {
         });
     });
 
+    //Click button login
+    $("#altaCliente").on('click', function (event) {
+        $(this).hide();
+        $("#cancelarRegistro").hide();
+        $("#cargandoLoader").show();
+    });
+
     $(window).keydown(function(event){
         if(event.keyCode == 13) {
           event.preventDefault();
           return false;
         }
+    });
+
+    $(window).on("beforeunload", function() { 
+        $("#cargandoLoader").show();
+        // <div class="modal-backdrop fade show"></div>
+        let background = '<div class="modal-backdrop fade show"></div>';
+        $("body").append(background);
     });
 });
 

@@ -538,6 +538,13 @@ $("body").on('click', '#pagoCompleto', function () {
     verificarCantidadesMetodoPago();
 });
 
+$(window).on("beforeunload", function() { 
+    $("#cargandoLoader").show();
+    // <div class="modal-backdrop fade show"></div>
+    let background = '<div class="modal-backdrop fade show"></div>';
+    $("body").append(background);
+});
+
 //------------------------------------------------------------------------------------------
 //********************************* FUNCIONES **********************************************/
 //------------------------------------------------------------------------------------------

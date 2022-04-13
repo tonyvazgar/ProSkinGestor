@@ -189,3 +189,10 @@ $(document).on('click', "#cancelarTratamientoButton", function () {
     $('#infoTratamientoForm.card-body' + clase).hide();
     // $(this).hide();
 });
+
+$(window).on("beforeunload", function() { 
+    $("#cargandoLoader").show();
+    // <div class="modal-backdrop fade show"></div>
+    let background = '<div class="modal-backdrop fade show"></div>';
+    $("body").append(background);
+});

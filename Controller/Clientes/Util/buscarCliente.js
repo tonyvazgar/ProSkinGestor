@@ -3,6 +3,13 @@ $(document).ready(function () {
         var i = $(this).val().toUpperCase();
         $(this).val(RemoveAccents(i));  
     });
+
+
+    //Click button login
+    $("#buscarCliente").on('click', function (event) {
+      $(this).hide();
+      $("#cargandoLoader").show();
+  });
 });
 
 function RemoveAccents(strAccents) {

@@ -24,6 +24,12 @@ $(document).ready(function () {
         }
         buttonState();
     });
+
+    //Click button login
+    $("#login").on('click', function (event) {
+        $(this).hide();
+        $("#cargandoLoader").show();
+    });
 });
 
 function validateEmail() {
