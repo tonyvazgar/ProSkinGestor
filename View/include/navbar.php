@@ -53,6 +53,26 @@ function getNavbar($fecha, $name, $sucursal){
                 </div>
             </nav>";
 }
+
+function getLoader($anuncio) {
+    echo '
+    <div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style="display: none;" id="cargandoLoader">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-group text-center">
+                        <br>
+                        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                        <br>
+                        <br>
+                        <strong>'.$anuncio.'</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ';
+}
 function getVersion() {
     $hash = exec("git rev-list --tags --max-count=1");
     $ex = exec("git describe --tags $hash");

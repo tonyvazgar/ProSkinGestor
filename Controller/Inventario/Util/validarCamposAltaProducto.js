@@ -70,6 +70,13 @@ $(document).ready(function () {
     });
 
     sePuedeEliminar();
+
+    $(window).on("beforeunload", function() { 
+        $("#cargandoLoader").show();
+        // <div class="modal-backdrop fade show"></div>
+        let background = '<div class="modal-backdrop fade show"></div>';
+        $("body").append(background);
+    });
 });
 
 function RemoveAccents(strAccents) {

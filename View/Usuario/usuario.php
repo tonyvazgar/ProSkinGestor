@@ -24,6 +24,7 @@
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         require_once("../include/navbar.php");
+        getLoader("Cargando...");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
 
         $nbDay = date('N', strtotime($fecha_para_corte_caja));
@@ -109,5 +110,6 @@
       getFooter();
     ?>
     </main>
+    <script src="../../Controller/Usuario/Util/validarCamposCorteCaja.js"></script>
 </body>
 </html>

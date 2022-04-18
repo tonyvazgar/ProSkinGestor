@@ -242,7 +242,6 @@ function actualizarTotalDeVenta(){
     // $("form").each(function(){
     //     total += parseFloat($(this).find('#precioUnitario_producto_seleccionado').val());
     // });
-    // alert(total);
 
     var formElements = new Array();
     $("form #total_producto_seleccionado").each(function(){
@@ -257,7 +256,6 @@ function verificarCantidadesMetodoPago(){
     $("form #totalMetodoPago").each(function(){
         formElements.push(parseFloat($(this).val()));
     });
-    // alert(formElements);
     var sum = formElements.reduce(function(a, b) { return a + b; }, 0);
 
     $('#sumaTotalMetodosPago').val(sum);

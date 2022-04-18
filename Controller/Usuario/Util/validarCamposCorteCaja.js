@@ -38,6 +38,13 @@ $("body").on('keyup', '#efectivo_entregado', function () {
     // verificarCantidadesMetodoPago();
 });
 
+$(window).on("beforeunload", function() { 
+    $("#cargandoLoader").show();
+    // <div class="modal-backdrop fade show"></div>
+    let background = '<div class="modal-backdrop fade show"></div>';
+    $("body").append(background);
+});
+
 $(document).on('keyup', '*[id*=totalGasto]:visible', function () {
     const esteValor = verificarEfectivoAentregar();
     const efectivo_a_entregar = parseFloat($('#total_efectivo').val());

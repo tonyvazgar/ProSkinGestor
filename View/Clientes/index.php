@@ -19,6 +19,7 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
+        getLoader("Cargando Información...");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
     ?>
@@ -56,5 +57,6 @@
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Clientes/Util/validarCamposAlta.js"></script>
 </body>
 </html>

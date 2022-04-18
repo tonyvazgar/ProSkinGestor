@@ -5,6 +5,13 @@ $(document).on('change','#linea',function () {
     recargarListaLinea();
 });
 
+$(window).on("beforeunload", function() { 
+    $("#cargandoLoader").show();
+    // <div class="modal-backdrop fade show"></div>
+    let background = '<div class="modal-backdrop fade show"></div>';
+    $("body").append(background);
+});
+
 function recargarListaMarca(){
     $.ajax({
         type:"POST",
