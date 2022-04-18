@@ -14,7 +14,6 @@ $(document).ready(function () {
 });
 //---------------- METODO DE PAGO BUTTON
 $(document).on('click', "#metodoPagoButton", function () {
-    // alert('Hola');
     $('.metodoPagoText').hide();
     $('#metodoPagoForm').show();
     $(this).hide();
@@ -28,7 +27,6 @@ $(document).on('click', "#cancelarMetodoPagoButton", function () {
 
 //---------------- TOTAL BUTTON
 $(document).on('click', "#totalButton", function () {
-    // alert('Hola');
     $('.totalText').hide();
     $('#totalForm').show();
     $(this).hide();
@@ -123,8 +121,6 @@ $(document).on('keyup', '#cantidadProducto', function () {
 });
 
 $(document).on('keyup', '#precioTotalProducto', function () {
-    // alert($(this).val());
-
     // $(this).closest('#precioUnitarioProducto').hide();
 
 });
@@ -166,10 +162,8 @@ $(document).on('click', "#eliminarTratamientoButton", function () {
                 } else {
                     alert('no se hizo');
                 }
-                // alert(r);
             }
         });
-        // alert("Ya se eliminó!");
     }
 });
 

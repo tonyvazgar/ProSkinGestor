@@ -66,9 +66,38 @@
                 </div>
                 <hr/>
                 <div class="form-group text-center" id='div-agregarTratamiento' name='div-agregarTratamiento'>
-                    <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar otro tratamiento</button> 
+                    <button id="btn-agregar-tratamiento" class="btn btn-warning btn-agregar-tratamiento" type="button">Agregar tratamiento</button> 
                     <button id="btn-agregar-producto" class="btn btn-warning btn-agregar-producto" type="button">Agregar producto</button> 
                 </div>
+
+                <!-- Modal -->
+                <?php
+                    if(empty($_COOKIE['modalMensajeNuevoElemento'])){
+                        echo '<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Se agregó un elemento nuevo a la lista.<br><br>Nota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="ocultarModal">
+                                        <label class="form-check-label" for="ocultarModal">
+                                            No volver a mostrar
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+                    }
+                ?>
                 <hr>
                     <div class="form-inline justify-content-center" id='div-sumaTotalPrecios' name='div-sumaTotalPrecios'>
                         <h4>Total de venta</h4>

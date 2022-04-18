@@ -27,7 +27,7 @@
     ?>
     <main role="main" class="container">
       <div class="container">
-        <h1>Productos en el invetario</h1>
+        <h1>Productos en el inventario</h1>
         <div class="form-group">
           <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
           <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario por nombre</a>

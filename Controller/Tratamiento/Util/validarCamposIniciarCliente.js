@@ -19,6 +19,7 @@ $(document).ready(function () {
     
     var front_tratamiento = '<hr><div class="col-xs-4"><h3 class="numTratamientos">Tratamiento #1</h3><div class="well well-sm"><div class="form-group"><label>Tratamiento a empezar</label><select name="tratamiento[]" id="tratamiento" class="last_tratamiento form-control"><option>*** SELECCIONA ***</option><option value="1">Depilación</option><option value="2">Cavitación</option><option value="3">Otros tratamientos</option></select></div><div class="last_tratamiento form-group" id="otro" name="otro"></div><div class="form-group" hidden><label>Calificación</label><select name="calificacion[]" id="calificacion" class="form-control" hidden><option value="1">☆</option><option value="2">☆☆</option><option value="3">☆☆☆</option><option value="4">☆☆☆☆</option><option value="5">☆☆☆☆☆</option></select></div><div class="form-group"><label>Comentarios</label><textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento"></textarea></div></div></div>';
     $("#div-agregarTratamiento").on('click', '.btn-agregar-tratamiento', function(){
+        $('#exampleModal').modal('show');
         let valorAnteriorSoloDesdeMonedero = $('#soloDesdeMonedero').val();
         $('#soloDesdeMonedero').val(0);
         actualizarTotalDeVenta();
@@ -37,7 +38,7 @@ $(document).ready(function () {
         $("#elementos .col-xs-4:last .well").append('<button class="btn-danger btn btn-block btn-quitar-tratamiento" type="button">Eliminar tratamiento #' + n + '</button>');
         
         $("#aviso").val("");
-        alert("Se agregó otro tratamiento.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
+        // alert("Se agregó otro tratamiento.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
         $("#btn-agregar-tratamiento").attr('disabled', true);
         $("#btn-agregar-producto").attr('disabled', true);
         $("#botonComenzar").hide();
@@ -68,6 +69,7 @@ $(document).ready(function () {
     });
 
     $("#div-agregarTratamiento").on('click', '.btn-agregar-producto', function(){
+        $('#exampleModal').modal('show');
         let valorAnteriorSoloDesdeMonedero = $('#soloDesdeMonedero').val();
         $('#soloDesdeMonedero').val(0);
         actualizarTotalDeVenta();
@@ -81,7 +83,7 @@ $(document).ready(function () {
         $("#elementos").append(front_producto);
         $("#elementos .plantilla:last").append('<button class="btn-danger btn btn-block btn-quitar-producto" type="button">Eliminar producto #'+num_producto+'</button>');
 
-        alert("Se agregó un producto.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
+        // alert("Se agregó un producto.\n\nNota: NO ACTUALIZAR LA PÁGINA NI PRESIONAR F5");
         $("#btn-agregar-tratamiento").attr('disabled', true);
         $("#btn-agregar-producto").attr('disabled', true);
         $("#botonComenzar").hide();
@@ -119,12 +121,10 @@ $(document).ready(function () {
         $("#firma_div").hide();
 
         let idTratamiento = $(this).prop("id");
-        // alert(idTratamiento);
         let idTratamiento_id = idTratamiento;
         idTratamiento = idTratamiento.split("agregar-").join("");
 
         actualizarItemsAgregadosDeMonedero(idTratamiento);
-        // alert(idTratamiento);
         let valorTratamiento = '';
 
         let front_depilacion = '<hr><div class="card col-xs-4"><div class="card-body"><h3 class="numTratamientos">Tratamiento #1</h3><div class="well well-sm"><div class="form-group"><label>Tratamiento a empezar</label><select name="tratamiento[]" id="tratamiento" class="last_tratamiento form-control"><option value="1">Depilación</option></select></div><div class="last_tratamiento form-group" id="otro" name="otro"></div><div class="form-group" hidden><label>Calificación</label><select name="calificacion[]" id="calificacion" class="form-control" hidden><option value="1">☆</option><option value="2">☆☆</option><option value="3">☆☆☆</option><option value="4">☆☆☆☆</option><option value="5">☆☆☆☆☆</option></select></div><div class="form-group"><label>Comentarios</label><textarea name="comentarios[]" id="comentarios" cols="30" rows="5" class="form-control" maxlength="250" placeholder="Escribe algo relevante de este tratamiento">Concepto agregado desde monedero</textarea></div></div></div></div>';
@@ -191,7 +191,6 @@ $(document).ready(function () {
                             console.log("El id del tratamiento es: " + idTratamiento);
                             $('#precioTratamiento.last_tratamiento').val(0);
                             $('#nombreTratamiento.last_tratamiento').val(idTratamiento);//nombreTratamiento
-                            // alert(idTratamiento);
                             verificarAntesNuevoTratamiento();
                             actualizarTotalDeVenta();
                         }, 800)
@@ -494,7 +493,7 @@ $(document).on("keydown", ":input:not(textarea)", function(event) {
 });
 
 $(document).on('mousedown', '#ocultarModal', function () {
-    setCookie('modalMensajeTratamientoMonedero', '1', 30);
+    setCookie('modalMensajeNuevoElemento', '1', 30);
 });
 
 $('body').on('change','#metodoPago',function () {
