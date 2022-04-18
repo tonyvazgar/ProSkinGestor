@@ -20,13 +20,14 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
+        getLoader("Cargando...");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
         getApartados();
     ?>
     <main role="main" class="container">
       <div class="container">
-        <h1>Productos en el invetario</h1>
+        <h1>Productos en el inventario</h1>
         <div class="form-group">
           <a href="altaProducto.php" class="btn btn-success">Agregar producto</a>
           <a href="buscarInventario.php" class="btn btn-warning">Buscar en el inventario por nombre</a>

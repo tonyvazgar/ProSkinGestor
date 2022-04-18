@@ -41,6 +41,7 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
+        getLoader("Cargando información de la venta...");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
         $fecha_de_la_venta = strtotime(date('Y-m-d',$detalles[0]['timestamp']));
@@ -240,5 +241,6 @@
     <?php
       getFooter();
     ?>
+    <script src="../../Controller/Ventas/Util/validarCamposEditarVenta.js"></script>
 </body>
 </html>

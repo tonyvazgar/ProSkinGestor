@@ -58,6 +58,12 @@
                     </div>
                     <div class="form-group">
                         <input class="form-control button" id="login" type="submit" name="login" value="Ingresar">
+                        <div class="form-group text-center" id="cargandoLoader" style="display: none;">
+                            <br>
+                            <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                            <br>
+                            <strong>Cargando...</strong>
+                        </div>
                     </div>
                 </form>
             </div>

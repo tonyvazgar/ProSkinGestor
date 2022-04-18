@@ -75,8 +75,14 @@
                 <div class="form-group" id="existentes">
                     
                 </div>
+                <div class="form-group text-center" id="cargandoLoader" style="display: none;">
+                    <br>
+                    <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                    <br>
+                    <strong>Registrando...</strong>
+                </div>
                 <button type="submit" id="altaCliente" name="altaCliente" class="btn btn-success">Dar de alta</button>
-                <a class="btn btn-danger" href="../index.php" role="button">Cancelar registro</a>
+                <a class="btn btn-danger" href="../index.php" role="button" id="cancelarRegistro">Cancelar registro</a>
             </form>
         </div>
     </main>

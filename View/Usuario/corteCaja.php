@@ -38,6 +38,7 @@
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
+        getLoader("Cargando...");
         $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
         $timestamp = strtotime($date->format('Y-m-d H:i:s'));
         $timestampFechaAEnviar = strtotime($date->format('Y-m-d'));

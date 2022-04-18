@@ -26,6 +26,12 @@
     <main role="main" class="container">
         <div class="container">
             <h1>Busqueda de un cliente</h1>
+            <div class="form-group text-center" id="cargandoLoader" style="display: none;">
+                <br>
+                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                <br>
+                <strong>Buscando cliente...</strong>
+            </div>
             <form action="buscarCliente.php" method="POST" autocomplete="off">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre o Apellidos</label>

@@ -251,7 +251,6 @@ $(document).ready(function () {
 
     $(document).on('click', '#eliminarTratamientoLista', function(){
         const clase = $(this).attr('class').replace('btn btn-danger eliminar', '');
-        // alert(clase);
         $(this).closest('.tratamiento' + clase).remove();
 
         actualizarSumaMonederoLista();
@@ -304,6 +303,12 @@ $(document).ready(function () {
         $("#precioTratamientoLista." + clase).val(valor_actual * valor_cantidad);
     });
 
+    $(window).on("beforeunload", function() { 
+        $("#cargandoLoader").show();
+        // <div class="modal-backdrop fade show"></div>
+        let background = '<div class="modal-backdrop fade show"></div>';
+        $("body").append(background);
+    });
 
 });
 
@@ -424,15 +429,12 @@ function actualizarSumaMonederoLista() {
     var formElements = new Array();
     $("form #precioTratamientoLista").each(function () {
         formElements.push(parseFloat($(this).val()));
-        // alert($(this).val());
     });
     // formElements.pop();
 
     var suma = formElements.reduce(function (a, b) { return a + b; }, 0);
     // let modificado = actual + (parseoValor * parseoCantidad);
     $('#dineroTotal').val(suma);
-
-    // alert(suma);
 
     verificarDatos();
 }
