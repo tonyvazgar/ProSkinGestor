@@ -1,4 +1,5 @@
 <?php
+require __DIR__.'/../vendor/autoload.php';
 class Db {
 
     protected $connection;
@@ -7,7 +8,14 @@ class Db {
     protected $query_closed = TRUE;
 	public $query_count = 0;
 
-	public function __construct($dbhost = 'localhost', $dbuser = 'root', $dbpass = '', $dbname = 'prosking_gestor', $charset = 'utf8') {
+	public function __construct() {
+		$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
+		$dotenv->load();
+		$dbhost = $_ENV['DB_HOST'];
+		$dbuser = $_ENV['DB_USER'];
+		$dbpass = $_ENV['DB_PASS'];
+		$dbname = $_ENV['DB_USERNAME'];
+		$charset = $_ENV['DB_CHARSET'];
 		$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 		if ($this->connection->connect_error) {
 			$this->error('Failed to connect to MySQL - ' . $this->connection->connect_error);
