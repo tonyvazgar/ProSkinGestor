@@ -121,9 +121,16 @@
         public function getClienteWhereNombreLike($nombre){
             $db = new DB();
             //SELECT * FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%maria%') AS Nombre WHERE ClienteOpcional.id_cliente=Nombre.id_cliente
+            $nombre = trim($nombre);
             $sql_statement = "SELECT * 
-                              FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%$nombre%' OR BINARY apellidos_cliente LIKE '%$nombre%') AS Nombre 
-                              WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
+                                FROM ClienteOpcional, 
+                                (SELECT * 
+                                FROM `Cliente` 
+                                WHERE BINARY nombre_cliente LIKE '%$nombre%' 
+                                OR BINARY apellidos_cliente LIKE '%$nombre%' 
+                                OR ( BINARY CONCAT( Cliente.nombre_cliente, ' ', Cliente.apellidos_cliente ) LIKE '%$nombre%') ) 
+                                AS Nombre 
+                                WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

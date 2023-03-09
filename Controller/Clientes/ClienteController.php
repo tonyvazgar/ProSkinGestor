@@ -75,7 +75,7 @@
             }
         }else{
             echo "<li class='list-group-item text-center'>
-                    <h1 >No hay resultados</h1>
+                    <h1 >No hay resultados para '".$nombre."'</h1>
                   </li>";
         }
         echo "</ul>
