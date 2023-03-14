@@ -63,6 +63,20 @@
             $db->close();
             return $account;
         }
+
+        public function getAllAnniversariesFromIdSucursal($id_sucursal){
+            $db = new DB();
+            $date = date('-m-');
+            $account = $db->query("SELECT Cliente.id_cliente, Cliente.nombre_cliente, Cliente.apellidos_cliente, ClienteOpcional.fecha_cliente
+            FROM Cliente, ClienteOpcional
+            WHERE cliente.id_cliente=ClienteOpcional.id_cliente
+            AND Cliente.centro_cliente='$id_sucursal'
+            AND ClienteOpcional.fecha_cliente LIKE '%$date%'
+            ORDER by Cliente.nombre_cliente ASC")->fetchAll();
+            $db->close();
+            return $account;
+        }
+
         public function getUltimaVisitaCliente(){
             $db = new DB();
             $account = $db->query('SELECT Cliente.id_cliente, Cliente.ultima_visita_cliente FROM Cliente')->fetchAll();
