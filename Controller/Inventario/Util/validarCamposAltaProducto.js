@@ -40,6 +40,7 @@ $(document).ready(function () {
         $('#stockDisponible').attr("readonly", false); 
         $('#agregarStock').hide();
         $('#agregarStockSubmit').show();
+        $('#buttonEliminarProductoDiv').show();
     });
 
     $(document).on('keyup', "#stockDisponible", function () {
