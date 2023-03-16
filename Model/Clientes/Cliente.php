@@ -181,6 +181,18 @@
             return $account->affectedRows();
         }
 
+        public function deleteClienteID($idCliente){
+            $db = new DB();
+            $clienteTable = $db->query("DELETE FROM `Cliente` 
+                                        WHERE `Cliente`.`id_cliente` = '$idCliente'")
+                                        ->affectedRows();
+            $clienteOpcionalTable = $db->query("DELETE FROM `ClienteOpcional`
+                                        WHERE `ClienteOpcional`.`id_cliente` = '$idCliente'")
+                                        ->affectedRows();
+            $db->close();
+            return $clienteTable + $clienteOpcionalTable;
+        }
+
         function updateUltimaVisita($id_cliente, $timestamp){
             //UPDATE `Cliente` SET `ultima_visita_cliente` = '1617746401' WHERE `Cliente`.`id_cliente` = 'PRG00010111';
             $db = new DB();
