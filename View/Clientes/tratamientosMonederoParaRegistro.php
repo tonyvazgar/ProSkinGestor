@@ -55,23 +55,29 @@
                     $data_temporal = array_map(null, json_decode($monederoTratamientos['tratamientos_inicial']), json_decode($monederoTratamientos['cantidad']), json_decode($monederoTratamientos['precios_unitarios']), json_decode($monederoTratamientos['num_zonas']), json_decode($monederoTratamientos['zonas_tratamiento']));
 
                     foreach($data_temporal as $tratamiento){
-                        $id_shuffle = str_shuffle($tratamiento[0]);
+                        
+                        $nombreTratamiento = $tratamiento[0];
+                        if (strpos($nombreTratamiento, "-") !== false) {
+                            $nombreTratamiento = substr($nombreTratamiento, 0, strpos($nombreTratamiento, "-"));
+                        }
+
+                        $id_shuffle = str_shuffle($nombreTratamiento);
                         echo '<div class="col-sm">
                                 <div class="card">
                                     <div class="card-body">
                                         <div>
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapse'.$id_shuffle.'" aria-expanded="true" aria-controls="collapse'.$id_shuffle.'">
-                                            '.$ModelTratamiento->getNombreTratamiento($tratamiento[0]).' <span class="badge badge-light">'.$tratamiento[1].'</span>
+                                            '.$ModelTratamiento->getNombreTratamiento($nombreTratamiento).' <span class="badge badge-light">'.$tratamiento[1].'</span>
                                             </button>';
 
-                                            if($tratamiento[0] == 'DEP01' || $tratamiento[0] == 'CAV01'){
+                                            if($nombreTratamiento == 'DEP01' || $nombreTratamiento == 'CAV01'){
                                                 echo '<button type="button" class="btn btn-sm" data-toggle="collapse" data-target="#info'.$id_shuffle.'" aria-expanded="true" aria-controls="info'.$id_shuffle.'">
                                                           <i class="fas fa-info-circle"></i>
                                                       </button>';
                                                 echo '<div class="collapse" id="info'.$id_shuffle.'">
                                                     <div class="card card-body">
                                                     Detalles del tratamiento:';
-                                                    if($tratamiento[0] == 'DEP01'){
+                                                    if($nombreTratamiento == 'DEP01'){
                                                         echo '<p class="font-weight-light">Número de zonas: '.$tratamiento[3].'</p>';
                                                         
                                                     }
@@ -87,10 +93,10 @@
                                         echo '</div>
                                             <div class="collapse" id="collapse'.$id_shuffle.'">
                                                 <div class="card card-body">Historial: ';
-                                                if(empty($prueba[$tratamiento[0]])){
+                                                if(empty($prueba[$nombreTratamiento])){
                                                     echo '<p class="font-weight-light">NO HAY HISTORIAL DE ESTE TRATAMIENTO</p>';
                                                 }else{
-                                                    foreach($prueba[$tratamiento[0]] as $elemento){
+                                                    foreach($prueba[$nombreTratamiento] as $elemento){
                                                         echo '<p class="font-weight-light">'.date('Y-m-d H:i:s',$elemento).'</p>';
                                                     }
                                                 }

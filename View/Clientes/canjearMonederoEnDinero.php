@@ -78,10 +78,14 @@
                                     $cantidad_tratamiento = array_map(null, json_decode($infoCliente['tratamientos_inicial']), json_decode($infoCliente['cantidad']), json_decode($infoCliente['num_zonas']), json_decode($infoCliente['zonas_tratamiento']));
                                     foreach($cantidad_tratamiento as $elemento){
                                         $id_shuffle = str_shuffle($elemento[0]);
+                                        $nombreTratamiento = $elemento[0];
+                                        if (strpos($nombreTratamiento, "-") !== false) {
+                                            $nombreTratamiento = substr($nombreTratamiento, 0, strpos($nombreTratamiento, "-"));
+                                        }
                                         echo '<button type="button" class="btn btn-info" style="margin-right:5px" disabled>
-                                                    '.$ModelCliente -> getNombreTratamiento($elemento[0]).' <span class="badge badge-light">'.$elemento[1].'</span>
+                                                    '.$ModelCliente -> getNombreTratamiento($nombreTratamiento).' <span class="badge badge-light">'.$elemento[1].'</span>
                                             </button>';
-                                            if($elemento[0] == 'DEP01' || $elemento[0] == 'CAV01'){
+                                            if($nombreTratamiento == 'DEP01' || $nombreTratamiento== 'CAV01'){
                                                 echo '<button type="button" class="btn btn-sm" data-toggle="collapse" data-target="#info'.$id_shuffle.'" aria-expanded="true" aria-controls="info'.$id_shuffle.'">
                                                         <i class="fas fa-info-circle"></i>
                                                     </button>';

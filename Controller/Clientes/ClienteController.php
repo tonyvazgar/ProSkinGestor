@@ -325,10 +325,13 @@
             $totalMetodosPago = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['totalMetodoPago'])));
 
             $tipoTotalMetodoPago = json_encode(array_map(null, $tiposMetodosPago, $totalMetodosPago));
+            $tratamientos_with_positions = array_map(function ($value, $index) {
+                return $value.'-'.$index;
+            }, $tratamientos, array_keys($tratamientos));
 
             // $zipInformacion = array_map(null, $tratamientos, $zonasTrartam, $precios);
-
-            $tratamientosString = json_encode($tratamientos);
+            
+            $tratamientosString = json_encode($tratamientos_with_positions);
             $cantidadString     = json_encode($cantidadTrata);
             $precioIndiString   = json_encode($precioIndividual);
             $zonasString        = json_encode($zonasTrartam);
@@ -486,9 +489,19 @@
                 
                 $tratamientos_final_original     = json_decode($infoMonederoActual['tratamientos_final']);
 
+
+                $tratamientos_combinados = array_merge($tratamientos_iniciales_original, $tratamientos);
+
+                $tratamientos_combinados = array_map(function ($value, $index) {
+                    if(!str_contains($value, "-")){
+                        return $value.'-'.$index;
+                    } else {
+                        return $value;
+                    }
+                }, $tratamientos_combinados, array_keys($tratamientos_combinados));
         
         
-                $tratamientos_iniciales_actualizado = json_encode(array_merge($tratamientos_iniciales_original, $tratamientos));
+                $tratamientos_iniciales_actualizado = json_encode($tratamientos_combinados);
                 $precios_unitarios_actualizado      = json_encode(array_merge($precios_unitarios_original, $precioIndividual));
                 $num_zonas_actualizado              = json_encode(array_merge($num_zonas_original, $zonasTrartam));
                 $zonas_tratamiento_actualizado      = json_encode(array_merge($zonas_tratamiento_original, $listaZonas));
