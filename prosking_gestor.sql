@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.11
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 13, 2021 at 08:01 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.1
+-- Host: localhost:3306
+-- Generation Time: Mar 30, 2023 at 01:16 PM
+-- Server version: 5.7.41
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -67,7 +68,8 @@ CREATE TABLE `ClienteBitacora` (
 CREATE TABLE `ClienteOpcional` (
   `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
   `fecha_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
-  `cp_cliente` varchar(10) COLLATE utf8_bin NOT NULL
+  `cp_cliente` varchar(10) COLLATE utf8_bin NOT NULL,
+  `id_monedero` varchar(50) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -121,22 +123,23 @@ CREATE TABLE `ClienteTratamientoEspecial` (
 
 CREATE TABLE `CorteDeCaja` (
   `timestamp` varchar(255) COLLATE utf8_bin NOT NULL,
-  `id_documento` varchar(255) COLLATE utf8_bin NOT NULL,
-  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_centro` varchar(5) COLLATE utf8_bin NOT NULL,
-  `total_efectivo` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_ventas_efectivo` int(5) NOT NULL,
-  `total_tdc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_ventas_tdc` int(5) NOT NULL,
-  `total_tdd` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_ventas_tdd` int(5) NOT NULL,
-  `total_transferencia` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_ventas_transferencia` int(5) NOT NULL,
-  `total_deposito` varchar(255) COLLATE utf8_bin NOT NULL,
-  `num_ventas_deposito` int(5) NOT NULL,
+  `num_ventas_general` varchar(5) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_documento` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_corte_caja` varchar(255) COLLATE utf8_bin NOT NULL,
+  `total_ingresos` varchar(5) COLLATE utf8_bin NOT NULL,
+  `total_gastos` varchar(5) COLLATE utf8_bin NOT NULL,
+  `total_caja` varchar(5) COLLATE utf8_bin NOT NULL,
+  `nombre_archivo` varchar(255) COLLATE utf8_bin NOT NULL,
   `observaciones` varchar(255) COLLATE utf8_bin NOT NULL,
-  `nombre_archivo` varchar(255) COLLATE utf8_bin NOT NULL
+  `efectivo` varchar(255) COLLATE utf8_bin NOT NULL,
+  `tdc` varchar(255) COLLATE utf8_bin NOT NULL,
+  `tdd` varchar(255) COLLATE utf8_bin NOT NULL,
+  `transferencia` varchar(255) COLLATE utf8_bin NOT NULL,
+  `deposito` varchar(255) COLLATE utf8_bin NOT NULL,
+  `cheque` varchar(255) COLLATE utf8_bin NOT NULL,
+  `gastos` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -163,36 +166,35 @@ CREATE TABLE `DetallesEdicionVenta` (
 CREATE TABLE `Monedero` (
   `id_monedero` varchar(50) COLLATE utf8_bin NOT NULL,
   `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
-  `id_cosmetologa_venta` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa_venta` varchar(20) COLLATE utf8_bin NOT NULL,
   `id_cosmetologa_uso` varchar(255) COLLATE utf8_bin NOT NULL,
-  `dinero_inicial` varchar(255) COLLATE utf8_bin NOT NULL,
+  `dinero_inicial` varchar(20) COLLATE utf8_bin NOT NULL,
   `tratamientos_inicial` varchar(255) COLLATE utf8_bin NOT NULL,
   `precios_unitarios` varchar(255) COLLATE utf8_bin NOT NULL,
   `num_zonas` varchar(255) COLLATE utf8_bin NOT NULL,
   `zonas_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
   `cantidad` varchar(255) COLLATE utf8_bin NOT NULL,
-  `dinero_final` varchar(255) COLLATE utf8_bin NOT NULL,
-  `tratamientos_final` varchar(255) COLLATE utf8_bin NOT NULL,
-  `timestamp_creacion` varchar(255) COLLATE utf8_bin NOT NULL,
-  `timestamp_uso` varchar(255) COLLATE utf8_bin NOT NULL
+  `dinero_final` varchar(500) COLLATE utf8_bin NOT NULL,
+  `tratamientos_final` varchar(700) COLLATE utf8_bin NOT NULL,
+  `timestamp_creacion` varchar(20) COLLATE utf8_bin NOT NULL,
+  `timestamp_uso` varchar(500) COLLATE utf8_bin NOT NULL,
+  `comentarios` varchar(180) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `Monedero`
+-- Table structure for table `MonederoDinero`
 --
 
-INSERT INTO `Monedero` (`id_monedero`, `id_cliente`, `id_cosmetologa_venta`, `id_cosmetologa_uso`, `dinero_inicial`, `tratamientos_inicial`, `precios_unitarios`, `num_zonas`, `zonas_tratamiento`, `cantidad`, `dinero_final`, `tratamientos_final`, `timestamp_creacion`, `timestamp_uso`) VALUES
-('600', 'AJF00111231', '9', '', '25176', '[\"DEP01\",\"CAV01\",\"FAC23\",\"MAS40\"]', '', '', '', '[\"4\",\"2\",\"5\",\"10\"]', '', '', '1627920515', ''),
-('780', 'AJF00111231', '9', '', '1500', '\"\"', '', '', '', '\"\"', '[\"0\"]', '', '1627920525', ''),
-('9009', 'AJF00111231', '9', '', '10400', '\"\"', '\"\"', '', '\"\"', '\"\"', '', '', '1629425320', ''),
-('assa', 'AJF00111231', '9', '', '60960', '[\"DEP01\",\"CAV01\",\"CCP43\",\"DEP01\"]', '[\"5184\",\"788\",\"600\",\"3344\"]', '', '[\"18\",\"\",\"\",\"11\"]', '[\"10\",\"2\",\"7\",\"1\"]', '', '', '1629425310', ''),
-('mon1', 'AJF00111231', '9', '', '29782', '[\"ACN10\",\"CCE42\",\"DEP01\",\"CAV01\",\"FAC19\",\"DEP01\"]', '[\"700\",\"1000\",\"1872\",\"700\",\"750\",\"1264\"]', '[\"\",\"\",\"6\",\"\",\"\",\"4\"]', '[\"\",\"\",\"17,3,4,13,19,24,14,5,8,22,9,11\",\"18,9\",\"\",\"23\"]', '[\"5\",\"2\",\"8\",\"5\",\"1\",\"4\"]', '', '', '1629436082', ''),
-('mon12', 'AJF00111231', '9', '', '7444', '[\"DEP01\",\"CAV01\",\"RED30\",\"RED28\"]', '[\"1872\",\"300\",\"500\",\"700\"]', '', '[\"6\",\"\",\"\",\"\"]', '[\"2\",\"5\",\"3\",\"1\"]', '', '', '1629436115', ''),
-('mon13', 'AJF00111231', '9', '', '9780', '[\"DEP01\",\"CAV01\",\"FAC19\"]', '[\"640\",\"200\",\"750\"]', '', '[\"20,22,15,1,9,6,11\",\"17,4,18,10,9\",\"\"]', '[\"2\",\"5\",\"10\"]', '', '', '1629436110', ''),
-('mon14', 'AJF00111231', '9', '', '100', '\"\"', '\"\"', '', '\"\"', '\"\"', '', '', '1629436130', ''),
-('monedero300', 'AJF00111231', '9', '', '15522', '[\"DEP01\",\"CAV01\",\"FAC19\",\"MAS32\",\"DEP01\"]', '[\"2184\",\"600\",\"750\",\"320\",\"1950\"]', '[\"7\",\"\",\"\",\"\",\"7\"]', '[\"8,11\",\"17,4,18,10,9\",\"\",\"\",\"23\"]', '[\"3\",\"1\",\"6\",\"6\",\"1\"]', '', '', '1629461301', ''),
-('xx', 'xx', 'xx', '', 'xxx', 'xx', '', '', '', '', '', '', 'xxx', ''),
-('xxaasd', 'AJF00111231', '9', '', '7200', '[\"DEP01\"]', '[\"3600\"]', '', 'Array', '[\"2\"]', '', '', '1629425332', '');
+CREATE TABLE `MonederoDinero` (
+  `id_monedero` varchar(50) COLLATE utf8_bin NOT NULL,
+  `id_cliente` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timestamp` varchar(800) COLLATE utf8_bin NOT NULL,
+  `dinero` varchar(800) COLLATE utf8_bin NOT NULL,
+  `comentarios` varchar(180) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -206,7 +208,7 @@ CREATE TABLE `Productos` (
   `linea_producto` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `descripcion_producto` varchar(255) COLLATE utf8_bin NOT NULL,
   `presentacion_producto` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stock_disponible_producto` int(5) NOT NULL DEFAULT 0,
+  `stock_disponible_producto` int(5) NOT NULL DEFAULT '0',
   `costo_unitario_producto` varchar(255) COLLATE utf8_bin NOT NULL,
   `centro_producto` varchar(3) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -253,10 +255,34 @@ CREATE TABLE `Tratamiento` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Tratamiento2021`
+--
+
+CREATE TABLE `Tratamiento2021` (
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `nombre_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `duracion_tratamiento` varchar(3) COLLATE utf8_bin NOT NULL,
+  `consentimiento_tratamiento` varchar(3) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `TratamientoPrecio`
 --
 
 CREATE TABLE `TratamientoPrecio` (
+  `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `precio` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TratamientoPrecio2021`
+--
+
+CREATE TABLE `TratamientoPrecio2021` (
   `id_tratamiento` varchar(255) COLLATE utf8_bin NOT NULL,
   `precio` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -297,6 +323,18 @@ CREATE TABLE `Ventas` (
   `costo_producto` varchar(10) COLLATE utf8_bin NOT NULL,
   `cantidad_producto` varchar(5) COLLATE utf8_bin NOT NULL,
   `id_cosmetologa` varchar(3) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `VentasDesplazadas`
+--
+
+CREATE TABLE `VentasDesplazadas` (
+  `id_venta` varchar(255) COLLATE utf8_bin NOT NULL,
+  `fecha_original` varchar(255) COLLATE utf8_bin NOT NULL,
+  `fecha_desplazada` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -363,6 +401,18 @@ ALTER TABLE `DetallesEdicionVenta`
   ADD PRIMARY KEY (`id_venta`,`timestamp_edicion`);
 
 --
+-- Indexes for table `Monedero`
+--
+ALTER TABLE `Monedero`
+  ADD PRIMARY KEY (`id_monedero`,`timestamp_creacion`);
+
+--
+-- Indexes for table `MonederoDinero`
+--
+ALTER TABLE `MonederoDinero`
+  ADD PRIMARY KEY (`id_monedero`,`timestamp`);
+
+--
 -- Indexes for table `Productos`
 --
 ALTER TABLE `Productos`
@@ -381,9 +431,21 @@ ALTER TABLE `Tratamiento`
   ADD PRIMARY KEY (`id_tratamiento`);
 
 --
+-- Indexes for table `Tratamiento2021`
+--
+ALTER TABLE `Tratamiento2021`
+  ADD PRIMARY KEY (`id_tratamiento`);
+
+--
 -- Indexes for table `TratamientoPrecio`
 --
 ALTER TABLE `TratamientoPrecio`
+  ADD PRIMARY KEY (`id_tratamiento`);
+
+--
+-- Indexes for table `TratamientoPrecio2021`
+--
+ALTER TABLE `TratamientoPrecio2021`
   ADD PRIMARY KEY (`id_tratamiento`);
 
 --
@@ -397,6 +459,12 @@ ALTER TABLE `usertable`
 --
 ALTER TABLE `Ventas`
   ADD PRIMARY KEY (`id_cliente`,`id_tratamiento`,`monto`,`timestamp`);
+
+--
+-- Indexes for table `VentasDesplazadas`
+--
+ALTER TABLE `VentasDesplazadas`
+  ADD PRIMARY KEY (`id_venta`);
 
 --
 -- Indexes for table `ZonasCuerpo`
