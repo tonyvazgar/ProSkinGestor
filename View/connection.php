@@ -9,4 +9,8 @@ $dbpass = $_ENV['DB_PASS'];
 $dbname = $_ENV['DB_USERNAME'];
 
 $con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+function printArrayPrety($array){
+    print("<pre>".print_r($array,true)."</pre>");
+}
 ?>

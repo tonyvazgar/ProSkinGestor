@@ -21,6 +21,11 @@
         }
         $tratamientosOriginales = json_decode($infoMonedero['tratamientos_inicial']);
         
+        //Revisar si aun no tienen los tratamientos las posiciones para agregarselas
+        if(!str_contains($infoMonedero['tratamientos_inicial'], "-")){
+            $nuevaStructuraTratamientos = tratamientosMonederoToNewStructure($tratamientosOriginales);
+            $ModeloUsuario -> updateTratamientosMonederoToNewStructure($infoMonedero['id_monedero'], $infoMonedero['timestamp_creacion'], json_encode($nuevaStructuraTratamientos));
+        }
         $prueba = [];
         foreach($tratamientosOriginales as $to){
             $prueba[$to] = [];
