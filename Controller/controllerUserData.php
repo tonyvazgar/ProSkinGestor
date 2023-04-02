@@ -56,6 +56,8 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $check_email = "SELECT * FROM usertable WHERE email = '$email'";
     $res = mysqli_query($con, $check_email);
+    $currentTime = time(); // Taking now logged in time
+    $expireTime = $currentTime + $_ENV['SESSION_TIME_SECONDS'];
     if (mysqli_num_rows($res) > 0) {
         $fetch = mysqli_fetch_assoc($res);
         $fetch_pass = $fetch['password'];
@@ -64,6 +66,8 @@ if (isset($_POST['login'])) {
             $status = $fetch['status'];
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $password;
+            $_SESSION['start'] = $currentTime;
+            $_SESSION['expire'] = $expireTime;
             header('location: ../Clientes/index.php');
         } else {
             $errors['email'] = "Contraseña incorrecta!";

@@ -51,7 +51,7 @@
                     }
                     ?>
                     <div class="form-group">
-                        <input class="form-control" id="email" type="email" name="email" autocomplete="off" placeholder="Correo electronico" value="<?php echo $email ?>">
+                        <input class="form-control" id="email" type="text" name="email" autocomplete="off" placeholder="Correo electrónico o usuario" value="<?php echo $email ?>">
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password" id="password" placeholder="Contraseña" required>

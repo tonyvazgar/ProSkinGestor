@@ -34,8 +34,7 @@ $(document).ready(function () {
 
 function validateEmail() {
     var email = $("#email").val();
-    let regExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (regExp.test(email)) {
+    if (email.length > 3) {
         return true;
     } else {
         return false;

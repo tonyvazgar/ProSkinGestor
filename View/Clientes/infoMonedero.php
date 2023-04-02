@@ -96,8 +96,14 @@
                         if(json_decode($infoCliente['tratamientos_inicial']) != ""){
                             $cantidad_tratamiento = array_map(null, json_decode($infoCliente['tratamientos_inicial']), json_decode($infoCliente['cantidad']));
                             foreach($cantidad_tratamiento as $elemento){
-                                 echo '<button type="button" class="btn btn-info" style="margin-right:5px" disabled>
-                                            '.$ModelCliente -> getNombreTratamiento($elemento[0]).' <span class="badge badge-light">'.$elemento[1].'</span>
+                                $nombreTratamiento = $elemento[0];
+                                
+                                if (strpos($nombreTratamiento, "-") !== false) {
+                                    $nombreTratamiento = substr($nombreTratamiento, 0, strpos($nombreTratamiento, "-"));
+                                }
+                                
+                                echo '<button type="button" class="btn btn-info" style="margin-right:5px" disabled>
+                                            '.$ModelCliente -> getNombreTratamiento($nombreTratamiento).' <span class="badge badge-light">'.$elemento[1].'</span>
                                        </button>';
                             }
                         }else{
@@ -116,19 +122,23 @@
                         foreach($historial as $idmov => $movimiento) {
                             $inicial = '';
                             $tratamientos_aplicados_short = '';
+                            $nombreTratamiento = $tratamientosOriginales[$key];
+                            if (strpos($nombreTratamiento, "-") !== false) {
+                                $nombreTratamiento = substr($nombreTratamiento, 0, strpos($nombreTratamiento, "-"));
+                            }
                             if($idmov == 0) {
                                 $inicial = " (Movimiento de creación)";
                                 $tratamientos_aplicados = '';
                                 foreach($tratamientosOriginales as $key => $val) {
-                                    $tratamientos_aplicados .= '<p class="font-weight-bold"> • '.$ModelCliente -> getNombreTratamiento($tratamientosOriginales[$key]).'</p>';
+                                    $tratamientos_aplicados .= '<p class="font-weight-bold"> • '.$ModelCliente -> getNombreTratamiento($nombreTratamiento).'</p>';
                                 }
                             }else{
                                 $tratamientos_aplicados_temp = array_diff_assoc($movimiento[1], $historial[$idmov-1][1]);
                                 $tratamientos_aplicados = '';
                                 foreach($tratamientos_aplicados_temp as $key => $val) {
-                                    $nombreTratamientoTemp = $ModelCliente -> getNombreTratamiento($tratamientosOriginales[$key]);
+                                    $nombreTratamientoTemp = $ModelCliente -> getNombreTratamiento($nombreTratamiento);
                                     $zonasString = "";
-                                    if($tratamientosOriginales[$key] == 'DEP01' || $tratamientosOriginales[$key] == 'CAV01'){
+                                    if($nombreTratamiento == 'DEP01' || $nombreTratamiento == 'CAV01'){
                                         $zonas_cuerpo_array = [ 23 => '**TODO EL CUERPO**', 17 => 'Abdomen', 3 => 'Antebrazos', 2 => 'Axilas', 4 => 'Brazos', 12 => 'Entrecejo', 18 => 'Espalda', 13 => 'Frente', 10 =>  'Glúteos', 19 => 'Hombro', 7 => 'Ingles', 24 => 'LSMP', 14 => 'Labio Superior', 21 => 'Lumbares', 5 => 'Manos', 16 => 'Mentón', 8 => 'Muslo', 20 => 'Nuca', 22 => 'Orejas', 15 => 'Patillas', 1 => 'Pecho', 9 => 'Pierna', 6 => 'Pubis', 11 => 'Zona Alba'];
     
                                         $zonasTempNum = explode(",", $zonasORiginales[$key]);
@@ -138,7 +148,7 @@
                                         $zonasString = "(".$zonasString.")";
                                     }
                                     $tratamientos_aplicados .= '<p class="font-weight-bold"> • '.$nombreTratamientoTemp.$zonasString.'</p>';
-                                    $tratamientos_aplicados_short .= $ModelCliente -> getNombreTratamiento($tratamientosOriginales[$key]).', ';
+                                    $tratamientos_aplicados_short .= $ModelCliente -> getNombreTratamiento($nombreTratamiento).', ';
                                 }
                             }
                             echo '

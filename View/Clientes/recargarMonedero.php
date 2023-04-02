@@ -77,8 +77,12 @@
                         if(json_decode($infoClienteMonederoTratamiento['tratamientos_inicial']) != ""){
                             $cantidad_tratamiento = array_map(null, json_decode($infoClienteMonederoTratamiento['tratamientos_inicial']), json_decode($infoClienteMonederoTratamiento['cantidad']));
                             foreach($cantidad_tratamiento as $elemento){
+                                $nombreTratamiento = $elemento[0];
+                                if (strpos($nombreTratamiento, "-") !== false) {
+                                    $nombreTratamiento = substr($nombreTratamiento, 0, strpos($nombreTratamiento, "-"));
+                                }
                                 echo '<button type="button" class="btn btn-info" style="margin-right:5px" disabled>
-                                            '.$ModelCliente -> getNombreTratamiento($elemento[0]).' <span class="badge badge-light">'.$elemento[1].'</span>
+                                            '.$ModelCliente -> getNombreTratamiento($nombreTratamiento).' <span class="badge badge-light">'.$elemento[1].'</span>
                                     </button>';
                             }
                         }else{

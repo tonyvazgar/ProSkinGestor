@@ -63,6 +63,21 @@
             $db->close();
             return $account;
         }
+
+        public function getAllAnniversariesFromIdSucursal($id_sucursal){
+            $db = new DB();
+            $date = date('-m-');
+            $account = $db->query("SELECT Cliente.id_cliente, Cliente.nombre_cliente, Cliente.apellidos_cliente, ClienteOpcional.fecha_cliente, ClienteStatus.status
+                                    FROM Cliente, ClienteOpcional, ClienteStatus
+                                    WHERE Cliente.id_cliente=ClienteOpcional.id_cliente 
+                                    AND Cliente.id_cliente=ClienteStatus.id_cliente 
+                                    AND Cliente.centro_cliente='$id_sucursal'
+                                    AND ClienteOpcional.fecha_cliente LIKE '%$date%'
+                                    ORDER by Cliente.nombre_cliente ASC")->fetchAll();
+            $db->close();
+            return $account;
+        }
+
         public function getUltimaVisitaCliente(){
             $db = new DB();
             $account = $db->query('SELECT Cliente.id_cliente, Cliente.ultima_visita_cliente FROM Cliente')->fetchAll();
@@ -121,9 +136,16 @@
         public function getClienteWhereNombreLike($nombre){
             $db = new DB();
             //SELECT * FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%maria%') AS Nombre WHERE ClienteOpcional.id_cliente=Nombre.id_cliente
+            $nombre = trim($nombre);
             $sql_statement = "SELECT * 
-                              FROM ClienteOpcional, (SELECT * FROM `Cliente` WHERE BINARY nombre_cliente LIKE '%$nombre%' OR BINARY apellidos_cliente LIKE '%$nombre%') AS Nombre 
-                              WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
+                                FROM ClienteOpcional, 
+                                (SELECT * 
+                                FROM `Cliente` 
+                                WHERE BINARY nombre_cliente LIKE '%$nombre%' 
+                                OR BINARY apellidos_cliente LIKE '%$nombre%' 
+                                OR ( BINARY CONCAT( Cliente.nombre_cliente, ' ', Cliente.apellidos_cliente ) LIKE '%$nombre%') ) 
+                                AS Nombre 
+                                WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;
@@ -158,6 +180,18 @@
             $account = $db->query($sql_statement);
             $db->close();
             return $account->affectedRows();
+        }
+
+        public function deleteClienteID($idCliente){
+            $db = new DB();
+            $clienteTable = $db->query("DELETE FROM `Cliente` 
+                                        WHERE `Cliente`.`id_cliente` = '$idCliente'")
+                                        ->affectedRows();
+            $clienteOpcionalTable = $db->query("DELETE FROM `ClienteOpcional`
+                                        WHERE `ClienteOpcional`.`id_cliente` = '$idCliente'")
+                                        ->affectedRows();
+            $db->close();
+            return $clienteTable + $clienteOpcionalTable;
         }
 
         function updateUltimaVisita($id_cliente, $timestamp){

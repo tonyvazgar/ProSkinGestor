@@ -3,6 +3,7 @@
   require_once "../../Model/Clientes/Cliente.php";
   require_once "../../Controller/ControllerSesion.php";
   require_once "../../Model/Usuario/Usuario.php";
+  require_once "./Components/anniversaries.php";
 
   $ModelCliente = new Cliente();
   $session = new ControllerSesion();
@@ -26,6 +27,7 @@
     <main role="main" class="container">
       <div class="container">
         <h1>Lista de tus clientes</h1>
+        <?php getAniversariesDiv($ModelCliente, $id_sucursal); ?>
         <div class='text-center'>
         <a href="altaCliente.php" class="btn btn-success">Nuevo Cliente</a>
         <a href="buscarCliente.php" class="btn btn-warning">Buscar Cliente</a>

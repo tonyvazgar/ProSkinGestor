@@ -120,10 +120,14 @@ $(document).ready(function () {
         actualizarTotalDeVenta();
         $("#firma_div").hide();
 
-        let idTratamiento = $(this).prop("id");
+        let idTratamiento = '';
+        idTratamiento = $(this).prop("id");
         let idTratamiento_id = idTratamiento;
         idTratamiento = idTratamiento.split("agregar-").join("");
 
+        if (existsSameItemOnMonedero(idTratamiento) ) {
+            return;
+        }
         actualizarItemsAgregadosDeMonedero(idTratamiento);
         let valorTratamiento = '';
 
@@ -140,10 +144,10 @@ $(document).ready(function () {
         // Agregamos el formulario
         var n = $("#elementos .col-xs-4").length + 1;
         $("#elementos .last_tratamiento").removeClass('last_tratamiento');
-        if (idTratamiento == "DEP01") {
+        if (idTratamiento.includes("DEP01")) {
             valorTratamiento = 1;
             $("#elementos").append(front_depilacion);
-        } else if (idTratamiento == "CAV01") {
+        } else if (idTratamiento.includes("CAV01")) {
             valorTratamiento = 2;
             $("#elementos").append(front_cavitacion);
         } else {
@@ -178,19 +182,23 @@ $(document).ready(function () {
         }, 500);
 
 
-
-        if (idTratamiento != "DEP01" && idTratamiento != "CAV01") {
+        let isDep = idTratamiento.includes("DEP01");
+        let isCav = idTratamiento.includes("CAV01");
+        if ( !isDep && !isCav) {
+            let reqidTratamiento = idTratamiento;
+            if(reqidTratamiento.includes("-")) {
+                reqidTratamiento = reqidTratamiento.substring(0, reqidTratamiento.indexOf("-"));
+            }
 
             setTimeout(function () {
                 $.ajax({
                     type: "POST",
                     url: "precioTatamiento.php",
-                    data: "idTratamiento=" + idTratamiento,
+                    data: "idTratamiento=" + reqidTratamiento,
                     success:
                         setTimeout(function (r) {
-                            console.log("El id del tratamiento es: " + idTratamiento);
                             $('#precioTratamiento.last_tratamiento').val(0);
-                            $('#nombreTratamiento.last_tratamiento').val(idTratamiento);//nombreTratamiento
+                            $('#nombreTratamiento.last_tratamiento').val(reqidTratamiento);//nombreTratamiento
                             verificarAntesNuevoTratamiento();
                             actualizarTotalDeVenta();
                         }, 800)
@@ -732,6 +740,15 @@ function actualizarItemsAgregadosDeMonedero(idTratamiento) {
     } else {
         $('#itemsAgregadosDeMonedero').val(valorActual + ',' + idTratamiento);
     }
+}
+
+function existsSameItemOnMonedero(idTratamiento) {
+    let itemsFromMonedero = $('#itemsAgregadosDeMonedero').val();
+    let reqidTratamiento = idTratamiento;
+    if(reqidTratamiento.includes("-")) {
+        reqidTratamiento = reqidTratamiento.substring(0, reqidTratamiento.indexOf("-"));
+    }
+    return itemsFromMonedero.includes(reqidTratamiento);
 }
 
 function setCookie(name, value, days) {

@@ -216,6 +216,20 @@
             $db->close();
             return $account;
         }
+
+        public function updateTratamientosMonederoToNewStructure($idMonedero, $timestampMonedero, $nuevosTratamientos) {
+            
+            $db = new DB();
+            $sql_statement = "UPDATE `Monedero` 
+                            SET `tratamientos_inicial` = '$nuevosTratamientos' 
+                            WHERE `Monedero`.`id_monedero` = '$idMonedero'
+                            AND `Monedero`.`timestamp_creacion` = '$timestampMonedero'";
+
+            $account = $db->query($sql_statement);
+            $db->close();
+            return $account->affectedRows();
+        }
+
         public function verificarMonederoDinero($id_cliente){  
 
 
@@ -278,5 +292,16 @@
             }
         }
         return $totalDelMetodoPago;
+    }
+    function tratamientosMonederoToNewStructure($tratamientos) {
+        $tratamientos_combinados = array_map(function ($value, $index) {
+            if(!str_contains($value, "-")){
+                return $value.'-'.$index;
+            } else {
+                return $value;
+            }
+        }, $tratamientos, array_keys($tratamientos));
+        
+        return $tratamientos_combinados;
     }
 ?>
