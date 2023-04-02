@@ -173,9 +173,14 @@
 
                 <div class="col d-flex justify-content-center">
                     <button type="button" id="editarCliente" name="editarCliente" class="btn btn-warning">Editar información</button>
-                    <button type="button" id="cancelarEdicion" name="cancelarEdicion" class="btn btn-danger" hidden>Cancelar edición</button>
-                    <a class="btn btn-primary"  href=<?php echo "../../View/Clientes/iniciarTratamientoCliente.php?id=".$infoCliente['id_cliente'];?> role="button">Registrar tratamiento</a>
-                    <a class="btn btn-info"  href=<?php echo "../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente'];?> <?php echo $isHiddenBotonMonedero;?> role="button">Registrar un monedero</a>
+
+                    <button type="button" id="cancelarEdicion" name="cancelarEdicion" class="btn btn-warning" hidden>Cancelar edición</button>
+
+                    <button type="button" id="buttonEliminarCliente" name="buttonEliminarCliente" class="btn btn-danger" style="display: none;">Eliminar Cliente</button>
+
+                    <a class="btn btn-primary"  href=<?php echo "../../View/Clientes/iniciarTratamientoCliente.php?id=".$infoCliente['id_cliente'];?> role="button" name="buttonRegistrarTratamiento" id="buttonRegistrarTratamiento">Registrar tratamiento</a>
+                    
+                    <a class="btn btn-info" name="buttonRegistrarMonedero" id="buttonRegistrarMonedero" href=<?php echo "../../View/Clientes/registroMonedero.php?idCliente=".$info[0]['id_cliente'];?> <?php echo $isHiddenBotonMonedero;?> role="button">Registrar un monedero</a>
                 </div>
 
                 <div class="form-group">

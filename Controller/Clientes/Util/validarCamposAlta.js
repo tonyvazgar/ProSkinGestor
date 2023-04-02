@@ -116,8 +116,32 @@ $(document).ready(function () {
         $('#cancelarEdicion').show();
         $('#editarClienteButton').removeAttr('hidden');
         $('#editarClienteButton').show();
+        $('#buttonEliminarCliente').show();
+        $('#buttonRegistrarMonedero').hide();
+        $('#buttonRegistrarTratamiento').hide();
     });
 
+
+    $("#buttonEliminarCliente").on("click", function() {
+        var result = confirm("¿Estás seguro de eliminar este cliente?\nEsta acción ya no se puede deshacer!");
+        if (result) {
+            var idCliente = $('#id').val();
+            var dataForPost = "id_cliente=" + idCliente;
+
+            $.ajax({
+                type: "POST",
+                url: "../../Controller/Clientes/eliminarCliente.php",
+                data: dataForPost,
+                success: function (r) {
+                    if (r == '1') {
+                        window.location = "/";
+                    } else {
+                        alert('Hubo un error, intenta de nuevo');
+                    }
+                }
+            });
+        }
+    });
 
     $("#cancelarEdicion").on("click", function() {
         //*************** READONLY ***************
@@ -163,6 +187,9 @@ $(document).ready(function () {
         $(this).hide();
         $('#editarCliente').show();
         $('#editarClienteButton').hide();
+        $('#buttonEliminarCliente').hide();
+        $('#buttonRegistrarMonedero').show();
+        $('#buttonRegistrarTratamiento').show();
     });
     $("#tratamiento").on("change", function() {
         $.ajax({

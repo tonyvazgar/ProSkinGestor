@@ -1,10 +1,17 @@
 <?php
     class ControllerSesion{
         public function verificarSesion($ModeloUsuario, $email, $password){
+            $currentTime = time();
+            $expireTimeSession = $_SESSION['expire'];
             if($email == false && $password == false){
                 header('Location: ../../View/login/');
             }else{
-                return $ModeloUsuario->getUsuarioWhereEmail($email);
+                if ($currentTime > $expireTimeSession) {
+                    session_destroy();
+                    header('Location: ../../View/login/');
+                } else { 
+                    return $ModeloUsuario->getUsuarioWhereEmail($email);
+                }
             }
         }
     }
