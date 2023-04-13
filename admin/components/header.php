@@ -1,3 +1,11 @@
+<?php
+
+require_once "./Model/Session.php";
+session_start();
+$Session = new Session();
+$Session->verificarSesion();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
