@@ -32,13 +32,12 @@
                 <br>
                 <strong>Buscando cliente...</strong>
             </div>
-            <form action="buscarCliente.php" method="POST" autocomplete="off">
+            <form autocomplete="off">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre o Apellidos</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre o apellidos a buscar" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa nombre, apellido o número a buscar" required>
                 </div>
-                <button type="submit" id="buscarCliente" name="buscarCliente" class="btn btn-success">Buscar</button>
             </form>
+            <div id="searchResult"></div>
         </div>
     </main>
     <?php

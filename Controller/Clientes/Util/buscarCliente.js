@@ -1,7 +1,23 @@
 $(document).ready(function () {
     $(document).on('keyup',"#nombre", function () {
-        var i = $(this).val().toUpperCase();
-        $(this).val(RemoveAccents(i));  
+        const input =  $(this).val();
+        var upper = input.toUpperCase();
+        const noAccents = RemoveAccents(upper);
+        $(this).val(noAccents);
+
+        if(input != ""){
+          $("#searchResult").css("display", "flex");
+          $.ajax({
+            url: "busquedaCliente.php",
+            method: "POST",
+            data: { nombre: noAccents },
+            success: function(data) {
+              $("#searchResult").html(data);
+            }
+          });
+        } else {
+          $("#searchResult").css("display", "none");
+        }
     });
 
 
