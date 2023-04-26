@@ -77,9 +77,10 @@ $(document).ready(function () {
         $("#agregar_boton_pago_div").hide();
         $("#firma_div").hide();
         var num_producto = $("#elementos .plantilla").length + 1;
-        var front_producto = '<hr><div class="plantilla"><h2 class="numProductos">Producto #'+num_producto+'</h2><div class="form-group"><table class="table table-borderless"><thead><tr><td scope="col"><h4>Marca a buscar*</h4></td><td scope="col"><h4>Linea a buscar*</h4></td></tr></thead><tbody><tr><td><select name="marca" id="marca" class="last_producto form-control"><option value="">** SELECCIONA **</option><option value="MIGUETT">MIGUETT</option><option value="AINHOA">AINHOA</option><option value="GERMAINE">GERMAINE</option></select></td><td><select name="linea" id="linea" class="last_producto form-control"><option value="">** SELECCIONA **</option><option value="PURITY">PURITY</option><option value="WHITESS">WHITESS</option><option value="OXYGEN">OXYGEN</option><option value="SENSKIN">SENSKIN</option><option value="COLLAGEN%2B">COLLAGEN +</option><option value="MULTIVIT">MULTIVIT</option><option value="BIOME CARE">BIOME CARE</option><option value="OLIVE">OLIVE</option><option value="SPECIFIC">SPECIFIC</option><option value="HYALURONIC">HYALURONIC</option><option value="SKIN PRIMERS">SKIN PRIMERS</option><option value="BODY LINE UP">BODY LINE UP</option><option value="CANNABI">CANNABI</option><option value="SPA LUXURY">SPA LUXURY</option><option value="OTRO">OTRO</option><option value="PACKS">PACKS</option></select></td></tr></tbody></table><div class="last_producto form-group" id="otroProducto" name="otroProducto"></div><div class="last_producto form-group" id="productos" name="productos"></div><div class="form-group"><table class="table table-borderless" style="table-layout:fixed"><tbody><tr><td><h4>ID producto:</h4><p class="last_producto lead id_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" hidden readonly="readonly"></td><td><h4>Unidades disponibles</h4><p class="last_producto lead stock_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" hidden readonly="readonly"></td></tr></tbody></table></div><div class="form-group"><h4>Descripción:</h4><p class="last_producto lead desc_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="desc_producto_seleccionado" name="desc_producto_seleccionado" hidden readonly="readonly"></div><div class="form-group"><table class="table table-borderless"><tbody><tr><td><h4>Precio por pieza</h4><input type="number" class="last_producto form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" style="display: none;"></td><td><h4>Cantidad</h4><input type="number" class="last_producto form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" style="display: none;" required></td></tr></tbody></table></div><div class="form-group"><table class="table table-borderless"><tbody><tr><td><h4>Precio de venta</h4><p class="last_producto lead total_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly="readonly"></td></tr></tbody></table></div></div></div>';
+        var front_producto = '<hr><div class="plantilla"><h2 class="numProductos">Producto #'+num_producto+'</h2><div class="form-group"><table class="table table-borderless"><thead><tr><td scope="col"><h4>Marca a buscar*</h4></td><td scope="col"><h4>Linea a buscar*</h4></td></tr></thead><tbody><tr><td><select name="marca" id="marca" class="last_producto form-control"><option value="">** SELECCIONA **</option><option value="MIGUETT">MIGUETT</option><option value="AINHOA">AINHOA</option><option value="GERMAINE">GERMAINE</option></select></td><td><select name="linea" id="linea" class="last_producto form-control"><option value="">** SELECCIONA **</option><option value="PURITY">PURITY</option><option value="WHITESS">WHITESS</option><option value="OXYGEN">OXYGEN</option><option value="SENSKIN">SENSKIN</option><option value="COLLAGEN%2B">COLLAGEN +</option><option value="MULTIVIT">MULTIVIT</option><option value="BIOME CARE">BIOME CARE</option><option value="OLIVE">OLIVE</option><option value="SPECIFIC">SPECIFIC</option><option value="HYALURONIC">HYALURONIC</option><option value="SKIN PRIMERS">SKIN PRIMERS</option><option value="BODY LINE UP">BODY LINE UP</option><option value="CANNABI">CANNABI</option><option value="SPA LUXURY">SPA LUXURY</option><option value="OTRO">OTRO</option><option value="PACKS">PACKS</option></select></td></tr></tbody></table><div class="last_producto form-group" id="otroProducto" name="otroProducto"></div><div class="last_producto form-group" id="productos" name="productos"></div><div class="form-group"><table class="table table-borderless" style="table-layout:fixed"><tbody><tr><td><h4>ID producto:</h4><p class="last_producto lead id_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="id_producto_seleccionado" name="id_producto_seleccionado[]" hidden readonly="readonly"></td><td><h4>Unidades disponibles</h4><p class="last_producto lead stock_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="stock_producto_seleccionado" name="stock_producto_seleccionado[]" hidden readonly="readonly"></td></tr></tbody></table></div><div class="form-group"><h4>Descripción:</h4><p class="last_producto lead desc_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="desc_producto_seleccionado" name="desc_producto_seleccionado" hidden readonly="readonly"></div><div class="form-group"><table class="table table-borderless"><tbody><tr><td><h4>Precio por pieza</h4><input type="number" class="last_producto form-control" id="precioUnitario_producto_seleccionado" name="precioUnitario_producto_seleccionado[]" style="display: none;"></td><td><h4>Cantidad</h4><input type="number" class="last_producto form-control" id="cantidad_producto_seleccionado" name="cantidad_producto_seleccionado[]" placeholder="Unidades a verder" style="display: none;" required></td></tr></tbody></table></div><div class="form-group"><table class="table table-borderless"><tbody><tr><td><h4>Precio de venta</h4><p class="last_producto lead total_producto_seleccionado_label"></p><input type="text" class="last_producto form-control" id="total_producto_seleccionado" name="total_producto_seleccionado[]" hidden readonly="readonly"></td><td><label for="iva_seleccionado">Precio con IVA</label><input type="checkbox" id="iva_seleccionado" name="iva_seleccionado[]" value="iva" class="last_producto" disabled></td></tr></tbody></table></div></div></div>';
         
         $("#elementos .last_producto").removeClass('last_producto');
+        $("#iva_seleccionado.last_producto").removeClass('last_producto');
         $("#elementos").append(front_producto);
         $("#elementos .plantilla:last").append('<button class="btn-danger btn btn-block btn-quitar-producto" type="button">Eliminar producto #'+num_producto+'</button>');
 
@@ -296,6 +297,7 @@ $('body').on('click','#selecionarProductoBtn',function () {
             if (v > max){
                 $(this).val(max);
             }
+            $("#iva_seleccionado.last_producto").removeAttr("disabled");
         });
         $('#total_producto_seleccionado.last_producto').val(0.0);
         $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(0));
@@ -328,6 +330,32 @@ $('body').on('click','#selecionarProductoBtn',function () {
             $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
             verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
             actualizarTotalDeVenta();
+        });
+        $('[id="iva_seleccionado"].last_producto').change(function(){
+
+            let precioProducto      = parseFloat($('#total_producto_seleccionado.last_producto').val());
+
+            if ($(this).is(':checked')){
+                // $("#hiddenDiv").fadeIn();
+                var total               = parseFloat((precioProducto) * 1.16);
+                total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+                $('#total_producto_seleccionado.last_producto').val(total);
+                $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+                verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
+                actualizarTotalDeVenta();
+                alert("click" + total)
+            } else {
+                // $("#hiddenDiv").fadeOut();
+                var total               = parseFloat((precioProducto) / 1.16);
+                total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+                $('#total_producto_seleccionado.last_producto').val(total);
+                $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+                verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
+                actualizarTotalDeVenta();
+                alert("no click" + total);
+            }
         });
         $('#cantidad_producto_seleccionado.last_producto').show();
         $('#precioUnitario_producto_seleccionado.last_producto').show();
