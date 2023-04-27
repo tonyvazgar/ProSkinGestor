@@ -53,7 +53,7 @@
             $this->Ln();
             $this->Cell(20);
             $this->Cell(105,6,"",'LR',0,'R');
-            $this->Cell(40,6,"$".number_format($sumaConceptos, 2),'LR',0,'R');
+            $this->Cell(40,6,"$".$sumaConceptos,'LR',0,'R');
             $this->Ln();
             // Closing line
             $this->Cell(20);
