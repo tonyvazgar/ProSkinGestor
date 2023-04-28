@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.11
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Mar 30, 2023 at 01:16 PM
--- Server version: 5.7.41
--- PHP Version: 7.4.33
+-- Host: localhost
+-- Generation Time: Apr 28, 2023 at 08:37 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -128,9 +127,9 @@ CREATE TABLE `CorteDeCaja` (
   `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_documento` varchar(255) COLLATE utf8_bin NOT NULL,
   `id_corte_caja` varchar(255) COLLATE utf8_bin NOT NULL,
-  `total_ingresos` varchar(5) COLLATE utf8_bin NOT NULL,
-  `total_gastos` varchar(5) COLLATE utf8_bin NOT NULL,
-  `total_caja` varchar(5) COLLATE utf8_bin NOT NULL,
+  `total_ingresos` varchar(10) COLLATE utf8_bin NOT NULL,
+  `total_gastos` varchar(10) COLLATE utf8_bin NOT NULL,
+  `total_caja` varchar(10) COLLATE utf8_bin NOT NULL,
   `nombre_archivo` varchar(255) COLLATE utf8_bin NOT NULL,
   `observaciones` varchar(255) COLLATE utf8_bin NOT NULL,
   `efectivo` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -208,7 +207,7 @@ CREATE TABLE `Productos` (
   `linea_producto` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `descripcion_producto` varchar(255) COLLATE utf8_bin NOT NULL,
   `presentacion_producto` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stock_disponible_producto` int(5) NOT NULL DEFAULT '0',
+  `stock_disponible_producto` int(5) NOT NULL DEFAULT 0,
   `costo_unitario_producto` varchar(255) COLLATE utf8_bin NOT NULL,
   `centro_producto` varchar(3) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -226,6 +225,18 @@ CREATE TABLE `ProductosApartados` (
   `id_cosmetologa` varchar(255) COLLATE utf8_bin NOT NULL,
   `timestamp_inicial` varchar(255) COLLATE utf8_bin NOT NULL,
   `timestamp_final` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Propinas`
+--
+
+CREATE TABLE `Propinas` (
+  `id_venta` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_cosmetologa` varchar(3) COLLATE utf8_bin NOT NULL,
+  `monto` varchar(5) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -290,6 +301,17 @@ CREATE TABLE `TratamientoPrecio2021` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `userPermissions`
+--
+
+CREATE TABLE `userPermissions` (
+  `id_user` int(11) NOT NULL,
+  `permission` varchar(20) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usertable`
 --
 
@@ -298,7 +320,7 @@ CREATE TABLE `usertable` (
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
-  `code` mediumint(50) NOT NULL,
+  `code` varchar(10) COLLATE utf8_bin NOT NULL,
   `status` text COLLATE utf8_bin NOT NULL,
   `id_sucursal_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -447,6 +469,12 @@ ALTER TABLE `TratamientoPrecio`
 --
 ALTER TABLE `TratamientoPrecio2021`
   ADD PRIMARY KEY (`id_tratamiento`);
+
+--
+-- Indexes for table `userPermissions`
+--
+ALTER TABLE `userPermissions`
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- Indexes for table `usertable`
