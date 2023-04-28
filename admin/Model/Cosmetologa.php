@@ -5,7 +5,7 @@
         public function getAllCometologas()
         {
             $db = new Db();
-            $sql_statement = "SELECT * FROM `usertable`";
+            $sql_statement = "SELECT usertable.*, Sucursal.nombre_sucursal FROM `usertable`, Sucursal WHERE usertable.id_sucursal_usuario=Sucursal.id_sucursal";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;
@@ -37,7 +37,7 @@
             return $account;
         }
 
-        public function updateInfoCosmetologa($id, $nombre, $username, $password, $sucusal, $rol)
+        public function updateInfoCosmetologa($id, $nombre, $username, $password, $code, $status, $sucursal)
         {
             $db = new DB();
             $sql_statement = "UPDATE `usertable` 
@@ -45,23 +45,22 @@
                                 `name` = '$nombre',
                                 `email` = '$username',
                                 `password` = '$password',
-                                `code` = '$rol',
-                                `status` = '$rol',
-                                `id_sucursal_usuario` = '$sucusal'
+                                `code` = '$code',
+                                `status` = '$status',
+                                `id_sucursal_usuario` = '$sucursal'
                                 WHERE `usertable`.`id` = '$id';";
-
             $account = $db->query($sql_statement);
             $db->close();
             return $account->affectedRows();
         }
 
-        public function insertNewCosmetologa($id_cliente, $nombre, $username, $password, $sucusal, $rol)
+        public function insertNewCosmetologa($id_cliente, $nombre, $username, $password, $code, $status, $sucursal)
         {
             $db = new DB();
             $sql_statement = "INSERT INTO
                             `usertable`(`name`, `email`, `password`, `code`, `status`, `id_sucursal_usuario`)
                             VALUES
-                            ('$nombre', '$username', '$password', '$rol', '$rol', '$sucusal')";
+                            ('$nombre', '$username', '$password', '$code', '$status', '$sucursal')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();

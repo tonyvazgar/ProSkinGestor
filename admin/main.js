@@ -1,9 +1,11 @@
 $(document).ready(function () {
+    // var actionButtons = "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btnEditar'>Editar</button><button class='btn btn-danger btnBorrar'>Borrar</button></div></div>";
+    var actionButtons = "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btnEditar'>Editar</button></div></div>";
     tablaPersonas = $("#tablaPersonas").DataTable({
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btnEditar'>Editar</button><button class='btn btn-danger btnBorrar'>Borrar</button></div></div>"
+            "defaultContent": actionButtons
         }],
 
         //Para cambiar el lenguaje a español
@@ -44,12 +46,14 @@ $(document).ready(function () {
         username = fila.find('td:eq(2)').text();
         code = fila.find('td:eq(4)').text();
         myStatus = fila.find('td:eq(5)').text();
-        sucursal = fila.find('td:eq(6)').text();
+        sucursal = fila.find('td:eq(6):hidden').text();
 
         $("#name").val(nombre);
         $("#username").val(username);
         $("#code").val(code);
+        // $(`#code[value='${code}']`).prop("checked", true);
         $("#status").val(myStatus);
+        // $(`#status[value='${myStatus}']`).prop("checked", true);
         $("#sucursal").val(sucursal);
         opcion = 2; //editar
 
@@ -88,22 +92,28 @@ $(document).ready(function () {
         myStatus = $.trim($("#status").val());
         mySucursal = $.trim($("#sucursal").val());
         const data = { name: myName, username: myUsername, password: myPassword, code: myCode, status: myStatus, sucursal: mySucursal, id: id, opcion: opcion };
-        alert(JSON.stringify(data));
         $.ajax({
             url: "bd/crud.php",
             type: "POST",
             dataType: "json",
             data,
             success: function (data) {
-                id = data[0].id;
-                nombre = data[0].name;
-                email = data[0].email;
-                password = data[0].password;
-                code = data[0].code;
-                status = data[0].status;
-                sucursal = data[0].id_sucursal_usuario;
-                if (opcion == 1) { tablaPersonas.row.add([id, nombre, email, password, code, status, sucursal]).draw(); }
-                else { tablaPersonas.row(fila).data([id, nombre, pais, edad]).draw(); }
+                console.log("🚀 ~ file: main.js:110 ~ data:", data)
+                
+                id = data.id;
+                nombre = data.name;
+                email = data.email;
+                password = data.password;
+                code = data.code;
+                myStatus = data.status;
+                sucursal = data.id_sucursal_usuario;
+
+                // if (opcion == 1) { 
+                //     tablaPersonas.row.add([id, nombre, email, password, code, myStatus, sucursal, sucursal]).draw();
+                // } else {
+                //     tablaPersonas.row(fila).data([id, nombre, email, password, code, myStatus, sucursal, sucursal]).draw();
+                // }
+                location.reload();
             }
         });
         $("#modalCRUD").modal("hide");

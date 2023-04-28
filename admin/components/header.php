@@ -56,27 +56,27 @@ $Session->verificarSesion();
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="cosmetologas.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Cosmetologas</span></a>
       </li>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="productos.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Productos</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="tratamientos.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Trataimientos</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="sucursales.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Sucursales</span></a>
       </li>
@@ -165,14 +165,14 @@ $Session->verificarSesion();
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['email']; ?></span>
+                <!-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href='../../View/logout.php'>
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  Cerrar sesión
                 </a>
               </div>
             </li>
