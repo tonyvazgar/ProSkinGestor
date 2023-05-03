@@ -302,6 +302,7 @@
         $referencia_pago = "";
         $nombre = "";
         $id_venta = "";
+        $id_cliente = "";
 
         foreach ($array as $registro){
             $temp = [];
@@ -318,6 +319,7 @@
             $nombre = $registro['nombre_cliente']." ".$registro['apellidos_cliente'];
             $id_venta = $registro['id_venta'];
             $id_cosmetologa = $registro['id_cosmetologa'];
+            $id_cliente = $registro['id_cliente'];
         }
         return ["id_venta" => $id_venta,
                 "cosmetologa" => $id_cosmetologa,
@@ -329,7 +331,8 @@
                 "total" => number_format($total, 2),
                 "metodo_pago" => $metodo_pago,
                 "referencia_pago" => $referencia_pago,
-                "total_noFormat" => $total];
+                "total_noFormat" => $total,
+                "id_cliente" => $id_cliente];
     }
 
     function getDiferenciaDeEdicion($antes, $despues, $tipo){
