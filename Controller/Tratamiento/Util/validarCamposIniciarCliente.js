@@ -344,7 +344,6 @@ $('body').on('click','#selecionarProductoBtn',function () {
                 $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
                 verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
                 actualizarTotalDeVenta();
-                alert("click" + total)
             } else {
                 // $("#hiddenDiv").fadeOut();
                 var total               = parseFloat((precioProducto) / 1.16);
@@ -354,7 +353,6 @@ $('body').on('click','#selecionarProductoBtn',function () {
                 $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
                 verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
                 actualizarTotalDeVenta();
-                alert("no click" + total);
             }
         });
         $('#cantidad_producto_seleccionado.last_producto').show();

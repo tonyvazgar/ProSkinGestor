@@ -1,10 +1,11 @@
 $('body').on('click', '#btn-agregar-producto', function(){
     var num_producto = $(".productos .plantilla").length + 1;
-    var plantilla_producto = "<hr/><div class='plantilla'><h2 class='numProductos'>Producto #"+num_producto+"</h2><div class='form-group'><table class='table table-borderless'><thead><tr><td scope='col'><h4>Marca a buscar*</h4></td><td scope='col'><h4>Linea a buscar*</h4></td></tr></thead><tbody><tr><td><select name='marca' id='marca' class='last_producto form-control'><option value=''>** SELECCIONA **</option><option value='MIGUETT'>MIGUETT</option><option value='AINHOA'>AINHOA</option><option value='GERMAINE'>GERMAINE</option></select></td><td><select name='linea' id='linea' class='last_producto form-control'><option value=''>** SELECCIONA **</option><option value='PURITY'>PURITY</option><option value='WHITESS'>WHITESS</option><option value='OXYGEN'>OXYGEN</option><option value='SENSKIN'>SENSKIN</option><option value='COLLAGEN%2B'>COLLAGEN +</option><option value='MULTIVIT'>MULTIVIT</option><option value='BIOME CARE'>BIOME CARE</option><option value='OLIVE'>OLIVE</option><option value='SPECIFIC'>SPECIFIC</option><option value='HYALURONIC'>HYALURONIC</option><option value='SKIN PRIMERS'>SKIN PRIMERS</option><option value='BODY LINE UP'>BODY LINE UP</option><option value='CANNABI'>CANNABI</option><option value='SPA LUXURY'>SPA LUXURY</option><option value='OTRO'>OTRO</option><option value='PACKS'>PACKS</option></select></td></tr></tbody></table><div class='last_producto form-group' id='otroProducto' name='otroProducto'></div><div class='last_producto form-group' id='productos' name='productos'></div><div class='form-group'><table class='table table-borderless' style='table-layout: fixed;'><tbody><tr><td><h4>ID producto:</h4><p class='last_producto lead id_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='id_producto_seleccionado' name='id_producto_seleccionado[]' hidden readonly></td><td><h4>Unidades disponibles</h4><p class='last_producto lead stock_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='stock_producto_seleccionado' name='stock_producto_seleccionado[]' hidden readonly></td></tr></tbody></table></div><div class='form-group'><h4>Descripción:</h4><p class='last_producto lead desc_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='desc_producto_seleccionado' name='desc_producto_seleccionado' hidden readonly></div><div class='form-group'><table class='table table-borderless'><tbody><tr><td><h4>Precio por pieza</h4><input type='number' class='last_producto form-control' id='precioUnitario_producto_seleccionado' name='precioUnitario_producto_seleccionado[]'></td><td><h4>Cantidad</h4><input type='number' class='last_producto form-control' id='cantidad_producto_seleccionado' name='cantidad_producto_seleccionado[]' placeholder='Unidades a verder' required></td></tr></tbody></table></div><div class='form-group'><table class='table table-borderless'><tbody><tr><td><h4>Precio de venta</h4><p class='last_producto lead total_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='total_producto_seleccionado' name='total_producto_seleccionado[]' hidden readonly></td><td><h4>&nbsp;</h4><button id='btn-apartar-producto' class='last_producto btn btn-success btn-apartar-producto' type='button' disabled='disabled'>Apartar producto(s)</button></td></tr></tbody></table></div></div></div>";
-    console.log(plantilla_producto);
+    var plantilla_producto = "<hr/><div class='plantilla'><h2 class='numProductos'>Producto #"+num_producto+"</h2><div class='form-group'><table class='table table-borderless'><thead><tr><td scope='col'><h4>Marca a buscar*</h4></td><td scope='col'><h4>Linea a buscar*</h4></td></tr></thead><tbody><tr><td><select name='marca' id='marca' class='last_producto form-control'><option value=''>** SELECCIONA **</option><option value='MIGUETT'>MIGUETT</option><option value='AINHOA'>AINHOA</option><option value='GERMAINE'>GERMAINE</option></select></td><td><select name='linea' id='linea' class='last_producto form-control'><option value=''>** SELECCIONA **</option><option value='PURITY'>PURITY</option><option value='WHITESS'>WHITESS</option><option value='OXYGEN'>OXYGEN</option><option value='SENSKIN'>SENSKIN</option><option value='COLLAGEN%2B'>COLLAGEN +</option><option value='MULTIVIT'>MULTIVIT</option><option value='BIOME CARE'>BIOME CARE</option><option value='OLIVE'>OLIVE</option><option value='SPECIFIC'>SPECIFIC</option><option value='HYALURONIC'>HYALURONIC</option><option value='SKIN PRIMERS'>SKIN PRIMERS</option><option value='BODY LINE UP'>BODY LINE UP</option><option value='CANNABI'>CANNABI</option><option value='SPA LUXURY'>SPA LUXURY</option><option value='OTRO'>OTRO</option><option value='PACKS'>PACKS</option></select></td></tr></tbody></table><div class='last_producto form-group' id='otroProducto' name='otroProducto'></div><div class='last_producto form-group' id='productos' name='productos'></div><div class='form-group'><table class='table table-borderless' style='table-layout: fixed;'><tbody><tr><td><h4>ID producto:</h4><p class='last_producto lead id_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='id_producto_seleccionado' name='id_producto_seleccionado[]' hidden readonly></td><td><h4>Unidades disponibles</h4><p class='last_producto lead stock_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='stock_producto_seleccionado' name='stock_producto_seleccionado[]' hidden readonly></td></tr></tbody></table></div><div class='form-group'><h4>Descripción:</h4><p class='last_producto lead desc_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='desc_producto_seleccionado' name='desc_producto_seleccionado' hidden readonly></div><div class='form-group'><table class='table table-borderless'><tbody><tr><td><h4>Precio por pieza</h4><input type='number' class='last_producto form-control' id='precioUnitario_producto_seleccionado' name='precioUnitario_producto_seleccionado[]'></td><td><h4>Cantidad</h4><input type='number' class='last_producto form-control' id='cantidad_producto_seleccionado' name='cantidad_producto_seleccionado[]' placeholder='Unidades a verder' required></td></tr></tbody></table></div><div class='form-group'><table class='table table-borderless'><tbody><tr><td><h4>Precio de venta</h4><p class='last_producto lead total_producto_seleccionado_label'></p><input type='text' class='last_producto form-control' id='total_producto_seleccionado' name='total_producto_seleccionado[]' hidden readonly></td><td><h4>&nbsp;</h4><button id='btn-apartar-producto' class='last_producto btn btn-success btn-apartar-producto' type='button' disabled='disabled'>Apartar producto(s)</button></td><td><label for='iva_seleccionado'>Precio con IVA</label><input type='checkbox' id='iva_seleccionado' name='iva_seleccionado[]' value='iva' class='last_producto' disabled></td></tr></tbody></table></div></div></div>";
+    
     $('.id_producto_seleccionado_label').removeClass('id_producto_seleccionado_label');
     $('.desc_producto_seleccionado_label').removeClass('desc_producto_seleccionado_label');
     $('.stock_producto_seleccionado_label').removeClass('stock_producto_seleccionado_label');
+    $("#iva_seleccionado.last_producto").removeClass('last_producto');
 
     $(".plantilla .last_producto").removeClass('last_producto');
     $(".productos").append(plantilla_producto);
@@ -44,6 +45,7 @@ $('body').on('click','#selecionarProductoBtn.last_producto',function () {
             if (v > max){
                 $(this).val(max);
             }
+            $("#iva_seleccionado.last_producto").removeAttr("disabled");
         });
         $('#total_producto_seleccionado.last_producto').val(0.0);
         $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(0));
@@ -79,6 +81,55 @@ $('body').on('click','#selecionarProductoBtn.last_producto',function () {
         alert("Selecciona un producto");
     }
     console.log(id);
+
+
+    $('[id="iva_seleccionado"].last_producto').change(function(){
+
+        let precioProducto      = parseFloat($('#total_producto_seleccionado.last_producto').val());
+
+        if ($(this).is(':checked')){
+            // $("#hiddenDiv").fadeIn();
+            var total               = parseFloat((precioProducto) * 1.16);
+            total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+            $('#total_producto_seleccionado.last_producto').val(total);
+            $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+            actualizarTotalDeVenta();
+        } else {
+            // $("#hiddenDiv").fadeOut();
+            var total               = parseFloat((precioProducto) / 1.16);
+            total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+            $('#total_producto_seleccionado.last_producto').val(total);
+            $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+            actualizarTotalDeVenta();
+        }
+    });
+
+});
+
+
+$('[id="iva_seleccionado"].last_producto').change(function(){
+
+    let precioProducto      = parseFloat($('#total_producto_seleccionado.last_producto').val());
+
+    if ($(this).is(':checked')){
+        // $("#hiddenDiv").fadeIn();
+        var total               = parseFloat((precioProducto) * 1.16);
+        total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+        $('#total_producto_seleccionado.last_producto').val(total);
+        $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+        actualizarTotalDeVenta();
+    } else {
+        // $("#hiddenDiv").fadeOut();
+        var total               = parseFloat((precioProducto) / 1.16);
+        total                   = isNaN(total) ? 0 : total.toFixed(2);
+
+        $('#total_producto_seleccionado.last_producto').val(total);
+        $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
+        actualizarTotalDeVenta();
+    }
 });
 
 $(document).ready(function () {
