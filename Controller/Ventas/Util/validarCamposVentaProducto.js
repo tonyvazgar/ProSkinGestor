@@ -88,7 +88,6 @@ $('body').on('click','#selecionarProductoBtn.last_producto',function () {
         let precioProducto      = parseFloat($('#total_producto_seleccionado.last_producto').val());
 
         if ($(this).is(':checked')){
-            // $("#hiddenDiv").fadeIn();
             var total               = parseFloat((precioProducto) * 1.16);
             total                   = isNaN(total) ? 0 : total.toFixed(2);
 
@@ -96,7 +95,6 @@ $('body').on('click','#selecionarProductoBtn.last_producto',function () {
             $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
             actualizarTotalDeVenta();
         } else {
-            // $("#hiddenDiv").fadeOut();
             var total               = parseFloat((precioProducto) / 1.16);
             total                   = isNaN(total) ? 0 : total.toFixed(2);
 
@@ -122,7 +120,6 @@ $('[id="iva_seleccionado"].last_producto').change(function(){
         $('.total_producto_seleccionado_label.last_producto').html("$" + new Intl.NumberFormat().format(total));
         actualizarTotalDeVenta();
     } else {
-        // $("#hiddenDiv").fadeOut();
         var total               = parseFloat((precioProducto) / 1.16);
         total                   = isNaN(total) ? 0 : total.toFixed(2);
 
