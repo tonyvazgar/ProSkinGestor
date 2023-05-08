@@ -94,6 +94,10 @@
                                                 <h4>&nbsp;</h4>
                                                 <button id="btn-apartar-producto" class="last_producto btn btn-success btn-apartar-producto" type="button" disabled="disabled">Apartar producto(s)</button> 
                                             </td>
+                                            <td>
+                                                <label for="iva_seleccionado">Precio con IVA</label>
+                                                <input type="checkbox" id="iva_seleccionado" name="iva_seleccionado[]" value="iva" class="last_producto">
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

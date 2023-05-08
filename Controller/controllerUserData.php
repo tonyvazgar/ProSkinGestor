@@ -68,7 +68,14 @@ if (isset($_POST['login'])) {
             $_SESSION['password'] = $password;
             $_SESSION['start'] = $currentTime;
             $_SESSION['expire'] = $expireTime;
-            header('location: ../Clientes/index.php');
+            $_SESSION['userRole'] = $status;
+            $locationHeader = '../Clientes/index.php';
+            if($status == 'admin') {
+                $path = ('/../admin');      // __DIR__.'/../admin'
+                // header('location: '.$path.'');
+                $locationHeader = $path;
+            } 
+            header('location: '.$locationHeader.'');
         } else {
             $errors['email'] = "Contraseña incorrecta!";
         }
