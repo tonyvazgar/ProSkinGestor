@@ -9,6 +9,10 @@
     // $ModelProducto = new Producto();
 
     if (isset($_POST['confirmarCorteCaja'])) {
+        if (version_compare(phpversion(), '7.1', '>=')) {
+            ini_set( 'precision', 17 );
+            ini_set( 'serialize_precision', -1 );
+        }
         $fecha = mysqli_real_escape_string($con, $_POST['diaCorteCaja']);
         $timestamp = mysqli_real_escape_string($con, $_POST['timestamp']); //
         $efectivo = mysqli_real_escape_string($con, $_POST['total_efectivo']);
@@ -51,6 +55,7 @@
         $id_documento = intval($ModelUsuario -> numeroReportesFromSucursal($id_sucursal)) + 1;
 
         $sumaGeneralMetodos = floatval($tdc) + floatval($tdd) + floatval($transferencia) + floatval($deposito) + floatval($cheque) + floatval($efectivo);
+        $sumaGeneralMetodos = number_format($sumaGeneralMetodos,2);
 
         if($num_efectivo == 0 && $num_tdc == 0 && $num_tdd == 0 && $num_transferencia == 0 && $num_deposito == 0 && $num_cheque == 0 && empty($temp_nombres_gasto) && empty($temp_total_gasto)){
             $observaciones = "NO HUBO MOVIMIENTOS EN EL DIA \n" . $observaciones;

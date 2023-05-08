@@ -162,6 +162,10 @@ function diferenciaFechas($fechaUno, $fechaDos){
 
 function cierreCajaDiaAnterior($ModeloUsuario, $idCosmetologa, $date_time, $numeroSucursal, $dias) {
     require_once "../../Controller/Usuario/Util/generadorPDF.php";
+    if (version_compare(phpversion(), '7.1', '>=')) {
+        ini_set( 'precision', 17 );
+        ini_set( 'serialize_precision', -1 );
+    }
     
     $date_time -> modify('-'.($dias).' days');
     $fecha_a_verificar = $date_time->format('Y-m-d');
@@ -214,6 +218,7 @@ function cierreCajaDiaAnterior($ModeloUsuario, $idCosmetologa, $date_time, $nume
         $id_documento = intval($ModeloUsuario -> numeroReportesFromSucursal($numeroSucursal)) + 1;
 
         $sumaGeneralMetodos = floatval($tdc) + floatval($tdd) + floatval($transferencia) + floatval($deposito) + floatval($cheque) + floatval($efectivo);
+        $sumaGeneralMetodos = number_format($sumaGeneralMetodos,2);
 
 
         if ($ModeloUsuario->insertIntoCierreCaja($timestamp, $numeroSucursal, $numTotalVentasDia, $id_cosmetologa, $id_documento, $id_corte_caja, $sumaGeneralMetodos, '0', $sumaGeneralMetodos, $nombre_archivo, $observaciones, json_encode([$num_efectivo, $efectivo]), json_encode([$num_tdc, $tdc]), json_encode([$num_tdd, $tdd]), json_encode([$num_transferencia, $transferencia]), json_encode([$num_deposito, $deposito]), json_encode([$num_cheque, $cheque]), json_encode(['', '']))){

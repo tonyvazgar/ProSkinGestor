@@ -101,7 +101,7 @@
                   </td>
                   <td>
                     <h3>Cliente</h3>
-                    <p class="lead"><?php echo $divisionProductosTratamientos['nombre'];?> </p>
+                    <p class="lead"><?php echo  "<a href='../Clientes/informacionCliente.php?id=".$divisionProductosTratamientos['id_cliente']."'>".$divisionProductosTratamientos['nombre']."</a>";?></a></p>
                   </td>
                 </tr>
               </tbody>

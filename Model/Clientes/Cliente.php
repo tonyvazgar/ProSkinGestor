@@ -143,7 +143,8 @@
                                 FROM `Cliente` 
                                 WHERE BINARY nombre_cliente LIKE '%$nombre%' 
                                 OR BINARY apellidos_cliente LIKE '%$nombre%' 
-                                OR ( BINARY CONCAT( Cliente.nombre_cliente, ' ', Cliente.apellidos_cliente ) LIKE '%$nombre%') ) 
+                                OR ( BINARY CONCAT( Cliente.nombre_cliente, ' ', Cliente.apellidos_cliente ) LIKE '%$nombre%') 
+                                OR telefono_cliente LIKE '%$nombre%') 
                                 AS Nombre 
                                 WHERE ClienteOpcional.id_cliente = Nombre.id_cliente";
             $account = $db->query($sql_statement)->fetchAll();
