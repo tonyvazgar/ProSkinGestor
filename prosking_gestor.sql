@@ -301,17 +301,6 @@ CREATE TABLE `TratamientoPrecio2021` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userPermissions`
---
-
-CREATE TABLE `userPermissions` (
-  `id_user` int(11) NOT NULL,
-  `permission` varchar(20) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `usertable`
 --
 
@@ -469,12 +458,6 @@ ALTER TABLE `TratamientoPrecio`
 --
 ALTER TABLE `TratamientoPrecio2021`
   ADD PRIMARY KEY (`id_tratamiento`);
-
---
--- Indexes for table `userPermissions`
---
-ALTER TABLE `userPermissions`
-  ADD PRIMARY KEY (`id_user`);
 
 --
 -- Indexes for table `usertable`
