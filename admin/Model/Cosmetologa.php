@@ -2,10 +2,19 @@
     include_once  __DIR__."/Db.php";
     class Cosmetologa
     {
-        public function getAllCometologas()
+        public function getAllCometologasAsGlobalAdmin()
         {
             $db = new Db();
             $sql_statement = "SELECT usertable.*, Sucursal.nombre_sucursal FROM `usertable`, Sucursal WHERE usertable.id_sucursal_usuario=Sucursal.id_sucursal";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function getAllCometologasAsLocalAdmin($id_sucursal)
+        {
+            $db = new Db();
+            $sql_statement = "SELECT usertable.*, Sucursal.nombre_sucursal FROM `usertable`, Sucursal WHERE usertable.id_sucursal_usuario=Sucursal.id_sucursal AND usertable.id_sucursal_usuario='$id_sucursal'";
             $account = $db->query($sql_statement)->fetchAll();
             $db->close();
             return $account;

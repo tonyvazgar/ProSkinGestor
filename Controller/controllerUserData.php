@@ -64,11 +64,15 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $fetch_pass)) {
             $_SESSION['email'] = $email;
             $status = $fetch['status'];
+            $permission = $fetch['code'];
+            $userSucursal = $fetch['id_sucursal_usuario'];
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $password;
             $_SESSION['start'] = $currentTime;
             $_SESSION['expire'] = $expireTime;
             $_SESSION['userRole'] = $status;
+            $_SESSION['userPermission'] = $permission;
+            $_SESSION['userSucursal'] = $userSucursal;
             $locationHeader = '../Clientes/index.php';
             if($status == 'admin') {
                 $path = ('/../admin');      // __DIR__.'/../admin'

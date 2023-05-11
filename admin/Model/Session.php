@@ -10,5 +10,12 @@
                 header('Location: ../../View/login/');
             }
         }
+        public function getSucursalFromSession() {
+            return $_SESSION['userSucursal'];;
+        }
+
+        public function isAdminGlobal() {
+            return $_SESSION['userPermission'] === 'global';
+        }
     }
 ?>

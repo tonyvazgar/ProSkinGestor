@@ -2,9 +2,18 @@
     include_once "./components/header.php";
     include_once './Model/Cosmetologa.php';
 
+    require_once "./Model/Session.php";
+    $Session = new Session();
+
     $ModelCosmetologa = new Cosmetologa();
-    
-    $data = $ModelCosmetologa -> getAllCometologas();
+
+    $idSucursal = $Session -> getSucursalFromSession();
+    $data = [];
+    if($Session->isAdminGlobal()) {
+        $data = $ModelCosmetologa -> getAllCometologasAsGlobalAdmin();
+    } else {
+        $data = $ModelCosmetologa -> getAllCometologasAsLocalAdmin($idSucursal);
+    }
     $sucursalesList = $ModelCosmetologa -> getAllSucursales();
 ?>
 
