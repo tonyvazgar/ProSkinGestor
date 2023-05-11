@@ -26,7 +26,7 @@
         $info_cierreCaja = $ModeloUsuario->getInformacionFromCierreCajaWhereID($_GET['id']);
 
         $fechaCorteCaja = date('d-m-Y', $info_cierreCaja['timestamp']);
-        $total_ventas = number_format($info_cierreCaja['total_ingresos'], 2);
+        $total_ventas = $info_cierreCaja['total_ingresos'];
         $total_gastos = number_format($info_cierreCaja['total_gastos'], 2);
         $total_diferencia = number_format($info_cierreCaja['total_caja'], 2);
         $efectivo_a_entregar = number_format(json_decode($info_cierreCaja['efectivo'])[1] - $total_gastos, 2);
