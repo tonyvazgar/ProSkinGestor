@@ -15,7 +15,7 @@
         $data = $ModelProducto -> getAllProductosAsLocalAdmin($idSucursal);
         // printArrayPrety($data);
     }
-    // $sucursalesList = $ModelCosmetologa -> getAllSucursales();
+    $sucursalesList = $ModelProducto -> getAllSucursales();
 ?>
     <!--INICIO del cont principal-->
     <div class="container">
@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive">
-                        <table id="tablaPersonas" class="table table-striped table-bordered table-condensed"
+                        <table id="productsTable" class="table table-striped table-bordered table-condensed"
                             style="width:100%">
                             <thead class="text-center">
                                 <tr>
@@ -74,8 +74,87 @@
             </div>
         </div>
 
-        
+        <!--Modal para CRUD-->
+        <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form id="productsForm" autocomplete="off" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group mb-3 row">
+                                <label for="product_id" class="col-sm-2 col-form-label">ID:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="product_id">
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3 row">
+                                <label for="product_brand" class="col-sm-2 col-form-label">Marca:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="product_brand">
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3 row">
+                                <label for="product_line" class="col-sm-2 col-form-label">Linea:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="product_line">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_description" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="product_description" rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_presentation" class="col-form-label">Presentación:</label>
+                                <input type="text" class="form-control" id="product_presentation">
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="product_stock" class="col-sm-2 col-form-label">Stock:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="product_stock">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="product_cost" class="col-sm-2 col-form-label">Costo:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="product_cost">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sucursal" class="col-form-label">Sucursal:</label>
+                                <select name="sucursal" id="sucursal">
+                                    <option value="">--- Selecciona una sucursal ---</option>
+                                    <?php                            
+                                    foreach($sucursalesList as $sucursal) {
+                                ?>
+                                    <option <?php echo 'value="' .$sucursal['id_sucursal'].'"'; ?>>
+                                        <?php echo $sucursal['nombre_sucursal'] ?>
+                                    </option>
+                                    <?php
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!--FIN del cont principal-->
 
-<?php require_once "components/footer.php"?>
+<?php 
+    require_once "components/footer.php";
+    echo '<!-- código propio JS -->
+    <script type="text/javascript" src="./js/Producto/main.js"></script>';
+?>

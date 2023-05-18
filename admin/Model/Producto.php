@@ -29,47 +29,46 @@
         }
 
 
-        public function getCosmetologaWhereID($id)
+        public function getProductoWhere($id_producto, $centro_producto)
         {
             $db = new Db();
-            $sql_statement = "SELECT * FROM `usertable` WHERE id='$id'";
-            $account = $db->query($sql_statement)->fetchArray();
+            $selectStatement = "SELECT * 
+                                FROM `Productos`
+                                WHERE id_producto='$id_producto' 
+                                AND centro_producto='$centro_producto'";
+            $account = $db->query($selectStatement)->fetchArray();
             $db->close();
             return $account;
         }
 
-        public function updateInfoCosmetologa($id, $nombre, $username, $password, $code, $status, $sucursal)
+        public function updateInfoProducto($id_producto, $marca_producto, $linea_producto, $descripcion_producto, $presentacion_producto, $stock_disponible_producto, $costo_unitario_producto, $centro_producto)
         {
             $db = new DB();
-            $sql_statement = "UPDATE `usertable` 
-                                SET 
-                                `name` = '$nombre',
-                                `email` = '$username',
-                                `password` = '$password',
-                                `code` = '$code',
-                                `status` = '$status',
-                                `id_sucursal_usuario` = '$sucursal'
-                                WHERE `usertable`.`id` = '$id';";
+            $sql_statement = "UPDATE `Productos`
+                                SET `id_producto` = '$id_producto', `marca_producto` = '$marca_producto', `linea_producto` = '$linea_producto', `descripcion_producto` = '$descripcion_producto', `presentacion_producto` = '$presentacion_producto', `stock_disponible_producto` = '$stock_disponible_producto', `costo_unitario_producto` = '$costo_unitario_producto', `centro_producto` = '$centro_producto' 
+                                WHERE `Productos`.`id_producto` = '$id_producto' AND `Productos`.`centro_producto` = '$centro_producto';";
             $account = $db->query($sql_statement);
             $db->close();
             return $account->affectedRows();
         }
 
-        public function insertNewCosmetologa($id_cliente, $nombre, $username, $password, $code, $status, $sucursal)
+        public function insertNewProducto($id_producto, $marca_producto, $linea_producto, $descripcion_producto, $presentacion_producto, $stock_disponible_producto, $costo_unitario_producto, $centro_producto)
         {
             $db = new DB();
-            $sql_statement = "INSERT INTO
-                            `usertable`(`name`, `email`, `password`, `code`, `status`, `id_sucursal_usuario`)
-                            VALUES
-                            ('$nombre', '$username', '$password', '$code', '$status', '$sucursal')";
+            $sql_statement = "INSERT INTO 
+                                `Productos`(`id_producto`, `marca_producto`, `linea_producto`, `descripcion_producto`, `presentacion_producto`, `stock_disponible_producto`, `costo_unitario_producto`, `centro_producto`) 
+                                VALUES 
+                                ('$id_producto', '$marca_producto', '$linea_producto', '$descripcion_producto', '$presentacion_producto', '$stock_disponible_producto', '$costo_unitario_producto', '$centro_producto')";
             $query = $db->query($sql_statement);
+
+            $selectStatement = "SELECT * 
+                                FROM `Productos`
+                                WHERE id_producto='$id_producto' 
+                                AND centro_producto='$centro_producto'";
+
+            $account = $db->query($selectStatement)->fetchArray();
             $db->close();
-            return $query->affectedRows();
-        }
-
-        public function deleteCosmetologa($username)
-        {
-
+            return $account;
         }
     }
     function printArrayPrety($array){
