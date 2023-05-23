@@ -27,7 +27,7 @@ $(document).ready(function () {
     });
 
     $("#btnNuevo").click(function () {
-        $("#productsForm").trigger("reset");
+        $("#tratamientosForm").trigger("reset");
         $(".modal-header").css("background-color", "#f7d9d9");
         $(".modal-header").css("color", "white");
         $(".modal-title").text("Nuevo tratamiento");
@@ -86,22 +86,20 @@ $(document).ready(function () {
         }
     });
 
-    $("#productsForm").submit(function (e) {
+    $("#tratamientosForm").submit(function (e) {
         e.preventDefault();
-        product_id = $.trim($("#product_id").val());
-        product_brand = $.trim($("#product_brand").val());
-        product_line = $.trim($("#product_line").val());
-        product_description = $.trim($("#product_description").val());
-        product_presentation = $.trim($("#product_presentation").val());
-        product_stock = $.trim($("#product_stock").val());
-        product_cost = $.trim($("#product_cost").val());
-        product_sucursal = $.trim($("#sucursal").val());
-        const data = { product_id, product_brand, product_line, product_description, product_presentation, product_stock, product_cost, product_sucursal, opcion };
+        tratamiento_id = $.trim($("#tratamiento_id").val());
+        tratamiento_name = $.trim($("#tratamiento_name").val());
+        tratamiento_price = $.trim($("#tratamiento_price").val());
+        tratamiento_duration = $.trim($("#tratamiento_duration").val());
+        tratamiento_consentimiento = $.trim($("#tratamiento_consentimiento").val());
         
-        console.log("🚀 ~ file: main.js:97 ~ data:", data)
+        const data = { tratamiento_id, tratamiento_name, tratamiento_price, tratamiento_duration, tratamiento_consentimiento, opcion };
+        
+        console.log("🚀 ~ file: main.js:97 ~ data:", JSON.stringify(data))
 
         $.ajax({
-            url: "bd/Producto.php",
+            url: "bd/Tratamiento.php",
             type: "POST",
             dataType: "json",
             data,

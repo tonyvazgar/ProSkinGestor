@@ -74,7 +74,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                     </div>
-                    <form id="productsForm" autocomplete="off" method="POST">
+                    <form id="tratamientosForm" autocomplete="off" method="POST">
                         <div class="modal-body">
                             <div class="form-group mb-3 row">
                                 <label for="tratamiento_id" class="col-sm-2 col-form-label">ID:</label>
