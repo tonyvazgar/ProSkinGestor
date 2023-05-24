@@ -73,7 +73,20 @@
                                     AND Cliente.id_cliente=ClienteStatus.id_cliente 
                                     AND Cliente.centro_cliente='$id_sucursal'
                                     AND ClienteOpcional.fecha_cliente LIKE '%$date%'
-                                    ORDER by Cliente.nombre_cliente ASC")->fetchAll();
+                                    ORDER by ClienteOpcional.fecha_cliente DESC")->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+        public function getNewClientsOfMonth($id_sucursal){
+            $db = new DB();
+            $primerDia = date('Y-m-01 00:00:00'); // Primer día del mes actual
+            $ultimoDia = date('Y-m-t 23:59:59'); // Último día del mes actual
+            
+            $primerDiaTimestamp = strtotime($primerDia);
+            $ultimoDiaTimestamp = strtotime($ultimoDia);
+            
+            $account = $db->query("SELECT * FROM `Cliente` WHERE creacion_cliente BETWEEN $primerDiaTimestamp AND $ultimoDiaTimestamp")->fetchAll();
             $db->close();
             return $account;
         }
