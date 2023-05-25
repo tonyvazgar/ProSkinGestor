@@ -70,27 +70,27 @@ $Session->verificarSesion();
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="cosmetologas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-user-alt"></i>
           <span>Cosmetologas</span></a>
       </li>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="productos.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-wine-bottle"></i>
           <span>Productos</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="tratamientos.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-bed"></i>
           <span>Trataimientos</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="sucursales.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-store-alt"></i>
           <span>Sucursales</span></a>
       </li>
 
@@ -99,14 +99,14 @@ $Session->verificarSesion();
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        Reportes
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
           aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-newspaper"></i>
           <span>Ventas</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
