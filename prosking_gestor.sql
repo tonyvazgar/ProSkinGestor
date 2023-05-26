@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2023 at 08:37 AM
+-- Generation Time: May 26, 2023 at 07:19 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -301,17 +301,6 @@ CREATE TABLE `TratamientoPrecio2021` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userPermissions`
---
-
-CREATE TABLE `userPermissions` (
-  `id_user` int(11) NOT NULL,
-  `permission` varchar(20) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `usertable`
 --
 
@@ -471,12 +460,6 @@ ALTER TABLE `TratamientoPrecio2021`
   ADD PRIMARY KEY (`id_tratamiento`);
 
 --
--- Indexes for table `userPermissions`
---
-ALTER TABLE `userPermissions`
-  ADD PRIMARY KEY (`id_user`);
-
---
 -- Indexes for table `usertable`
 --
 ALTER TABLE `usertable`
@@ -503,6 +486,12 @@ ALTER TABLE `ZonasCuerpo`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `Sucursal`
+--
+ALTER TABLE `Sucursal`
+  MODIFY `id_sucursal` int(2) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `usertable`
