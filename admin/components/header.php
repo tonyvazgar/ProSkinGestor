@@ -78,7 +78,9 @@ $Session->verificarSesion();
           <i class="fas fa-fw fa-wine-bottle"></i>
           <span>Productos</span></a>
       </li>
-
+      <?php
+        if($Session->isAdminGlobal()) {
+      ?>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="tratamientos.php">
@@ -92,6 +94,9 @@ $Session->verificarSesion();
           <i class="fas fa-fw fa-store-alt"></i>
           <span>Sucursales</span></a>
       </li>
+      <?php
+        }
+      ?>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
