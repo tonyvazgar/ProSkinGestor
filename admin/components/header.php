@@ -1,6 +1,6 @@
 <?php
 
-require_once "./Model/Session.php";
+require_once __DIR__."/../Model/Session.php";
 session_start();
 $Session = new Session();
 $Session->verificarSesion();
@@ -19,18 +19,18 @@ $Session->verificarSesion();
   <title>ProSkin - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.css" rel="stylesheet">
+  <link href="/admin/css/sb-admin-2.css" rel="stylesheet">
 
   <!--datables CSS básico-->
-  <link rel="stylesheet" type="text/css" href="vendor/datatables/datatables.min.css" />
+  <link rel="stylesheet" type="text/css" href="/admin/vendor/datatables/datatables.min.css" />
   <!--datables estilo bootstrap 4 CSS-->
-  <link rel="stylesheet" type="text/css" href="vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
 
   <script>
     window.addEventListener('load', function() {
@@ -68,13 +68,13 @@ $Session->verificarSesion();
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="cosmetologas.php">
+        <a class="nav-link" href="/admin/cosmetologas.php">
           <i class="fas fa-fw fa-user-alt"></i>
           <span>Cosmetologas</span></a>
       </li>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="productos.php">
+        <a class="nav-link" href="/admin/productos.php">
           <i class="fas fa-fw fa-wine-bottle"></i>
           <span>Productos</span></a>
       </li>
@@ -83,14 +83,14 @@ $Session->verificarSesion();
       ?>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="tratamientos.php">
+        <a class="nav-link" href="/admin/tratamientos.php">
           <i class="fas fa-fw fa-bed"></i>
           <span>Trataimientos</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="sucursales.php">
+        <a class="nav-link" href="/admin/sucursales.php">
           <i class="fas fa-fw fa-store-alt"></i>
           <span>Sucursales</span></a>
       </li>
@@ -105,6 +105,41 @@ $Session->verificarSesion();
       <div class="sidebar-heading">
         Reportes
       </div>
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin/reportes/cortecaja.php">
+          <i class="fas fa-fw fa-store-alt"></i>
+          <span>Corte de Caja</span></a>
+      </li>
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin/reportes/tratamientosaplicados.php">
+          <i class="fas fa-fw fa-store-alt"></i>
+          <span>Trataimientos Aplicados</span></a>
+      </li>
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin/reportes/registroclientes.php">
+          <i class="fas fa-fw fa-store-alt"></i>
+          <span>Registro de clientes</span></a>
+      </li>
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin/reportes/ventas.php">
+          <i class="fas fa-fw fa-store-alt"></i>
+          <span>Ventas</span></a>
+      </li>
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin/reportes/inventario.php">
+          <i class="fas fa-fw fa-store-alt"></i>
+          <span>Inventario</span></a>
+      </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
