@@ -22,7 +22,7 @@
     <div class="container">
 
         <div class="container">
-            <h1>Reporte de corte de caja</h1>
+            <h1>Reporte de ventas</h1>
         </div>
         <br>
         <form id="formFechasCorteCaja" autocomplete="off" method="POST">
