@@ -8,13 +8,6 @@
     $ModelCosmetologa = new Cosmetologa();
 
     $idSucursal = $Session -> getSucursalFromSession();
-    $data = [];
-    if($Session->isAdminGlobal()) {
-        $data = $ModelCosmetologa -> getAllCometologasAsGlobalAdmin();
-    } else {
-        $data = $ModelCosmetologa -> getAllCometologasAsLocalAdmin($idSucursal);
-    }
-    $sucursalesList = $ModelCosmetologa -> getAllSucursales();
     
 ?>
 
@@ -25,7 +18,7 @@
             <h1>Reporte de registro de clientes</h1>
         </div>
         <br>
-        <form id="formFechasCorteCaja" autocomplete="off" method="POST">
+        <form id="formFechasRegistroClienteReport" autocomplete="off" method="POST">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="startDate">Fecha Inicial</label>
@@ -50,5 +43,5 @@
 <?php 
     require_once __DIR__."/../components/footer.php";
     echo '<!-- código propio JS -->
-    <script type="text/javascript" src="/admin/js/Reportes/cortecaja.js"></script>';
+    <script type="text/javascript" src="/admin/js/Reportes/registroclientes.js"></script>';
 ?>
