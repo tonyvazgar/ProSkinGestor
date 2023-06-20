@@ -22,12 +22,12 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="startDate">Fecha Inicial</label>
-                    <input id="startDate" class="form-control" type="date" />
+                    <input id="startDate" class="form-control" type="date" required/>
                     <span id="startDateSelected"></span>
                 </div>
                 <div class="form-group">
                     <label for="endDate">Fecha Final</label>
-                    <input id="endDate" class="form-control" type="date" />
+                    <input id="endDate" class="form-control" type="date" required/>
                     <span id="endDateSelected"></span>
                 </div>
             </div>
