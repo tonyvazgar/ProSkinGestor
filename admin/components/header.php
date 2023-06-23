@@ -117,7 +117,7 @@ $Session->verificarSesion();
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/tratamientosaplicados.php">
           <i class="fas fa-fw fa-store-alt"></i>
-          <span>Trataimientos Aplicados</span></a>
+          <span>Ventas</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
@@ -131,14 +131,14 @@ $Session->verificarSesion();
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/ventas.php">
           <i class="fas fa-fw fa-store-alt"></i>
-          <span>Ventas</span></a>
+          <span>Trataimientos Aplicados</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/inventario.php">
           <i class="fas fa-fw fa-store-alt"></i>
-          <span>Inventario</span></a>
+          <span>Ventas de Inventario</span></a>
       </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
