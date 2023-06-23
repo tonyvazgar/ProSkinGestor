@@ -11,7 +11,6 @@ $('body').on('change','#aviso',function () {
     $("#otro .zonasCheckbox").each(function(i, obj) {
         $(this).find('input.check').attr('name', "zonas_cuerpo["+i+"][]");
     });
-    // verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
 });
 
 $(document).ready(function () {
