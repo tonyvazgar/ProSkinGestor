@@ -27,7 +27,7 @@ $(document).ready(function () {
                         "data": null,
                         "defaultContent": actionButtons
                     }],
-            
+
                     //Para cambiar el lenguaje a español
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros",
@@ -73,7 +73,7 @@ $(document).ready(function () {
                         "data": null,
                         "defaultContent": actionButtons
                     }],
-            
+
                     //Para cambiar el lenguaje a español
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros",
@@ -95,7 +95,7 @@ $(document).ready(function () {
         });
         $("#modalSucursal").modal("hide");
     });
-    
+
     $("#formTratamientosAplicados").submit(function (e) {
         opcion = 3; //alta
         e.preventDefault();
@@ -119,7 +119,7 @@ $(document).ready(function () {
                         "data": null,
                         "defaultContent": actionButtons
                     }],
-            
+
                     //Para cambiar el lenguaje a español
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros",
