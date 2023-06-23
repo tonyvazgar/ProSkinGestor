@@ -335,6 +335,7 @@ $('body').on('click','#selecionarProductoBtn',function () {
             let precioProducto      = parseFloat($('#total_producto_seleccionado.last_producto').val());
 
             if ($(this).is(':checked')){
+                // $("#hiddenDiv").fadeIn();
                 var total               = parseFloat((precioProducto) * 1.16);
                 total                   = isNaN(total) ? 0 : total.toFixed(2);
 
@@ -343,6 +344,7 @@ $('body').on('click','#selecionarProductoBtn',function () {
                 verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
                 actualizarTotalDeVenta();
             } else {
+                // $("#hiddenDiv").fadeOut();
                 var total               = parseFloat((precioProducto) / 1.16);
                 total                   = isNaN(total) ? 0 : total.toFixed(2);
 
@@ -359,6 +361,8 @@ $('body').on('click','#selecionarProductoBtn',function () {
     }else{
         alert("Selecciona un producto");
     }
+    console.log(id);
+    // verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
 });
 
 $(document).ready(function(){
@@ -375,6 +379,7 @@ $(document).ready(function(){
 
 $(document).on('change','#tratamiento.last_tratamiento',function () {
     recargarLista();
+    // verificacionGeneral(verificarAntesNuevoTratamiento(), verificarAntesNuevoProducto());
     $('#metodoPago option[value="7"]').remove();
     mostrarBotonPagarConDineroDeMonedero();
 });
