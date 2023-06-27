@@ -109,40 +109,40 @@ $Session->verificarSesion();
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/cortecaja.php">
-          <i class="fas fa-fw fa-store-alt"></i>
+          <i class="fas fa-fw fa-cash-register"></i>
           <span>Corte de Caja</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/tratamientosaplicados.php">
-          <i class="fas fa-fw fa-store-alt"></i>
+          <i class="fas fa-fw fa-comments-dollar"></i>
           <span>Ventas</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/registroclientes.php">
-          <i class="fas fa-fw fa-store-alt"></i>
+          <i class="fas fa-fw fa-users"></i>
           <span>Registro de clientes</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/ventas.php">
-          <i class="fas fa-fw fa-store-alt"></i>
+          <i class="fas fa-fw fa-bed"></i>
           <span>Trataimientos Aplicados</span></a>
       </li>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/inventario.php">
-          <i class="fas fa-fw fa-store-alt"></i>
+          <i class="fas fa-fw fa-shapes"></i>
           <span>Ventas de Inventario</span></a>
       </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
           aria-controls="collapseTwo">
           <i class="fas fa-fw fa-newspaper"></i>
@@ -155,7 +155,7 @@ $Session->verificarSesion();
             <a class="collapse-item" href="cards.php">Cards</a>
           </div>
         </div>
-      </li>
+      </li> -->
 
 
 
