@@ -45,8 +45,11 @@
         <div class="form-group row justify-content-center" id="data">
             
         </div>
-
-
+        <div id="chart-container">FusionCharts will render here</div>
+        <script src="/admin/vendor/charts/jquery-2.1.4.js"></script>
+        <script src="/admin/vendor/charts/fusioncharts.js"></script>
+        <script src="/admin/vendor/charts/fusioncharts.charts.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.zune.js"></script>
 <?php 
     require_once __DIR__."/../components/footer.php";
     echo '<!-- código propio JS -->

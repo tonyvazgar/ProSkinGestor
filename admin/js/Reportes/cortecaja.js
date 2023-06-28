@@ -48,5 +48,39 @@ $(document).ready(function () {
             }
         });
         $("#modalSucursal").modal("hide");
+
+        $.ajax({
+
+            url: '/admin/charts/CorteCaja/chartData.php',
+            type: "POST",
+            dataType: "json",
+            data,
+            success: function(data) {
+                chartData = data;
+                caption   = `Número de ventas por dia entre ${start_date} y ${end_date}`;
+                xAxisName = "Días";
+                yAxisName = "# ventas";
+                var chartProperties = {
+                    "caption": caption,
+                    "xAxisName": xAxisName,
+                    "yAxisName": yAxisName,
+                    "rotatevalues": "1",
+                    "theme": "zune"
+                };
+    
+                apiChart = new FusionCharts({
+                    type: 'column2d',
+                    renderAt: 'chart-container',
+                    width: '550',
+                    height: '350',
+                    dataFormat: 'json',
+                    dataSource: {
+                        "chart": chartProperties,
+                        "data": chartData
+                    }
+                });
+                apiChart.render();
+            }
+        });
     });
 });
