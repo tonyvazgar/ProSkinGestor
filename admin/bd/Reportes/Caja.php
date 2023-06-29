@@ -53,14 +53,16 @@
                                         </thead>
                                         <tbody>';                   
                                             foreach($cortes_de_caja as $dat) {
+                                                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                                                $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                                                 $data .= '<tr>
                                                     <td>'.$dat['id_corte_caja'].'</td>
-                                                    <td>'.$dat['id_centro'].'</td>
+                                                    <td>'.$dat['nombre_sucursal'].'</td>
                                                     <td>'.$dat['num_ventas_general'].'</td>
                                                     <td>'.$dat['total_ingresos'].'</td>
                                                     <td>'.$dat['total_gastos'].'</td>
                                                     <td>'.$dat['total_caja'].'</td>
-                                                    <td>'.$dat['timestamp'].'</td>
+                                                    <td>'.$fecha_cdmx_creacion.'</td>
                                                     <td>'.$dat['id_documento'].'</td>
                                                     <td>'.$dat['nombre_archivo'].'</td>
                                                     <td>'.$dat['observaciones'].'</td>

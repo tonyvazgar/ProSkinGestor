@@ -9,7 +9,7 @@
     $opcion     = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
     $start_date = (isset($_POST['start_date'])) ? $_POST['start_date'] : '';
     $end_date   = (isset($_POST['end_date'])) ? $_POST['end_date'] : '';
-    $sucursal   = (isset($_POST['sucursal'])) ? $_POST['sucursal'] : '';
+    $chart_type = (isset($_POST['type'])) ? $_POST['type'] : '';
 
     $fechaMonday = date_create_from_format('Y-m-d', $start_date);
     $monday = date_format($fechaMonday, 'Y-m-d');
@@ -19,24 +19,104 @@
     $ultimo_dia = strtotime($sunday);
 
     $cortes_de_caja = [];
-    if($Session->isAdminGlobal()) {
-        $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
-    } else {
-        $idSucursal = $Session -> getSucursalFromSession();
-        $cortes_de_caja = $ModelSucursal -> getCierresDeCajaFromCentro($idSucursal, $primer_dia, $ultimo_dia);
+    
+    if($chart_type === 'numventas') {
+        if($Session->isAdminGlobal()) {
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
+        } else {
+            $idSucursal = $Session -> getSucursalFromSession();
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCajaFromCentro($idSucursal, $primer_dia, $ultimo_dia);
+        }
+    
+        //initialize the array to store the processed data
+        $jsonArray = array();
+    
+        //check if there is any data returned by the SQL Query
+        if (sizeof($cortes_de_caja) > 0) {
+            foreach ($cortes_de_caja as $value) {
+                $jsonArrayItem = array();
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                $fecha_cdmx_creacion = date('Y-m-d', $value['timestamp']);
+                $jsonArrayItem['label'] = $fecha_cdmx_creacion;
+                $jsonArrayItem['value'] = $value['num_ventas_general'];
+                //append the above created object into the main array.
+                array_push($jsonArray, $jsonArrayItem);
+            }
+        }
+    }
+    
+    if ($chart_type === 'ingresos' ) {
+        if($Session->isAdminGlobal()) {
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
+        } else {
+            $idSucursal = $Session -> getSucursalFromSession();
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCajaFromCentro($idSucursal, $primer_dia, $ultimo_dia);
+        }
+        
+        //initialize the array to store the processed data
+        $jsonArray = array();
+    
+        //check if there is any data returned by the SQL Query
+        if (sizeof($cortes_de_caja) > 0) {
+            foreach ($cortes_de_caja as $value) {
+                $jsonArrayItem = array();
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                $fecha_cdmx_creacion = date('Y-m-d', $value['timestamp']);
+                $jsonArrayItem['label'] = $fecha_cdmx_creacion;
+                $jsonArrayItem['value'] = $value['total_ingresos'];
+                //append the above created object into the main array.
+                array_push($jsonArray, $jsonArrayItem);
+            }
+        }
     }
 
-    //initialize the array to store the processed data
-    $jsonArray = array();
+    if ($chart_type === 'gastos' ) {
+        if($Session->isAdminGlobal()) {
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
+        } else {
+            $idSucursal = $Session -> getSucursalFromSession();
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCajaFromCentro($idSucursal, $primer_dia, $ultimo_dia);
+        }
+        
+        //initialize the array to store the processed data
+        $jsonArray = array();
+    
+        //check if there is any data returned by the SQL Query
+        if (sizeof($cortes_de_caja) > 0) {
+            foreach ($cortes_de_caja as $value) {
+                $jsonArrayItem = array();
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                $fecha_cdmx_creacion = date('Y-m-d', $value['timestamp']);
+                $jsonArrayItem['label'] = $fecha_cdmx_creacion;
+                $jsonArrayItem['value'] = $value['total_gastos'];
+                //append the above created object into the main array.
+                array_push($jsonArray, $jsonArrayItem);
+            }
+        }
+    }
 
-    //check if there is any data returned by the SQL Query
-    if (sizeof($cortes_de_caja) > 0) {
-        foreach ($cortes_de_caja as $value) {
-            $jsonArrayItem = array();
-            $jsonArrayItem['label'] = $value['timestamp'];
-            $jsonArrayItem['value'] = $value['num_ventas_general'];
-            //append the above created object into the main array.
-            array_push($jsonArray, $jsonArrayItem);
+    if ($chart_type === 'caja' ) {
+        if($Session->isAdminGlobal()) {
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
+        } else {
+            $idSucursal = $Session -> getSucursalFromSession();
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCajaFromCentro($idSucursal, $primer_dia, $ultimo_dia);
+        }
+        
+        //initialize the array to store the processed data
+        $jsonArray = array();
+    
+        //check if there is any data returned by the SQL Query
+        if (sizeof($cortes_de_caja) > 0) {
+            foreach ($cortes_de_caja as $value) {
+                $jsonArrayItem = array();
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                $fecha_cdmx_creacion = date('Y-m-d', $value['timestamp']);
+                $jsonArrayItem['label'] = $fecha_cdmx_creacion;
+                $jsonArrayItem['value'] = $value['total_caja'];
+                //append the above created object into the main array.
+                array_push($jsonArray, $jsonArrayItem);
+            }
         }
     }
 

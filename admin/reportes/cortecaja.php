@@ -42,14 +42,27 @@
                 <button id="btnBuscar" type="submit" class="btn btn-success form-control" data-toggle="modal">Buscar</button>
             </div>
         </form>
+
+        <div style="width: 100%;">
+            <div style="float: left; width: 50%;" id="div-grafica-diasvsnumventas">Gráfica dias vs ventas</div>
+            <div style="float: left; width: 50%;" id="div-grafica-diasvsingresos">Gráfica dias vs ingresos</div>
+        </div>
+
+        <div style="width: 100%;">
+            <div style="float: left; width: 50%;" id="div-grafica-diasvsgastos">Gráfica dias vs gastos</div>
+            <div style="float: left; width: 50%;" id="div-grafica-diasvscaja">Gráfica dias vs caja</div>
+        </div>
+
         <div class="form-group row justify-content-center" id="data">
             
         </div>
-        <div id="chart-container">FusionCharts will render here</div>
         <script src="/admin/vendor/charts/jquery-2.1.4.js"></script>
         <script src="/admin/vendor/charts/fusioncharts.js"></script>
         <script src="/admin/vendor/charts/fusioncharts.charts.js"></script>
         <script src="/admin/vendor/charts/themes/fusioncharts.theme.zune.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.ocean.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.fint.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.carbon.js"></script>
 <?php 
     require_once __DIR__."/../components/footer.php";
     echo '<!-- código propio JS -->

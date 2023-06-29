@@ -1,9 +1,6 @@
 $(document).ready(function () {
     var actionButtons = "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btnEditar'>Editar</button></div></div>";
 
-    var fila; //capturar la fila para editar o borrar el registro
-
-
     $("#formFechasCorteCaja").submit(function (e) {
         opcion = 1; //alta
         e.preventDefault();
@@ -12,6 +9,35 @@ $(document).ready(function () {
         sucursal = $("#endDate").val();
 
         const data = { start_date, end_date, sucursal, opcion };
+
+        // Data to send to get charts
+        const dataChartDiasvsNumventas = { 
+            start_date,
+            end_date,
+            sucursal,
+            type: 'numventas'
+        };
+
+        const dataChartDiasvsIngresos  = {
+            start_date,
+            end_date,
+            sucursal,
+            type: 'ingresos'
+        };
+
+        const dataChartDiasvsGastos  = {
+            start_date,
+            end_date,
+            sucursal,
+            type: 'gastos'
+        };
+        
+        const dataChartDiasvsCaja  = {
+            start_date,
+            end_date,
+            sucursal,
+            type: 'caja'
+        };
 
         $.ajax({
             url: "/admin/bd/Reportes/Caja.php",
@@ -49,38 +75,146 @@ $(document).ready(function () {
         });
         $("#modalSucursal").modal("hide");
 
-        $.ajax({
-
-            url: '/admin/charts/CorteCaja/chartData.php',
-            type: "POST",
-            dataType: "json",
-            data,
-            success: function(data) {
-                chartData = data;
-                caption   = `Número de ventas por dia entre ${start_date} y ${end_date}`;
-                xAxisName = "Días";
-                yAxisName = "# ventas";
-                var chartProperties = {
-                    "caption": caption,
-                    "xAxisName": xAxisName,
-                    "yAxisName": yAxisName,
-                    "rotatevalues": "1",
-                    "theme": "zune"
-                };
-    
-                apiChart = new FusionCharts({
-                    type: 'column2d',
-                    renderAt: 'chart-container',
-                    width: '550',
-                    height: '350',
-                    dataFormat: 'json',
-                    dataSource: {
-                        "chart": chartProperties,
-                        "data": chartData
-                    }
-                });
-                apiChart.render();
-            }
-        });
+        drawChartDiasvsNumventas(dataChartDiasvsNumventas, `Número de ventas por dia entre ${start_date} y ${end_date}`);
+        drawChartDiasvsIngresos(dataChartDiasvsIngresos, `Ingresos por día entre ${start_date} y ${end_date}`);
+        drawChartDiasvsGastos(dataChartDiasvsGastos, `Gastos por día entre ${start_date} y ${end_date}`);
+        drawChartDiasvsCaja(dataChartDiasvsCaja, `Corte de caja por día entre ${start_date} y ${end_date}`);
     });
 });
+
+
+const drawChartDiasvsNumventas = function (data, caption) {
+    $.ajax({
+        url: '/admin/charts/CorteCaja/chartData.php',
+        type: "POST",
+        dataType: "json",
+        data,
+        success: function (data) {
+            chartData = data;
+            xAxisName = "Días";
+            yAxisName = "# ventas";
+            var chartProperties = {
+                "caption": caption,
+                "xAxisName": xAxisName,
+                "yAxisName": yAxisName,
+                "rotatevalues": "1",
+                "theme": "ocean"
+            };
+
+            apiChart = new FusionCharts({
+                type: 'column2d',
+                renderAt: 'div-grafica-diasvsnumventas',
+                width: '550',
+                height: '350',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": chartProperties,
+                    "data": chartData
+                }
+            });
+            apiChart.render();
+        }
+    });
+}
+
+const drawChartDiasvsIngresos = function (data, caption) {
+    $.ajax({
+        url: '/admin/charts/CorteCaja/chartData.php',
+        type: "POST",
+        dataType: "json",
+        data,
+        success: function (data) {
+            chartData = data;
+            xAxisName = "Días";
+            yAxisName = "$ Ingresos";
+            var chartProperties = {
+                "caption": caption,
+                "xAxisName": xAxisName,
+                "yAxisName": yAxisName,
+                "rotatevalues": "1",
+                "theme": "fint"
+            };
+
+            apiChart = new FusionCharts({
+                type: 'column2d',
+                renderAt: 'div-grafica-diasvsingresos',
+                width: '550',
+                height: '350',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": chartProperties,
+                    "data": chartData
+                }
+            });
+            apiChart.render();
+        }
+    });
+}
+
+const drawChartDiasvsGastos = function (data, caption) {
+    $.ajax({
+        url: '/admin/charts/CorteCaja/chartData.php',
+        type: "POST",
+        dataType: "json",
+        data,
+        success: function (data) {
+            chartData = data;
+            xAxisName = "Días";
+            yAxisName = "$ Gastos";
+            var chartProperties = {
+                "caption": caption,
+                "xAxisName": xAxisName,
+                "yAxisName": yAxisName,
+                "rotatevalues": "1",
+                "theme": "zune"
+            };
+
+            apiChart = new FusionCharts({
+                type: 'column2d',
+                renderAt: 'div-grafica-diasvsgastos',
+                width: '550',
+                height: '350',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": chartProperties,
+                    "data": chartData
+                }
+            });
+            apiChart.render();
+        }
+    });
+}
+
+const drawChartDiasvsCaja = function (data, caption) {
+    $.ajax({
+        url: '/admin/charts/CorteCaja/chartData.php',
+        type: "POST",
+        dataType: "json",
+        data,
+        success: function (data) {
+            chartData = data;
+            xAxisName = "Días";
+            yAxisName = "$ Caja";
+            var chartProperties = {
+                "caption": caption,
+                "xAxisName": xAxisName,
+                "yAxisName": yAxisName,
+                "rotatevalues": "1",
+                "theme": "carbon"
+            };
+
+            apiChart = new FusionCharts({
+                type: 'column2d',
+                renderAt: 'div-grafica-diasvscaja',
+                width: '550',
+                height: '350',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": chartProperties,
+                    "data": chartData
+                }
+            });
+            apiChart.render();
+        }
+    });
+}
