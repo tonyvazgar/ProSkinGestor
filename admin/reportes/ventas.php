@@ -14,7 +14,7 @@
     <div class="container">
 
         <div class="container">
-            <h1>Reporte de aplicaciones de tratamientos</h1>
+            <h1>Reporte de aplicaciones de tratamientos <i class="fas fa-fw fa-bed"></i></h1>
         </div>
         <br>
         <form id="formVentas" autocomplete="off" method="POST">

@@ -14,7 +14,7 @@
     <div class="container">
 
         <div class="container">
-            <h1>Reporte de inventario</h1>
+            <h1>Reporte de inventario <i class="fas fa-fw fa-shapes"></i></h1>
         </div>
         <br>
         <form id="formVentasInventario" autocomplete="off" method="POST">

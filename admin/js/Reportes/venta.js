@@ -105,6 +105,13 @@ $(document).ready(function () {
 
         const data = { start_date, end_date, sucursal, opcion };
 
+        const dataChartVentasDiarias = {
+            start_date,
+            end_date,
+            sucursal,
+            type : 'ventas_diarias'
+        };
+
         $.ajax({
             url: "/admin/bd/Reportes/Venta.php",
             type: "POST",
@@ -140,6 +147,43 @@ $(document).ready(function () {
             }
         });
         $("#modalSucursal").modal("hide");
+
+
+        drawChartVentasDiarias(dataChartVentasDiarias, `Corte de caja por día entre ${start_date} y ${end_date}`);
     });
 
 });
+
+const drawChartVentasDiarias = function (data, caption) {
+    $.ajax({
+        url: '/admin/charts/Ventas.php',
+        type: "POST",
+        dataType: "json",
+        data,
+        success: function (data) {
+            chartData = data;
+            xAxisName = "Días";
+            yAxisName = "$ Caja";
+            var chartProperties = {
+                "caption": caption,
+                "xAxisName": xAxisName,
+                "yAxisName": yAxisName,
+                "rotatevalues": "1",
+                "theme": "carbon"
+            };
+
+            apiChart = new FusionCharts({
+                type: 'column2d',
+                renderAt: 'div-grafica-ventasdiarias',
+                width: '550',
+                height: '350',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": chartProperties,
+                    "data": chartData
+                }
+            });
+            apiChart.render();
+        }
+    });
+}

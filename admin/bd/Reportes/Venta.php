@@ -90,13 +90,12 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>ID VENTA</th>
-                                                <th>ID CLIENTE</th>
-                                                <th>ID TRATAMIENTO</th>
                                                 <th>COSMETOLOGA</th>
                                                 <th>Sucursal</th>
                                                 <th>Fecha</th>
-                                                <th>ZONA CUERPO</th>
-                                                <th>NOBRE TRATAMIENTO</th>
+                                                <th>Producto</th>
+                                                <th>Presentación</th>
+                                                <th>$ Total</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -106,13 +105,12 @@
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                                                 $data .= '<tr>
                                                     <td>'.$dat['id_venta'].'</td>
-                                                    <td>'.$dat['id_cliente'].'</td>
-                                                    <td>'.$dat['id_tratamiento'].'</td>
                                                     <td>'.$dat['id_cosmetologa'].'</td>
                                                     <td>'.$dat['centro'].'</td>
                                                     <td>'.$fecha_cdmx_creacion.'</td>
-                                                    <td>'.$dat['zona_cuerpo'].'</td>
-                                                    <td>'.$dat['nombre_tratamiento'].'</td>
+                                                    <td>'.$dat['descripcion_producto'].'</td>
+                                                    <td>'.$dat['presentacion_producto'].'</td>
+                                                    <td>'.$dat['monto'].'</td>
                                                     <td></td>
                                                 </tr>';
                                                 }

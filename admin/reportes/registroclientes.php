@@ -15,7 +15,7 @@
     <div class="container">
 
         <div class="container">
-            <h1>Reporte de registro de clientes</h1>
+            <h1>Reporte de registro de clientes <i class="fas fa-fw fa-users"></i></h1>
         </div>
         <br>
         <form id="formFechasRegistroClienteReport" autocomplete="off" method="POST">

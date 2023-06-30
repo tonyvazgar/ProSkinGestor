@@ -14,7 +14,7 @@
     <div class="container">
 
         <div class="container">
-            <h1>Reporte de ventas</h1>
+            <h1>Reporte de ventas <i class="fas fa-fw fa-comments-dollar"></i></h1>
         </div>
         <br>
         <form id="formTratamientosAplicados" autocomplete="off" method="POST">
@@ -34,11 +34,17 @@
                 <button id="btnBuscar" type="submit" class="btn btn-success form-control" data-toggle="modal">Buscar</button>
             </div>
         </form>
+        <div  id="div-grafica-ventasdiarias">Gráfica ventas diarias</div>
         <div class="form-group row justify-content-center" id="data">
             
         </div>
-
-
+        <script src="/admin/vendor/charts/jquery-2.1.4.js"></script>
+        <script src="/admin/vendor/charts/fusioncharts.js"></script>
+        <script src="/admin/vendor/charts/fusioncharts.charts.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.zune.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.ocean.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.fint.js"></script>
+        <script src="/admin/vendor/charts/themes/fusioncharts.theme.carbon.js"></script>
 <?php 
     require_once __DIR__."/../components/footer.php";
     echo '<!-- código propio JS -->
