@@ -112,6 +112,113 @@ const drawChartDiasvsNumventas = function (data, caption) {
                     "data": chartData
                 }
             });
+
+            // apiChart = new FusionCharts({
+            //     type: "mscolumn2d",
+            //     renderAt: "div-grafica-diasvsingresos",
+            //     width: "500",
+            //     height: "300",
+            //     dataFormat: "json",
+            //     dataSource: {
+            //         chart: {
+            //             caption: "Comparison of Quarterly Revenue",
+            //             subCaption: "Harry's SuperMart",
+            //             xAxisname: "Quarter",
+            //             yAxisName: "Revenues (In USD)",
+            //             numberPrefix: "$",
+            //             theme: "fusion",
+            //         },
+            //         categories: [
+            //             {
+            //                 category: [
+            //                     {
+            //                         label: "Q1",
+            //                     },
+            //                     {
+            //                         label: "Q2",
+            //                     },
+            //                     {
+            //                         label: "Q3",
+            //                     },
+            //                     {
+            //                         label: "Q4",
+            //                     },
+            //                 ],
+            //             },
+            //         ],
+            //         dataset: [
+            //             {
+            //                 seriesname: "Previous Year",
+            //                 data: [
+            //                     {
+            //                         value: "1",
+            //                     },
+            //                     {
+            //                         value: "5",
+            //                     },
+            //                     {
+            //                         value: "9",
+            //                     },
+            //                     {
+            //                         value: "10",
+            //                     },
+            //                 ],
+            //             },
+            //             {
+            //                 seriesname: "Current Year",
+            //                 data: [
+            //                     {
+            //                         value: "5",
+            //                     },
+            //                     {
+            //                         value: "6",
+            //                     },
+            //                     {
+            //                         value: "7",
+            //                     },
+            //                     {
+            //                         value: "8",
+            //                     },
+            //                 ],
+            //             },
+            //             {
+            //                 seriesname: "Previous Year",
+            //                 data: [
+            //                     {
+            //                         value: "9",
+            //                     },
+            //                     {
+            //                         value: "10",
+            //                     },
+            //                     {
+            //                         value: "11",
+            //                     },
+            //                     {
+            //                         value: "12",
+            //                     },
+            //                 ],
+            //             },
+            //             {
+            //                 seriesname: "Previous Year",
+            //                 data: [
+            //                     {
+            //                         value: "10000",
+            //                     },
+            //                     {
+            //                         value: "11500",
+            //                     },
+            //                     {
+            //                         value: "12500",
+            //                     },
+            //                     {
+            //                         value: "15000",
+            //                     },
+            //                 ],
+            //             },
+            //         ],
+            //     },
+            // });
+
             apiChart.render();
         }
     });

@@ -19,9 +19,9 @@
 ?>
 
     <!--INICIO del cont principal-->
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="container">
+        <div class="container-fluid">
             <h1>Reporte de corte de caja <i class="fas fa-fw fa-cash-register"></i></h1>
         </div>
         <br>
