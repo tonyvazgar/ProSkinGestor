@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    if($("#fifteen-days-cortecaja-widgets").length != 0) {
+        getWidgetsFifteenDaysCorteCaja();
+    }
     var actionButtons = "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btnEditar'>Editar</button></div></div>";
 
     $("#formFechasCorteCaja").submit(function (e) {
@@ -73,7 +76,7 @@ $(document).ready(function () {
                 });
             }
         });
-        $("#modalSucursal").modal("hide");
+        $("#fifteen-days-cortecaja-widgets").hide();
 
         drawChartDiasvsNumventas(dataChartDiasvsNumventas, `Número de ventas por dia entre ${start_date} y ${end_date}`);
         drawChartDiasvsIngresos(dataChartDiasvsIngresos, `Ingresos por día entre ${start_date} y ${end_date}`);
@@ -322,6 +325,49 @@ const drawChartDiasvsCaja = function (data, caption) {
                 }
             });
             apiChart.render();
+        }
+    });
+}
+
+
+const getWidgetsFifteenDaysCorteCaja = function () {
+
+    // Crear una nueva instancia de fecha
+    var fechaActual = new Date();
+
+    // Obtener los componentes de la fecha
+    var año = fechaActual.getFullYear();
+    var mes = fechaActual.getMonth() + 1; // Los meses en JavaScript son base 0, por lo que se suma 1
+    var día = fechaActual.getDate();
+
+    // Formatear los componentes en el formato Y-m-d
+    var fechaActualFormateada = año + '-' + mes.toString().padStart(2, '0') + '-' + día.toString().padStart(2, '0');
+
+    // Restar 15 días
+    fechaActual.setDate(fechaActual.getDate() - 15);
+
+    // Obtener los componentes de la fecha
+    var año = fechaActual.getFullYear();
+    var mes = fechaActual.getMonth() + 1; // Los meses en JavaScript son base 0, por lo que se suma 1
+    var día = fechaActual.getDate();
+
+    // Formatear los componentes en el formato Y-m-d
+    var fechaAnteriorFormateada = año + '-' + mes.toString().padStart(2, '0') + '-' + día.toString().padStart(2, '0');
+
+
+    const dataWidgets  = {
+        start_date: fechaActualFormateada,
+        end_date: fechaAnteriorFormateada,
+        opcion: 'widgets15days'
+    };
+
+    $.ajax({
+        url: '/admin/bd/Reportes/Caja.php',
+        type: "POST",
+        dataType: "html",
+        data: dataWidgets,
+        success: function (data) {
+            $("#fifteen-days-cortecaja-widgets").append(data);
         }
     });
 }

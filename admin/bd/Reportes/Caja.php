@@ -11,8 +11,7 @@
     $end_date   = (isset($_POST['end_date'])) ? $_POST['end_date'] : '';
     $sucursal   = (isset($_POST['sucursal'])) ? $_POST['sucursal'] : '';
 
-    switch($opcion) {
-        case 1: //Busqueda de información
+    if ($opcion == 1) {
             $fechaMonday = date_create_from_format('Y-m-d', $start_date);
             $monday = date_format($fechaMonday, 'Y-m-d');
             $fechaSunday = date_create_from_format('Y-m-d', $end_date);
@@ -190,10 +189,119 @@
                             </div>
                         </div>
                     </div>';
-            break;
-        case 2: //Update Producto
-            break;
+    }
+    if ($opcion === 'widgets15days') {
+        $fechaMonday = date_create_from_format('Y-m-d', $start_date);
+        $monday = date_format($fechaMonday, 'Y-m-d');
+        $fechaSunday = date_create_from_format('Y-m-d', $end_date);
+        $sunday = date_format($fechaSunday, 'Y-m-d');
+        $primer_dia = strtotime($monday);
+        $ultimo_dia = strtotime($sunday);
+
+        $cortes_de_caja = [];
+        if($Session->isAdminGlobal()) {
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
+        } else {
+            $idSucursal = $Session -> getSucursalFromSession();
+            $cortes_de_caja = $ModelSucursal -> getCierresDeCajaFromCentro($idSucursal, $primer_dia, $ultimo_dia);
+        }
+        $sumNumVentasPeriodo = 0;
+        $sumGananciasPeriodo = 0;
+        $sumGastosPeriodo    = 0;
+        $sumCajaPeriodo      = 0;
+
+        foreach($cortes_de_caja as $dat) {
+            $ingresos = $dat['total_ingresos'];
+            $gastos   = $dat['total_gastos'];
+            $caja     = $dat['total_caja'];
+
+            $ingresosParsed = str_replace(',', '', $ingresos);
+            $ingresosNumVal = floatval($ingresosParsed);
+
+            $gastosParsed = str_replace(',', '', $gastos);
+            $gastosNumVal = floatval($gastosParsed);
+                
+            $cajaParsed = str_replace(',', '', $caja);
+            $cajaNumVal = floatval($cajaParsed);
+
+            $sumNumVentasPeriodo += $dat['num_ventas_general'];
+            $sumGananciasPeriodo += $ingresosNumVal;
+            $sumGastosPeriodo += $gastosNumVal;
+            $sumCajaPeriodo += $cajaNumVal;
+        }
+            
+        $data = '<div class="container-fluid">
+                        <div class="row">
+                            <!-- Numero de ventas -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    # Ventas del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumNumVentasPeriodo.'</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ganancias del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    $ ingresos del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumGananciasPeriodo.'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gastos del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    $ gastos del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumGastosPeriodo.'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Caja del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    $ caja del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumCajaPeriodo.'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
     }
     echo $data;
-    $conexion = NULL;
 ?>
