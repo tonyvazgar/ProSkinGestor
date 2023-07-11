@@ -51,11 +51,6 @@ $(document).ready(function () {
                 $("#data").html(datas);
 
                 productsTable = $("#tablaPersonas").DataTable({
-                    "columnDefs": [{
-                        "targets": -1,
-                        "data": null,
-                        "defaultContent": actionButtons
-                    }],
             
                     //Para cambiar el lenguaje a español
                     "language": {
@@ -356,8 +351,8 @@ const getWidgetsFifteenDaysCorteCaja = function () {
 
 
     const dataWidgets  = {
-        start_date: fechaActualFormateada,
-        end_date: fechaAnteriorFormateada,
+        start_date: fechaAnteriorFormateada,
+        end_date: fechaActualFormateada,
         opcion: 'widgets15days'
     };
 

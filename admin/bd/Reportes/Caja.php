@@ -38,6 +38,7 @@
             $sumGananciasPeriodo = 0;
             $sumGastosPeriodo    = 0;
             $sumCajaPeriodo      = 0;
+            $cortesDeCajaCounter = 0;
 
 
             $rowsDatatable = '<tbody>';
@@ -59,6 +60,7 @@
                 $sumGananciasPeriodo += $ingresosNumVal;
                 $sumGastosPeriodo += $gastosNumVal;
                 $sumCajaPeriodo += $cajaNumVal;
+                $cortesDeCajaCounter += 1;
                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                 $rowsDatatable .= '<tr>
@@ -69,7 +71,6 @@
                     <td>'.$gastos.'</td>
                     <td>'.$caja.'</td>
                     <td>'.$fecha_cdmx_creacion.'</td>
-                    <td></td>
                 </tr>';
             }
             $rowsDatatable .= '</tbody>';
@@ -96,6 +97,24 @@
                                 </div>
                             </div>
 
+                            <!-- Cortes de caja del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    # de cortes de caja del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$cortesDeCajaCounter.'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Numero de ventas -->
                             <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card border-left-primary shadow h-100 py-2">
@@ -103,7 +122,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    # Ventas del periodo</div>
+                                                    # Ventas en cortes de caja del periodo</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumNumVentasPeriodo.'</div>
                                             </div>
                                         </div>
@@ -118,7 +137,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    $ ingresos del periodo</div>
+                                                    $ ingresos en cortes de caja del periodo</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumGananciasPeriodo.'</div>
                                             </div>
                                             <div class="col-auto">
@@ -136,7 +155,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    $ gastos del periodo</div>
+                                                    $ gastos en cortes de caja del periodo</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumGastosPeriodo.'</div>
                                             </div>
                                             <div class="col-auto">
@@ -154,7 +173,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    $ caja del periodo</div>
+                                                    $ caja del periodo en cortes de caja</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumCajaPeriodo.'</div>
                                             </div>
                                             <div class="col-auto">
@@ -180,7 +199,6 @@
                                                 <th>$ Gastos</th>
                                                 <th>$ Caja</th>
                                                 <th>Fecha</th>
-                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         '.$rowsDatatable.'
@@ -209,6 +227,7 @@
         $sumGananciasPeriodo = 0;
         $sumGastosPeriodo    = 0;
         $sumCajaPeriodo      = 0;
+        $cortesDeCajaCounter = 0;
 
         foreach($cortes_de_caja as $dat) {
             $ingresos = $dat['total_ingresos'];
@@ -228,6 +247,7 @@
             $sumGananciasPeriodo += $ingresosNumVal;
             $sumGastosPeriodo += $gastosNumVal;
             $sumCajaPeriodo += $cajaNumVal;
+            $cortesDeCajaCounter += 1;
         }
             
         $data = '<div class="container-fluid">
@@ -241,6 +261,24 @@
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                     # Ventas del periodo</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$sumNumVentasPeriodo.'</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cortes de caja del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    # de cortes de caja del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$cortesDeCajaCounter.'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
