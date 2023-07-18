@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    if($("#formTratamientosAplicados").length != 0) {
+        getWidgetsFifteenDaysVentas();
+    }
     var actionButtons = "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btnEditar'>Editar</button></div></div>";
 
     var fila; //capturar la fila para editar o borrar el registro
@@ -121,12 +124,6 @@ $(document).ready(function () {
                 $("#data").html(datas);
 
                 productsTable = $("#tablaPersonas").DataTable({
-                    "columnDefs": [{
-                        "targets": -1,
-                        "data": null,
-                        "defaultContent": actionButtons
-                    }],
-
                     //Para cambiar el lenguaje a español
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros",
@@ -146,7 +143,7 @@ $(document).ready(function () {
                 });
             }
         });
-        $("#modalSucursal").modal("hide");
+        $("#fifteen-days-cortecaja-widgets").hide();
 
 
         drawChartVentasDiarias(dataChartVentasDiarias, `Corte de caja por día entre ${start_date} y ${end_date}`);
@@ -184,6 +181,28 @@ const drawChartVentasDiarias = function (data, caption) {
                 }
             });
             apiChart.render();
+        }
+    });
+}
+
+
+const getWidgetsFifteenDaysVentas = function () {
+
+    const dates = getDatesFromToday(15);
+
+    const dataWidgets  = {
+        start_date: dates.decreasedDays,
+        end_date: dates.today,
+        opcion: 'widgets15days'
+    };
+
+    $.ajax({
+        url: '/admin/bd/Reportes/Venta.php',
+        type: "POST",
+        dataType: "html",
+        data: dataWidgets,
+        success: function (data) {
+            $("#fifteen-days-cortecaja-widgets").append(data);
         }
     });
 }

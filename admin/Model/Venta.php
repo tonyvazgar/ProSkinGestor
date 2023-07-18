@@ -164,6 +164,172 @@
             $db->close();
             return [$total, $todo];
         }
+
+        public function getNombreTratamientoWhereID($idTratamiento) {
+            $db = new DB();
+            $nombre = $db->query("SELECT Tratamiento.nombre_tratamiento 
+                                        FROM `Tratamiento`
+                                        WHERE id_tratamiento='$idTratamiento'")->fetchArray();
+            $db->close();
+            return $nombre['nombre_tratamiento'];
+        }
+
+        public function getNombreProductoWhereID($idProducto) {
+            $db = new DB();
+            $nombre = $db->query("SELECT Productos.descripcion_producto
+                                    FROM `Productos`
+                                    WHERE id_producto='$idProducto'")->fetchArray();
+            $db->close();
+            return $nombre['descripcion_producto'];
+        }
+
+        public function getNombreMetodoPagoWhereID($idMetodoPago) {
+            //TODO: Hacerlo con DB
+            if($idMetodoPago == 1) {
+                return "Efectivo";
+            }
+            if($idMetodoPago == 2) {
+                return "TDC";
+            }
+            if($idMetodoPago == 3) {
+                return "TDD";
+            }
+            if($idMetodoPago == 4) {
+                return "Transferencia";
+            }
+            if($idMetodoPago == 5) {
+                return "Cheque";
+            }
+            if($idMetodoPago == 6) {
+                return "Deposito";
+            }
+            if($idMetodoPago == 7) {
+                return "Monedero";
+            }
+        }
+
+        public function analizeVentas($ventas) {
+            $ventasRepetidas         = [];
+            $ventasPorTratamiento    = [];
+            $sumVentasPorTratamiento = [];
+            $ventasPorProducto       = [];
+            $sumVentasPorProducto    = [];
+            $ventasPorMonedero       = 0;
+            $metodoPagoCantidad      = [];
+            $montoTotal              = 0;
+            $montoTotalTratamientos  = 0;
+            $montoTotalProductos     = 0;
+            $montoTotalMonederos     = 0;
+
+            // Iterar sobre el array de ventas
+            foreach ($ventas as $venta) {
+                $monto_esta_venta = str_replace(',', '', $venta['monto']);
+                $monto_esta_venta = floatval($monto_esta_venta);
+                $montoTotal += $monto_esta_venta;
+
+                $idVenta       = $venta['id_venta'];
+                $idTratamiento = $venta['id_tratamiento'];
+                $idProductos   = $venta['id_productos'];
+
+                // Contar ventas repetidas por id_venta y sumar montos
+                if (isset($ventasRepetidas[$idVenta])) {
+                    $ventasRepetidas[$idVenta]++;
+                } else {
+                    $ventasRepetidas[$idVenta] = 1;
+                }
+
+                // Contar ventas por id_tratamiento
+                if($idTratamiento != '') {
+                    $montoTotalTratamientos += $monto_esta_venta;
+                    if (isset($sumVentasPorTratamiento[$idTratamiento])) {
+                        $sumVentasPorTratamiento[$idTratamiento] += $monto_esta_venta;
+                    } else {
+                        $sumVentasPorTratamiento[$idTratamiento] = $monto_esta_venta;
+                    }
+                }
+                if (isset($ventasPorTratamiento[$idTratamiento])) {
+                    $ventasPorTratamiento[$idTratamiento]++;
+                } else {
+                    $ventasPorTratamiento[$idTratamiento] = 1;
+                }
+
+                // Contar ventas por id_productos
+                if($idProductos != '') {
+                    $montoTotalProductos += $monto_esta_venta;
+                    if (isset($sumVentasPorProducto[$idProductos])) {
+                        $sumVentasPorProducto[$idProductos] += $monto_esta_venta;
+                    } else {
+                        $sumVentasPorProducto[$idProductos] = $monto_esta_venta;
+                    }
+                }
+                if (isset($ventasPorProducto[$idProductos])) {
+                    $ventasPorProducto[$idProductos]++;
+                } else {
+                    $ventasPorProducto[$idProductos] = 1;
+                }
+
+
+
+                if($idProductos == '' && $idTratamiento == '') {
+                    $montoTotalMonederos += $monto_esta_venta;
+                    $ventasPorMonedero += 1;
+                }
+
+
+                // Contar método de pago y sumar cantidades
+                $metodosPagoVenta = json_decode($venta['metodo_pago'], true);
+                foreach ($metodosPagoVenta as $metodoPago) {
+                    $idMetodoPago = $metodoPago[0];
+                    $cantidadMetodoPago = $metodoPago[1];
+                    if (isset($metodoPagoCantidad[$idVenta][$idMetodoPago])) {
+                        $metodoPagoCantidad[$idVenta][$idMetodoPago] = $cantidadMetodoPago;
+                    } else {
+                        $metodoPagoCantidad[$idVenta][$idMetodoPago] += $cantidadMetodoPago;
+                    }
+                }
+            }
+
+            unset($ventasPorTratamiento[""]);
+            unset($ventasPorProducto[""]);
+
+            $mtpago = [];
+
+            $totalVentas            = count($ventasRepetidas);
+            $totalVentasTratamiento = count($ventasPorTratamiento);
+            $sumVentasTratamiento   = array_sum($ventasPorTratamiento);
+            $totalVentasProducto    = count($ventasPorProducto);
+            $sumVentasProducto      = array_sum($ventasPorProducto);
+            
+            foreach ($metodoPagoCantidad as $key) {
+                foreach ($key as $k => $value) {
+                    if (isset($mtpago[$k])) {
+                        $mtpago[$k] += $value;
+                    } else {
+                        $mtpago[$k] = $value;
+                    }
+                }
+            }
+
+            $resultados = [
+                'ventas' => $ventasRepetidas,
+                'total_ventas' => $totalVentas,
+                'monto_total' => $montoTotal,
+                'ventas_por_tratamiento' => $ventasPorTratamiento,
+                'total_tratamiento' => $totalVentasTratamiento,
+                'sum_total_tratamiento' => $sumVentasTratamiento,
+                'sum_ventas_por_tratamiento' => $sumVentasPorTratamiento,
+                'monto_total_tratamiento' => $montoTotalTratamientos,
+                'ventas_por_producto' => $ventasPorProducto,
+                'total_producto' => $totalVentasProducto,
+                'sum_total_producto' => $sumVentasProducto,
+                'sum_ventas_por_producto' => $sumVentasPorProducto,
+                'monto_total_producto' => $montoTotalProductos,
+                'monto_total_monedero' => $montoTotalMonederos,
+                'sum_ventas_por_monedero' => $ventasPorMonedero,
+                'metodo_pago_cantidad' => $mtpago
+            ];
+            return $resultados;
+        }
     }
     function printArrayPrety($array){
         print("<pre>".print_r($array,true)."</pre>");

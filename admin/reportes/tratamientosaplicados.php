@@ -11,13 +11,13 @@
 ?>
 
     <!--INICIO del cont principal-->
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="container">
+        <div class="container-fluid">
             <h1>Reporte de ventas <i class="fas fa-fw fa-comments-dollar"></i></h1>
         </div>
         <br>
-        <form id="formTratamientosAplicados" autocomplete="off" method="POST">
+        <form class="container-fluid" id="formTratamientosAplicados" autocomplete="off" method="POST">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="startDate">Fecha Inicial</label>
@@ -34,6 +34,11 @@
                 <button id="btnBuscar" type="submit" class="btn btn-success form-control" data-toggle="modal">Buscar</button>
             </div>
         </form>
+
+        <div class="container-fluid" id="fifteen-days-cortecaja-widgets">
+            <h1>Últimos 15 días <i class="fas fa-fw fa-comments-dollar"></i></h1>
+        </div>
+
         <div  id="div-grafica-ventasdiarias">Gráfica ventas diarias</div>
         <div class="form-group row justify-content-center" id="data">
             

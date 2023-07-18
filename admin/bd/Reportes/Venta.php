@@ -21,8 +21,7 @@
 
     $resultFromDB = [];
 
-    switch($opcion) {
-        case 1: //Busqueda de información
+    if ($opcion == 1) {
             if($Session->isAdminGlobal()) {
                 $resultFromDB = $ModelVenta -> getAllVentasTratamiento($initalDateToSend, $lastDateToSend);
             }  else {
@@ -71,9 +70,8 @@
                             </div>
                         </div>
                     </div>';
-                    
-            break;
-        case 2: //Update Producto
+    }
+    if ($opcion == 2) {
             if($Session->isAdminGlobal()) {
                 $resultFromDB = $ModelVenta -> getAllVentasProducto($initalDateToSend, $lastDateToSend);
             }  else {
@@ -120,16 +118,226 @@
                             </div>
                         </div>
                     </div>';
-                    
-            break;
-        case 3: //Busqueda de información
+    }
+    if ($opcion == 3) {
             if($Session->isAdminGlobal()) {
                 $resultFromDB = $ModelVenta -> getTotalVentasDelDia($initalDateToSend, $lastDateToSend);
             }  else {
                 $idSucursal = $Session -> getSucursalFromSession();
                 $resultFromDB =$ModelVenta -> getTotalVentasDelDiaFromCentro($initalDateToSend, $lastDateToSend, $idSucursal);
             }
-            $data = '<div class="container">
+
+            $dataAnalized = $ModelVenta -> analizeVentas($resultFromDB);
+            printArrayPrety($dataAnalized);
+
+            $widgetsTratamientos = '';
+            $widgetsProductos    = '';
+            $widgetsMetodosPago  = '';
+
+            foreach ($dataAnalized['ventas_por_tratamiento'] as $idTratamiento => $value) {
+                $nombreTratamiento = $ModelVenta -> getNombreTratamientoWhereID($idTratamiento);
+                $brr = $dataAnalized['sum_ventas_por_tratamiento'];
+                $widgetsTratamientos .= 
+                '<!-- Numero de ventas -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreTratamiento.'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idTratamiento].'</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+
+            foreach ($dataAnalized['ventas_por_producto'] as $idProducto => $value) {
+                $nombreProducto = $ModelVenta -> getNombreProductoWhereID($idProducto);
+                $brr = $dataAnalized['sum_ventas_por_producto'];
+                $widgetsProductos .= 
+                '<!-- Numero de ventas -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreProducto.'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idProducto].'</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+
+            foreach ($dataAnalized['metodo_pago_cantidad'] as $idMetodoPago => $value) {
+                $nombreMetodoPago = $ModelVenta -> getNombreMetodoPagoWhereID($idMetodoPago);
+                $widgetsMetodosPago .= 
+                '<!-- Numero de ventas -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreMetodoPago.'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$'.$value.'</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+
+            $data .= '<div class="container-fluid">
+                            <div class="row">
+                                <!-- Numero de ventas -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        # Ventas del periodo</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_ventas'].'</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Ganancias del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        $ ingresos del periodo</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                '.$widgetsMetodosPago.'
+                                <!-- Gastos del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        # Ventas de tratamiento</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_tratamiento'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Gastos del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        $ por tratamiento</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_tratamiento'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                '.$widgetsTratamientos.'
+                                <!-- Caja del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    # Ventas de producto</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_producto'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Gastos del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        $ por producto</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_producto'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                '.$widgetsProductos.'
+                                <!-- Gastos del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        # Ventas de monedero</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['sum_ventas_por_monedero'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Gastos del periodo -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        $ por monedero</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_monedero'].'</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>';
+
+
+            $data .= '<div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
@@ -141,17 +349,9 @@
                                                 <th>ID CLIENTE</th>
                                                 <th>NOMBRE CLIENTE</th>
                                                 <th>FECHA</th>
-                                                <th>ID TRATAMIENTO</th>
-                                                <th>FORMAS DE PAGO</th>
-                                                <th>REFERENCIA PAGO</th>
                                                 <th>MONTO</th>
                                                 <th>SUCURSAL</th>
-                                                <th>COSTO TRATAMIENTO</th>
-                                                <th>PRODUCTOS</th>
-                                                <th>COSTO PRODUCTOS</th>
-                                                <th>CANTIDAD PRODUCTOS</th>
                                                 <th>COSMETOLOGA</th>
-                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>';
@@ -160,21 +360,13 @@
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                                                 
                                                 $data .= '<tr>
-                                                    <td>'.$dat['id_venta'].'</td>
+                                                    <td><a href="/View/Ventas/detalleVenta.php?idVenta='.$dat['id_venta'].'" target="_blank">'.$dat['id_venta'].'</a></td>
                                                     <td>'.$dat['id_cliente'].'</td>
                                                     <td>'.$dat['nombre_cliente'].'</td>
                                                     <td>'.$fecha_cdmx_creacion.'</td>
-                                                    <td>'.$dat['id_tratamiento'].'</td>
-                                                    <td>'.$dat['metodo_pago'].'</td>
-                                                    <td>'.$dat['referencia_pago'].'</td>
                                                     <td>'.$dat['monto'].'</td>
                                                     <td>'.$dat['nombre_sucursal'].'</td>
-                                                    <td>'.$dat['costo_tratamiento'].'</td>
-                                                    <td>'.$dat['id_productos'].'</td>
-                                                    <td>'.$dat['costo_producto'].'</td>
-                                                    <td>'.$dat['cantidad_producto'].'</td>
                                                     <td>'.$dat['nombre_cosmetologa'].'</td>
-                                                    <td></td>
                                                 </tr>';
                                                 }
                                         $data .= '</tbody>
@@ -183,9 +375,186 @@
                             </div>
                         </div>
                     </div>';
-            break;
     }
+    if ($opcion === 'widgets15days') {
+        if($Session->isAdminGlobal()) {
+            $resultFromDB = $ModelVenta -> getTotalVentasDelDia($initalDateToSend, $lastDateToSend);
+        }  else {
+            $idSucursal = $Session -> getSucursalFromSession();
+            $resultFromDB =$ModelVenta -> getTotalVentasDelDiaFromCentro($initalDateToSend, $lastDateToSend, $idSucursal);
+        }
+        $dataAnalized = $ModelVenta -> analizeVentas($resultFromDB);
 
-    echo $data; //enviar el array final en formato json a JS
-    $conexion = NULL;
+        $widgetsTratamientos = '';
+        $widgetsProductos    = '';
+        $widgetsMetodosPago  = '';
+
+        foreach ($dataAnalized['ventas_por_tratamiento'] as $idTratamiento => $value) {
+            $nombreTratamiento = $ModelVenta -> getNombreTratamientoWhereID($idTratamiento);
+            $brr = $dataAnalized['sum_ventas_por_tratamiento'];
+            $widgetsTratamientos .= 
+            '<!-- Numero de ventas -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreTratamiento.'</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idTratamiento].'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+
+        foreach ($dataAnalized['ventas_por_producto'] as $idProducto => $value) {
+            $nombreProducto = $ModelVenta -> getNombreProductoWhereID($idProducto);
+            $brr = $dataAnalized['sum_ventas_por_producto'];
+            $widgetsProductos .= 
+            '<!-- Numero de ventas -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreProducto.'</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idProducto].'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+
+        foreach ($dataAnalized['metodo_pago_cantidad'] as $idMetodoPago => $value) {
+            $nombreMetodoPago = $ModelVenta -> getNombreMetodoPagoWhereID($idMetodoPago);
+            $widgetsMetodosPago .= 
+            '<!-- Numero de ventas -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreMetodoPago.'</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$'.$value.'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+
+        $data = '<div class="container-fluid">
+                        <div class="row">
+                            <!-- Numero de ventas -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    # Ventas del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_ventas'].'</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Ganancias del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    $ ingresos del periodo</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total'].'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            '.$widgetsMetodosPago.'
+                            <!-- Gastos del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    # Ventas de tratamiento</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_tratamiento'].'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gastos del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    $ por tratamiento</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_tratamiento'].'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            '.$widgetsTratamientos.'
+                            <!-- Caja del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                # Ventas de producto</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_producto'].'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gastos del periodo -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    $ por producto</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_producto'].'</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            '.$widgetsProductos.'
+                        </div>
+                    </div>';
+    }
+    echo $data;
 ?>
