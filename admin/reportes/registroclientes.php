@@ -12,9 +12,8 @@
 ?>
 
     <!--INICIO del cont principal-->
-    <div class="container">
-
-        <div class="container">
+    <div class="container-fluid">
+        <div class="container-fluid">
             <h1>Reporte de registro de clientes <i class="fas fa-fw fa-users"></i></h1>
         </div>
         <br>

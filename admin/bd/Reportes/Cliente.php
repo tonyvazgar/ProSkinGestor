@@ -28,8 +28,11 @@
                 $cortes_de_caja =$ModelCliente -> getAllUsuariosFromIdSucursal($primer_dia, $ultimo_dia, $idSucursal);
             }
 
+            $results = $ModelCliente->analizeData($cortes_de_caja);
+
+            $data = drawWidgetsFromData($results);
             
-            $data = '<div class="container">
+            $data .= '<div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
@@ -47,7 +50,6 @@
                                                 <th>Fecha nacimiento</th>
                                                 <th>CP</th>
                                                 <th>Estado</th>
-                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>';
@@ -66,7 +68,6 @@
                                                     <td>'.$dat['fecha_cliente'].'</td>
                                                     <td>'.$dat['cp_cliente'].'</td>
                                                     <td>'.$dat['status'].'</td>
-                                                    <td></td>
                                                 </tr>';
                                                 }
                                         $data .= '</tbody>

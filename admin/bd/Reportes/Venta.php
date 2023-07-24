@@ -128,7 +128,6 @@
             }
 
             $dataAnalized = $ModelVenta -> analizeVentas($resultFromDB);
-            printArrayPrety($dataAnalized);
 
             $widgetsTratamientos = '';
             $widgetsProductos    = '';
@@ -251,7 +250,7 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                        $ por tratamiento</div>
+                                                        $ ingresos por tratamiento</div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_tratamiento'].'</div>
                                                 </div>
                                                 <div class="col-auto">
@@ -287,7 +286,7 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                        $ por producto</div>
+                                                        $ ingresos por producto</div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_producto'].'</div>
                                                 </div>
                                                 <div class="col-auto">
@@ -395,11 +394,11 @@
             $widgetsTratamientos .= 
             '<!-- Numero de ventas -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card border-left-danger shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreTratamiento.'</div>
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">'.$nombreTratamiento.'</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idTratamiento].'</div>
                             </div>
                         </div>
@@ -414,11 +413,11 @@
             $widgetsProductos .= 
             '<!-- Numero de ventas -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreProducto.'</div>
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">'.$nombreProducto.'</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idProducto].'</div>
                             </div>
                         </div>
@@ -432,11 +431,11 @@
             $widgetsMetodosPago .= 
             '<!-- Numero de ventas -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreMetodoPago.'</div>
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Ingresos pagados con '.$nombreMetodoPago.'</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">$'.$value.'</div>
                             </div>
                         </div>
@@ -470,7 +469,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    $ ingresos del periodo</div>
+                                                    $ ingresos totales del periodo</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total'].'</div>
                                             </div>
                                             <div class="col-auto">
@@ -483,16 +482,13 @@
                             '.$widgetsMetodosPago.'
                             <!-- Gastos del periodo -->
                             <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card border-left-dark shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
                                                     # Ventas de tratamiento</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['total_tratamiento'].'</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -501,12 +497,12 @@
 
                             <!-- Gastos del periodo -->
                             <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card border-left-dark shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    $ por tratamiento</div>
+                                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                                    $ ingresos por tratamiento</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_tratamiento'].'</div>
                                             </div>
                                             <div class="col-auto">
@@ -542,7 +538,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    $ por producto</div>
+                                                    $ ingresos por producto</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">'.$dataAnalized['monto_total_producto'].'</div>
                                             </div>
                                             <div class="col-auto">
