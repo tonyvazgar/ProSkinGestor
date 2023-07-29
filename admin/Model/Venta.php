@@ -5,11 +5,13 @@
         public function getAllVentasTratamiento($firtsDay, $lastDay)
         {
             $db = new DB();
-            $sql_query = "SELECT ClienteBitacora.*, Tratamiento.*, Ventas.id_venta
-                            FROM `ClienteBitacora`, usertable, Tratamiento, Ventas
-                            WHERE ClienteBitacora.id_cosmetologa=usertable.id 
+            $sql_query = "SELECT DISTINCT ClienteBitacora.*, Tratamiento.*, Ventas.id_venta , Sucursal.nombre_sucursal, Cliente.nombre_cliente, Cliente.apellidos_cliente, usertable.name
+                            FROM ClienteBitacora, usertable, Tratamiento, Ventas, Sucursal, Cliente
+                            WHERE ClienteBitacora.id_cosmetologa=usertable.id
+                            AND ClienteBitacora.id_cliente=Cliente.id_cliente
+                            AND Sucursal.id_sucursal=ClienteBitacora.centro
                             AND ClienteBitacora.timestamp=Ventas.timestamp
-                            AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento 
+                            AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento
                             AND Ventas.timestamp BETWEEN $firtsDay AND $lastDay
                             ORDER by ClienteBitacora.timestamp DESC";
             $tratamientos = $db->query($sql_query)->fetchAll();
@@ -20,11 +22,13 @@
         public function getAllVentasTratamientoFromIdSucursal($firtsDay, $lastDay, $idSucursal)
         {
             $db = new DB();
-            $tratamientos = $db->query("SELECT ClienteBitacora.*, Tratamiento.*, Ventas.id_venta
-                                        FROM `ClienteBitacora`, usertable, Tratamiento, Ventas
-                                        WHERE ClienteBitacora.id_cosmetologa=usertable.id 
+            $tratamientos = $db->query("SELECT DISTINCT ClienteBitacora.*, Tratamiento.*, Ventas.id_venta , Sucursal.nombre_sucursal, Cliente.nombre_cliente, Cliente.apellidos_cliente, usertable.name
+                                        FROM ClienteBitacora, usertable, Tratamiento, Ventas, Sucursal, Cliente
+                                        WHERE ClienteBitacora.id_cosmetologa=usertable.id
+                                        AND ClienteBitacora.id_cliente=Cliente.id_cliente
+                                        AND Sucursal.id_sucursal=ClienteBitacora.centro
                                         AND ClienteBitacora.timestamp=Ventas.timestamp
-                                        AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento 
+                                        AND Tratamiento.id_tratamiento=ClienteBitacora.id_tratamiento
                                         AND Ventas.timestamp BETWEEN $firtsDay AND $lastDay
                                         AND Ventas.centro='$idSucursal'
                                         ORDER by ClienteBitacora.timestamp DESC")->fetchAll();
@@ -35,11 +39,12 @@
         public function getAllVentasProducto($firtsDay, $lastDay)
         {
             $db = new DB();
-            $tratamientos = $db->query("SELECT Ventas.*, Productos.*
-                                        FROM usertable, Ventas, Productos
+            $tratamientos = $db->query("SELECT Ventas.*, Productos.*, usertable.name, Sucursal.nombre_sucursal
+                                        FROM usertable, Ventas, Productos, Sucursal
                                         WHERE usertable.id=Ventas.id_cosmetologa
-                                        AND Productos.centro_producto=Ventas.centro
-                                        AND Ventas.id_productos=Productos.id_producto
+                                        AND Ventas.centro = Sucursal.id_sucursal
+                                        AND Productos.centro_producto=Ventas.centro 
+                                        AND Ventas.id_productos=Productos.id_producto 
                                         AND Ventas.id_productos!=''
                                         AND Ventas.timestamp BETWEEN $firtsDay AND $lastDay
                                         ORDER by Ventas.timestamp DESC")->fetchAll();
@@ -50,21 +55,20 @@
         public function getAllVentasProductoFromIdSucursal($firtsDay, $lastDay, $idSucursal)
         {
             $db = new DB();
-            $tratamientos = $db->query("SELECT Ventas.*, Productos.*
-                                        FROM usertable, Ventas, Productos
+            $sql_query = "SELECT Ventas.*, Productos.*, usertable.name, Sucursal.nombre_sucursal
+                                        FROM usertable, Ventas, Productos, Sucursal
                                         WHERE usertable.id=Ventas.id_cosmetologa
-                                        AND Productos.centro_producto=Ventas.centro
-                                        AND Ventas.id_productos=Productos.id_producto
+                                        AND Ventas.centro = Sucursal.id_sucursal
+                                        AND Productos.centro_producto=Ventas.centro 
+                                        AND Ventas.id_productos=Productos.id_producto 
                                         AND Ventas.id_productos!=''
                                         AND Ventas.timestamp BETWEEN $firtsDay AND $lastDay
                                         AND Ventas.centro='$idSucursal'
-                                        ORDER by Ventas.timestamp DESC")->fetchAll();
+                                        ORDER by Ventas.timestamp DESC";
+            $tratamientos = $db->query($sql_query)->fetchAll();
             $db->close();
             return $tratamientos;
         }
-
-        // TODO: LLAMAR ESTAS FUNCIONES PARA QUE RETORNEN DATA CON FECHAS Y HACER LAS TABLAS
-        // TODO: ESTAS FUNCIONES SATISFACEN A LOS REPORTES DE TRATAMIENTOS APLICADOS, VENTAS E INVENTARIO
 
         public function getTotalVentasDelDia($beginOfDay, $endOfDay){
             
@@ -330,8 +334,203 @@
             ];
             return $resultados;
         }
+
+        public function analizeAplicacionesTratamiento($tratamientosFromDB) {
+            $registrosProcesados = 0;
+            $grupoTratamientos  = [];
+            $grupoCosmetologa   = [];
+            $grupoSucursal      = [];
+            $grupoFecha         = [];
+
+
+            // Agregar arreglo para almacenar los tratamientos por sucursal
+            $tratamientosPorSucursal = [];
+            $tratamientosPorCosmetologa = [];
+            $tratamientosPorfecha = [];
+            
+            foreach ($tratamientosFromDB as $aplicacion) {
+                $registrosProcesados += 1;
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                $id_tratamiento     = $aplicacion['nombre_tratamiento'];
+                $nombre_cosmetologa = $aplicacion['name'];
+                $sucursal           = $aplicacion['nombre_sucursal'];
+                $fecha              = date('Y-m-d', $aplicacion['timestamp']);
+
+                if (isset($grupoTratamientos[$id_tratamiento])) {
+                    $grupoTratamientos[$id_tratamiento]++;
+                } else {
+                    $grupoTratamientos[$id_tratamiento] = 1;
+                }
+
+                if (isset($grupoCosmetologa[$nombre_cosmetologa])) {
+                    $grupoCosmetologa[$nombre_cosmetologa]++;
+                } else {
+                    $grupoCosmetologa[$nombre_cosmetologa] = 1;
+                }
+
+                if (isset($grupoSucursal[$sucursal])) {
+                    $grupoSucursal[$sucursal]++;
+                } else {
+                    $grupoSucursal[$sucursal] = 1;
+                }
+
+                if (isset($grupoFecha[$fecha])) {
+                    $grupoFecha[$fecha]++;
+                } else {
+                    $grupoFecha[$fecha] = 1;
+                }
+
+                // Agregar los tratamientos por sucursal al arreglo tratamientosPorSucursal
+                if (!isset($tratamientosPorSucursal[$sucursal])) {
+                    $tratamientosPorSucursal[$sucursal][$id_tratamiento] = 1;
+                } else {
+                    $tratamientosPorSucursal[$sucursal][$id_tratamiento] += 1;
+                }
+
+                // Agregar los tratamientos por sucursal al arreglo tratamientosPorSucursal
+                if (!isset($tratamientosPorCosmetologa[$nombre_cosmetologa])) {
+                    $tratamientosPorCosmetologa[$nombre_cosmetologa][$id_tratamiento] = 1;
+                } else {
+                    $tratamientosPorCosmetologa[$nombre_cosmetologa][$id_tratamiento] += 1;
+                }
+
+                // Agregar los tratamientos por sucursal al arreglo tratamientosPorSucursal
+                if (!isset($tratamientosPorfecha[$fecha])) {
+                    $tratamientosPorfecha[$fecha][$id_tratamiento] = 1;
+                } else {
+                    $tratamientosPorfecha[$fecha][$id_tratamiento] += 1;
+                }
+            }
+
+            // Obtener el mayor número del array
+            $mayorNumero = max($grupoFecha);
+
+            // Obtener la llave asociada al mayor número
+            $llaveMayor = array_search($mayorNumero, $grupoFecha);
+
+            $fechaMayor = [$llaveMayor => $mayorNumero];
+
+            $result = [
+                'registrosProcesados' => $registrosProcesados,
+                'tratamientos' => $grupoTratamientos,
+                'cosmetologas' => $grupoCosmetologa,
+                'sucursales' => $grupoSucursal,
+                // 'fechas' => $grupoFecha,
+                'registor_fecha_mayor' => $fechaMayor,
+                'registros_por_sucursal' => $tratamientosPorSucursal,
+                'registros_por_cosmetologa' => $tratamientosPorCosmetologa,
+                // 'registros_por_fecha' => $tratamientosPorfecha,
+            ];
+            // printArrayPrety($result);
+            return $result;
+        }
+        
+        public function analizeVentasInventario($inventarioFromDB) {
+            
+            $registrosProcesados     = 0;
+            $montoTotal              = 0;
+            $registrosPorFecha       = [];
+            $registrosPorSucursal    = [];
+            $registrosPorProducto    = [];
+            $registrosPorCosmetologa = [];
+            $registrosPorMarca       = [];
+
+
+            foreach ($inventarioFromDB as $registro) {
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                // printArrayPrety($registro);
+
+                $monto = $registro['monto'];
+                $fecha = date('Y-m-d', $registro['timestamp']);
+                $centro = $registro['centro'];
+                $costo_producto = $registro['costo_producto'];
+                $id_cosmetologa = $registro['id_cosmetologa'];
+                $id_producto = $registro['id_producto'];
+                $marca_producto = $registro['marca_producto'];
+                $descripcion_producto = $registro['descripcion_producto'];
+                $linea_producto = $registro['linea_producto'];
+                $centro_producto = $registro['centro_producto'];
+                $name = $registro['name'];
+                $nombre_sucursal = $registro['nombre_sucursal'];
+
+
+                $registrosProcesados += 1;
+                $montoTotal += $monto;
+                if (isset($registrosPorFecha[$fecha])) {
+                    $actual = $registrosPorFecha[$fecha];
+                    $actual_sum = $actual[0];
+                    $actual_monto = $actual[1];
+                    $actual_sum += 1;
+                    $actual_monto += $monto;
+                    $registrosPorFecha[$fecha] = [$actual_sum, $actual_monto];
+                } else {
+                    $registrosPorFecha[$fecha] = [1, $monto];
+                }
+
+                if (isset($registrosPorMarca[$marca_producto])) {
+                    // $registrosPorMarca[$marca_producto]++;
+                    $actual = $registrosPorMarca[$marca_producto];
+                    $actual_sum = $actual[0];
+                    $actual_monto = $actual[1];
+                    $actual_sum += 1;
+                    $actual_monto += $monto;
+                    $registrosPorMarca[$marca_producto] = [$actual_sum, $actual_monto];
+                } else {
+                    $registrosPorMarca[$marca_producto] = [1, $monto];
+                }
+
+                if (isset($registrosPorSucursal[$nombre_sucursal])) {
+                    // $registrosPorSucursal[$nombre_sucursal]++;
+                    $actual = $registrosPorSucursal[$nombre_sucursal];
+                    $actual_sum = $actual[0];
+                    $actual_monto = $actual[1];
+                    $actual_sum += 1;
+                    $actual_monto += $monto;
+                    $registrosPorSucursal[$nombre_sucursal] = [$actual_sum, $actual_monto];
+                } else {
+                    $registrosPorSucursal[$nombre_sucursal] = [1, $monto];
+                }
+
+                if (isset($registrosPorCosmetologa[$name])) {
+                    // $registrosPorCosmetologa[$name]++;
+                    $actual = $registrosPorCosmetologa[$name];
+                    $actual_sum = $actual[0];
+                    $actual_monto = $actual[1];
+                    $actual_sum += 1;
+                    $actual_monto += $monto;
+                    $registrosPorCosmetologa[$name] = [$actual_sum, $actual_monto];
+                } else {
+                    $registrosPorCosmetologa[$name] = [1, $monto];
+                }
+
+                if (isset($registrosPorProducto[$descripcion_producto])) {
+                    // $registrosPorProducto[$descripcion_producto]++;
+                    $actual = $registrosPorProducto[$descripcion_producto];
+                    $actual_sum = $actual[0];
+                    $actual_monto = $actual[1];
+                    $actual_sum += 1;
+                    $actual_monto += $monto;
+                    $registrosPorProducto[$descripcion_producto] = [$actual_sum, $actual_monto];
+                } else {
+                    $registrosPorProducto[$descripcion_producto] = [1, $monto];
+                }
+            }
+
+            $result = [
+                'registros_procesados' => $registrosProcesados,
+                'monto_total' => $montoTotal,
+                // 'registros_por_fecha' => $registrosPorFecha,
+                'registros_por_marca' => $registrosPorMarca,
+                'registros_por_sucursal' => $registrosPorSucursal,
+                'registros_por_cosmetologa' => $registrosPorCosmetologa,
+                'registros_por_producto' => $registrosPorProducto
+            ];
+
+            return $result;
+        }
     }
     function printArrayPrety($array){
+        // print("<pre>".json_encode($array, JSON_PRETTY_PRINT)."</pre>");
         print("<pre>".print_r($array,true)."</pre>");
     }
 ?>

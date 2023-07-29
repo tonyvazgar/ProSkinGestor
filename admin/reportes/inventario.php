@@ -11,9 +11,9 @@
 ?>
 
     <!--INICIO del cont principal-->
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="container">
+        <div class="container-fluid">
             <h1>Reporte de inventario <i class="fas fa-fw fa-shapes"></i></h1>
         </div>
         <br>

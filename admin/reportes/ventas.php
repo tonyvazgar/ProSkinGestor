@@ -11,9 +11,9 @@
 ?>
 
     <!--INICIO del cont principal-->
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="container">
+        <div class="container-fluid">
             <h1>Reporte de aplicaciones de tratamientos <i class="fas fa-fw fa-bed"></i></h1>
         </div>
         <br>

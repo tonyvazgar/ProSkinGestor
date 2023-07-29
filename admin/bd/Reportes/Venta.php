@@ -28,8 +28,12 @@
                 $idSucursal = $Session -> getSucursalFromSession();
                 $resultFromDB =$ModelVenta -> getAllVentasTratamientoFromIdSucursal($initalDateToSend, $lastDateToSend, $idSucursal);
             }
+
+            $auri = $ModelVenta -> analizeAplicacionesTratamiento($resultFromDB);
+            printArrayPrety($auri);
+            // printArrayPrety($resultFromDB);
             
-            $data = '<div class="container">
+            $data = '<div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
@@ -39,29 +43,26 @@
                                             <tr>
                                                 <th>ID VENTA</th>
                                                 <th>ID CLIENTE</th>
-                                                <th>ID TRATAMIENTO</th>
+                                                <th>NOBRE TRATAMIENTO</th>
                                                 <th>COSMETOLOGA</th>
                                                 <th>Sucursal</th>
                                                 <th>Fecha</th>
                                                 <th>ZONA CUERPO</th>
-                                                <th>NOBRE TRATAMIENTO</th>
-                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>';
                                             foreach($resultFromDB as $dat) {
+                                                $idVenta = $dat['id_venta'];
                                                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                                                 $data .= '<tr>
-                                                    <td>'.$dat['id_venta'].'</td>
+                                                    <td><a href="/View/Ventas/detalleVenta.php?idVenta='.$idVenta.'" target="_blank">'.$idVenta.'</a></td>
                                                     <td>'.$dat['id_cliente'].'</td>
-                                                    <td>'.$dat['id_tratamiento'].'</td>
-                                                    <td>'.$dat['id_cosmetologa'].'</td>
-                                                    <td>'.$dat['centro'].'</td>
+                                                    <td>'.$dat['nombre_tratamiento'].'</td>
+                                                    <td>'.$dat['name'].'</td>
+                                                    <td>'.$dat['nombre_sucursal'].'</td>
                                                     <td>'.$fecha_cdmx_creacion.'</td>
                                                     <td>'.$dat['zona_cuerpo'].'</td>
-                                                    <td>'.$dat['nombre_tratamiento'].'</td>
-                                                    <td></td>
                                                 </tr>';
                                                 }
                                         $data .= '</tbody>
@@ -78,8 +79,11 @@
                 $idSucursal = $Session -> getSucursalFromSession();
                 $resultFromDB =$ModelVenta -> getAllVentasProductoFromIdSucursal($initalDateToSend, $lastDateToSend, $idSucursal);
             }
-            
-            $data = '<div class="container">
+            $dataAnalized = $ModelVenta -> analizeVentasInventario($resultFromDB);
+
+            printArrayPrety($dataAnalized);
+
+            $data = '<div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
@@ -88,28 +92,29 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>ID VENTA</th>
-                                                <th>COSMETOLOGA</th>
-                                                <th>Sucursal</th>
                                                 <th>Fecha</th>
+                                                <th>Marca</th>
                                                 <th>Producto</th>
                                                 <th>Presentación</th>
                                                 <th>$ Total</th>
-                                                <th>Acciones</th>
+                                                <th>COSMETOLOGA</th>
+                                                <th>Sucursal</th>
                                             </tr>
                                         </thead>
                                         <tbody>';
                                             foreach($resultFromDB as $dat) {
+                                                $idVenta = $dat['id_venta'];
                                                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                                                 $data .= '<tr>
-                                                    <td>'.$dat['id_venta'].'</td>
-                                                    <td>'.$dat['id_cosmetologa'].'</td>
-                                                    <td>'.$dat['centro'].'</td>
+                                                    <td><a href="/View/Ventas/detalleVenta.php?idVenta='.$idVenta.'" target="_blank">'.$idVenta.'</a></td>
                                                     <td>'.$fecha_cdmx_creacion.'</td>
+                                                    <td>'.$dat['marca_producto'].'</td>
                                                     <td>'.$dat['descripcion_producto'].'</td>
                                                     <td>'.$dat['presentacion_producto'].'</td>
                                                     <td>'.$dat['monto'].'</td>
-                                                    <td></td>
+                                                    <td>'.$dat['name'].'</td>
+                                                    <td>'.$dat['nombre_sucursal'].'</td>
                                                 </tr>';
                                                 }
                                         $data .= '</tbody>

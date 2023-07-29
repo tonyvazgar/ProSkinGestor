@@ -25,12 +25,7 @@ $(document).ready(function () {
                 $("#data").html(datas);
 
                 productsTable = $("#tablaPersonas").DataTable({
-                    "columnDefs": [{
-                        "targets": -1,
-                        "data": null,
-                        "defaultContent": actionButtons
-                    }],
-
+                    
                     //Para cambiar el lenguaje a español
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros",
@@ -71,11 +66,6 @@ $(document).ready(function () {
                 $("#data").html(datas);
 
                 productsTable = $("#tablaPersonas").DataTable({
-                    "columnDefs": [{
-                        "targets": -1,
-                        "data": null,
-                        "defaultContent": actionButtons
-                    }],
 
                     //Para cambiar el lenguaje a español
                     "language": {
