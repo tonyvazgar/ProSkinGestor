@@ -15,6 +15,33 @@
             return $account;
         }
 
+        public function getAllUsuariosParaResumen() {
+            $db = new DB();
+            $query_string = "SELECT *
+                            FROM Cliente, ClienteOpcional, ClienteStatus, Sucursal 
+                            WHERE Cliente.id_cliente=ClienteOpcional.id_cliente 
+                            AND ClienteOpcional.id_cliente=ClienteStatus.id_cliente
+                            AND Sucursal.id_sucursal=Cliente.centro_cliente";
+                            
+            $account = $db->query($query_string)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
+
+        public function getAllUsuariosFromSucursalParaResumen($idSucursal) {
+            $db = new DB();
+            $query_string = "SELECT *
+                            FROM Cliente, ClienteOpcional, ClienteStatus, Sucursal 
+                            WHERE Cliente.id_cliente=ClienteOpcional.id_cliente 
+                            AND ClienteOpcional.id_cliente=ClienteStatus.id_cliente
+                            AND Sucursal.id_sucursal=Cliente.centro_cliente
+                            AND Cliente.centro_cliente='$idSucursal'";
+                            
+            $account = $db->query($query_string)->fetchAll();
+            $db->close();
+            return $account;
+        }
 
         public function getAllUsuariosFromIdSucursal($initial_date, $end_date, $id_sucursal){
             $db = new DB();
@@ -69,6 +96,96 @@
                 'registor_fecha_mayor' => $fechaMayor
             ];
             return $resultados;
+        }
+
+        public function analizeDataForResumenClientes($data) {
+            
+            $clientesTotales = 0;
+            $clientesNuevos = 0;
+            $clientesActivos = 0;
+            $clientesInactivos = 0;
+
+            $clientesTotalesPorSucursal = [];
+            $clientesNuevosPorSucursal = [];
+            $clientesActivosPorSucursal = [];
+            $clientesInactivosPorSucursal = [];
+
+
+            foreach ($data as $unCliente) {
+                $clientesTotales += 1;
+                $clienteStatus = $unCliente['status'];
+                $clienteSucursal = $unCliente['nombre_sucursal'];
+                $clienteCreacion = $unCliente['creacion_cliente'];
+
+                date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+                $hoy = strtotime(date("Y-m-d"));
+                
+                $diferencia = $hoy - $clienteCreacion;
+                $dias = floor($diferencia / (24 * 60 * 60 )); // convert to days
+                if($dias <= 15){
+                    $clientesNuevos += 1;
+                    if (isset($clientesNuevosPorSucursal[$clienteSucursal])) {
+                        $clientesNuevosPorSucursal[$clienteSucursal]++;
+                    } else {
+                        $clientesNuevosPorSucursal[$clienteSucursal] = 1;
+                    }
+                }
+                
+                if($clienteStatus == 'inactivo'){
+                    $clientesInactivos += 1;
+                    if (isset($clientesInactivosPorSucursal[$clienteSucursal])) {
+                        $clientesInactivosPorSucursal[$clienteSucursal]++;
+                    } else {
+                        $clientesInactivosPorSucursal[$clienteSucursal] = 1;
+                    }
+                } else {
+                    $clientesActivos += 1;
+                    if (isset($clientesActivosPorSucursal[$clienteSucursal])) {
+                        $clientesActivosPorSucursal[$clienteSucursal]++;
+                    } else {
+                        $clientesActivosPorSucursal[$clienteSucursal] = 1;
+                    }
+                }
+
+                if (isset($clientesTotalesPorSucursal[$clienteSucursal])) {
+                    $clientesTotalesPorSucursal[$clienteSucursal]++;
+                } else {
+                    $clientesTotalesPorSucursal[$clienteSucursal] = 1;
+                }
+
+
+
+                // [id_cliente] => AA210825234
+                // [nombre_cliente] => ARIEL
+                // [apellidos_cliente] => AVILA
+                // [telefono_cliente] => 5584787311
+                // [tipo_numero_cliente] => 0
+                // [email_cliente] => 
+                // [centro_cliente] => 1
+                // [creacion_cliente] => 1629867600
+                // [ultima_visita_cliente] => 1667480553
+                // [aviso_privacidad_cliente] => 1
+                // [fecha_cliente] => 2021-08-25
+                // [cp_cliente] => 
+                // [id_monedero] => 
+                // [status] => inactivo
+                // [id_sucursal] => 1
+                // [nombre_sucursal] => Sonata
+                // printArrayPrety($unCliente);
+            }
+
+            $response = [
+                'clientes_totales' => $clientesTotales,
+                'clientes_nuevos' => $clientesNuevos,
+                'clientes_activos' => $clientesActivos,
+                'clientes_inactivos' => $clientesInactivos,
+                'clientes_totales_por_sucursal' => $clientesTotalesPorSucursal,
+                'clientes_activos_por_sucursal' => $clientesActivosPorSucursal,
+                'clientes_inactivos_por_sucursal' => $clientesInactivosPorSucursal,
+                'clientes_nuevos_por_sucursal' => $clientesNuevosPorSucursal
+            ];
+
+            return $response;
         }
     }
 
@@ -139,7 +256,7 @@
         return $widgets;
     }
 
-    function printArrayPrety($array){
-        print("<pre>".print_r($array,true)."</pre>");
-    }
+    // function printArrayPrety($array){
+    //     print("<pre>".print_r($array,true)."</pre>");
+    // }
 ?>

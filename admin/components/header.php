@@ -108,6 +108,13 @@ $Session->verificarSesion();
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
+        <a class="nav-link" href="/admin/reportes/resumen.php">
+          <i class="fas fa-fw fa-cash-register"></i>
+          <span>Resumen</span></a>
+      </li>
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
         <a class="nav-link" href="/admin/reportes/cortecaja.php">
           <i class="fas fa-fw fa-cash-register"></i>
           <span>Corte de Caja</span></a>

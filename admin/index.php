@@ -1,3 +1,3 @@
 <?php
-    header("Location: cosmetologas.php");
+    header("Location: reportes/resumen.php");
 ?>
