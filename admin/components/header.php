@@ -199,10 +199,7 @@ $Session->verificarSesion();
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
+              
               <!-- Dropdown - Messages -->
               <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                 aria-labelledby="searchDropdown">
@@ -224,11 +221,26 @@ $Session->verificarSesion();
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['email']; ?></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo 'Usuario: '.$_SESSION['email'];?></span>
+                <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo '| Sucursal: '.$_SESSION['userSucursalName'];?></span>
+                <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo '| Permisos: '.$_SESSION['userPermission']; ?></span>
+                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userRole']; ?></span> -->
                 <i class="fas fa-fw fa-user-alt"></i>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-item">
+                  <i class="fas fa-fw fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <?php echo $_SESSION['email'];?>
+                </div>
+                <div class="dropdown-item">
+                  <i class="fas fa-fw fa-store-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <?php echo $_SESSION['userSucursalName'];?>
+                </div>
+                <div class="dropdown-item">
+                  <i class="fas fa-fw fa-store-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <?php echo $_SESSION['userPermission'];?>
+                </div>
                 <a class="dropdown-item" href='../../View/logout.php'>
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Cerrar sesión
