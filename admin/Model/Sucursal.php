@@ -36,8 +36,8 @@
         public function insertNewSucursal($sucursal_name)
         {
             $db = new DB();
-            $sql_statement = "INSERT INTO `Sucursal`(`nombre_sucursal`)
-                                VALUES ('$sucursal_name')";
+            $sql_statement = "INSERT INTO `Sucursal` (`id_sucursal`, `nombre_sucursal`)
+                                VALUES (NULL,'$sucursal_name')";
             $query = $db->query($sql_statement);
             $db->close();
             return $query->affectedRows();
