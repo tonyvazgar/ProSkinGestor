@@ -58,7 +58,7 @@
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['creacion_cliente']);
                                                 $fecha_cdmx_visita = date('Y-m-d', $dat['ultima_visita_cliente']);
                                                 $data .= '<tr>
-                                                    <td>'.$dat['id_cliente'].'</td>
+                                                    <td><a href="/View/Clientes/informacionCliente.php?id='.$dat['id_cliente'].'" target="_blank">'.$dat['id_cliente'].'</a></td>
                                                     <td>'.$dat['nombre_cliente'].' '.$dat['apellidos_cliente'].'</td>
                                                     <td>'.$dat['telefono_cliente'].'</td>
                                                     <td>'.$dat['email_cliente'].'</td>

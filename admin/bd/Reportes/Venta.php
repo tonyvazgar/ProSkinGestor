@@ -43,6 +43,7 @@
                                             <tr>
                                                 <th>ID VENTA</th>
                                                 <th>ID CLIENTE</th>
+                                                <th>NOBRE CLIENTE</th>
                                                 <th>NOBRE TRATAMIENTO</th>
                                                 <th>COSMETOLOGA</th>
                                                 <th>Sucursal</th>
@@ -55,9 +56,11 @@
                                                 $idVenta = $dat['id_venta'];
                                                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
+                                                $nombre_cliente = $dat['nombre_cliente'] . ' '. $dat['apellidos_cliente'];
                                                 $data .= '<tr>
                                                     <td><a href="/View/Ventas/detalleVenta.php?idVenta='.$idVenta.'" target="_blank">'.$idVenta.'</a></td>
-                                                    <td>'.$dat['id_cliente'].'</td>
+                                                    <td><a href="/View/Clientes/informacionCliente.php?id='.$dat['id_cliente'].'" target="_blank">'.$dat['id_cliente'].'</a></td>
+                                                    <td>'.$nombre_cliente.'</td>
                                                     <td>'.$dat['nombre_tratamiento'].'</td>
                                                     <td>'.$dat['name'].'</td>
                                                     <td>'.$dat['nombre_sucursal'].'</td>
@@ -137,6 +140,7 @@
             $widgetsTratamientos = '';
             $widgetsProductos    = '';
             $widgetsMetodosPago  = '';
+            $widgetsProductosPorSucursal = '';
 
             foreach ($dataAnalized['ventas_por_tratamiento'] as $idTratamiento => $value) {
                 $nombreTratamiento = $ModelVenta -> getNombreTratamientoWhereID($idTratamiento);
@@ -157,7 +161,7 @@
                 </div>';
             }
 
-            foreach ($dataAnalized['ventas_por_producto'] as $idProducto => $value) {
+            foreach ($dataAnalized['ventas_deglosadas_por_producto'] as $idProducto => $value) {
                 $nombreProducto = $ModelVenta -> getNombreProductoWhereID($idProducto);
                 $brr = $dataAnalized['sum_ventas_por_producto'];
                 $widgetsProductos .= 
@@ -169,6 +173,25 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">'.$nombreProducto.'</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$idProducto].'</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+
+
+            foreach ($dataAnalized['num_ventas_producto_por_sucursal'] as $nombreSucursal => $value) {
+                $brr = $dataAnalized['sum_ventas_producto_por_sucursal'];
+                $widgetsProductosPorSucursal .= 
+                '<!-- Numero de ventas -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">PRODUCTOS VENDIDOS EN '.$nombreSucursal.'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$nombreSucursal].'</div>
                                 </div>
                             </div>
                         </div>
@@ -337,6 +360,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                '.$widgetsProductosPorSucursal.'
                             </div>
                         </div>';
 
@@ -365,7 +389,7 @@
                                                 
                                                 $data .= '<tr>
                                                     <td><a href="/View/Ventas/detalleVenta.php?idVenta='.$dat['id_venta'].'" target="_blank">'.$dat['id_venta'].'</a></td>
-                                                    <td>'.$dat['id_cliente'].'</td>
+                                                    <td><a href="/View/Clientes/informacionCliente.php?id='.$dat['id_cliente'].'" target="_blank">'.$dat['id_cliente'].'</a></td>
                                                     <td>'.$dat['nombre_cliente'].'</td>
                                                     <td>'.$fecha_cdmx_creacion.'</td>
                                                     <td>'.$dat['monto'].'</td>
@@ -412,7 +436,7 @@
             </div>';
         }
 
-        foreach ($dataAnalized['ventas_por_producto'] as $idProducto => $value) {
+        foreach ($dataAnalized['ventas_deglosadas_por_producto'] as $idProducto => $value) {
             $nombreProducto = $ModelVenta -> getNombreProductoWhereID($idProducto);
             $brr = $dataAnalized['sum_ventas_por_producto'];
             $widgetsProductos .= 
