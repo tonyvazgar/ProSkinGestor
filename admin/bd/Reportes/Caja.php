@@ -26,7 +26,8 @@
             $dias  = floor(($diff - $anos * 365*60*60*24 - $meses*30*60*60*24)/ (60*60*24));
 
             $cortes_de_caja = [];
-            if($Session->isAdminGlobal()) {
+            $is_admin = $Session->isAdminGlobal();
+            if($is_admin) {
                 $cortes_de_caja = $ModelSucursal -> getCierresDeCaja($primer_dia, $ultimo_dia);
             } else {
                 $idSucursal = $Session -> getSucursalFromSession();
@@ -46,6 +47,8 @@
                 $ingresos = $dat['total_ingresos'];
                 $gastos   = $dat['total_gastos'];
                 $caja     = $dat['total_caja'];
+                $nombre_archivo = $dat['nombre_archivo'];
+                $link = '/Documents/ReportesCierreCaja/'.$nombre_archivo;
 
                 $ingresosParsed = str_replace(',', '', $ingresos);
                 $ingresosNumVal = floatval($ingresosParsed);
@@ -64,7 +67,7 @@
                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                 $fecha_cdmx_creacion = date('Y-m-d', $dat['timestamp']);
                 $rowsDatatable .= '<tr>
-                    <td>'.$dat['id_corte_caja'].'</td>
+                    <td><a href="'.$link.'" target="_blank">'.$dat['id_corte_caja'].'</a></td>
                     <td>'.$dat['nombre_sucursal'].'</td>
                     <td>'.$dat['num_ventas_general'].'</td>
                     <td>'.$ingresos.'</td>
@@ -207,6 +210,11 @@
                             </div>
                         </div>
                     </div>';
+            if($is_admin) {
+                $data .= '<a style="text-decoration: none;" id="exportExcelCorteCaja">
+                            <button type="button" class="btn btn-success">Reporte en Excel <i class="fas fa-file-excel" style="font-size:20px;"></i></button>
+                        </a>';
+            }
     }
     if ($opcion === 'widgets15days') {
         $fechaMonday = date_create_from_format('Y-m-d', $start_date);
