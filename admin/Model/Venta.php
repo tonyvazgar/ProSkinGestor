@@ -71,17 +71,25 @@
         }
 
         public function getTotalVentasDelDia($beginOfDay, $endOfDay){
-            
             $db = new Db();
+            $sql_query_normal = "SELECT Ventas.*, NULL AS nombre_cliente, Sucursal.nombre_sucursal, usertable.name AS nombre_cosmetologa
+                                    FROM Ventas, Sucursal, usertable
+                                    WHERE Ventas.centro = Sucursal.id_sucursal AND Ventas.id_cosmetologa = usertable.id 
+                                    AND Ventas.id_cliente=''
+                                    AND Ventas.timestamp BETWEEN $beginOfDay AND $endOfDay";
+
             $sql_query = "SELECT Ventas.*, CONCAT(Cliente.nombre_cliente, ' ',Cliente.apellidos_cliente) AS nombre_cliente, Sucursal.nombre_sucursal, usertable.name AS nombre_cosmetologa
                             FROM Ventas, Cliente, Sucursal, usertable
                             WHERE Ventas.id_cliente=Cliente.id_cliente
                             AND Ventas.centro=Sucursal.id_sucursal
                             AND Ventas.id_cosmetologa=usertable.id
                             AND timestamp BETWEEN $beginOfDay AND $endOfDay";
+                            
             $tratamientos = $db->query($sql_query)->fetchAll();
+            $tratamientos_normal = $db->query($sql_query_normal)->fetchAll();
+            $resultado = array_merge($tratamientos, $tratamientos_normal);
             $db->close();
-            return $tratamientos;
+            return $resultado;
         }
         public function getTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal){
             
@@ -220,10 +228,17 @@
             $sumVentasPorProducto    = [];
             $ventasPorMonedero       = 0;
             $metodoPagoCantidad      = [];
+            $numeroVentasProductoPorSucursal = [];
+            $sumatoriaVentasProductoPorSucursal = [];
             $montoTotal              = 0;
             $montoTotalTratamientos  = 0;
             $montoTotalProductos     = 0;
             $montoTotalMonederos     = 0;
+            $sumatoriaTotalVentasPorSucursal = [];
+            $conteoVentasPorSucursal = [];
+            $conteoVentasPorCosmetologa = [];
+            $sumatoriaDineroVentasPorCosmetologa = [];
+            $ventasPorCosmetologa = [];
 
             // Iterar sobre el array de ventas
             foreach ($ventas as $venta) {
@@ -234,6 +249,9 @@
                 $idVenta       = $venta['id_venta'];
                 $idTratamiento = $venta['id_tratamiento'];
                 $idProductos   = $venta['id_productos'];
+                $idCentroVenta = $venta['centro'];
+                $nombreCentroVenta = $venta['nombre_sucursal'];
+                $nombreCosmetologa = $venta['nombre_cosmetologa'];
 
                 // Contar ventas repetidas por id_venta y sumar montos
                 if (isset($ventasRepetidas[$idVenta])) {
@@ -243,7 +261,7 @@
                 }
 
                 // Contar ventas por id_tratamiento
-                if($idTratamiento != '') {
+                if($idTratamiento != '' && $idProductos == '') {
                     $montoTotalTratamientos += $monto_esta_venta;
                     if (isset($sumVentasPorTratamiento[$idTratamiento])) {
                         $sumVentasPorTratamiento[$idTratamiento] += $monto_esta_venta;
@@ -258,12 +276,24 @@
                 }
 
                 // Contar ventas por id_productos
-                if($idProductos != '') {
+                if($idProductos != '' && $idTratamiento == '') {
                     $montoTotalProductos += $monto_esta_venta;
                     if (isset($sumVentasPorProducto[$idProductos])) {
                         $sumVentasPorProducto[$idProductos] += $monto_esta_venta;
                     } else {
                         $sumVentasPorProducto[$idProductos] = $monto_esta_venta;
+                    }
+                    
+                    if (isset($numeroVentasProductoPorSucursal[$nombreCentroVenta])) {
+                        $numeroVentasProductoPorSucursal[$nombreCentroVenta] += 1;
+                    } else {
+                        $numeroVentasProductoPorSucursal[$nombreCentroVenta] = 1;
+                    }
+
+                    if (isset($sumatoriaVentasProductoPorSucursal[$nombreCentroVenta])) {
+                        $sumatoriaVentasProductoPorSucursal[$nombreCentroVenta] += $monto_esta_venta;
+                    } else {
+                        $sumatoriaVentasProductoPorSucursal[$nombreCentroVenta] = $monto_esta_venta;
                     }
                 }
                 if (isset($ventasPorProducto[$idProductos])) {
@@ -279,6 +309,36 @@
                     $ventasPorMonedero += 1;
                 }
 
+                if (isset($conteoVentasPorSucursal[$nombreCentroVenta])) {
+                    $conteoVentasPorSucursal[$nombreCentroVenta]++;
+                } else {
+                    $conteoVentasPorSucursal[$nombreCentroVenta] = 1;
+                }
+
+                if (isset($sumatoriaTotalVentasPorSucursal[$nombreCentroVenta])) {
+                    $sumatoriaTotalVentasPorSucursal[$nombreCentroVenta] += $monto_esta_venta;
+                } else {
+                    $sumatoriaTotalVentasPorSucursal[$nombreCentroVenta] = $monto_esta_venta;
+                }
+
+                if (isset($conteoVentasPorCosmetologa[$nombreCosmetologa])) {
+                    $conteoVentasPorCosmetologa[$nombreCosmetologa]++;
+                } else {
+                    $conteoVentasPorCosmetologa[$nombreCosmetologa] = 1;
+                }
+
+                if (isset($sumatoriaDineroVentasPorCosmetologa[$nombreCosmetologa])) {
+                    $sumatoriaDineroVentasPorCosmetologa[$nombreCosmetologa] += $monto_esta_venta;
+                } else {
+                    $sumatoriaDineroVentasPorCosmetologa[$nombreCosmetologa] = $monto_esta_venta;
+                }
+                
+                
+                // if (isset($ventasPorCosmetologa[$nombreCosmetologa])) {
+                //     array_push($ventasPorCosmetologa[$nombreCosmetologa], $idVenta);
+                // } else {
+                //     $ventasPorCosmetologa[$nombreCosmetologa] = [$idVenta];
+                // }
 
                 // Contar método de pago y sumar cantidades
                 $metodosPagoVenta = json_decode($venta['metodo_pago'], true);
@@ -295,6 +355,8 @@
 
             unset($ventasPorTratamiento[""]);
             unset($ventasPorProducto[""]);
+
+            arsort($ventasPorTratamiento);
 
             $mtpago = [];
 
@@ -315,23 +377,31 @@
             }
 
             $resultados = [
-                'ventas' => $ventasRepetidas,
+                // 'ventas' => $ventasRepetidas,
                 'total_ventas' => $totalVentas,
                 'monto_total' => $montoTotal,
                 'ventas_por_tratamiento' => $ventasPorTratamiento,
-                'total_tratamiento' => $totalVentasTratamiento,
+                'total_tratamiento' => $sumVentasTratamiento,
                 'sum_total_tratamiento' => $sumVentasTratamiento,
                 'sum_ventas_por_tratamiento' => $sumVentasPorTratamiento,
                 'monto_total_tratamiento' => $montoTotalTratamientos,
-                'ventas_por_producto' => $ventasPorProducto,
+                'ventas_deglosadas_por_producto' => $ventasPorProducto,
                 'total_producto' => $totalVentasProducto,
                 'sum_total_producto' => $sumVentasProducto,
                 'sum_ventas_por_producto' => $sumVentasPorProducto,
                 'monto_total_producto' => $montoTotalProductos,
                 'monto_total_monedero' => $montoTotalMonederos,
                 'sum_ventas_por_monedero' => $ventasPorMonedero,
-                'metodo_pago_cantidad' => $mtpago
+                'metodo_pago_cantidad' => $mtpago,
+                'conteo_ventas_por_sucursal' => $conteoVentasPorSucursal,
+                'sumatoria_total_ventas_por_sucursal' => $sumatoriaTotalVentasPorSucursal,
+                'conteo_ventas_por_cosmetologa' => $conteoVentasPorCosmetologa,
+                'sumatoria_total_ventas_por_cosmetologa' => $sumatoriaDineroVentasPorCosmetologa,
+                'ventas_cosmetologa' => $ventasPorCosmetologa,
+                'num_ventas_producto_por_sucursal' => $numeroVentasProductoPorSucursal,
+                'sum_ventas_producto_por_sucursal' => $sumatoriaVentasProductoPorSucursal
             ];
+            
             return $resultados;
         }
 

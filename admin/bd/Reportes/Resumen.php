@@ -41,6 +41,7 @@
         $widgetsMetodosPago  = '';
         $widgetsVentasPorSucursal = '';
         $widgetsVentasPorCosmetologa = '';
+        $widgetsProductosPorSucursal = '';
 
         $counter_tratamientos = 0;
         foreach ($dataAnalized['ventas_por_tratamiento'] as $idTratamiento => $value) {
@@ -103,6 +104,23 @@
                 
         }
 
+        foreach ($dataAnalized['num_ventas_producto_por_sucursal'] as $nombreSucursal => $value) {
+            $brr = $dataAnalized['sum_ventas_producto_por_sucursal'];
+            $widgetsProductosPorSucursal .= 
+            '<!-- Numero de ventas -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">PRODUCTOS VENDIDOS EN '.$nombreSucursal.'</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$nombreSucursal].'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
 
         foreach ($dataAnalized['conteo_ventas_por_cosmetologa'] as $cosmetologa => $value) {
             $widgetsVentasPorCosmetologa .= 
@@ -255,6 +273,15 @@
                             '.$widgetsVentasPorSucursal.'
                         </div>
                     </div>
+
+
+                    <div class="container-fluid">
+                        <h1>Ventas de producto por sucursal</h1>
+                        <div class="row">
+                            '.$widgetsProductosPorSucursal.'
+                        </div>
+                    </div>
+                    
 
                     <div class="container-fluid">
                         <h1>Ventas por cosmetóloga</h1>
