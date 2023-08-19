@@ -187,6 +187,38 @@
 
             return $response;
         }
+
+        public function getProximaCitaFromIDCliente($id_cliente) {
+            $db = new DB();
+            $query_string = "SELECT * FROM `ClienteBitacora`
+                                WHERE id_cliente='$id_cliente'
+                                AND (id_tratamiento='DEP01' OR id_tratamiento='CAV01')
+                                ORDER BY timestamp DESC
+                                LIMIT 1";
+            $account = $db->query($query_string)->fetchArray();
+            $db->close();
+
+            $id_tratamiento = $account['id_tratamiento'];
+            $date_timestamp = $account['timestamp'];
+
+            $proxima_cita = '';
+
+
+            date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
+            $timestamp = time(); // Obtiene el timestamp actual
+
+            if($id_tratamiento == 'DEP01') {
+                $timestampDespues = strtotime("+45 days", $date_timestamp); // Suma 45 días al timestamp actual
+
+                $proxima_cita = date("Y-m-d", $timestampDespues); // Formatea el nuevo timestamp en formato Año-Mes-Día
+            } else if ($id_tratamiento == 'CAV01') {
+                $timestampDespues = strtotime("+20 days", $date_timestamp); // Suma 45 días al timestamp actual
+
+                $proxima_cita = date("Y-m-d", $timestampDespues); // Formatea el nuevo timestamp en formato Año-Mes-Día
+            }
+
+            return $proxima_cita;
+        }
     }
 
     function drawWidgetsFromData($data) {

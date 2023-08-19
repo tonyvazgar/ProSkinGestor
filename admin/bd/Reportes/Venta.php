@@ -22,7 +22,8 @@
     $resultFromDB = [];
 
     if ($opcion == 1) {
-            if($Session->isAdminGlobal()) {
+            $is_admin = $Session->isAdminGlobal();
+            if($is_admin) {
                 $resultFromDB = $ModelVenta -> getAllVentasTratamiento($initalDateToSend, $lastDateToSend);
             }  else {
                 $idSucursal = $Session -> getSucursalFromSession();
@@ -30,7 +31,7 @@
             }
 
             $auri = $ModelVenta -> analizeAplicacionesTratamiento($resultFromDB);
-            printArrayPrety($auri);
+            // printArrayPrety($auri);
             // printArrayPrety($resultFromDB);
             
             $data = '<div class="container-fluid">
@@ -74,6 +75,12 @@
                             </div>
                         </div>
                     </div>';
+
+            if($is_admin) {
+                $data .= '<a style="text-decoration: none;" id="exportExcelTratamientosAplicados">
+                            <button type="button" class="btn btn-success">Reporte en Excel <i class="fas fa-file-excel" style="font-size:20px;"></i></button>
+                        </a>';
+            }
     }
     if ($opcion == 2) {
             if($Session->isAdminGlobal()) {
@@ -128,7 +135,8 @@
                     </div>';
     }
     if ($opcion == 3) {
-            if($Session->isAdminGlobal()) {
+            $is_admin = $Session->isAdminGlobal();
+            if($is_admin) {
                 $resultFromDB = $ModelVenta -> getTotalVentasDelDia($initalDateToSend, $lastDateToSend);
             }  else {
                 $idSucursal = $Session -> getSucursalFromSession();
@@ -403,6 +411,11 @@
                             </div>
                         </div>
                     </div>';
+            if($is_admin) {
+                $data .= '<a style="text-decoration: none;" id="exportExcelVentas">
+                            <button type="button" class="btn btn-success">Reporte en Excel <i class="fas fa-file-excel" style="font-size:20px;"></i></button>
+                        </a>';
+            }
     }
     if ($opcion === 'widgets15days') {
         if($Session->isAdminGlobal()) {

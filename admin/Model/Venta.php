@@ -599,8 +599,8 @@
             return $result;
         }
     }
-    function printArrayPrety($array){
-        // print("<pre>".json_encode($array, JSON_PRETTY_PRINT)."</pre>");
-        print("<pre>".print_r($array,true)."</pre>");
-    }
+    // function printArrayPrety($array){
+    //     // print("<pre>".json_encode($array, JSON_PRETTY_PRINT)."</pre>");
+    //     print("<pre>".print_r($array,true)."</pre>");
+    // }
 ?>

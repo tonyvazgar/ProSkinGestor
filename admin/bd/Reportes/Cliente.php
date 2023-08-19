@@ -21,7 +21,8 @@
             $ultimo_dia = strtotime($sunday);
 
             $cortes_de_caja = [];
-            if($Session->isAdminGlobal()) {
+            $is_admin = $Session->isAdminGlobal();
+            if($is_admin) {
                 $cortes_de_caja = $ModelCliente -> getAllUsuarios($primer_dia, $ultimo_dia);
             } else {
                 $idSucursal = $Session -> getSucursalFromSession();
@@ -29,6 +30,7 @@
             }
 
             $results = $ModelCliente->analizeData($cortes_de_caja);
+            
 
             $data = drawWidgetsFromData($results);
             
@@ -46,7 +48,8 @@
                                                 <th>E-mail</th>
                                                 <th>Sucursal</th>
                                                 <th>Fecha Creación</th>
-                                                <th>Última visita</th>
+                                                <th>ÚLTIMA VISITA</th>
+                                                <th>PROXIMA CITA</th>
                                                 <th>Fecha nacimiento</th>
                                                 <th>CP</th>
                                                 <th>Estado</th>
@@ -57,6 +60,7 @@
                                                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['creacion_cliente']);
                                                 $fecha_cdmx_visita = date('Y-m-d', $dat['ultima_visita_cliente']);
+                                                $proxima_cita = $ModelCliente -> getProximaCitaFromIDCliente($dat['id_cliente']);
                                                 $data .= '<tr>
                                                     <td><a href="/View/Clientes/informacionCliente.php?id='.$dat['id_cliente'].'" target="_blank">'.$dat['id_cliente'].'</a></td>
                                                     <td>'.$dat['nombre_cliente'].' '.$dat['apellidos_cliente'].'</td>
@@ -65,6 +69,7 @@
                                                     <td>'.$dat['nombre_sucursal'].'</td>
                                                     <td>'.$fecha_cdmx_creacion.'</td>
                                                     <td>'.$fecha_cdmx_visita.'</td>
+                                                    <td>'.$proxima_cita.'</td>
                                                     <td>'.$dat['fecha_cliente'].'</td>
                                                     <td>'.$dat['cp_cliente'].'</td>
                                                     <td>'.$dat['status'].'</td>
@@ -76,7 +81,11 @@
                             </div>
                         </div>
                     </div>';
-                    
+            if($is_admin) {
+                $data .= '<a style="text-decoration: none;" id="exportExcelClientesRegistrados">
+                            <button type="button" class="btn btn-success">Reporte en Excel <i class="fas fa-file-excel" style="font-size:20px;"></i></button>
+                        </a>';
+            }        
             break;
         case 2: //Update Producto
             break;

@@ -45,4 +45,38 @@ $(document).ready(function () {
         });
         $("#modalSucursal").modal("hide");
     });
+
+    $("#data").on("click", "#exportExcelClientesRegistrados", function() {
+        var downloadLink = document.createElement("a");
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+
+        const data = { start_date, end_date, type: 'exportExcelClientesRegistrados' };
+        
+        
+        $.ajax({
+            url: "/admin/vendor/files/excelMaker.php",
+            type: "POST",
+            data,
+            success: function (datas) {
+                const todaysDate = new Date().toLocaleDateString('en-GB');
+                // Prepara la respuesta como un Blob para descargar el archivo
+                var blob = new Blob([datas], { type: "text/csv" });
+                var url = URL.createObjectURL(blob);
+
+                // Configura el enlace para la descarga y simula el clic
+                downloadLink.href = url;
+                downloadLink.download = `resultados_Clientes_${todaysDate}.csv`;
+                downloadLink.click();
+
+                // Limpia la URL del objeto Blob
+                URL.revokeObjectURL(url);
+
+                alert("Descarga completa 😃");
+            },
+            error: function () {
+                alert("Error al descargar el archivo Excel 😢");
+            }
+        });
+    });
 });
