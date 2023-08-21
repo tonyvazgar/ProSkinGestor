@@ -153,25 +153,6 @@
                     $clientesTotalesPorSucursal[$clienteSucursal] = 1;
                 }
 
-
-
-                // [id_cliente] => AA210825234
-                // [nombre_cliente] => ARIEL
-                // [apellidos_cliente] => AVILA
-                // [telefono_cliente] => 5584787311
-                // [tipo_numero_cliente] => 0
-                // [email_cliente] => 
-                // [centro_cliente] => 1
-                // [creacion_cliente] => 1629867600
-                // [ultima_visita_cliente] => 1667480553
-                // [aviso_privacidad_cliente] => 1
-                // [fecha_cliente] => 2021-08-25
-                // [cp_cliente] => 
-                // [id_monedero] => 
-                // [status] => inactivo
-                // [id_sucursal] => 1
-                // [nombre_sucursal] => Sonata
-                // printArrayPrety($unCliente);
             }
 
             $response = [
