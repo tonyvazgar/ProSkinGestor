@@ -83,7 +83,8 @@
             }
     }
     if ($opcion == 2) {
-            if($Session->isAdminGlobal()) {
+            $is_admin = $Session->isAdminGlobal();
+            if($is_admin) {
                 $resultFromDB = $ModelVenta -> getAllVentasProducto($initalDateToSend, $lastDateToSend);
             }  else {
                 $idSucursal = $Session -> getSucursalFromSession();
@@ -91,7 +92,7 @@
             }
             $dataAnalized = $ModelVenta -> analizeVentasInventario($resultFromDB);
 
-            printArrayPrety($dataAnalized);
+            // printArrayPrety($dataAnalized);
 
             $data = '<div class="container-fluid">
                         <div class="row">
@@ -133,6 +134,12 @@
                             </div>
                         </div>
                     </div>';
+
+            if($is_admin) {
+                $data .= '<a style="text-decoration: none;" id="exportExcelInventario">
+                            <button type="button" class="btn btn-success">Reporte en Excel <i class="fas fa-file-excel" style="font-size:20px;"></i></button>
+                        </a>';
+            }
     }
     if ($opcion == 3) {
             $is_admin = $Session->isAdminGlobal();

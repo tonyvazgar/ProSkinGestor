@@ -64,6 +64,19 @@
         $Excel -> createFile($dataFromDB);
     }
 
+    if ($tipoReporte == 'exportExcelInventario') {
+
+        $dataFromDB = [];
+        if($is_admin) {
+            $dataFromDB = $ModelVenta -> getAllVentasProducto($primer_dia, $ultimo_dia);
+        }  else {
+            $dataFromDB =$ModelVenta -> getAllVentasProductoFromIdSucursal($primer_dia, $ultimo_dia, $id_sucursal);
+            $idSucursal = $Session -> getSucursalFromSession();
+        }
+
+        $Excel -> createFile($dataFromDB);
+    }
+
     if ($tipoReporte == 'exportExcelClientesRegistrados') {
 
         $dataFromDB = [];

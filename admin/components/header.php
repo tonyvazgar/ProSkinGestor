@@ -224,6 +224,8 @@ $Session->verificarSesion();
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo 'Usuario: '.$_SESSION['email'];?></span>
                 <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo '| Sucursal: '.$_SESSION['userSucursalName'];?></span>
                 <span class="mr-2 d-lg-inline text-gray-600 small"><?php echo '| Permisos: '.$_SESSION['userPermission']; ?></span>
+                <input type="text" id="userPermission" value=<?php echo '"'.$_SESSION['userPermission'].'"'; ?> hidden>
+                <input type="text" id="userSucursal" value=<?php echo '"'.$_SESSION['userSucursal'].'"'; ?> hidden>
                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userRole']; ?></span> -->
                 <i class="fas fa-fw fa-user-alt"></i>
               </a>

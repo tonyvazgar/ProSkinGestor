@@ -126,9 +126,10 @@
                                     <input type="number" class="form-control" id="product_cost">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="sucursal" class="col-form-label">Sucursal:</label>
-                                <select name="sucursal" id="sucursal">
+                            <div class="form-group mb-3 row">
+                                <label for="sucursal" class="col-sm-2 col-form-label">Sucursal:</label>
+                                <div class="col-sm-10">
+                                <select name="sucursal" id="sucursal" class="form-control">
                                     <option value="">--- Selecciona una sucursal ---</option>
                                     <?php                            
                                     foreach($sucursalesList as $sucursal) {
@@ -140,6 +141,7 @@
                                     }
                                 ?>
                                 </select>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -156,5 +158,6 @@
 <?php 
     require_once "components/footer.php";
     echo '<!-- código propio JS -->
-    <script type="text/javascript" src="./js/Producto/main.js"></script>';
+    <script type="text/javascript" src="./js/Producto/main.js"></script>
+    <script type="text/javascript" src="/admin/js/crudProducto.js"></script>';
 ?>

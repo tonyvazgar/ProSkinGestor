@@ -85,54 +85,59 @@
                     </div>
                     <form id="formPersonas" autocomplete="off" method="POST">
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name" class="col-form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="name">
+                            <div class="form-group mb-3 row">
+                                <label for="name" class="col-sm-2 col-form-label">Nombre:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name" maxlength="20">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="username" class="col-form-label">Usuario:</label>
-                                <input type="text" class="form-control" id="username">
+                            <div class="form-group mb-3 row">
+                                <label for="username" class="col-sm-2 col-form-label">Usuario:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="username" maxlength="20">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="password" class="col-form-label">Contraseña:</label>
-                                <input type="text" class="form-control" id="password">
+                            <div class="form-group mb-3 row">
+                                <label for="password" class="col-sm-2 col-form-label">Contraseña:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="password" maxlength="20">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Tipo de usuario:</label>
-                                <select name="status" id="status">
-                                    <option value="admin">Administrador</option>
-                                    <option value="user">Cosmetologa</option>
-                                </select>
-                                <!-- <input type="radio" id="status" name="status" value="admin">
-                                <label for="status">Administrador</label>
-                                <input type="radio" id="status" name="status" value="user">
-                                <label for="status">Cosmetologa</label> -->
+                            <div class="form-group mb-3 row">
+                                <label class="col-sm-2 col-form-label">Tipo de usuario:</label>
+                                <div class="col-sm-10">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="admin">Administrador</option>
+                                        <option value="user">Cosmetologa</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Alcance:</label>
-                                <select name="code" id="code">
-                                    <option value="local">Local</option>
-                                    <option value="global">Global</option>
-                                </select>
-                                <!-- <input type="radio" id="code" name="code" value="local">
-                                <label for="code">Local</label>
-                                <input type="radio" id="code" name="code" value="global">
-                                <label for="code">Global</label> -->
+                            <div class="form-group mb-3 row">
+                                <label class="col-sm-2 col-form-label">Alcance:</label>
+                                <div class="col-sm-10">
+                                    <select name="code" id="code" class="form-control">
+                                        <option value="local">Local</option>
+                                        <option value="global">Global</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="sucursal" class="col-form-label">Sucursal:</label>
-                                <select name="sucursal" id="sucursal">
-                                    <option value="">--- Selecciona una sucursal ---</option>
-                                    <?php                            
-                                    foreach($sucursalesList as $sucursal) {
-                                ?>
-                                    <option <?php echo 'value="' .$sucursal['id_sucursal'].'"'; ?>>
-                                        <?php echo $sucursal['nombre_sucursal'] ?>
-                                    </option>
-                                    <?php
-                                    }
-                                ?>
-                                </select>
+
+                            <div class="form-group mb-3 row">
+                                <label for="sucursal" class="col-sm-2 col-form-label">Sucursal:</label>
+                                <div class="col-sm-10">
+                                    <select name="sucursal" id="sucursal" class="form-control">
+                                        <option value="">--- Selecciona una sucursal ---</option>
+                                        <?php                            
+                                            foreach($sucursalesList as $sucursal) {
+                                        ?>
+                                            <option <?php echo 'value="' .$sucursal['id_sucursal'].'"'; ?>>
+                                            <?php echo $sucursal['nombre_sucursal'] ?>
+                                            </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -146,4 +151,9 @@
     </div>
     <!--FIN del cont principal-->
 
-<?php require_once "components/footer.php"?>
+
+<?php 
+    require_once "components/footer.php";
+    echo '<!-- código propio JS -->
+    <script type="text/javascript" src="/admin/js/crudCosmetologas.js"></script>';
+?>
