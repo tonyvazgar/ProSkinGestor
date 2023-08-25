@@ -43,7 +43,7 @@ function validateEmail() {
 
 function validatePassword() {
     var pass = $("#password").val();
-    if (pass.length >= 5 && pass.length <= 8) {
+    if (pass.length >= 5 && pass.length <= 20) {
         return true;
     } else {
         return false;
