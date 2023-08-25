@@ -28,3 +28,40 @@ const getDatesFromToday = function (daysToDecrease) {
 
     return dates;
 }
+
+const donwloadExcelFile = function (data, filename) {
+
+    var downloadLink = document.createElement("a");
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+
+    $.ajax({
+        url: "/admin/vendor/files/excelMaker.php",
+        type: "POST",
+        data,
+        success: function (datas) {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const hours = String(today.getHours()).padStart(2, '0');
+            const minutes = String(today.getMinutes()).padStart(2, '0');
+            const seconds = String(today.getSeconds()).padStart(2, '0');
+            const fullDate = `${year}-${month}-${day}_${hours}.${minutes}.${seconds}`;
+
+            var blob = new Blob([datas], { type: "text/csv" });
+            var url = URL.createObjectURL(blob);
+
+            downloadLink.href = url;
+            downloadLink.download = `${filename}_${fullDate}.csv`;
+            downloadLink.click();
+
+            URL.revokeObjectURL(url);
+
+            alert("Descarga completa 😃");
+        },
+        error: function () {
+            alert("Error al descargar el archivo Excel 😢");
+        },
+    });
+};
