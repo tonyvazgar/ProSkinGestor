@@ -1,14 +1,5 @@
 <?php 
     include_once __DIR__."/../components/header.php";
-    include_once __DIR__.'/../Model/Cosmetologa.php';
-
-    require_once __DIR__."/../Model/Session.php";
-    $Session = new Session();
-
-    $ModelCosmetologa = new Cosmetologa();
-
-    $idSucursal = $Session -> getSucursalFromSession();
-    
 ?>
 
     <!--INICIO del cont principal-->

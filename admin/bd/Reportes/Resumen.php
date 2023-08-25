@@ -56,7 +56,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">'.$nombreTratamiento.'</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.number_format($brr[$idTratamiento]).'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">[#'.$value.'] Total: $'.number_format($brr[$idTratamiento]).'</div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">'.$sucursal.'</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.number_format($dataAnalized['sumatoria_total_ventas_por_sucursal'][$sucursal]).'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">[#'.$value.'] Total: $'.number_format($dataAnalized['sumatoria_total_ventas_por_sucursal'][$sucursal]).'</div>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">PRODUCTOS VENDIDOS EN '.$nombreSucursal.'</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.$brr[$nombreSucursal].'</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">[#'.$value.'] Total: $'.number_format($brr[$nombreSucursal]).'</div>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">'.$cosmetologa.'</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$value.' - $'.number_format($dataAnalized['sumatoria_total_ventas_por_cosmetologa'][$cosmetologa]).'</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">[#'.$value.'] Total: $'.number_format($dataAnalized['sumatoria_total_ventas_por_cosmetologa'][$cosmetologa]).'</div>
                                 </div>
                             </div>
                         </div>
@@ -142,6 +142,7 @@
 
 
         $data = '<div class="container-fluid">
+                            <h1>'.$initalDateWithFormat.' al '.$lastDateWithFormat.'</h1>
                             <h1>Ventas totales</h1>
                             <div class="row">
                             <!-- Numero de ventas -->

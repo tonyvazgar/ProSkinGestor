@@ -50,6 +50,8 @@
                                                 <th>Fecha Creación</th>
                                                 <th>ÚLTIMA VISITA</th>
                                                 <th>PROXIMA CITA</th>
+                                                <th>ÚLTIMO TRATAMIENTO</th>
+                                                <th>ÚLTIMA COSMETOLOGA</th>
                                                 <th>Fecha nacimiento</th>
                                                 <th>CP</th>
                                                 <th>Estado</th>
@@ -60,7 +62,11 @@
                                                 date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
                                                 $fecha_cdmx_creacion = date('Y-m-d', $dat['creacion_cliente']);
                                                 $fecha_cdmx_visita = date('Y-m-d', $dat['ultima_visita_cliente']);
-                                                $proxima_cita = $ModelCliente -> getProximaCitaFromIDCliente($dat['id_cliente']);
+                                                $datosUltimaVisita = $ModelCliente -> getDatosUltimaVisitaCliente($dat['id_cliente']);
+                                                $proxima_cita = $datosUltimaVisita['proxima_cita'];
+                                                $ultima_venta = $datosUltimaVisita['ultima_venta'];
+                                                $ultimo_tratamiento = $datosUltimaVisita['ultimo_tratamiento'];
+                                                $ultima_cosmetologa = $datosUltimaVisita['ultima_cosmetologa'];
                                                 $data .= '<tr>
                                                     <td><a href="/View/Clientes/informacionCliente.php?id='.$dat['id_cliente'].'" target="_blank">'.$dat['id_cliente'].'</a></td>
                                                     <td>'.$dat['nombre_cliente'].' '.$dat['apellidos_cliente'].'</td>
@@ -70,6 +76,8 @@
                                                     <td>'.$fecha_cdmx_creacion.'</td>
                                                     <td>'.$fecha_cdmx_visita.'</td>
                                                     <td>'.$proxima_cita.'</td>
+                                                    <td>'.$ultimo_tratamiento.'</td>
+                                                    <td>'.$ultima_cosmetologa.'</td>
                                                     <td>'.$dat['fecha_cliente'].'</td>
                                                     <td>'.$dat['cp_cliente'].'</td>
                                                     <td>'.$dat['status'].'</td>

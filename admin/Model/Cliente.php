@@ -169,18 +169,24 @@
             return $response;
         }
 
-        public function getProximaCitaFromIDCliente($id_cliente) {
+        public function getDatosUltimaVisitaCliente($id_cliente) {
             $db = new DB();
-            $query_string = "SELECT * FROM `ClienteBitacora`
-                                WHERE id_cliente='$id_cliente'
-                                AND (id_tratamiento='DEP01' OR id_tratamiento='CAV01')
-                                ORDER BY timestamp DESC
-                                LIMIT 1";
+            $query_string = "SELECT ClienteBitacora.*, Tratamiento.nombre_tratamiento, Ventas.id_cosmetologa, usertable.name
+                                FROM ClienteBitacora, Ventas, Tratamiento, usertable
+                                WHERE ClienteBitacora.id_cliente='$id_cliente'
+                                AND ClienteBitacora.id_venta = Ventas.id_venta
+                                AND Ventas.id_tratamiento=Tratamiento.id_tratamiento
+                                AND Ventas.id_cosmetologa = usertable.id
+                                ORDER BY ClienteBitacora.timestamp DESC LIMIT 1";
+
             $account = $db->query($query_string)->fetchArray();
             $db->close();
 
             $id_tratamiento = $account['id_tratamiento'];
             $date_timestamp = $account['timestamp'];
+            $id_venta = $account['id_venta'];
+            $nombre_tratamiento = $account['nombre_tratamiento'];
+            $nombre_cosmetologa = $account['name'];
 
             $proxima_cita = '';
 
@@ -198,7 +204,14 @@
                 $proxima_cita = date("Y-m-d", $timestampDespues); // Formatea el nuevo timestamp en formato Año-Mes-Día
             }
 
-            return $proxima_cita;
+            $response = [
+                'proxima_cita' => $proxima_cita,
+                'ultima_venta' => $id_venta,
+                'ultimo_tratamiento' => $nombre_tratamiento,
+                'ultima_cosmetologa' => $nombre_cosmetologa
+            ];
+
+            return $response;
         }
     }
 
@@ -269,7 +282,7 @@
         return $widgets;
     }
 
-    // function printArrayPrety($array){
-    //     print("<pre>".print_r($array,true)."</pre>");
-    // }
+    function printArrayPrety($array){
+        print("<pre>".print_r($array,true)."</pre>");
+    }
 ?>
