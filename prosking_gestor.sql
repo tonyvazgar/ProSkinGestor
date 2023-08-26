@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2023 at 08:37 AM
+-- Generation Time: May 26, 2023 at 07:19 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -486,6 +486,12 @@ ALTER TABLE `ZonasCuerpo`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `Sucursal`
+--
+ALTER TABLE `Sucursal`
+  MODIFY `id_sucursal` int(2) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `usertable`

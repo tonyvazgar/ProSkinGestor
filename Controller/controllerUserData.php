@@ -54,7 +54,7 @@ if (isset($_POST['signup'])) {
 if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
-    $check_email = "SELECT * FROM usertable WHERE email = '$email'";
+    $check_email = "SELECT * FROM usertable, Sucursal WHERE email = '$email' AND usertable.id_sucursal_usuario=Sucursal.id_sucursal";
     $res = mysqli_query($con, $check_email);
     $currentTime = time(); // Taking now logged in time
     $expireTime = $currentTime + $_ENV['SESSION_TIME_SECONDS'];
@@ -64,11 +64,17 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $fetch_pass)) {
             $_SESSION['email'] = $email;
             $status = $fetch['status'];
+            $permission = $fetch['code'];
+            $userSucursal = $fetch['id_sucursal_usuario'];
+            $userSucursalName = $fetch['nombre_sucursal'];
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $password;
             $_SESSION['start'] = $currentTime;
             $_SESSION['expire'] = $expireTime;
             $_SESSION['userRole'] = $status;
+            $_SESSION['userPermission'] = $permission;
+            $_SESSION['userSucursal'] = $userSucursal;
+            $_SESSION['userSucursalName'] = $userSucursalName;
             $locationHeader = '../Clientes/index.php';
             if($status == 'admin') {
                 $path = ('/../admin');      // __DIR__.'/../admin'
