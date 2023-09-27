@@ -17,6 +17,7 @@
   $fetch_info = $session->verificarSesion($ModeloUsuario, $email, $password);
   $id_sucursal = $ModeloUsuario->getNumeroSucursalUsuario($email)['id_sucursal'];
 
+  date_default_timezone_set('America/Mexico_City');
 
   $fecha_para_corte_caja = getFechaFormatoCDMX();
   $corte = $ModelUsuario->existeCorteCaja(strtotime($fecha_para_corte_caja), $id_sucursal);

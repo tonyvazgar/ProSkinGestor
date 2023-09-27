@@ -25,6 +25,7 @@
 ?>
 <body style='background-color: #f9f3f3;'>
     <?php
+        date_default_timezone_set('America/Mexico_City');
         require_once("../include/navbar.php");
         getLoader("Cargando...");
         $fecha_para_corte_caja = getFechaFormatoCDMX();

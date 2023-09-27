@@ -24,6 +24,8 @@
   if(empty($detalles)){
     $detalles = $ModeloVenta->getTodosLosDetallesVenta($id_venta);
   }
+  date_default_timezone_set('America/Mexico_City');
+  $nombreSucursal = $ModeloUsuario->getNombreSucursalWhereIDSucursal($detalles[0]['centro'])['nombre_sucursal'];
   getHeadHTML("ProSkin - Resumen Venta");
 
   $divisionProductosTratamientos = getDesgloseProductosTratamientosVenta($detalles);
@@ -97,11 +99,11 @@
                 <tr>
                   <td>
                     <h3>ID Venta</h3>
-                    <p class="lead"><?php echo $divisionProductosTratamientos['id_venta'];?> </p>
+                    <p class="lead" style="word-break: break-all;"><?php echo $divisionProductosTratamientos['id_venta'];?> </p>
                   </td>
                   <td>
                     <h3>Cliente</h3>
-                    <p class="lead"><?php echo  "<a href='../Clientes/informacionCliente.php?id=".$divisionProductosTratamientos['id_cliente']."'>".$divisionProductosTratamientos['nombre']."</a>";?></a></p>
+                    <p class="lead" style="word-break: break-all;"><?php echo  "<a href='../Clientes/informacionCliente.php?id=".$divisionProductosTratamientos['id_cliente']."'>".$divisionProductosTratamientos['nombre']."</a>";?></a></p>
                   </td>
                 </tr>
               </tbody>
