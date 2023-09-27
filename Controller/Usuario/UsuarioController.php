@@ -9,6 +9,7 @@
     // $ModelProducto = new Producto();
 
     if (isset($_POST['confirmarCorteCaja'])) {
+        date_default_timezone_set('America/Mexico_City');
         if (version_compare(phpversion(), '7.1', '>=')) {
             ini_set( 'precision', 17 );
             ini_set( 'serialize_precision', -1 );
