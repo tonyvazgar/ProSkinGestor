@@ -108,7 +108,7 @@
     }
 
     if(isset($_POST['comenzarTratamiento'])){
-
+        date_default_timezone_set('America/Mexico_City');
         //Para tratamientos
         $id_cliente         = mysqli_real_escape_string($con, $_POST['idCliente']);                                                      //Es un valor: [idCliente] => RL96061115
         $id_cosmetologa     = mysqli_real_escape_string($con, $_POST['idCosmetologa']);                                                  //Es un valor: [idCosmetologa] => 8
