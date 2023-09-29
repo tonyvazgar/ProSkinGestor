@@ -278,6 +278,21 @@
             $db->close();
             return $tratamientos['nombre_zona'];
         }
+
+        function getListSucursales() {
+            $db = new DB();
+            $sql_statement = "SELECT * FROM `Sucursal`";
+            $sucursales = $db->query($sql_statement)->fetchAll();
+            $db->close();
+
+            $sucursalesList = array();
+            foreach ($sucursales as $sucursal) {
+                $id = $sucursal['id_sucursal'];
+                $nombre = $sucursal['nombre_sucursal'];
+                $sucursalesList[$id] = $nombre;
+            }
+            return $sucursalesList;
+        }
     }
 
     function obtenerTotalMetodoPago($metodoPago, $datos){
