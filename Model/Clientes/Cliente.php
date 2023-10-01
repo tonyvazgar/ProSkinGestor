@@ -65,6 +65,7 @@
         }
 
         public function getAllAnniversariesFromIdSucursal($id_sucursal){
+            date_default_timezone_set('America/Mexico_City');
             $db = new DB();
             $date = date('-m-');
             $account = $db->query("SELECT Cliente.id_cliente, Cliente.nombre_cliente, Cliente.apellidos_cliente, ClienteOpcional.fecha_cliente, ClienteStatus.status
@@ -509,6 +510,7 @@
     }
 
     function verificarStatusClientes($limite){
+        date_default_timezone_set('America/Mexico_City');
         $clienteModelo = new Cliente();
         $statusClientes = $clienteModelo->getUltimaVisitaCliente();   //Obtener todos los status de clientes en la BDD
         $hoy = strtotime(date("Y-m-d"));                              //Obtenemos la fecha de hoy
@@ -527,6 +529,7 @@
     }
 
     function restarElementosMonedero($id_cosmetologa, $id_monedero, $id_cliente, $elementos){
+        date_default_timezone_set('America/Mexico_City');
         $ModelCliente              = new Cliente();
 
         $infoDeMonedero            = $ModelCliente -> getMonederoWhereIDandCliente($id_monedero, $id_cliente);
@@ -590,6 +593,7 @@
 
 
     function restarDineroMonedero($id_cosmetologa, $id_monedero, $id_cliente, $monto){
+        date_default_timezone_set('America/Mexico_City');
         $ModelCliente           = new Cliente();
         $infoDeMonedero         = $ModelCliente -> getMonederoDineroWhereIDandCliente($id_monedero, $id_cliente);
         

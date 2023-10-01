@@ -40,7 +40,9 @@
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         getLoader("Cargando...");
-        $date = new DateTime($fecha, new DateTimeZone('America/Mexico_City') );
+
+        date_default_timezone_set('America/Mexico_City');
+        $date = new DateTime('now', new DateTimeZone('America/Mexico_City') );
         $timestamp = strtotime($date->format('Y-m-d H:i:s'));
         $timestampFechaAEnviar = strtotime($date->format('Y-m-d'));
 
@@ -59,14 +61,6 @@
         $total_Deposito = $ModeloUsuario->getTotalDepositoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_cheque = $ModeloUsuario->getTotalChequeWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $numeroTotalDeVentas = $ModeloUsuario -> getNumeroTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal);
-
-        // echo "<pre>";
-        // print_r($total_efectivo);echo "<br>----<br>----<br>";
-        // print_r($total_tdc);echo "<br>----<br>----<br>";
-        // print_r($total_tdd);echo "<br>----<br>----<br>";
-        // print_r($total_transferencia);echo "<br>----<br>----<br>";
-        // print_r($total_Deposito);echo "<br>----<br>----<br>";
-        // echo "</pre>";
     ?>
     <main role="main" class="container">
         <div class="container">

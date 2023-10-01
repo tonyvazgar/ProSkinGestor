@@ -19,6 +19,7 @@
   $id = $_GET['id'];
   $info = $ModelCliente->getClienteWhereID($id);
   $listaSucursales = $ModeloUsuario -> getListSucursales();
+  date_default_timezone_set('America/Mexico_City');
 ?>
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->

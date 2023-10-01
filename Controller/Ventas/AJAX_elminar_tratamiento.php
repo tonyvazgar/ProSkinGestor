@@ -12,6 +12,7 @@
     $id_venta = mysqli_real_escape_string($con, $_POST['id_venta']);
     $timeStamp = mysqli_real_escape_string($con, $_POST['timeStamp']);
 
+    date_default_timezone_set('America/Mexico_City');
     $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
     $timeStampEdicion = strtotime($date->format('Y-m-d H:i:s'));
 
