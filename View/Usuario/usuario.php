@@ -26,6 +26,7 @@
         require_once("../include/navbar.php");
         getLoader("Cargando...");
         $fecha_para_corte_caja = getFechaFormatoCDMX();
+        date_default_timezone_set('America/Mexico_City');
 
         $nbDay = date('N', strtotime($fecha_para_corte_caja));
         $monday = new DateTime($fecha_para_corte_caja, new DateTimeZone('America/Mexico_City') );

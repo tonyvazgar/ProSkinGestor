@@ -194,6 +194,7 @@
             date_default_timezone_set('America/Mexico_City'); // Establece la zona horaria de Ciudad de México
             $timestamp = time(); // Obtiene el timestamp actual
 
+            date_default_timezone_set('America/Mexico_City');
             if($id_tratamiento == 'DEP01') {
                 $timestampDespues = strtotime("+45 days", $date_timestamp); // Suma 45 días al timestamp actual
 

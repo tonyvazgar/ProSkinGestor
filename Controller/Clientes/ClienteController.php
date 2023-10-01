@@ -83,6 +83,7 @@
     }
 
     if(isset($_POST['editarClienteButton'])){
+        date_default_timezone_set('America/Mexico_City');
         $id     = mysqli_real_escape_string($con, $_POST['id']);
         $nombre      = mysqli_real_escape_string($con, ucwords($_POST['nombre']));
         $apellidos   = mysqli_real_escape_string($con, ucwords($_POST['apellidos']));
@@ -300,6 +301,7 @@
     }
 
     if(isset($_POST['altaMonederoCliente'])){
+        date_default_timezone_set('America/Mexico_City');
         $idCliente      = mysqli_real_escape_string($con, $_POST['idCliente']);
         $idCosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
         $nombre         = mysqli_real_escape_string($con, $_POST['nombre']);
@@ -396,6 +398,7 @@
 
 
     if(isset($_POST['recargaMonedero'])){
+        date_default_timezone_set('America/Mexico_City');
         $idCliente      = mysqli_real_escape_string($con, $_POST['idCliente']);
         $idCosmetologa  = mysqli_real_escape_string($con, $_POST['idCosmetologa']);
         // $nombre         = mysqli_real_escape_string($con, $_POST['nombre']);
@@ -590,7 +593,7 @@
     }
 
     if(isset($_POST['confirmarCajeMonederoButton'])){
-
+        date_default_timezone_set('America/Mexico_City');
         $id_cliente        = mysqli_real_escape_string($con, $_POST['idCliente']);
         $id_monedero       = mysqli_real_escape_string($con, $_POST['id_monedero']);
         $id_cosmetologa    = mysqli_real_escape_string($con, $_POST['idCosmetologa']);

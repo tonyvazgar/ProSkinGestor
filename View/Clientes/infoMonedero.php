@@ -24,6 +24,7 @@
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
         $infoCliente = $ModelCliente->getMonederoWhereIDandCliente($id_monedero, $id_cliente);
+        date_default_timezone_set('America/Mexico_City');
         if(!empty($infoCliente)){
             if(json_decode($infoCliente['tratamientos_final']) == ''){
                 $historial          = [];

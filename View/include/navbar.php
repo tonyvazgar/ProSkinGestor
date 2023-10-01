@@ -105,11 +105,13 @@ function getBotonCorteCaja($fecha, $id_centro, $id_cosmetologa){
     require_once("../../Model/Usuario/Usuario.php");
     $ModelUsuario = new Usuario();
     $timestamp = strtotime($fecha);
-    
+
+    date_default_timezone_set('America/Mexico_City');
     $ds = new DateTime('now', new DateTimeZone('America/Mexico_City') );
     $hora = $ds->format('H');
 
     if($id_cosmetologa != '' && $id_centro != ''){
+        date_default_timezone_set('America/Mexico_City');
         cierreCajaDiaAnterior($ModelUsuario, $id_cosmetologa, new DateTime('now', new DateTimeZone('America/Mexico_City') ), $id_centro, 1);
     }
 
@@ -134,12 +136,14 @@ function esMetodoPagoSolo($metodo, $referencia, $total)
 }
 
 function getFechaFormatoCDMX(){
+    date_default_timezone_set('America/Mexico_City');
     $date = new DateTime('now', new DateTimeZone('America/Mexico_City') );
     $fecha = $date->format('Y-m-d');
     return $fecha;
 }
 
 function unaSemanaAtras($fecha_de_hoy){
+    date_default_timezone_set('America/Mexico_City');
     $la_fecha = new DateTime($fecha_de_hoy, new DateTimeZone('America/Mexico_City') );
     $la_fecha->modify('-'.(7).' days');
 
@@ -147,6 +151,7 @@ function unaSemanaAtras($fecha_de_hoy){
 }
 
 function diferenciaFechas($fechaUno, $fechaDos){
+    date_default_timezone_set('America/Mexico_City');
     $date1 = new DateTime($fechaUno);
     $date2 = new DateTime($fechaDos);
     $interval = $date1->diff($date2);
@@ -166,16 +171,17 @@ function cierreCajaDiaAnterior($ModeloUsuario, $idCosmetologa, $date_time, $nume
         ini_set( 'precision', 17 );
         ini_set( 'serialize_precision', -1 );
     }
-    
+    date_default_timezone_set('America/Mexico_City');
+    $date_time -> setTime(0, 0, 0);
     $date_time -> modify('-'.($dias).' days');
     $fecha_a_verificar = $date_time->format('Y-m-d');
     $timestamp         = strtotime($fecha_a_verificar);
 
     if(!$ModeloUsuario->existeCorteCaja($timestamp, $numeroSucursal)){
+        date_default_timezone_set('America/Mexico_City');
         $beginOfDay = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 00:00:00'))->getTimestamp();
         $endOfDay   = DateTime::createFromFormat('Y-m-d H:i:s', (new DateTime())->setTimestamp($timestamp)->format('Y-m-d 23:59:59'))->getTimestamp();
 
-    
         $total_efectivo      = $ModeloUsuario->getTotalEfectivoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_tdc           = $ModeloUsuario->getTotalTDCWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_tdd           = $ModeloUsuario->getTotalTDDWhereDia($beginOfDay, $endOfDay, $numeroSucursal);

@@ -16,6 +16,7 @@
 
   $continente=$_POST['continente'];
   $id_cliente = $_POST['id_cliente'];
+  date_default_timezone_set('America/Mexico_City');
 
 
   if($continente=='1' || $continente == '2'){ //Si es depilacion

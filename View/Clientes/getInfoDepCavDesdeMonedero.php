@@ -14,6 +14,7 @@
   $id_cliente       = $_POST['id_cliente'];
 
 
+  date_default_timezone_set('America/Mexico_City');
   if($idTratamientoMonedero=='1' || $idTratamientoMonedero == '2'){ //Si es depilacion
     //Buscar ultimo tratamiento de depilacion y mostrar info
     $zonas_tratamiento_producto = $_POST['zonasCuerpoSeleccionadas'];
