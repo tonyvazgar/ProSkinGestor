@@ -160,6 +160,7 @@
     }
 
     if(isset($_POST['venderProducto'])){
+        date_default_timezone_set('America/Mexico_City');
         $id_producto     = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['id_producto_seleccionado'])));
         $precio_unitario = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['precioUnitario_producto_seleccionado'])));
         $cantidad        = explode(",",mysqli_real_escape_string($con, implode(",", $_POST['cantidad_producto_seleccionado']))); //la introduce el usuario

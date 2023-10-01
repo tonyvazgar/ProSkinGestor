@@ -18,6 +18,8 @@
   getHeadHTML("ProSkin - Editar Cliente");
   $id = $_GET['id'];
   $info = $ModelCliente->getClienteWhereID($id);
+  $listaSucursales = $ModeloUsuario -> getListSucursales();
+  date_default_timezone_set('America/Mexico_City');
 ?>
 <body style='background-color: #f9f3f3;'>
     <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
@@ -169,6 +171,7 @@
             <form action="informacionCliente.php" method="POST" autocomplete="">
                 <?php
                     foreach($info as $infoCliente){
+                        $nombreSucursalCliente = $ModeloUsuario -> getNombreSucursalWhereIDSucursal($infoCliente['centro_cliente'])['nombre_sucursal'];
                 ?>
 
                 <div class="col d-flex justify-content-center">
@@ -258,30 +261,13 @@
                 <div class="form-group">
                     <h3>Centro</h3>
                     <p class="lead" id="centrolLbl" name="centroLbl">
-                    <?php 
-                        if($infoCliente['centro_cliente'] == '1'){
-                            echo "Sonata";
-                        }else if($infoCliente['centro_cliente'] == '2'){
-                            echo "Plaza Real";
-                        }else{
-                            echo "La paz";
-                        }
-                    ?>
+                        <?php echo $nombreSucursalCliente; ?>
                     </p>
                     <select name="centro" id="centro" class="form-control"  style="display: none;" readonly>
                         <?php
-                            if($infoCliente['centro_cliente'] == '1'){
-                                echo "<option value='1'>*Sonata*</option>";
-                                echo "<option value='2'>Plaza Real</option>
-                                      <option value='3'>La Paz</option>";
-                            }else if($infoCliente['centro_cliente'] == '2'){
-                                echo "<option value='2'>*Plaza Real*</option>";
-                                echo "<option value='1'>Sonata</option>
-                                      <option value='3'>La Paz</option>";
-                            }else{
-                                echo "<option value='3'>*La paz*</option>";
-                                echo "<option value='1'>Sonata</option>
-                                      <option value='2'>Plaza Real</option>";
+                            foreach ($listaSucursales as $id => $nombre) {
+                                $selected = ($infoCliente['centro_cliente'] == $id) ? "selected" : "";
+                                echo "<option value='$id' $selected>$nombre</option>";
                             }
                         ?>
                     </select>

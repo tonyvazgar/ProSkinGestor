@@ -20,6 +20,7 @@
 <body style='background-color: #f9f3f3;'>
     <?php
         require_once("../include/navbar.php");
+        date_default_timezone_set('America/Mexico_City');
         $fecha_para_corte_caja = getFechaFormatoCDMX();
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
 
@@ -32,7 +33,7 @@
         $efectivo_a_entregar = number_format(json_decode($info_cierreCaja['efectivo'])[1] - $total_gastos, 2);
 
 
-        $dominio = "https://www.proskingestor.com/";
+        $dominio = "https://www.proskingestor.com/"; //TODO: CAMBIAR PARA DOMINIO DE CANCUN
         $rutaArchivo = "Documents/ReportesCierreCaja/".$ModeloUsuario -> getNombreArchivoFromCorteCajaWhereID($_GET['id']);
 
         $texto = "Corte de caja de {$nombreSucursal} con fecha de {$fechaCorteCaja}, con un total de ventas de $".$total_ventas.", de gastos de $".$total_gastos.". \n Con $".$efectivo_a_entregar." de efectivo a entregar. Disponible  en: ";
@@ -41,7 +42,7 @@
         $linkRuta = urlencode($texto).urlencode($dominio.$rutaArchivo);
 
         // $linkWA = "https://wa.me/+5212222122484?text=".$linkRuta;
-        $linkWA = "https://wa.me/+5212222122484?text=".$linkRuta;
+        $linkWA = "https://wa.me/+5212222122484?text=".$linkRuta;  //TODO: CAMBIAR PARA DOMINIO DE CANCUN
 
     ?>
     <main role="main" class="container"><br>

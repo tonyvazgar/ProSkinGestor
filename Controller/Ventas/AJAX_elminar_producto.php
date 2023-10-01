@@ -8,7 +8,7 @@
     $ModelVenta = new Venta();
     $ModelProducto = new Producto();
     
-
+    date_default_timezone_set('America/Mexico_City');
     // //------------------------------------------------------------------------------------------
     $id_producto       = mysqli_real_escape_string($con, $_POST['id_producto']);  
     $id_venta          = mysqli_real_escape_string($con, $_POST['id_venta']);

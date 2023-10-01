@@ -19,6 +19,7 @@
 
         $antes_de_Actualizar = $ModelVenta->getInfoJSONVentas($idCliente, $timeStamp);
 
+        date_default_timezone_set('America/Mexico_City');
         $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStampEdicion = strtotime($date->format('Y-m-d H:i:s'));
 
@@ -58,6 +59,7 @@
 
         $antes_de_Actualizar = $ModelVenta->getInfoJSONVentasProducto($idVenta, $timeStamp, $idProducto);
 
+        date_default_timezone_set('America/Mexico_City');
         $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStampEdicion = strtotime($date->format('Y-m-d H:i:s'));
 
@@ -78,6 +80,7 @@
         $precioTratamiento = mysqli_real_escape_string($con, $_POST['precioTratamiento']);
         $comentarioTratamiento = mysqli_real_escape_string($con, $_POST['comentarioTratamiento']);
 
+        date_default_timezone_set('America/Mexico_City');
         $date = new DateTime("now", new DateTimeZone('America/Mexico_City') );
         $timeStampEdicion = strtotime($date->format('Y-m-d H:i:s'));
 

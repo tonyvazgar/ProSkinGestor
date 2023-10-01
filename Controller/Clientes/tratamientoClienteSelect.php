@@ -1,6 +1,7 @@
 <?php
     require_once "../../Model/Clientes/Cliente.php";
     $ModelCliente = new Cliente();
+    date_default_timezone_set('America/Mexico_City');
 
     if(isset($_POST['tipo']) && $_POST['tipo'] != ''){
         switch($_POST['tipo']){
