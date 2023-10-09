@@ -21,9 +21,6 @@
 
   $fecha_para_corte_caja = getFechaFormatoCDMX();
   $corte = $ModelUsuario->existeCorteCaja(strtotime($fecha_para_corte_caja), $id_sucursal);
-  // if($corte != 0){
-  //   header("Location: ../../index.php");
-  // }
   
   $email    = $_SESSION['email'];
   $password = $_SESSION['password'];
@@ -37,7 +34,6 @@
   getHeadHTML("ProSkin - Corte de caja");
 ?>
 <body style='background-color: #f9f3f3;'>
-    <!-- <button type="button" class="btn btn-light"><a href="logout.php">Cerrar sesion</a></button> -->
     <?php
         getLoader("Cargando...");
 
@@ -51,20 +47,18 @@
 
         $fecha_para_corte_caja = $date->format('Y-m-d');
         getNavbar($fecha_para_corte_caja, $fetch_info['name'], $ModeloUsuario->getNombreSucursalUsuario($email)['nombre_sucursal']);
-
-        // print_r($beginOfDay." ---- ".$endOfDay);
-
+        
         $total_efectivo = $ModeloUsuario->getTotalEfectivoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_tdc = $ModeloUsuario->getTotalTDCWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_tdd = $ModeloUsuario->getTotalTDDWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_transferencia = $ModeloUsuario->getTotalTransferenciaWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_Deposito = $ModeloUsuario->getTotalDepositoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $total_cheque = $ModeloUsuario->getTotalChequeWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
+        $total_monedero = $ModeloUsuario->getTotalMonederoWhereDia($beginOfDay, $endOfDay, $numeroSucursal);
         $numeroTotalDeVentas = $ModeloUsuario -> getNumeroTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal);
     ?>
     <main role="main" class="container">
         <div class="container">
-            
             <h1>Corte de caja</h1>
             <div class="container">
               <form action="corteCaja.php" method="POST" autocomplete="off">
@@ -91,24 +85,25 @@
                   </div>
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="form-group row" <?php if(empty ($total_efectivo[1])) echo "style='display:none;'"?>>
                   <p for="total_efectivo" class="col-sm-2 lead">Total en efectivo</p>
-                  <?php //echo "<pre>Total Efectivo \n"; print_r($total_efectivo); echo "</pre>";?>
                   <div class="col-sm-10">
-                    <div class='d-inline'>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3">Monto total en efectivo: $</span>
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control col" id="total_efectivo" name="total_efectivo" placeholder="Total en efectivo"  value="<?php echo $total_efectivo[0] != '' ? $total_efectivo[0] : 0; ?>" readonly>
+                          </div>
                         </div>
-                      <input type="number" class="form-control" id="total_efectivo" name="total_efectivo" placeholder="Total en efectivo"  value="<?php echo $total_efectivo[0] != '' ? $total_efectivo[0] : 0; ?>" readonly>
                       </div>
-
-
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3"># de pagos en efectivo:</span>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_efectivo" name="num_efectivo" placeholder="Total en efectivo"  value="<?php echo $total_efectivo[0] != '' ? sizeof($total_efectivo[1]) : 0; ?>" readonly>
+                          </div>
                         </div>
-                      <input type="number" class="form-control" id="num_efectivo" name="num_efectivo" placeholder="Total en efectivo"  value="<?php echo $total_efectivo[0] != '' ? sizeof($total_efectivo[1]) : 0; ?>" readonly>
                       </div>
                     </div>
                     <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_efectivo[0] == '' ? "display: none;": ''; ?>">
@@ -128,10 +123,6 @@
                                           </li>';
                                   }
                                 ?>
-                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
-                                  <a href="../../View/Ventas/detalleVenta.php?idVenta=JKS21071127DEP01110" role="button">JKS21071127DEP01110 - $580</a>
-                                  <span class="badge bg-warning rounded-pill">2021-08-25</span>
-                                </li> -->
                               </ul>
                             </div>
                           </div>
@@ -141,22 +132,27 @@
                   </div>
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="form-group row" <?php if(empty ($total_tdc[1])) echo "style='display:none;'"?>>
                   <p for="total_tdc" class="col-sm-2 lead">Total de tarjeta de crédito</p>
-                  <?php //echo "<pre>Total TDC \n"; print_r($total_tdc); echo "</pre>";?>
                   <div class="col-sm-10">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3">Monto total en tarjeta de crédito: $</span>
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control" id="total_tdc" name="total_tdc" placeholder="Total en tarjeta de crédito"  value="<?php echo $total_tdc[0] != '' ? $total_tdc[0] : 0; ?>" readonly>
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="total_tdc" name="total_tdc" placeholder="Total en tarjeta de crédito"  value="<?php echo $total_tdc[0] != '' ? $total_tdc[0] : 0; ?>" readonly>
                       </div>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3"># de pagos en tarjeta de crédito:</span>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_tdc" name="num_tdc" placeholder="Total en tarjeta de crédito"  value="<?php echo $total_tdc[0] != '' ? sizeof($total_tdc[1]) : 0; ?>" readonly>
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="num_tdc" name="num_tdc" placeholder="Total en tarjeta de crédito"  value="<?php echo $total_tdc[0] != '' ? sizeof($total_tdc[1]) : 0; ?>" readonly>
                       </div>
+                    </div>
                     <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_tdc[0] == '' ? "display: none;": ''; ?>">
                       <div id="accordion">
                         <p>
@@ -183,23 +179,27 @@
                   </div>
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="form-group row" <?php if(empty ($total_tdd[1])) echo "style='display:none;'"?>>
                   <p for="total_tdd" class="col-sm-2 lead">Total de tarjeta de débito</p>
-                  <?php //echo "<pre>Total TDD \n"; print_r($total_tdd); echo "</pre>";?>
                   <div class="col-sm-10">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3">Monto total en tarjeta de débito: $</span>
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control" id="total_tdd" name="total_tdd" placeholder="Total en tarjeta de débito"  value="<?php echo $total_tdd[0] != '' ? $total_tdd[0] : 0; ?>" readonly>
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="total_tdd" name="total_tdd" placeholder="Total en tarjeta de débito"  value="<?php echo $total_tdd[0] != '' ? $total_tdd[0] : 0; ?>" readonly>
                       </div>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3"># de pagos en tarjeta de débito:</span>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_tdd" name="num_tdd" placeholder="Total en tarjeta de débito"  value="<?php echo $total_tdd[0] != '' ? sizeof($total_tdd[1]) : 0; ?>" readonly>
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="num_tdd" name="num_tdd" placeholder="Total en tarjeta de débito"  value="<?php echo $total_tdd[0] != '' ? sizeof($total_tdd[1]) : 0; ?>" readonly>
                       </div>
-                    
+                    </div>
                     <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_tdd[0] == '' ? "display: none;": ''; ?>">
                       <div id="accordion">
                         <p>
@@ -226,23 +226,27 @@
                   </div>
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="form-group row" <?php if(empty ($total_transferencia[1])) echo "style='display:none;'"?>>
                   <p for="total_transferencia" class="col-sm-2 lead">Total de transferencia</p>
-                  <?php //echo "<pre>Total Transferencia \n"; print_r($total_transferencia); echo "</pre>";?>
                   <div class="col-sm-10">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3">Monto total en transferencia: $</span>
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control" id="total_transferencia" name="total_transferencia" placeholder="Total en transferencia"  value="<?php echo $total_transferencia[0] != '' ? $total_transferencia[0] : 0; ?>" readonly>
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="total_transferencia" name="total_transferencia" placeholder="Total en transferencia"  value="<?php echo $total_transferencia[0] != '' ? $total_transferencia[0] : 0; ?>" readonly>
                       </div>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3"># de pagos en transferencia:</span>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_transferencia" name="num_transferencia" placeholder="Total en transferencia"  value="<?php echo $total_transferencia[0] != '' ? sizeof($total_transferencia[1]) : 0; ?>" readonly>
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="num_transferencia" name="num_transferencia" placeholder="Total en transferencia"  value="<?php echo $total_transferencia[0] != '' ? sizeof($total_transferencia[1]) : 0; ?>" readonly>
                       </div>
-                  
+                    </div>
                     <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_transferencia[0] == '' ? "display: none;": ''; ?>">
                       <div id="accordion">
                         <p>
@@ -269,23 +273,27 @@
                   </div>
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="form-group row" <?php if(empty ($total_Deposito[1])) echo "style='display:none;'"?>>
                   <p for="total_deposito" class="col-sm-2 lead">Total de déposito</p>
-                  <?php //echo "<pre>Total Deposito \n"; print_r($total_Deposito); echo "</pre>";?>
                   <div class="col-sm-10">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3">Monto total en déposito: $</span>
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control" id="total_deposito" name="total_deposito" placeholder="Total en déposito"  value="<?php echo $total_Deposito[0] != '' ? $total_Deposito[0] : 0; ?>" readonly>
+                          </div>
                         </div>
-                        <input type="number" class="form-control" id="total_deposito" name="total_deposito" placeholder="Total en déposito"  value="<?php echo $total_Deposito[0] != '' ? $total_Deposito[0] : 0; ?>" readonly>
                       </div>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3"># de pagos en déposito:</span>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_deposito" name="num_deposito" placeholder="Total en déposito"  value="<?php echo $total_Deposito[0] != '' ? sizeof($total_Deposito[1]) : 0; ?>" readonly> 
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="num_deposito" name="num_deposito" placeholder="Total en déposito"  value="<?php echo $total_Deposito[0] != '' ? sizeof($total_Deposito[1]) : 0; ?>" readonly> 
-                      </div> 
-                    
+                      </div>
+                    </div>
                     <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_Deposito[0] == '' ? "display: none;": ''; ?>">
                       <div id="accordion">
                         <p>
@@ -312,23 +320,27 @@
                   </div>
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="form-group row" <?php if(empty ($total_cheque[1])) echo "style='display:none;'"?>>
                   <p for="total_deposito" class="col-sm-2 lead">Total de cheque</p>
-                  <?php //echo "<pre>Total Deposito \n"; print_r($total_Deposito); echo "</pre>";?>
                   <div class="col-sm-10">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3">Monto total en cheque: $</span>
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control" id="total_cheque" name="total_cheque" placeholder="Total en cheque"  value="<?php echo $total_cheque[0] != '' ? $total_cheque[0] : 0; ?>" readonly> 
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="total_cheque" name="total_cheque" placeholder="Total en cheque"  value="<?php echo $total_cheque[0] != '' ? $total_cheque[0] : 0; ?>" readonly> 
                       </div>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon3"># de pagos en cheque:</span>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_cheque" name="num_cheque" placeholder="Total en cheque"  value="<?php echo $total_cheque[0] != '' ? sizeof($total_cheque[1]) : 0; ?>" readonly> 
+                          </div>
                         </div>
-                    <input type="number" class="form-control" id="num_cheque" name="num_cheque" placeholder="Total en cheque"  value="<?php echo $total_cheque[0] != '' ? sizeof($total_cheque[1]) : 0; ?>" readonly> 
-                      </div> 
-                    
+                      </div>
+                    </div>
                     <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_cheque[0] == '' ? "display: none;": ''; ?>">
                       <div id="accordion">
                         <p>
@@ -341,6 +353,53 @@
                               <ul class="list-group">
                                 <?php
                                   foreach($total_cheque[1] as $venta){
+                                    echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <a href="../../View/Ventas/detalleVenta.php?idVenta='.$venta['id_venta'].'" role="button">'.$venta['id_venta'].'</a>
+                                          </li>';
+                                  }
+                                ?>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </small>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group row" <?php if(empty ($total_monedero[1])) echo "style='display:none;'"?> >
+                  <p for="total_deposito" class="col-sm-2 lead">Total de Monedero</p>
+                  <div class="col-sm-10">
+                    <div class='row'>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span>Monto total:</span>
+                            <input type="number" class="form-control" id="total_monedero" name="total_monedero" placeholder="Total en monedero"  value="<?php echo $total_monedero[0] != '' ? $total_monedero[0] : 0; ?>" readonly> 
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <span># de pagos:</span>
+                            <input type="number" class="form-control" id="num_cheque" name="num_cheque" placeholder="Total en monedero"  value="<?php echo $total_monedero[0] != '' ? sizeof($total_monedero[1]) : 0; ?>" readonly> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <small id="passwordHelpBlock" class="form-text text-muted" style="<?php echo $total_monedero[0] == '' ? "display: none;": ''; ?>">
+                      <div id="accordion">
+                        <p>
+                          <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseMonedero"
+                            aria-expanded="false" aria-controls="collapseMonedero">Ver ventas</button>
+                        </p>
+                        <div class="form-group">
+                          <div id="collapseMonedero" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
+                            <div class="card-body">
+                              <ul class="list-group">
+                                <?php
+                                  foreach($total_monedero[1] as $venta){
                                     echo '<li class="list-group-item d-flex justify-content-between align-items-center">
                                             <a href="../../View/Ventas/detalleVenta.php?idVenta='.$venta['id_venta'].'" role="button">'.$venta['id_venta'].'</a>
                                           </li>';
