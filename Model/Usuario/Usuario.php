@@ -150,6 +150,18 @@
             return [$total, $todo];
         }
 
+        public function getTotalMonederoWhereDia($beginOfDay, $endOfDay, $sucursal){
+            $db = new Db();
+            $sql_statement_todo = "SELECT * 
+                                   FROM Ventas 
+                                   WHERE centro='$sucursal' AND metodo_pago LIKE '%[\"7\",%' AND timestamp BETWEEN $beginOfDay AND $endOfDay GROUP BY id_venta";
+                                //    print_r($sql_statement_todo);
+            $todo = $db->query($sql_statement_todo)->fetchAll();
+            $total = obtenerTotalMetodoPago('7', $todo);
+            $db->close();
+            return [$total, $todo];
+        }
+
         public function getNumeroTotalVentasDelDiaFromCentro($beginOfDay, $endOfDay, $numeroSucursal){
             $db = new Db();
             $sql_statement_todo = "SELECT COUNT(*) as numVentasDia
