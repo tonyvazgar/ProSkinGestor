@@ -184,6 +184,15 @@
             return $account;
         }
 
+        public function getAllSucursales()
+        {
+            $db = new Db();
+            $sql_statement = "SELECT * FROM `Sucursal`";
+            $account = $db->query($sql_statement)->fetchAll();
+            $db->close();
+            return $account;
+        }
+
         function getAllVentasDeCosmetologa($email){
             $db = new DB();
             $tratamientos = $db->query("SELECT Ventas.* 
